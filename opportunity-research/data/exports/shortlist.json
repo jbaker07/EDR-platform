@@ -1,0 +1,3849 @@
+[
+ {
+  "cluster_id": "c_01761489",
+  "label": "apple watch",
+  "intent": "informational",
+  "domain": "consumer_tech",
+  "subdomains": [
+   "wearables"
+  ],
+  "confidence": "unreviewed",
+  "members": 114,
+  "signals": {
+   "members": 114,
+   "corroborated_2plus": 33,
+   "corroborated_3": 9,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 621.6,
+   "head_term": "apple watch",
+   "trends_chain_value": 962.25,
+   "trends_chain_meta": {
+    "anchor": "board game rules",
+    "reads": 65.42,
+    "error_pct": 100.8
+   }
+  },
+  "sample": [
+   "apple watch",
+   "apple watch 10",
+   "apple watch 11",
+   "apple watch 12",
+   "fix apple watch",
+   "apple watch cost",
+   "apple watch fast",
+   "apple watch list"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_88181358",
+  "label": "max pro iphone",
+  "intent": "calculate",
+  "domain": "consumer_tech",
+  "subdomains": [
+   "smartphones"
+  ],
+  "confidence": "unreviewed",
+  "members": 28,
+  "signals": {
+   "members": 28,
+   "corroborated_2plus": 13,
+   "corroborated_3": 5,
+   "google_relevance_max": 1257,
+   "google_relevance_mean": 907.0,
+   "head_term": "iphone 17 pro max",
+   "trends_chain_value": 284.373,
+   "trends_chain_meta": {
+    "anchor": "visual studio",
+    "reads": 46.11,
+    "error_pct": 5.9
+   }
+  },
+  "sample": [
+   "iphone 16 pro max",
+   "iphone 17 pro max",
+   "iphone 18 pro max",
+   "free iphone 14 pro max",
+   "free iphone 17 pro max",
+   "free iphone 18 pro max",
+   "iphone 18 pro max cost",
+   "iphone 17 pro max price"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_41592593",
+  "label": "prep meal",
+  "intent": "informational",
+  "domain": "cooking_baking",
+  "subdomains": [
+   "meal_planning"
+  ],
+  "confidence": "unreviewed",
+  "members": 115,
+  "signals": {
+   "members": 115,
+   "corroborated_2plus": 35,
+   "corroborated_3": 9,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 616.6,
+   "head_term": "meal prep",
+   "trends_chain_value": 125.728,
+   "trends_chain_meta": {
+    "anchor": "board game rules",
+    "reads": 8.55,
+    "error_pct": 105.8
+   }
+  },
+  "sample": [
+   "meal prep",
+   "free meal prep",
+   "meal prep cost",
+   "meal prep fast",
+   "meal prep list",
+   "meal prep cheap",
+   "meal prep for 1",
+   "meal prep guide"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_20468733",
+  "label": "ps5 gam find game",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "console"
+  ],
+  "confidence": "unreviewed",
+  "members": 34,
+  "signals": {
+   "members": 34,
+   "corroborated_2plus": 3,
+   "corroborated_3": 0,
+   "google_relevance_max": 600,
+   "google_relevance_mean": 559.7,
+   "head_term": "games ps5",
+   "trends_chain_value": 120.262,
+   "trends_chain_meta": {
+    "anchor": "android studio",
+    "reads": 44.09,
+    "error_pct": 7.2
+   }
+  },
+  "sample": [
+   "games ps5",
+   "games ps5 new",
+   "games ps5 top",
+   "ps5 used games",
+   "ps5 games top 5",
+   "ps5 games top 20",
+   "ps5 games cheaper",
+   "new free ps5 games"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_13363968",
+  "label": "light check engine",
+  "intent": "informational",
+  "domain": "automotive",
+  "subdomains": [
+   "diagnostics"
+  ],
+  "confidence": "unreviewed",
+  "members": 35,
+  "signals": {
+   "members": 35,
+   "corroborated_2plus": 7,
+   "corroborated_3": 3,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 596.5,
+   "head_term": "check engine light",
+   "trends_chain_value": 103.078,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 80.26,
+    "error_pct": 2.9
+   }
+  },
+  "sample": [
+   "check engine light",
+   "check engine light pdf",
+   "all check engine lights",
+   "check engine light list",
+   "check engine light guide",
+   "check engine light issue",
+   "check engine light price",
+   "check engine light issues"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_51518292",
+  "label": "sourdough starter",
+  "intent": "informational",
+  "domain": "cooking_baking",
+  "subdomains": [
+   "baking"
+  ],
+  "confidence": "unreviewed",
+  "members": 75,
+  "signals": {
+   "members": 75,
+   "corroborated_2plus": 16,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 607.3,
+   "head_term": "sourdough starter",
+   "trends_chain_value": 100.0,
+   "trends_chain_meta": {
+    "anchor": null,
+    "reads": null,
+    "error_pct": 0.0
+   }
+  },
+  "sample": [
+   "sourdough starter",
+   "sourdough starter 101",
+   "sourdough starter new",
+   "best sourdough starter",
+   "free sourdough starter",
+   "sourdough starter cost",
+   "sourdough starter fast",
+   "sourdough starter slow"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_82873068",
+  "label": "ps5 game",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "console"
+  ],
+  "confidence": "unreviewed",
+  "members": 70,
+  "signals": {
+   "members": 70,
+   "corroborated_2plus": 19,
+   "corroborated_3": 2,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 593.3,
+   "head_term": "game ps5",
+   "trends_chain_value": 99.87,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 53.91,
+    "error_pct": 2.5
+   }
+  },
+  "sample": [
+   "game ps5",
+   "game ps5 new",
+   "top game ps5",
+   "best game ps5",
+   "game ps5 free",
+   "game ps5 list",
+   "ps5 game slow",
+   "ps5 game tips"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_50577136",
+  "label": "java minecraft window",
+  "intent": "fix",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "java_kotlin",
+   "minecraft"
+  ],
+  "confidence": "unreviewed",
+  "members": 23,
+  "signals": {
+   "members": 23,
+   "corroborated_2plus": 6,
+   "corroborated_3": 2,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 686.9,
+   "head_term": "java minecraft",
+   "trends_chain_value": 90.585,
+   "trends_chain_meta": {
+    "anchor": "windows 11 key",
+    "reads": 70.64,
+    "error_pct": 4.8
+   }
+  },
+  "sample": [
+   "java minecraft",
+   "free java minecraft",
+   "java cost minecraft",
+   "minecraft java slow",
+   "java error minecraft",
+   "java guide minecraft",
+   "java update minecraft",
+   "minecraft java cheaper"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_98074397",
+  "label": "password manager",
+  "intent": "informational",
+  "domain": "cybersecurity",
+  "subdomains": [
+   "home_security"
+  ],
+  "confidence": "unreviewed",
+  "members": 96,
+  "signals": {
+   "members": 96,
+   "corroborated_2plus": 30,
+   "corroborated_3": 5,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 616.1,
+   "head_term": "password manager",
+   "trends_chain_value": 84.544,
+   "trends_chain_meta": {
+    "anchor": "visual studio",
+    "reads": 68,
+    "error_pct": 1.7
+   }
+  },
+  "sample": [
+   "password manager",
+   "password manager app",
+   "best password manager",
+   "password manager cost",
+   "password manager free",
+   "password manager list",
+   "password manager cheap",
+   "password manager guide"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_21751222",
+  "label": "genshin impact",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "mobile_gacha"
+  ],
+  "confidence": "unreviewed",
+  "members": 82,
+  "signals": {
+   "members": 82,
+   "corroborated_2plus": 19,
+   "corroborated_3": 10,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 608.9,
+   "head_term": "genshin impact",
+   "trends_chain_value": 82.785,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 69.32,
+    "error_pct": 1.7
+   }
+  },
+  "sample": [
+   "genshin impact",
+   "genshin impact list",
+   "genshin impact error",
+   "genshin impact guide",
+   "better genshin impact",
+   "genshin impact prices",
+   "genshin impact reddit",
+   "genshin impact top up"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_47472875",
+  "label": "5e dnd",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "dnd_ttrpg"
+  ],
+  "confidence": "unreviewed",
+  "members": 35,
+  "signals": {
+   "members": 35,
+   "corroborated_2plus": 10,
+   "corroborated_3": 2,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 669.8,
+   "head_term": "dnd 5e",
+   "trends_chain_value": 81.038,
+   "trends_chain_meta": {
+    "anchor": "android studio",
+    "reads": 74.92,
+    "error_pct": 3.1
+   }
+  },
+  "sample": [
+   "dnd 5e",
+   "dnd 5e pdf",
+   "dnd 5e slow",
+   "dnd 5e tips",
+   "dnd 5e costs",
+   "dnd 5e guide",
+   "dnd 5e tools",
+   "better dnd 5e"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_39244707",
+  "label": "40k warhammer",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "confidence": "unreviewed",
+  "members": 60,
+  "signals": {
+   "members": 60,
+   "corroborated_2plus": 11,
+   "corroborated_3": 3,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 619.6,
+   "head_term": "warhammer 40k",
+   "trends_chain_value": 61.547,
+   "trends_chain_meta": {
+    "anchor": "circuit breaker",
+    "reads": 67,
+    "error_pct": 1.6
+   }
+  },
+  "sample": [
+   "warhammer 40k",
+   "warhammer 40k app",
+   "warhammer 40k fix",
+   "used warhammer 40k",
+   "warhammer 40k cost",
+   "warhammer 40k free",
+   "warhammer 40k tips",
+   "warhammer 40k cheap"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_60617048",
+  "label": "gather magic",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "tcg"
+  ],
+  "confidence": "unreviewed",
+  "members": 85,
+  "signals": {
+   "members": 85,
+   "corroborated_2plus": 22,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 628.3,
+   "head_term": "magic the gathering",
+   "trends_chain_value": 58.202,
+   "trends_chain_meta": {
+    "anchor": "sourdough starter",
+    "reads": 34.81,
+    "error_pct": 2.3
+   }
+  },
+  "sample": [
+   "magic the gathering",
+   "magic the gathering cost",
+   "magic the gathering fast",
+   "magic the gathering list",
+   "magic the gathering tips",
+   "magic the gathering cheap",
+   "magic the gathering error",
+   "magic the gathering guide"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_02911633",
+  "label": "circuit breaker",
+  "intent": "informational",
+  "domain": "home_repair",
+  "subdomains": [
+   "electrical"
+  ],
+  "confidence": "unreviewed",
+  "members": 68,
+  "signals": {
+   "members": 68,
+   "corroborated_2plus": 19,
+   "corroborated_3": 0,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 621.4,
+   "head_term": "circuit breaker",
+   "trends_chain_value": 51.356,
+   "trends_chain_meta": {
+    "anchor": "sourdough starter",
+    "reads": 30.72,
+    "error_pct": 2.5
+   }
+  },
+  "sample": [
+   "circuit breaker",
+   "circuit breaker 101",
+   "circuit breaker list",
+   "circuit breaker tips",
+   "circuit breaker tool",
+   "slow circuit breaker",
+   "best circuit breakers",
+   "circuit breaker cheap"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_60022455",
+  "label": "unreal engine",
+  "intent": "informational",
+  "domain": "game_development",
+  "subdomains": [
+   "unreal"
+  ],
+  "confidence": "unreviewed",
+  "members": 131,
+  "signals": {
+   "members": 131,
+   "corroborated_2plus": 38,
+   "corroborated_3": 13,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 625.7,
+   "head_term": "unreal engine",
+   "trends_chain_value": 39.762,
+   "trends_chain_meta": {
+    "anchor": "visual studio",
+    "reads": 31.98,
+    "error_pct": 2.5
+   }
+  },
+  "sample": [
+   "unreal engine",
+   "unreal engine 1",
+   "unreal engine 3",
+   "unreal engine 4",
+   "unreal engine 5",
+   "unreal engine 6",
+   "unreal engine 500",
+   "unreal engine cost"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_29279809",
+  "label": "house minecraft",
+  "intent": "how_to",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "minecraft"
+  ],
+  "confidence": "unreviewed",
+  "members": 7,
+  "signals": {
+   "members": 7,
+   "corroborated_2plus": 2,
+   "corroborated_3": 1,
+   "google_relevance_max": 600,
+   "google_relevance_mean": 566.5,
+   "head_term": "minecraft house",
+   "trends_chain_value": 38.873,
+   "trends_chain_meta": {
+    "anchor": "chess openings",
+    "reads": 73.83,
+    "error_pct": 3.4
+   }
+  },
+  "sample": [
+   "minecraft house",
+   "best minecraft house",
+   "how many minecraft house",
+   "minecraft house tutorial",
+   "minecraft tutorial house easy",
+   "minecraft templates for houses",
+   "minecraft tutorial house youtube"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_89959205",
+  "label": "usd php exchange rate",
+  "intent": "informational",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "php_ruby"
+  ],
+  "confidence": "unreviewed",
+  "members": 29,
+  "signals": {
+   "members": 29,
+   "corroborated_2plus": 5,
+   "corroborated_3": 1,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 727.6,
+   "head_term": "php to usd",
+   "trends_chain_value": 33.004,
+   "trends_chain_meta": {
+    "anchor": "stable diffusion",
+    "reads": 72.55,
+    "error_pct": 1.8
+   }
+  },
+  "sample": [
+   "php to usd",
+   "php to usd now",
+   "php to usd rate",
+   "php to usd chart",
+   "php to usd paypal",
+   "convert php to usd",
+   "php to usd history",
+   "how many php to usd"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_44424148",
+  "label": "compose docker",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "containers"
+  ],
+  "confidence": "unreviewed",
+  "members": 60,
+  "signals": {
+   "members": 60,
+   "corroborated_2plus": 13,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 596.2,
+   "head_term": "docker compose",
+   "trends_chain_value": 31.805,
+   "trends_chain_meta": {
+    "anchor": "circuit breaker",
+    "reads": 34.62,
+    "error_pct": 2.3
+   }
+  },
+  "sample": [
+   "docker compose",
+   "docker compose 101",
+   "fix docker compose",
+   "top docker compose",
+   "best docker compose",
+   "docker compose fast",
+   "docker compose list",
+   "docker compose tips"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_53960669",
+  "label": "fortnite game",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "shooters"
+  ],
+  "confidence": "unreviewed",
+  "members": 52,
+  "signals": {
+   "members": 52,
+   "corroborated_2plus": 12,
+   "corroborated_3": 1,
+   "google_relevance_max": 700,
+   "google_relevance_mean": 583.4,
+   "head_term": "game fortnite",
+   "trends_chain_value": 31.308,
+   "trends_chain_meta": {
+    "anchor": "unreal engine",
+    "reads": 37.66,
+    "error_pct": 2.4
+   }
+  },
+  "sample": [
+   "game fortnite",
+   "best game fortnite",
+   "fortnite game cost",
+   "fortnite game list",
+   "fortnite game slow",
+   "game fortnite free",
+   "fortnite game error",
+   "fortnite game guide"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_22924753",
+  "label": "action github",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "ci_cd"
+  ],
+  "confidence": "unreviewed",
+  "members": 80,
+  "signals": {
+   "members": 80,
+   "corroborated_2plus": 24,
+   "corroborated_3": 4,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 643.9,
+   "head_term": "github actions",
+   "trends_chain_value": 27.72,
+   "trends_chain_meta": {
+    "anchor": "sourdough starter",
+    "reads": 16.58,
+    "error_pct": 3.9
+   }
+  },
+  "sample": [
+   "github actions",
+   "github actions fix",
+   "github actions new",
+   "top github actions",
+   "best github actions",
+   "github actions cost",
+   "good github actions",
+   "github actions error"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_78871139",
+  "label": "container docker",
+  "intent": "decide",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "containers"
+  ],
+  "confidence": "unreviewed",
+  "members": 23,
+  "signals": {
+   "members": 23,
+   "corroborated_2plus": 4,
+   "corroborated_3": 4,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 741.8,
+   "head_term": "docker container",
+   "trends_chain_value": 26.801,
+   "trends_chain_meta": {
+    "anchor": "devops azure",
+    "reads": 51.85,
+    "error_pct": 2.6
+   }
+  },
+  "sample": [
+   "docker container",
+   "docker container cost",
+   "free docker container",
+   "best docker containers",
+   "docker container guide",
+   "docker list containers",
+   "docker update container",
+   "top 10 docker containers"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_87430156",
+  "label": "password manager google",
+  "intent": "informational",
+  "domain": "cybersecurity",
+  "subdomains": [
+   "home_security"
+  ],
+  "confidence": "unreviewed",
+  "members": 23,
+  "signals": {
+   "members": 23,
+   "corroborated_2plus": 5,
+   "corroborated_3": 2,
+   "google_relevance_max": 900,
+   "google_relevance_mean": 584.6,
+   "head_term": "password manager google",
+   "trends_chain_value": 24.922,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 83.08,
+    "error_pct": 1.4
+   }
+  },
+  "sample": [
+   "password manager google",
+   "fix google password manager",
+   "password manager google app",
+   "free password manager google",
+   "google password manager cost",
+   "google password manager list",
+   "google password manager slow",
+   "google password manager error"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_57764859",
+  "label": "studio android",
+  "intent": "informational",
+  "domain": "software_dev_mobile",
+  "subdomains": [
+   "android_dev"
+  ],
+  "confidence": "unreviewed",
+  "members": 96,
+  "signals": {
+   "members": 96,
+   "corroborated_2plus": 30,
+   "corroborated_3": 6,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 637.4,
+   "head_term": "android studio",
+   "trends_chain_value": 22.591,
+   "trends_chain_meta": {
+    "anchor": "visual studio",
+    "reads": 18.17,
+    "error_pct": 3.7
+   }
+  },
+  "sample": [
+   "android studio",
+   "android studio app",
+   "android studio cost",
+   "android studio fast",
+   "android studio list",
+   "best android studio",
+   "android studio error",
+   "android studio guide"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_54253453",
+  "label": "maker game",
+  "intent": "generate",
+  "domain": "game_development",
+  "subdomains": [
+   "other_engines"
+  ],
+  "confidence": "unreviewed",
+  "members": 92,
+  "signals": {
+   "members": 92,
+   "corroborated_2plus": 26,
+   "corroborated_3": 5,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 594.4,
+   "head_term": "game maker",
+   "trends_chain_value": 22.398,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 18.75,
+    "error_pct": 3.7
+   }
+  },
+  "sample": [
+   "game maker",
+   "game maker 2",
+   "game maker 8",
+   "game maker app",
+   "best game maker",
+   "game maker cost",
+   "game maker free",
+   "game maker list"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_42479138",
+  "label": "diffusion stable",
+  "intent": "informational",
+  "domain": "data_ai",
+  "subdomains": [
+   "image_ai"
+  ],
+  "confidence": "unreviewed",
+  "members": 89,
+  "signals": {
+   "members": 89,
+   "corroborated_2plus": 17,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 581.2,
+   "head_term": "stable diffusion",
+   "trends_chain_value": 20.764,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 11.21,
+    "error_pct": 6.1
+   }
+  },
+  "sample": [
+   "stable diffusion",
+   "stable-diffusion-2",
+   "best stable diffusion",
+   "stable diffusion fast",
+   "stable diffusion free",
+   "stable diffusion list",
+   "stable diffusion guide",
+   "stable diffusion price"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_94231707",
+  "label": "skylin city",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "sim_strategy"
+  ],
+  "confidence": "unreviewed",
+  "members": 120,
+  "signals": {
+   "members": 120,
+   "corroborated_2plus": 34,
+   "corroborated_3": 14,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 612.6,
+   "head_term": "cities skylines",
+   "trends_chain_value": 16.21,
+   "trends_chain_meta": {
+    "anchor": "visual studio",
+    "reads": 13.04,
+    "error_pct": 4.8
+   }
+  },
+  "sample": [
+   "cities skylines",
+   "cities skylines 1",
+   "cities skylines 2",
+   "cities skylines 3",
+   "cities skylines fast",
+   "cities skylines free",
+   "cities skylines list",
+   "cities skylines cheap"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_33397016",
+  "label": "azure devop",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "cloud_other"
+  ],
+  "confidence": "unreviewed",
+  "members": 62,
+  "signals": {
+   "members": 62,
+   "corroborated_2plus": 13,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 571.5,
+   "head_term": "devops azure",
+   "trends_chain_value": 15.985,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 20.87,
+    "error_pct": 3.1
+   }
+  },
+  "sample": [
+   "devops azure",
+   "azure devops list",
+   "azure devops slow",
+   "devops azure cost",
+   "azure devops error",
+   "azure devops review",
+   "azure devops update",
+   "devops azure issues"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_68699719",
+  "label": "key window product pro",
+  "intent": "informational",
+  "domain": "it_support",
+  "subdomains": [
+   "legacy_software",
+   "windows",
+   "laptops",
+   "peripherals"
+  ],
+  "confidence": "unreviewed",
+  "members": 56,
+  "signals": {
+   "members": 56,
+   "corroborated_2plus": 15,
+   "corroborated_3": 5,
+   "google_relevance_max": 1050,
+   "google_relevance_mean": 584.3,
+   "head_term": "windows 11 key",
+   "trends_chain_value": 15.533,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 17.6,
+    "error_pct": 4.4
+   }
+  },
+  "sample": [
+   "fix laptop key",
+   "windows 11 key",
+   "windows 11 pro key",
+   "windows 11 key home",
+   "windows 11 cheap key",
+   "windows 11 key price",
+   "laptop calculator key",
+   "random windows 11 key"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_01490990",
+  "label": "rul card game",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "board_games"
+  ],
+  "confidence": "unreviewed",
+  "members": 10,
+  "signals": {
+   "members": 10,
+   "corroborated_2plus": 1,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 565.8,
+   "head_term": "card game rules",
+   "trends_chain_value": 14.859,
+   "trends_chain_meta": {
+    "anchor": "macos tahoe",
+    "reads": 38.4,
+    "error_pct": 3.0
+   }
+  },
+  "sample": [
+   "card game rules",
+   "card game rules pdf",
+   "best card game rules",
+   "free card game rules",
+   "card game rules for 31",
+   "simple card game rules",
+   "list of card game rules",
+   "card game rules examples"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_97158500",
+  "label": "os linux",
+  "intent": "decide",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "linux_admin"
+  ],
+  "confidence": "unreviewed",
+  "members": 7,
+  "signals": {
+   "members": 7,
+   "corroborated_2plus": 4,
+   "corroborated_3": 3,
+   "google_relevance_max": 700,
+   "google_relevance_mean": 580.0,
+   "head_term": "linux os",
+   "trends_chain_value": 13.644,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 17.81,
+    "error_pct": 3.5
+   }
+  },
+  "sample": [
+   "linux os",
+   "best linux os",
+   "free linux os",
+   "linux os cost",
+   "linux os list",
+   "best linux os for beginners",
+   "why is linux better than other os"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_30432229",
+  "label": "lambda aws",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "cloud_aws"
+  ],
+  "confidence": "unreviewed",
+  "members": 50,
+  "signals": {
+   "members": 50,
+   "corroborated_2plus": 15,
+   "corroborated_3": 6,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 625.9,
+   "head_term": "aws lambda",
+   "trends_chain_value": 13.092,
+   "trends_chain_meta": {
+    "anchor": "unreal engine",
+    "reads": 15.75,
+    "error_pct": 4.2
+   }
+  },
+  "sample": [
+   "aws lambda",
+   "fix aws lambda",
+   "aws lambda cost",
+   "aws lambda free",
+   "aws lambda error",
+   "aws lambda guide",
+   "aws lambda tools",
+   "aws lambda review"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_95133024",
+  "label": "tahoe maco performance version",
+  "intent": "informational",
+  "domain": "it_support",
+  "subdomains": [
+   "macos",
+   "windows"
+  ],
+  "confidence": "unreviewed",
+  "members": 51,
+  "signals": {
+   "members": 51,
+   "corroborated_2plus": 6,
+   "corroborated_3": 3,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 562.7,
+   "head_term": "macos tahoe",
+   "trends_chain_value": 11.537,
+   "trends_chain_meta": {
+    "anchor": "docker compose",
+    "reads": 14.11,
+    "error_pct": 4.8
+   }
+  },
+  "sample": [
+   "macos tahoe",
+   "macos tahoe 26",
+   "fix macos tahoe",
+   "macos tahoe cost",
+   "macos tahoe slow",
+   "guide macos tahoe",
+   "macos tahoe stuck",
+   "macos tahoe faster"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_32780160",
+  "label": "desktop docker",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "containers"
+  ],
+  "confidence": "unreviewed",
+  "members": 18,
+  "signals": {
+   "members": 18,
+   "corroborated_2plus": 7,
+   "corroborated_3": 1,
+   "google_relevance_max": 800,
+   "google_relevance_mean": 616.6,
+   "head_term": "docker desktop",
+   "trends_chain_value": 11.056,
+   "trends_chain_meta": {
+    "anchor": "game assets",
+    "reads": 51.85,
+    "error_pct": 2.1
+   }
+  },
+  "sample": [
+   "docker desktop",
+   "fix docker desktop",
+   "docker desktop cost",
+   "free docker desktop",
+   "docker desktop error",
+   "update docker desktop",
+   "docker desktop download",
+   "docker desktop problems"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_62362016",
+  "label": "recipe sourdough starter",
+  "intent": "informational",
+  "domain": "cooking_baking",
+  "subdomains": [
+   "baking"
+  ],
+  "confidence": "unreviewed",
+  "members": 13,
+  "signals": {
+   "members": 13,
+   "corroborated_2plus": 7,
+   "corroborated_3": 3,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 644.7,
+   "head_term": "sourdough starter recipe",
+   "trends_chain_value": 10.784,
+   "trends_chain_meta": {
+    "anchor": "circuit breaker",
+    "reads": 11.74,
+    "error_pct": 5.2
+   }
+  },
+  "sample": [
+   "sourdough starter recipe",
+   "sourdough starter recipe pdf",
+   "best sourdough starter recipe",
+   "free sourdough starter recipe",
+   "sourdough starter fast recipe",
+   "sourdough starter recipe easy",
+   "sourdough starter recipe list",
+   "5 day sourdough starter recipe"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_75513861",
+  "label": "formula excel",
+  "intent": "informational",
+  "domain": "data_ai",
+  "subdomains": [
+   "data_analysis",
+   "excel"
+  ],
+  "confidence": "unreviewed",
+  "members": 93,
+  "signals": {
+   "members": 93,
+   "corroborated_2plus": 28,
+   "corroborated_3": 5,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 631.6,
+   "head_term": "excel formulas",
+   "trends_chain_value": 10.545,
+   "trends_chain_meta": {
+    "anchor": "magic the gathering",
+    "reads": 8.83,
+    "error_pct": 6.7
+   }
+  },
+  "sample": [
+   "excel formulas",
+   "excel formula tool",
+   "excel formulas pdf",
+   "excel same formula",
+   "best excel formulas",
+   "excel formula guide",
+   "excel quick formula",
+   "free excel formulas"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_72535712",
+  "label": "mirror iphone screen maco",
+  "intent": "how_to",
+  "domain": "consumer_tech",
+  "subdomains": [
+   "smartphones",
+   "macos"
+  ],
+  "confidence": "unreviewed",
+  "members": 10,
+  "signals": {
+   "members": 10,
+   "corroborated_2plus": 1,
+   "corroborated_3": 0,
+   "google_relevance_max": 603,
+   "google_relevance_mean": 572.2,
+   "head_term": "how to iphone mirror",
+   "trends_chain_value": 10.162,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 11.51,
+    "error_pct": 5.9
+   }
+  },
+  "sample": [
+   "how to iphone mirror",
+   "how to iphone mirror to tv",
+   "how to iphone screen mirror",
+   "how to mirror iphone on macos",
+   "iphone to pc screen mirroring",
+   "iphone to tv screen mirroring",
+   "how to iphone mirror on windows",
+   "iphone to windows screen mirroring"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_70555357",
+  "label": "asset game",
+  "intent": "informational",
+  "domain": "game_development",
+  "subdomains": [
+   "game_assets"
+  ],
+  "confidence": "unreviewed",
+  "members": 49,
+  "signals": {
+   "members": 49,
+   "corroborated_2plus": 11,
+   "corroborated_3": 3,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 634.2,
+   "head_term": "game assets",
+   "trends_chain_value": 9.64,
+   "trends_chain_meta": {
+    "anchor": "circuit breaker",
+    "reads": 10.49,
+    "error_pct": 5.7
+   }
+  },
+  "sample": [
+   "game assets",
+   "fix game assets",
+   "game asset tool",
+   "top game assets",
+   "best game assets",
+   "game asset costs",
+   "game assets free",
+   "game asset errors"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_57046855",
+  "label": "opening chess",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "puzzles_chess"
+  ],
+  "confidence": "unreviewed",
+  "members": 47,
+  "signals": {
+   "members": 47,
+   "corroborated_2plus": 11,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 609.8,
+   "head_term": "chess openings",
+   "trends_chain_value": 9.537,
+   "trends_chain_meta": {
+    "anchor": "docker compose",
+    "reads": 11.66,
+    "error_pct": 5.6
+   }
+  },
+  "sample": [
+   "chess openings",
+   "chess openings 800",
+   "chess openings pdf",
+   "fix chess openings",
+   "best chess openings",
+   "chess openings fast",
+   "chess openings free",
+   "slow chess openings"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_66277572",
+  "label": "page steam",
+  "intent": "informational",
+  "domain": "game_development",
+  "subdomains": [
+   "game_publishing"
+  ],
+  "confidence": "unreviewed",
+  "members": 25,
+  "signals": {
+   "members": 25,
+   "corroborated_2plus": 4,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 564.6,
+   "head_term": "steam page",
+   "trends_chain_value": 8.871,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 33.58,
+    "error_pct": 2.2
+   }
+  },
+  "sample": [
+   "steam page",
+   "steam top page",
+   "steam page cost",
+   "steam page tips",
+   "steam page guide",
+   "steam page reddit",
+   "steam page review",
+   "steam page update"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_83893186",
+  "label": "gather magic card",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "tcg"
+  ],
+  "confidence": "unreviewed",
+  "members": 36,
+  "signals": {
+   "members": 36,
+   "corroborated_2plus": 6,
+   "corroborated_3": 3,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 706.6,
+   "head_term": "magic the gathering cards",
+   "trends_chain_value": 8.563,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 9.7,
+    "error_pct": 6.7
+   }
+  },
+  "sample": [
+   "magic the gathering cards",
+   "fix magic the gathering cards",
+   "magic the gathering card cost",
+   "magic the gathering top cards",
+   "best magic the gathering cards",
+   "free magic the gathering cards",
+   "magic the gathering guide card",
+   "cheap magic the gathering cards"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_97018946",
+  "label": "distro linux gam nvidia",
+  "intent": "decide",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "linux_admin"
+  ],
+  "confidence": "unreviewed",
+  "members": 51,
+  "signals": {
+   "members": 51,
+   "corroborated_2plus": 21,
+   "corroborated_3": 6,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 614.4,
+   "head_term": "linux distros",
+   "trends_chain_value": 8.379,
+   "trends_chain_meta": {
+    "anchor": "android studio",
+    "reads": 16.4,
+    "error_pct": 4.2
+   }
+  },
+  "sample": [
+   "linux distros",
+   "best linux distro",
+   "linux distro list",
+   "free linux distros",
+   "random linux distro",
+   "how much linux distro",
+   "identify linux distro",
+   "how many linux distros"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_18138473",
+  "label": "rest api client full",
+  "intent": "informational",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "apis_auth"
+  ],
+  "confidence": "unreviewed",
+  "members": 76,
+  "signals": {
+   "members": 76,
+   "corroborated_2plus": 12,
+   "corroborated_3": 5,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 590.3,
+   "head_term": "rest api documentation",
+   "trends_chain_value": 6.538,
+   "trends_chain_meta": {
+    "anchor": "stable diffusion",
+    "reads": 14.36,
+    "error_pct": 4.6
+   }
+  },
+  "sample": [
+   "boost rest api",
+   "rest api client",
+   "rest api format",
+   "boost rest api c++",
+   "c# rest api client",
+   "rest api full form",
+   "rest api full name",
+   "rest api reference"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_86165214",
+  "label": "mark maker open source",
+  "intent": "generate",
+  "domain": "collecting_antiques",
+  "subdomains": [
+   "identification"
+  ],
+  "confidence": "unreviewed",
+  "members": 49,
+  "signals": {
+   "members": 49,
+   "corroborated_2plus": 9,
+   "corroborated_3": 4,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 564.5,
+   "head_term": "maker's mark",
+   "trends_chain_value": 6.205,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 37.28,
+    "error_pct": 4.0
+   }
+  },
+  "sample": [
+   "maker's mark",
+   "maker's mark 46",
+   "best makers mark",
+   "maker's mark 101",
+   "fix maker's marks",
+   "maker's mark cost",
+   "maker's mark list",
+   "makers mark ideas"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_51347790",
+  "label": "sequoia maco stuck version",
+  "intent": "informational",
+  "domain": "it_support",
+  "subdomains": [
+   "macos"
+  ],
+  "confidence": "unreviewed",
+  "members": 25,
+  "signals": {
+   "members": 25,
+   "corroborated_2plus": 4,
+   "corroborated_3": 1,
+   "google_relevance_max": 800,
+   "google_relevance_mean": 573.5,
+   "head_term": "macos sequoia",
+   "trends_chain_value": 6.135,
+   "trends_chain_meta": {
+    "anchor": "windows 11 key",
+    "reads": 29.74,
+    "error_pct": 2.3
+   }
+  },
+  "sample": [
+   "macos sequoia",
+   "macos sequoia 15",
+   "macos sequoia cost",
+   "macos sequoia slow",
+   "guide macos sequoia",
+   "macos sequoia error",
+   "macos sequoia stuck",
+   "macos sequoia review"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_36147395",
+  "label": "board rul game",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "board_games"
+  ],
+  "confidence": "unreviewed",
+  "members": 40,
+  "signals": {
+   "members": 40,
+   "corroborated_2plus": 7,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 586.3,
+   "head_term": "board game rules",
+   "trends_chain_value": 6.106,
+   "trends_chain_meta": {
+    "anchor": "game fortnite",
+    "reads": 12.45,
+    "error_pct": 4.8
+   }
+  },
+  "sample": [
+   "board game rules",
+   "board game rules app",
+   "board game rules pdf",
+   "fix board game rules",
+   "board game rules list",
+   "free board game rules",
+   "board game rules costs",
+   "board game rules video"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_23751453",
+  "label": "linux window",
+  "intent": "compare",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "linux_admin",
+   "windows"
+  ],
+  "confidence": "unreviewed",
+  "members": 30,
+  "signals": {
+   "members": 30,
+   "corroborated_2plus": 9,
+   "corroborated_3": 3,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 639.5,
+   "head_term": "linux vs windows",
+   "trends_chain_value": 5.603,
+   "trends_chain_meta": {
+    "anchor": "game maker",
+    "reads": 13.6,
+    "error_pct": 4.6
+   }
+  },
+  "sample": [
+   "linux vs windows",
+   "linux cost vs windows",
+   "linux tools for windows",
+   "linux vs windows reddit",
+   "linux slower than windows",
+   "linux tutorial on windows",
+   "how to linux in windows 11",
+   "how to linux on windows 10"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_77124544",
+  "label": "postgresql database",
+  "intent": "find",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "databases"
+  ],
+  "confidence": "unreviewed",
+  "members": 48,
+  "signals": {
+   "members": 48,
+   "corroborated_2plus": 6,
+   "corroborated_3": 3,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 585.4,
+   "head_term": "database postgresql",
+   "trends_chain_value": 5.577,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 46.45,
+    "error_pct": 3.0
+   }
+  },
+  "sample": [
+   "database postgresql",
+   "fix postgresql database",
+   "postgresql new database",
+   "best postgresql database",
+   "database postgresql free",
+   "postgresql database cost",
+   "postgresql database list",
+   "postgresql database slow"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_49332453",
+  "label": "rest api",
+  "intent": "informational",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "apis_auth"
+  ],
+  "confidence": "unreviewed",
+  "members": 80,
+  "signals": {
+   "members": 80,
+   "corroborated_2plus": 21,
+   "corroborated_3": 5,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 619.8,
+   "head_term": "rest api vs api",
+   "trends_chain_value": 5.551,
+   "trends_chain_meta": {
+    "anchor": "macos tahoe",
+    "reads": 20.23,
+    "error_pct": 3.7
+   }
+  },
+  "sample": [
+   "rest api cost",
+   "rest api free",
+   "rest api list",
+   "best rest apis",
+   "rest api error",
+   "rest api guide",
+   "rest api tools",
+   "fix vs rest api"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_35053116",
+  "label": "command linux",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "linux_admin"
+  ],
+  "confidence": "unreviewed",
+  "members": 17,
+  "signals": {
+   "members": 17,
+   "corroborated_2plus": 7,
+   "corroborated_3": 3,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 667.4,
+   "head_term": "linux commands",
+   "trends_chain_value": 5.519,
+   "trends_chain_meta": {
+    "anchor": "stable diffusion",
+    "reads": 12.13,
+    "error_pct": 5.2
+   }
+  },
+  "sample": [
+   "linux commands",
+   "linux top command",
+   "free linux command",
+   "linux commands pdf",
+   "linux commands list",
+   "linux guide command",
+   "linux update command",
+   "linux commands online"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_86089852",
+  "label": "character genshin impact",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "mobile_gacha"
+  ],
+  "confidence": "unreviewed",
+  "members": 24,
+  "signals": {
+   "members": 24,
+   "corroborated_2plus": 4,
+   "corroborated_3": 2,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 623.0,
+   "head_term": "genshin impact characters",
+   "trends_chain_value": 5.283,
+   "trends_chain_meta": {
+    "anchor": "cities skylines",
+    "reads": 22.32,
+    "error_pct": 3.0
+   }
+  },
+  "sample": [
+   "genshin impact characters",
+   "genshin impact 5* characters",
+   "genshin impact character list",
+   "genshin impact characters new",
+   "genshin impact top characters",
+   "best genshin impact characters",
+   "free genshin impact characters",
+   "genshin impact guide character"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_48549624",
+  "label": "owasp security",
+  "intent": "informational",
+  "domain": "cybersecurity",
+  "subdomains": [
+   "appsec"
+  ],
+  "confidence": "unreviewed",
+  "members": 41,
+  "signals": {
+   "members": 41,
+   "corroborated_2plus": 0,
+   "corroborated_3": 0,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 638.0,
+   "head_term": "owasp security",
+   "trends_chain_value": 4.923,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 29.58,
+    "error_pct": 4.4
+   }
+  },
+  "sample": [
+   "owasp security",
+   "security owasp 10",
+   "owasp security list",
+   "owasp security guide",
+   "owasp security tools",
+   "security owasp costs",
+   "owasp security issues",
+   "owasp security review"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_76437614",
+  "label": "spell 5e dnd slot",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "dnd_ttrpg"
+  ],
+  "confidence": "unreviewed",
+  "members": 28,
+  "signals": {
+   "members": 28,
+   "corroborated_2plus": 5,
+   "corroborated_3": 1,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 625.8,
+   "head_term": "dnd 5e spells",
+   "trends_chain_value": 4.918,
+   "trends_chain_meta": {
+    "anchor": "how to iphone mirror",
+    "reads": 35.08,
+    "error_pct": 2.1
+   }
+  },
+  "sample": [
+   "dnd 5e spells",
+   "dnd 5e bug spells",
+   "dnd 5e pdf spells",
+   "dnd 5e slow spell",
+   "dnd 5e spell list",
+   "dnd 5e suggestion",
+   "best dnd 5e spells",
+   "dnd 5e spell slots"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_44785587",
+  "label": "steam gam pc",
+  "intent": "informational",
+  "domain": "gaming_pc",
+  "subdomains": [
+   "launchers",
+   "game_publishing"
+  ],
+  "confidence": "unreviewed",
+  "members": 46,
+  "signals": {
+   "members": 46,
+   "corroborated_2plus": 7,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 569.5,
+   "head_term": "pc gaming steam",
+   "trends_chain_value": 4.782,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 28.74,
+    "error_pct": 4.4
+   }
+  },
+  "sample": [
+   "pc gaming steam",
+   "new pc games steam",
+   "top steam pc games",
+   "free pc games steam",
+   "good pc games steam",
+   "pc games steam cheap",
+   "steam gaming pc cost",
+   "steam video games pc"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_37407139",
+  "label": "oracle docker database linux",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "containers",
+   "linux_admin"
+  ],
+  "confidence": "unreviewed",
+  "members": 22,
+  "signals": {
+   "members": 22,
+   "corroborated_2plus": 6,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 624.6,
+   "head_term": "linux oracle",
+   "trends_chain_value": 4.701,
+   "trends_chain_meta": {
+    "anchor": "game assets",
+    "reads": 22.06,
+    "error_pct": 3.4
+   }
+  },
+  "sample": [
+   "linux oracle",
+   "docker oracle",
+   "docker oracle db",
+   "docker oracle image",
+   "docker oracle linux",
+   "oracle linux is free",
+   "docker compose oracle",
+   "docker oracle install"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_24565509",
+  "label": "firewall rul",
+  "intent": "informational",
+  "domain": "cybersecurity",
+  "subdomains": [
+   "hardening"
+  ],
+  "confidence": "unreviewed",
+  "members": 32,
+  "signals": {
+   "members": 32,
+   "corroborated_2plus": 11,
+   "corroborated_3": 3,
+   "google_relevance_max": 700,
+   "google_relevance_mean": 566.3,
+   "head_term": "firewall rules",
+   "trends_chain_value": 4.377,
+   "trends_chain_meta": {
+    "anchor": "android studio",
+    "reads": 8.57,
+    "error_pct": 7.0
+   }
+  },
+  "sample": [
+   "firewall rules",
+   "fix firewall rules",
+   "firewall rules list",
+   "good firewall rules",
+   "firewall rules costs",
+   "firewall rules guide",
+   "firewall rules update",
+   "firewall rules any any"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_60961301",
+  "label": "chatgpt llm",
+  "intent": "informational",
+  "domain": "data_ai",
+  "subdomains": [
+   "llm_usage"
+  ],
+  "confidence": "unreviewed",
+  "members": 43,
+  "signals": {
+   "members": 43,
+   "corroborated_2plus": 5,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 571.5,
+   "head_term": "llm chatgpt",
+   "trends_chain_value": 4.237,
+   "trends_chain_meta": {
+    "anchor": "game fortnite",
+    "reads": 8.64,
+    "error_pct": 6.6
+   }
+  },
+  "sample": [
+   "llm chatgpt",
+   "llm chatgpt 4",
+   "llm chatgpt 5",
+   "best chatgpt llm",
+   "chatgpt llm cost",
+   "chatgpt llm list",
+   "llm chatgpt free",
+   "fix llm chatgpt 4"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_82757328",
+  "label": "obd code ii reader",
+  "intent": "informational",
+  "domain": "automotive",
+  "subdomains": [
+   "diagnostics"
+  ],
+  "confidence": "unreviewed",
+  "members": 22,
+  "signals": {
+   "members": 22,
+   "corroborated_2plus": 2,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 559.0,
+   "head_term": "obd code",
+   "trends_chain_value": 4.048,
+   "trends_chain_meta": {
+    "anchor": "linux os",
+    "reads": 22.74,
+    "error_pct": 2.9
+   }
+  },
+  "sample": [
+   "obd code",
+   "obd code 12",
+   "obd code guide",
+   "obd 2 code list",
+   "obd 2 code chart",
+   "obd ii code list",
+   "obd 2 code lookup",
+   "obd code database"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_89524950",
+  "label": "docker window",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "containers"
+  ],
+  "confidence": "unreviewed",
+  "members": 22,
+  "signals": {
+   "members": 22,
+   "corroborated_2plus": 7,
+   "corroborated_3": 1,
+   "google_relevance_max": 602,
+   "google_relevance_mean": 567.6,
+   "head_term": "docker for windows",
+   "trends_chain_value": 3.827,
+   "trends_chain_meta": {
+    "anchor": "windows 11 key",
+    "reads": 18.55,
+    "error_pct": 3.4
+   }
+  },
+  "sample": [
+   "docker for windows",
+   "docker guide windows",
+   "docker slow on windows",
+   "docker slow on windows 11",
+   "docker alternative windows",
+   "docker problems on windows",
+   "docker alternatives windows",
+   "docker compatibility windows"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_33099565",
+  "label": "development android game",
+  "intent": "informational",
+  "domain": "software_dev_mobile",
+  "subdomains": [
+   "android_dev"
+  ],
+  "confidence": "unreviewed",
+  "members": 20,
+  "signals": {
+   "members": 20,
+   "corroborated_2plus": 8,
+   "corroborated_3": 2,
+   "google_relevance_max": 603,
+   "google_relevance_mean": 568.6,
+   "head_term": "android app development",
+   "trends_chain_value": 3.773,
+   "trends_chain_meta": {
+    "anchor": "macos tahoe",
+    "reads": 13.75,
+    "error_pct": 4.8
+   }
+  },
+  "sample": [
+   "android app development",
+   "android app development cost",
+   "free android app development",
+   "android app development guide",
+   "android app development price",
+   "android app development tools",
+   "android app development software",
+   "android app development tutorial"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_57242616",
+  "label": "terraria game window",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "survival_crafting"
+  ],
+  "confidence": "unreviewed",
+  "members": 41,
+  "signals": {
+   "members": 41,
+   "corroborated_2plus": 5,
+   "corroborated_3": 3,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 569.8,
+   "head_term": "game terraria",
+   "trends_chain_value": 3.705,
+   "trends_chain_meta": {
+    "anchor": "board game rules",
+    "reads": 24.77,
+    "error_pct": 3.2
+   }
+  },
+  "sample": [
+   "game terraria",
+   "terraria new game",
+   "best terraria game",
+   "game terraria free",
+   "terraria game cost",
+   "terraria game tips",
+   "terraria game guide",
+   "terraria game price"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_78744100",
+  "label": "maco order release desktop",
+  "intent": "informational",
+  "domain": "it_support",
+  "subdomains": [
+   "macos"
+  ],
+  "confidence": "unreviewed",
+  "members": 10,
+  "signals": {
+   "members": 10,
+   "corroborated_2plus": 0,
+   "corroborated_3": 0,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 765.7,
+   "head_term": "macos order",
+   "trends_chain_value": 3.605,
+   "trends_chain_meta": {
+    "anchor": "game assets",
+    "reads": 16.91,
+    "error_pct": 4.1
+   }
+  },
+  "sample": [
+   "macos order",
+   "macos release",
+   "macos 27 release",
+   "new macos release",
+   "macos list in order",
+   "macos order of release",
+   "macos release schedule",
+   "macos updates in order"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_39176726",
+  "label": "gradle android",
+  "intent": "informational",
+  "domain": "software_dev_mobile",
+  "subdomains": [
+   "android_dev"
+  ],
+  "confidence": "unreviewed",
+  "members": 33,
+  "signals": {
+   "members": 33,
+   "corroborated_2plus": 2,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 567.1,
+   "head_term": "gradle android",
+   "trends_chain_value": 3.585,
+   "trends_chain_meta": {
+    "anchor": "game terraria",
+    "reads": 24.77,
+    "error_pct": 4.0
+   }
+  },
+  "sample": [
+   "gradle android",
+   "gradle android app",
+   "best gradle android",
+   "free gradle android",
+   "android gradle error",
+   "android gradle guide",
+   "android gradle tools",
+   "gradle android slower"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_73845834",
+  "label": "function excel find performance",
+  "intent": "find",
+  "domain": "data_ai",
+  "subdomains": [
+   "excel",
+   "data_analysis"
+  ],
+  "confidence": "unreviewed",
+  "members": 20,
+  "signals": {
+   "members": 20,
+   "corroborated_2plus": 1,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 558.7,
+   "head_term": "excel function or",
+   "trends_chain_value": 3.494,
+   "trends_chain_meta": {
+    "anchor": "chess openings",
+    "reads": 12.91,
+    "error_pct": 5.3
+   }
+  },
+  "sample": [
+   "excel function or",
+   "best excel functions",
+   "excel function guide",
+   "excel functions list",
+   "how many excel function",
+   "excel function guide pdf",
+   "excel functions list pdf",
+   "excel functions tutorial"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_72114454",
+  "label": "godot engine",
+  "intent": "informational",
+  "domain": "game_development",
+  "subdomains": [
+   "godot"
+  ],
+  "confidence": "unreviewed",
+  "members": 22,
+  "signals": {
+   "members": 22,
+   "corroborated_2plus": 9,
+   "corroborated_3": 3,
+   "google_relevance_max": 750,
+   "google_relevance_mean": 568.6,
+   "head_term": "godot engine",
+   "trends_chain_value": 3.44,
+   "trends_chain_meta": {
+    "anchor": "linux os",
+    "reads": 19.32,
+    "error_pct": 3.2
+   }
+  },
+  "sample": [
+   "godot engine",
+   "godot engine 4",
+   "godot engine cost",
+   "godot engine issues",
+   "godot engine online",
+   "godot engine reddit",
+   "godot engine review",
+   "godot engine update"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_29430585",
+  "label": "box circuit breaker",
+  "intent": "calculate",
+  "domain": "home_repair",
+  "subdomains": [
+   "electrical"
+  ],
+  "confidence": "unreviewed",
+  "members": 7,
+  "signals": {
+   "members": 7,
+   "corroborated_2plus": 3,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 563.6,
+   "head_term": "circuit breaker box",
+   "trends_chain_value": 3.238,
+   "trends_chain_meta": {
+    "anchor": "game fortnite",
+    "reads": 6.6,
+    "error_pct": 8.4
+   }
+  },
+  "sample": [
+   "circuit breaker box",
+   "circuit breaker box cost",
+   "circuit breaker box explained",
+   "generator circuit breaker box",
+   "circuit breaker box not working",
+   "how much is circuit breaker box",
+   "cost to update a circuit breaker box"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_37478659",
+  "label": "circuit breaker panel",
+  "intent": "informational",
+  "domain": "home_repair",
+  "subdomains": [
+   "electrical"
+  ],
+  "confidence": "unreviewed",
+  "members": 7,
+  "signals": {
+   "members": 7,
+   "corroborated_2plus": 2,
+   "corroborated_3": 2,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 564.3,
+   "head_term": "circuit breaker panel",
+   "trends_chain_value": 3.123,
+   "trends_chain_meta": {
+    "anchor": "gradle android",
+    "reads": 21.57,
+    "error_pct": 4.3
+   }
+  },
+  "sample": [
+   "circuit breaker panel",
+   "new circuit breaker panel",
+   "best circuit breaker panel",
+   "circuit breaker panel template",
+   "circuit breaker generator panel",
+   "how much is circuit breaker panel",
+   "free circuit breaker panel template"
+  ],
+  "fragmentation": {
+   "bing_html": {
+    "n": 10,
+    "categories": {
+     "independent_site": 9,
+     "forum": 1
+    },
+    "dominant_site": "poki.com",
+    "dominant_share": 0.2,
+    "fragmented_share": 1.0
+   }
+  },
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_77093296",
+  "label": "react javascript",
+  "intent": "informational",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "javascript_frameworks"
+  ],
+  "confidence": "unreviewed",
+  "members": 27,
+  "signals": {
+   "members": 27,
+   "corroborated_2plus": 4,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 561.3,
+   "head_term": "javascript react",
+   "trends_chain_value": 3.114,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 11.79,
+    "error_pct": 4.9
+   }
+  },
+  "sample": [
+   "javascript react",
+   "javascript react pdf",
+   "javascript react online",
+   "is react just javascript",
+   "javascript react examples",
+   "javascript react problems",
+   "javascript react tutorial",
+   "is react only in javascript"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_83958005",
+  "label": "gdpr security checklist open",
+  "intent": "informational",
+  "domain": "cybersecurity",
+  "subdomains": [
+   "compliance"
+  ],
+  "confidence": "unreviewed",
+  "members": 37,
+  "signals": {
+   "members": 37,
+   "corroborated_2plus": 1,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 576.7,
+   "head_term": "security gdpr",
+   "trends_chain_value": 3.094,
+   "trends_chain_meta": {
+    "anchor": "cities skylines",
+    "reads": 13.08,
+    "error_pct": 4.6
+   }
+  },
+  "sample": [
+   "security gdpr",
+   "security gdpr tool",
+   "security gdpr costs",
+   "security gdpr plans",
+   "security gdpr errors",
+   "security gdpr plants",
+   "security gdpr to pdf",
+   "gdpr security meaning"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_69843273",
+  "label": "obd2 reader code scanner",
+  "intent": "informational",
+  "domain": "automotive",
+  "subdomains": [
+   "diagnostics"
+  ],
+  "confidence": "unreviewed",
+  "members": 67,
+  "signals": {
+   "members": 67,
+   "corroborated_2plus": 8,
+   "corroborated_3": 5,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 596.4,
+   "head_term": "obd2 code reader",
+   "trends_chain_value": 3.084,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 24.13,
+    "error_pct": 4.2
+   }
+  },
+  "sample": [
+   "fix obd2 reader",
+   "fix obd2 scanner",
+   "obd2 code reader",
+   "obd2 code scanner",
+   "fix car code reader",
+   "fix obd2 code reader",
+   "obd2 code reader app",
+   "best obd2 code reader"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_08810856",
+  "label": "unreal gam engine",
+  "intent": "informational",
+  "domain": "game_development",
+  "subdomains": [
+   "unreal"
+  ],
+  "confidence": "unreviewed",
+  "members": 20,
+  "signals": {
+   "members": 20,
+   "corroborated_2plus": 12,
+   "corroborated_3": 4,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 698.6,
+   "head_term": "unreal engine games",
+   "trends_chain_value": 3.074,
+   "trends_chain_meta": {
+    "anchor": "macos tahoe",
+    "reads": 11.21,
+    "error_pct": 5.7
+   }
+  },
+  "sample": [
+   "unreal engine games",
+   "unreal engine 4 games",
+   "unreal engine 5 games",
+   "unreal engine 6 games",
+   "unreal engine top games",
+   "best unreal engine games",
+   "free unreal engine games",
+   "best unreal engine 3 games"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_13492261",
+  "label": "steam pc",
+  "intent": "how_to",
+  "domain": "gaming_pc",
+  "subdomains": [
+   "launchers",
+   "game_publishing"
+  ],
+  "confidence": "unreviewed",
+  "members": 18,
+  "signals": {
+   "members": 18,
+   "corroborated_2plus": 2,
+   "corroborated_3": 0,
+   "google_relevance_max": 556,
+   "google_relevance_mean": 554.0,
+   "head_term": "best pc for steam",
+   "trends_chain_value": 2.87,
+   "trends_chain_meta": {
+    "anchor": "steam page",
+    "reads": 16.66,
+    "error_pct": 4.0
+   }
+  },
+  "sample": [
+   "cost of steam pc",
+   "best pc for steam",
+   "new steam pc price",
+   "steam pc slow download",
+   "download steam pc update",
+   "how do i get steam on pc",
+   "how much is the steam pc",
+   "is steam bad for your pc"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_74414600",
+  "label": "jetpack compose",
+  "intent": "informational",
+  "domain": "software_dev_mobile",
+  "subdomains": [
+   "android_dev"
+  ],
+  "confidence": "unreviewed",
+  "members": 48,
+  "signals": {
+   "members": 48,
+   "corroborated_2plus": 12,
+   "corroborated_3": 5,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 575.1,
+   "head_term": "jetpack compose",
+   "trends_chain_value": 2.811,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 23.42,
+    "error_pct": 4.1
+   }
+  },
+  "sample": [
+   "jetpack compose",
+   "jetpack compose free",
+   "jetpack compose list",
+   "jetpack compose guide",
+   "jetpack compose errors",
+   "jetpack compose issues",
+   "jetpack compose review",
+   "jetpack compose to pdf"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_72492743",
+  "label": "creation media window mac",
+  "intent": "how_to",
+  "domain": "it_support",
+  "subdomains": [
+   "windows"
+  ],
+  "confidence": "unreviewed",
+  "members": 20,
+  "signals": {
+   "members": 20,
+   "corroborated_2plus": 3,
+   "corroborated_3": 1,
+   "google_relevance_max": 800,
+   "google_relevance_mean": 595.8,
+   "head_term": "windows 11 media creation tool",
+   "trends_chain_value": 2.671,
+   "trends_chain_meta": {
+    "anchor": "macos tahoe",
+    "reads": 9.74,
+    "error_pct": 6.3
+   }
+  },
+  "sample": [
+   "windows 11 media creation tool",
+   "use windows media creation tool",
+   "windows 11 pro media creation tool",
+   "how to run windows 11 media creation tool",
+   "how to create windows 11 media creation tool",
+   "how to install windows 11 media creation tool",
+   "how to use windows 11 media creation tool usb",
+   "how to download windows 11 media creation tool"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_56212805",
+  "label": "playstation game rac controller",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "console",
+   "emulation",
+   "peripherals"
+  ],
+  "confidence": "unreviewed",
+  "members": 24,
+  "signals": {
+   "members": 24,
+   "corroborated_2plus": 4,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 564.1,
+   "head_term": "game for playstation 5",
+   "trends_chain_value": 2.486,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 9.42,
+    "error_pct": 6.0
+   }
+  },
+  "sample": [
+   "game for playstation 5",
+   "game play playstation 5",
+   "game drive playstation 5",
+   "game share playstation 5",
+   "playstation 5 game store",
+   "what is playstation game",
+   "playstation 5 game holder",
+   "new game for playstation 5"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_40329853",
+  "label": "marine space 40k warhammer",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "confidence": "unreviewed",
+  "members": 55,
+  "signals": {
+   "members": 55,
+   "corroborated_2plus": 13,
+   "corroborated_3": 4,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 559.5,
+   "head_term": "warhammer 40k space marine 2",
+   "trends_chain_value": 2.358,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 18.45,
+    "error_pct": 4.8
+   }
+  },
+  "sample": [
+   "warhammer 40k space marine 2",
+   "warhammer 40k space marine 2 pc",
+   "warhammer 40k wiki space marine",
+   "warhammer 40k space marine 2 dlc",
+   "warhammer 40k space marine 2 key",
+   "warhammer 40k space marine 2 ps5",
+   "warhammer 40k space marine 2 pvp",
+   "warhammer 40k space marine 2 coop"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_35443703",
+  "label": "elden ring build",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "rpg_builds"
+  ],
+  "confidence": "unreviewed",
+  "members": 63,
+  "signals": {
+   "members": 63,
+   "corroborated_2plus": 16,
+   "corroborated_3": 6,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 623.0,
+   "head_term": "elden ring builds",
+   "trends_chain_value": 2.339,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 36.96,
+    "error_pct": 2.4
+   }
+  },
+  "sample": [
+   "elden ring builds",
+   "elden ring build 200",
+   "all elden ring builds",
+   "elden ring build tool",
+   "elden ring fast build",
+   "elden ring new builds",
+   "fix elden ring builds",
+   "top elden ring builds"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_06787437",
+  "label": "war 40k warhammer total",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "confidence": "unreviewed",
+  "members": 65,
+  "signals": {
+   "members": 65,
+   "corroborated_2plus": 15,
+   "corroborated_3": 5,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 594.3,
+   "head_term": "warhammer 40k total war",
+   "trends_chain_value": 2.328,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 11.3,
+    "error_pct": 7.8
+   }
+  },
+  "sample": [
+   "star wars vs 40k",
+   "warhammer 40k only war",
+   "warhammer 40k total war",
+   "warhammer 40k total war 2",
+   "warhammer 40k total war 3",
+   "warhammer 40k total war 4",
+   "warhammer 40k only war pdf",
+   "warhammer 40k vs star trek"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_09743695",
+  "label": "drop fps",
+  "intent": "informational",
+  "domain": "gaming_pc",
+  "subdomains": [
+   "performance"
+  ],
+  "confidence": "unreviewed",
+  "members": 24,
+  "signals": {
+   "members": 24,
+   "corroborated_2plus": 2,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 563.1,
+   "head_term": "fps drops",
+   "trends_chain_value": 2.182,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 8.26,
+    "error_pct": 6.8
+   }
+  },
+  "sample": [
+   "fps drops",
+   "fps drops fix",
+   "fps drops to 0",
+   "fps drops to 1",
+   "free fps drops",
+   "fps drops to 20",
+   "fps drops to 30",
+   "fps drop problem"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_93148199",
+  "label": "character 5e dnd sheet",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "dnd_ttrpg"
+  ],
+  "confidence": "unreviewed",
+  "members": 31,
+  "signals": {
+   "members": 31,
+   "corroborated_2plus": 7,
+   "corroborated_3": 2,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 626.6,
+   "head_term": "dnd 5e character sheet",
+   "trends_chain_value": 1.943,
+   "trends_chain_meta": {
+    "anchor": "cities skylines",
+    "reads": 8.21,
+    "error_pct": 6.8
+   }
+  },
+  "sample": [
+   "dnd 5e character sheet",
+   "create dnd 5e character",
+   "generate dnd 5e character",
+   "dnd 5e character sheet app",
+   "dnd 5e character sheet pdf",
+   "fix dnd 5e character sheet",
+   "best dnd 5e character sheet",
+   "free dnd 5e character sheet"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_27977934",
+  "label": "elden ring",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "rpg_builds"
+  ],
+  "confidence": "unreviewed",
+  "members": 22,
+  "signals": {
+   "members": 22,
+   "corroborated_2plus": 0,
+   "corroborated_3": 0,
+   "google_relevance_max": 600,
+   "google_relevance_mean": 560.0,
+   "head_term": "elden ring cost",
+   "trends_chain_value": 1.928,
+   "trends_chain_meta": {
+    "anchor": "security gdpr",
+    "reads": 29.34,
+    "error_pct": 2.8
+   }
+  },
+  "sample": [
+   "elden ring cost",
+   "elden ring errors",
+   "is elden ring bad",
+   "is elden ring easy",
+   "is elden ring good",
+   "how do i elden ring",
+   "price of elden ring",
+   "elden ring for cheap"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_90764093",
+  "label": "classe 5e dnd",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "dnd_ttrpg"
+  ],
+  "confidence": "unreviewed",
+  "members": 9,
+  "signals": {
+   "members": 9,
+   "corroborated_2plus": 5,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 567.9,
+   "head_term": "dnd 5e classes",
+   "trends_chain_value": 1.778,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 28.04,
+    "error_pct": 2.8
+   }
+  },
+  "sample": [
+   "dnd 5e classes",
+   "all dnd classes 5e",
+   "dnd 5e classes pdf",
+   "best dnd 5e classes",
+   "free dnd 5e classes",
+   "dnd 5e list of classes",
+   "dnd 5e classes explained",
+   "dnd 5e alternative classes"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_04035065",
+  "label": "rogue trader 40k warhammer",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "confidence": "unreviewed",
+  "members": 28,
+  "signals": {
+   "members": 28,
+   "corroborated_2plus": 7,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 561.8,
+   "head_term": "warhammer 40k rogue trader",
+   "trends_chain_value": 1.735,
+   "trends_chain_meta": {
+    "anchor": "stable diffusion",
+    "reads": 3.81,
+    "error_pct": 14.2
+   }
+  },
+  "sample": [
+   "warhammer 40k rogue trader",
+   "warhammer 40k rogue trader dlc",
+   "warhammer 40k rogue trader ost",
+   "warhammer 40k rogue trader lore",
+   "warhammer 40k rogue trader mods",
+   "warhammer 40k wiki rogue trader",
+   "build warhammer 40k rogue trader",
+   "warhammer 40k rogue trader review"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_78526289",
+  "label": "rpg maker game gam",
+  "intent": "generate",
+  "domain": "game_development",
+  "subdomains": [
+   "other_engines",
+   "godot"
+  ],
+  "confidence": "unreviewed",
+  "members": 41,
+  "signals": {
+   "members": 41,
+   "corroborated_2plus": 9,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 559.5,
+   "head_term": "game maker rpg",
+   "trends_chain_value": 1.656,
+   "trends_chain_meta": {
+    "anchor": "board game rules",
+    "reads": 11.08,
+    "error_pct": 5.7
+   }
+  },
+  "sample": [
+   "game maker rpg",
+   "game rpg meaning",
+   "godot rpg database",
+   "godot template rpg",
+   "godot tutorial rpg",
+   "godot vs rpg maker",
+   "rpg game maker free",
+   "rpg maker game list"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_62861365",
+  "label": "arena gather magic android",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "tcg"
+  ],
+  "confidence": "unreviewed",
+  "members": 25,
+  "signals": {
+   "members": 25,
+   "corroborated_2plus": 8,
+   "corroborated_3": 2,
+   "google_relevance_max": 600,
+   "google_relevance_mean": 568.9,
+   "head_term": "magic the gathering arena",
+   "trends_chain_value": 1.612,
+   "trends_chain_meta": {
+    "anchor": "security gdpr",
+    "reads": 24.53,
+    "error_pct": 3.1
+   }
+  },
+  "sample": [
+   "magic the gathering arena",
+   "fix magic the gathering arena",
+   "magic the gathering arena app",
+   "magic the gathering arena slow",
+   "magic the gathering arena tips",
+   "magic the gathering arena guide",
+   "magic the gathering arena review",
+   "magic the gathering arena update"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_74700978",
+  "label": "obd2 cod scanner read",
+  "intent": "how_to",
+  "domain": "automotive",
+  "subdomains": [
+   "diagnostics"
+  ],
+  "confidence": "unreviewed",
+  "members": 56,
+  "signals": {
+   "members": 56,
+   "corroborated_2plus": 12,
+   "corroborated_3": 5,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 599.7,
+   "head_term": "obd2 codes",
+   "trends_chain_value": 1.529,
+   "trends_chain_meta": {
+    "anchor": "security gdpr",
+    "reads": 23.26,
+    "error_pct": 3.2
+   }
+  },
+  "sample": [
+   "obd2 codes",
+   "fix obd2 codes",
+   "obd2 codes pdf",
+   "free obd2 codes",
+   "obd2 codes list",
+   "obd2 error codes",
+   "random obd2 codes",
+   "convert obd2 codes"
+  ],
+  "fragmentation": {
+   "websearch_tool": {
+    "n": 10,
+    "categories": {
+     "blog_editorial": 4,
+     "independent_site": 3,
+     "forum": 1,
+     "vendor_content": 2
+    },
+    "dominant_site": "autopi.io",
+    "dominant_share": 0.1,
+    "fragmented_share": 1.0
+   }
+  },
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_50575733",
+  "label": "dictionary c# godot order",
+  "intent": "informational",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "dotnet",
+   "godot"
+  ],
+  "confidence": "unreviewed",
+  "members": 11,
+  "signals": {
+   "members": 11,
+   "corroborated_2plus": 1,
+   "corroborated_3": 0,
+   "google_relevance_max": 750,
+   "google_relevance_mean": 616.7,
+   "head_term": "c# dictionary",
+   "trends_chain_value": 1.527,
+   "trends_chain_meta": {
+    "anchor": "chess openings",
+    "reads": 5.64,
+    "error_pct": 10.3
+   }
+  },
+  "sample": [
+   "c# dictionary",
+   "godot dictionary",
+   "c# dictionary slow",
+   "c# list dictionary",
+   "godot c# dictionary",
+   "c# faster dictionary",
+   "c# ordered dictionary",
+   "c# faster than dictionary"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_76018868",
+  "label": "pipeline devop azure create",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "cloud_other"
+  ],
+  "confidence": "unreviewed",
+  "members": 21,
+  "signals": {
+   "members": 21,
+   "corroborated_2plus": 5,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 557.1,
+   "head_term": "devops azure pipeline",
+   "trends_chain_value": 1.513,
+   "trends_chain_meta": {
+    "anchor": "how to iphone mirror",
+    "reads": 10.79,
+    "error_pct": 5.3
+   }
+  },
+  "sample": [
+   "devops azure pipeline",
+   "azure devops pipeline slow",
+   "free azure devops pipeline",
+   "azure devops pipeline guide",
+   "azure devops pipeline stuck",
+   "azure devops pipeline status",
+   "devops azure release pipeline",
+   "azure devops pipeline tutorial"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_40621297",
+  "label": "comprehension python",
+  "intent": "find",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "python_dev"
+  ],
+  "confidence": "unreviewed",
+  "members": 5,
+  "signals": {
+   "members": 5,
+   "corroborated_2plus": 3,
+   "corroborated_3": 2,
+   "google_relevance_max": 700,
+   "google_relevance_mean": 590.8,
+   "head_term": "python list comprehension",
+   "trends_chain_value": 1.433,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 1.62,
+    "error_pct": 32.4
+   }
+  },
+  "sample": [
+   "python list comprehension",
+   "python generator comprehension",
+   "python list comprehension examples",
+   "python list comprehension tutorial",
+   "python list comprehension explained"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_79623882",
+  "label": "shift layer",
+  "intent": "informational",
+  "domain": "three_d_printing",
+  "subdomains": [
+   "troubleshooting"
+  ],
+  "confidence": "unreviewed",
+  "members": 19,
+  "signals": {
+   "members": 19,
+   "corroborated_2plus": 4,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 562.1,
+   "head_term": "layer shift",
+   "trends_chain_value": 1.223,
+   "trends_chain_meta": {
+    "anchor": "cities skylines",
+    "reads": 5.17,
+    "error_pct": 10.4
+   }
+  },
+  "sample": [
+   "layer shift",
+   "layer shift fix",
+   "layer shift tool",
+   "layer shift issue",
+   "layer shift issues",
+   "layer shift reddit",
+   "best layer shifting",
+   "free layer shifting"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_81807952",
+  "label": "catalytic light converter check",
+  "intent": "convert",
+  "domain": "automotive",
+  "subdomains": [
+   "diagnostics"
+  ],
+  "confidence": "unreviewed",
+  "members": 14,
+  "signals": {
+   "members": 14,
+   "corroborated_2plus": 3,
+   "corroborated_3": 1,
+   "google_relevance_max": 562,
+   "google_relevance_mean": 555.8,
+   "head_term": "check engine light catalytic converter",
+   "trends_chain_value": 1.218,
+   "trends_chain_meta": {
+    "anchor": "security gdpr",
+    "reads": 18.53,
+    "error_pct": 3.8
+   }
+  },
+  "sample": [
+   "check engine light catalytic converter",
+   "catalytic converter check engine light fix",
+   "check engine light bad catalytic converter",
+   "check engine light catalytic converter code",
+   "catalytic converter cause check engine light",
+   "catalytic converter check engine light reset",
+   "check engine light catalytic converter reddit",
+   "remove catalytic converter check engine light"
+  ],
+  "fragmentation": {
+   "websearch_tool": {
+    "n": 9,
+    "categories": {
+     "forum": 1,
+     "independent_site": 4,
+     "blog_editorial": 3,
+     "marketplace": 1
+    },
+    "dominant_site": "quora.com",
+    "dominant_share": 0.1111111111111111,
+    "fragmented_share": 0.8888888888888888
+   }
+  },
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_96209883",
+  "label": "controller pc",
+  "intent": "fix",
+  "domain": "gaming_pc",
+  "subdomains": [
+   "peripherals"
+  ],
+  "confidence": "unreviewed",
+  "members": 20,
+  "signals": {
+   "members": 20,
+   "corroborated_2plus": 2,
+   "corroborated_3": 2,
+   "google_relevance_max": 650,
+   "google_relevance_mean": 576.9,
+   "head_term": "controller not working on pc",
+   "trends_chain_value": 1.216,
+   "trends_chain_meta": {
+    "anchor": "macos tahoe",
+    "reads": 4.43,
+    "error_pct": 12.5
+   }
+  },
+  "sample": [
+   "controller slow on pc",
+   "cheap controller for pc",
+   "controller on pc software",
+   "cheapest controller for pc",
+   "controller not working on pc",
+   "controller compatible with pc",
+   "controller not working slow pc",
+   "controller not working guide pc"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_52409666",
+  "label": "emulator studio android",
+  "intent": "fix",
+  "domain": "software_dev_mobile",
+  "subdomains": [
+   "android_dev"
+  ],
+  "confidence": "unreviewed",
+  "members": 18,
+  "signals": {
+   "members": 18,
+   "corroborated_2plus": 7,
+   "corroborated_3": 2,
+   "google_relevance_max": 750,
+   "google_relevance_mean": 576.9,
+   "head_term": "android studio emulator",
+   "trends_chain_value": 1.215,
+   "trends_chain_meta": {
+    "anchor": "game assets",
+    "reads": 5.7,
+    "error_pct": 9.9
+   }
+  },
+  "sample": [
+   "android studio emulator",
+   "fix android studio emulator",
+   "android studio emulator fast",
+   "android studio slow emulator",
+   "best android studio emulator",
+   "android studio error emulator",
+   "android studio list emulators",
+   "android studio emulator online"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_82537392",
+  "label": "tailwind css react native",
+  "intent": "informational",
+  "domain": "software_dev_web",
+  "subdomains": [
+   "css_layout"
+  ],
+  "confidence": "unreviewed",
+  "members": 26,
+  "signals": {
+   "members": 26,
+   "corroborated_2plus": 6,
+   "corroborated_3": 2,
+   "google_relevance_max": 650,
+   "google_relevance_mean": 562.0,
+   "head_term": "css vs tailwind",
+   "trends_chain_value": 1.2,
+   "trends_chain_meta": {
+    "anchor": "security gdpr",
+    "reads": 18.25,
+    "error_pct": 3.8
+   }
+  },
+  "sample": [
+   "css vs tailwind",
+   "tailwind css cost",
+   "tailwind css error",
+   "tailwind css guide",
+   "generate css tailwind",
+   "tailwind css database",
+   "tailwind css problems",
+   "tailwind css template"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_88622267",
+  "label": "password manager pro",
+  "intent": "informational",
+  "domain": "cybersecurity",
+  "subdomains": [
+   "home_security"
+  ],
+  "confidence": "unreviewed",
+  "members": 9,
+  "signals": {
+   "members": 9,
+   "corroborated_2plus": 3,
+   "corroborated_3": 0,
+   "google_relevance_max": 1000,
+   "google_relevance_mean": 643.5,
+   "head_term": "password manager pro",
+   "trends_chain_value": 1.161,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 4.4,
+    "error_pct": 12.1
+   }
+  },
+  "sample": [
+   "password manager pro",
+   "password manager pro cost",
+   "password manager pro guide",
+   "update password manager pro",
+   "password manager pro updates",
+   "password manager pro download",
+   "password manager pro tutorial",
+   "password manager pro alternatives"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_43990487",
+  "label": "kubernet docker",
+  "intent": "informational",
+  "domain": "software_dev_ops",
+  "subdomains": [
+   "containers"
+  ],
+  "confidence": "unreviewed",
+  "members": 49,
+  "signals": {
+   "members": 49,
+   "corroborated_2plus": 10,
+   "corroborated_3": 4,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 579.6,
+   "head_term": "docker and kubernetes",
+   "trends_chain_value": 1.156,
+   "trends_chain_meta": {
+    "anchor": "unreal engine games",
+    "reads": 18.23,
+    "error_pct": 3.8
+   }
+  },
+  "sample": [
+   "docker and kubernetes",
+   "docker kubernetes 101",
+   "docker vs. kubernetes",
+   "fix docker kubernetes",
+   "docker kubernetes free",
+   "docker kubernetes guide",
+   "docker kubernetes errors",
+   "docker and kubernetes pdf"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_59285791",
+  "label": "rule board game book",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "board_games"
+  ],
+  "confidence": "unreviewed",
+  "members": 28,
+  "signals": {
+   "members": 28,
+   "corroborated_2plus": 2,
+   "corroborated_3": 0,
+   "google_relevance_max": 1250,
+   "google_relevance_mean": 590.8,
+   "head_term": "board game rule",
+   "trends_chain_value": 1.056,
+   "trends_chain_meta": {
+    "anchor": "minecraft seeds",
+    "reads": 4,
+    "error_pct": 13.2
+   }
+  },
+  "sample": [
+   "board game rule",
+   "card game rule book",
+   "board game rule book",
+   "board game rule booklet",
+   "board game rule editing",
+   "game rule book template",
+   "card game rule generator",
+   "arcs board game rule book"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_47440606",
+  "label": "faction 40k warhammer quiz",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "confidence": "unreviewed",
+  "members": 27,
+  "signals": {
+   "members": 27,
+   "corroborated_2plus": 12,
+   "corroborated_3": 3,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 654.7,
+   "head_term": "warhammer 40k factions",
+   "trends_chain_value": 0.983,
+   "trends_chain_meta": {
+    "anchor": "security gdpr",
+    "reads": 14.94,
+    "error_pct": 4.4
+   }
+  },
+  "sample": [
+   "warhammer 40k factions",
+   "warhammer 40k faction quiz",
+   "best warhammer 40k factions",
+   "warhammer 40k faction guide",
+   "warhammer 40k factions test",
+   "warhammer 40k factions wiki",
+   "random warhammer 40k faction",
+   "warhammer 40k faction symbols"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_34847923",
+  "label": "lair secret gather magic",
+  "intent": "informational",
+  "domain": "tabletop_hobby_games",
+  "subdomains": [
+   "tcg"
+  ],
+  "confidence": "unreviewed",
+  "members": 22,
+  "signals": {
+   "members": 22,
+   "corroborated_2plus": 9,
+   "corroborated_3": 1,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 562.4,
+   "head_term": "magic the gathering secret lair",
+   "trends_chain_value": 0.937,
+   "trends_chain_meta": {
+    "anchor": "javascript react",
+    "reads": 13.83,
+    "error_pct": 4.7
+   }
+  },
+  "sample": [
+   "magic the gathering secret lair",
+   "magic the gathering secret lair cats",
+   "magic the gathering secret lair list",
+   "magic the gathering secret lair miku",
+   "magic the gathering secret lair sets",
+   "magic the gathering secret lair cards",
+   "magic the gathering secret lair drops",
+   "magic the gathering secret lair sonic"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_01951460",
+  "label": "mod skylin city",
+  "intent": "informational",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "sim_strategy"
+  ],
+  "confidence": "unreviewed",
+  "members": 34,
+  "signals": {
+   "members": 34,
+   "corroborated_2plus": 13,
+   "corroborated_3": 6,
+   "google_relevance_max": 1251,
+   "google_relevance_mean": 589.7,
+   "head_term": "cities skylines mods",
+   "trends_chain_value": 0.916,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 1.04,
+    "error_pct": 49.8
+   }
+  },
+  "sample": [
+   "cities skylines mods",
+   "cities skylines 1 mods",
+   "cities skylines 2 mods",
+   "cities skylines mod list",
+   "cities skylines top mods",
+   "best cities skylines mods",
+   "free cities skylines mods",
+   "mod error cities skylines"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ },
+ {
+  "cluster_id": "c_05964184",
+  "label": "epic fortnite gam stuck",
+  "intent": "fix",
+  "domain": "gaming_titles",
+  "subdomains": [
+   "shooters",
+   "console"
+  ],
+  "confidence": "unreviewed",
+  "members": 42,
+  "signals": {
+   "members": 42,
+   "corroborated_2plus": 1,
+   "corroborated_3": 0,
+   "google_relevance_max": 601,
+   "google_relevance_mean": 564.4,
+   "head_term": "epic games fortnite ps5",
+   "trends_chain_value": 0.872,
+   "trends_chain_meta": {
+    "anchor": "github actions",
+    "reads": 0.68,
+    "error_pct": 75.9
+   }
+  },
+  "sample": [
+   "epic games fortnite pc",
+   "epic games fortnite ps5",
+   "epic game fortnite error",
+   "epic games fortnite cost",
+   "epic games fortnite free",
+   "fortnite game epic games",
+   "epic game fortnite update",
+   "epic games fortnite error"
+  ],
+  "fragmentation": {},
+  "demand_basis": "relative: trends chain",
+  "volume": null
+ }
+]

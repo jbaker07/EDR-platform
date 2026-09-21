@@ -1,0 +1,332 @@
+[
+ {
+  "cluster_id": "c_32451259",
+  "head_term": "cpu cooler for 7800x3d",
+  "query": "best cpu cooler for ryzen 7 7800x3d",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_60022455",
+  "head_term": "unreal engine",
+  "query": "unreal engine 4 vs 5",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_12253393",
+  "head_term": "study flashcards",
+  "query": "how to study flashcards fast",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_54253453",
+  "head_term": "game maker",
+  "query": "game maker tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_08408999",
+  "head_term": "vue js for beginners",
+  "query": "vue js calculator",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_49060128",
+  "head_term": "train schedule change",
+  "query": "how to check train schedule",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_89542548",
+  "head_term": "find security processor",
+  "query": "processor support motherboard",
+  "intent": "compatibility"
+ },
+ {
+  "cluster_id": "c_62387175",
+  "head_term": "protein intake for muscle gain",
+  "query": "best protein intake for muscle gain",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_77124544",
+  "head_term": "database postgresql",
+  "query": "database postgresql tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_02655167",
+  "head_term": "after effects",
+  "query": "after effects update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_07650702",
+  "head_term": "warhammer 40k new edition",
+  "query": "warhammer 40k 11th edition changes",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_20091063",
+  "head_term": "pc gaming emulator for android",
+  "query": "fix pc gaming emulator on android",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_25279857",
+  "head_term": "graphic design fonts",
+  "query": "graphic design fonts generator",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_37752267",
+  "head_term": "amazon my kindle devices",
+  "query": "amazon kindle devices list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_56316349",
+  "head_term": "roof leaking",
+  "query": "roof leaking fix",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_74700978",
+  "head_term": "obd2 codes",
+  "query": "obd2 codes list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_95400142",
+  "head_term": "running plan",
+  "query": "running plan to get faster",
+  "intent": "optimize"
+ },
+ {
+  "cluster_id": "c_02894523",
+  "head_term": "study sat",
+  "query": "how to study for sat in one week",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_26962621",
+  "head_term": "daw ableton",
+  "query": "how much is ableton daw",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_33506357",
+  "head_term": "holiday christmas",
+  "query": "why is christmas best holiday",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_41592593",
+  "head_term": "meal prep",
+  "query": "21 day fix meal prep",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_51963424",
+  "head_term": "wood stain remover",
+  "query": "ways to remove oil stains best",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_81482209",
+  "head_term": "travel itinerary",
+  "query": "travel itinerary template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_90334794",
+  "head_term": "job resume",
+  "query": "job resume template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_05810365",
+  "head_term": "renovation cost per square foot",
+  "query": "renovation cost per square foot",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_07440867",
+  "head_term": "unity builds",
+  "query": "unity build error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_24831406",
+  "head_term": "card value",
+  "query": "best card value app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_30432229",
+  "head_term": "aws lambda",
+  "query": "aws lambda update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_33397016",
+  "head_term": "devops azure",
+  "query": "devops azure cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_39618953",
+  "head_term": "heartbeat at 8 weeks",
+  "query": "how to pregnant weeks",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_43241913",
+  "head_term": "train schedule",
+  "query": "train schedule update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_50680442",
+  "head_term": "bambu labs",
+  "query": "bambu lab cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_00649614",
+  "head_term": "random minecraft seed",
+  "query": "where to find minecraft seed",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_94231707",
+  "head_term": "cities skylines",
+  "query": "cities skylines 2 update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_23507876",
+  "head_term": "smart tv",
+  "query": "smart tv update software",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_57764859",
+  "head_term": "android studio",
+  "query": "android studio tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_80264676",
+  "head_term": "shipping suppliers",
+  "query": "best drop shipping suppliers",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_75293098",
+  "head_term": "car tune up checklist",
+  "query": "car tune up checklist",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_21076306",
+  "head_term": "tax return",
+  "query": "tax return calculator",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_29280507",
+  "head_term": "how to read knit patterns",
+  "query": "how to knit patterns for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_57487716",
+  "head_term": "health insurance",
+  "query": "health insurance alternatives",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_21751222",
+  "head_term": "genshin impact",
+  "query": "genshin impact update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_76914374",
+  "head_term": "electricity bill plans",
+  "query": "electricity bill list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_47679360",
+  "head_term": "cat litter",
+  "query": "cat litter alternatives cheap",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_78979717",
+  "head_term": "java won't install",
+  "query": "which java version should i use",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_55728630",
+  "head_term": "sewing machine stuck in reverse",
+  "query": "sewing machine stuck in reverse",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_82873068",
+  "head_term": "game ps5",
+  "query": "ps5 game problem",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_11067737",
+  "head_term": "modeling cycles",
+  "query": "3d modeling cycles vs ai",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_11062361",
+  "head_term": "credit score",
+  "query": "credit score calculator free",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_26324531",
+  "head_term": "convert linux to windows",
+  "query": "convert linux to windows",
+  "intent": "convert"
+ },
+ {
+  "cluster_id": "c_66977409",
+  "head_term": "logo apple stuck",
+  "query": "fix apple watch screen",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_67870265",
+  "head_term": "fix windows xp boot",
+  "query": "fix windows xp boot",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_79955957",
+  "head_term": "fix washing machine not draining",
+  "query": "fix washing machine not draining",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_06787437",
+  "head_term": "warhammer 40k total war",
+  "query": "warhammer 40k vs star wars",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_30077023",
+  "head_term": "interview questions",
+  "query": "interview questions list",
+  "intent": "find"
+ }
+]

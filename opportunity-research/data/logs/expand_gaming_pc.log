@@ -1,6 +1,12 @@
-{"seed": "fps drops", "new_queries": 860, "suggestions_seen": 1532}
-{"seed": "best settings", "new_queries": 1407, "suggestions_seen": 1869}
-{"seed": "pc gaming steam", "new_queries": 1058, "suggestions_seen": 1469}
-{"seed": "pc gaming mods", "new_queries": 706, "suggestions_seen": 1263}
-{"seed": "pc gaming emulator", "new_queries": 760, "suggestions_seen": 1395}
-{"seed": "controller not working", "new_queries": 1177, "suggestions_seen": 1992}
+{"seed": "fps drops", "skipped": "already expanded"}
+{"seed": "pc gaming stuttering", "new_queries": 366, "suggestions_seen": 1423}
+{"seed": "best settings", "skipped": "already expanded"}
+{"seed": "graphics settings", "new_queries": 1036, "suggestions_seen": 1701}
+{"seed": "pc gaming steam", "skipped": "already expanded"}
+{"seed": "epic games launcher", "new_queries": 1087, "suggestions_seen": 2035}
+{"seed": "pc gaming mods", "skipped": "already expanded"}
+{"seed": "mod manager", "new_queries": 1199, "suggestions_seen": 1900}
+{"seed": "pc gaming emulator", "skipped": "already expanded"}
+{"seed": "pc gaming retroarch", "new_queries": 439, "suggestions_seen": 1467}
+{"seed": "controller not working", "skipped": "already expanded"}
+{"seed": "gaming mouse", "new_queries": 1294, "suggestions_seen": 2013}

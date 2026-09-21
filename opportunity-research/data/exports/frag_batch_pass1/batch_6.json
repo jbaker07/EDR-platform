@@ -1,0 +1,326 @@
+[
+ {
+  "cluster_id": "c_40989600",
+  "head_term": "small business invoice",
+  "query": "best small business invoice software",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_73398641",
+  "head_term": "davinci resolve",
+  "query": "davinci resolve tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_27963426",
+  "head_term": "anime watch list",
+  "query": "best anime to watch reddit",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_63944196",
+  "head_term": "how to move abroad",
+  "query": "best jobs to move abroad",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_08500626",
+  "head_term": "inventory management",
+  "query": "inventory management software cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_53045367",
+  "head_term": "wedding planning",
+  "query": "wedding planning template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_05447803",
+  "head_term": "google sheets",
+  "query": "best google sheets templates",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_66955467",
+  "head_term": "workout plan for muscle gain",
+  "query": "best workout plan for skinny guys to gain muscle",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_99424356",
+  "head_term": "apple watch ultra",
+  "query": "apple watch ultra tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_03150629",
+  "head_term": "song identify google",
+  "query": "does song identify work with apple music",
+  "intent": "compatibility"
+ },
+ {
+  "cluster_id": "c_16184925",
+  "head_term": "photoshop lightroom",
+  "query": "photoshop lightroom tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_20464504",
+  "head_term": "workout plan",
+  "query": "workout plan template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_28348103",
+  "head_term": "blog post",
+  "query": "blog post alternatives",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_42981727",
+  "head_term": "song identifying game",
+  "query": "best song identifying app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_60961301",
+  "head_term": "llm chatgpt",
+  "query": "chatgpt llm cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_82537392",
+  "head_term": "css vs tailwind",
+  "query": "tailwind css tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_96742201",
+  "head_term": "houdini render setting",
+  "query": "import fbx into houdini",
+  "intent": "convert"
+ },
+ {
+  "cluster_id": "c_05115342",
+  "head_term": "energy bills",
+  "query": "energy bill calculator",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_28504254",
+  "head_term": "best settings for rivals",
+  "query": "how to good settings in rivals",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_34482867",
+  "head_term": "running workout 5k",
+  "query": "running plan to improve 5k time",
+  "intent": "optimize"
+ },
+ {
+  "cluster_id": "c_47957693",
+  "head_term": "garden pruning",
+  "query": "garden pruning schedule",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_73257790",
+  "head_term": "best settings for rocket league",
+  "query": "best settings for rocket league",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_88852667",
+  "head_term": "android gradle plugin version",
+  "query": "android gradle plugin version list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_99840647",
+  "head_term": "apple watch series 10",
+  "query": "apple watch tutorial series 10",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_06057594",
+  "head_term": "best pc for modding",
+  "query": "how to play modded games on pc",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_14498306",
+  "head_term": "dilution calculator mg/ml",
+  "query": "dilution calculator mg/ml",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_25613146",
+  "head_term": "cpu motherboard compatibility",
+  "query": "best cpu compatible with my motherboard",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_31255533",
+  "head_term": "guitar chords",
+  "query": "guitar chords list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_36147395",
+  "head_term": "board game rules",
+  "query": "make your own board game rules",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_40830266",
+  "head_term": "pet bird care",
+  "query": "how to pet bird",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_44424148",
+  "head_term": "docker compose",
+  "query": "docker compose up not working",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_62153479",
+  "head_term": "cleaning schedule daily weekly monthly",
+  "query": "house cleaning list daily weekly monthly",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_54603791",
+  "head_term": "monitor cheap hdmi",
+  "query": "laptop won't connect to monitor hdmi",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_20699520",
+  "head_term": "premiere pro",
+  "query": "premiere pro alternative free",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_29644582",
+  "head_term": "sewing machine",
+  "query": "how much sewing machine cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_84502367",
+  "head_term": "improve workout plans",
+  "query": "workout plan for beginners at home",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_82967678",
+  "head_term": "windows xp",
+  "query": "windows xp error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_33607288",
+  "head_term": "electric scooter",
+  "query": "electric scooter list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_26535906",
+  "head_term": "oil change",
+  "query": "oil change cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_59094584",
+  "head_term": "fitness planet plan",
+  "query": "workout plan planet fitness",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_65919237",
+  "head_term": "weather radar",
+  "query": "best weather radar app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_69843273",
+  "head_term": "obd2 code reader",
+  "query": "best obd2 code reader",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_95529958",
+  "head_term": "aged care changes",
+  "query": "aged care changes",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_56281638",
+  "head_term": "washing machine",
+  "query": "washing machine list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_98156622",
+  "head_term": "dropshipping suppliers",
+  "query": "best dropshipping suppliers",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_60617048",
+  "head_term": "magic the gathering",
+  "query": "magic the gathering update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_05274351",
+  "head_term": "photo camera settings",
+  "query": "camera exposure tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_66034783",
+  "head_term": "game fortnite lego",
+  "query": "fortnite game chat not working ps5",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_75879470",
+  "head_term": "weather forecast test",
+  "query": "weather forecast error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_36677277",
+  "head_term": "notion for office",
+  "query": "office software notion template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_93935810",
+  "head_term": "print photos",
+  "query": "print photos cheaper",
+  "intent": "optimize"
+ },
+ {
+  "cluster_id": "c_82834441",
+  "head_term": null,
+  "query": "how to negotiate salary after job offer",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_63612157",
+  "head_term": "pull ups",
+  "query": "how many pull ups is good",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_68699719",
+  "head_term": "windows 11 key",
+  "query": "fix laptop key",
+  "intent": "fix"
+ }
+]

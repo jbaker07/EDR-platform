@@ -1,0 +1,332 @@
+[
+ {
+  "cluster_id": "c_36948105",
+  "head_term": "pregnancy week calendar by lmp",
+  "query": "pregnancy week calculator by lmp",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_10039327",
+  "head_term": "does notion work with microsoft",
+  "query": "does notion work with microsoft",
+  "intent": "compatibility"
+ },
+ {
+  "cluster_id": "c_01761489",
+  "head_term": "apple watch",
+  "query": "best apple watch for beginners",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_28912995",
+  "head_term": "unreal engine blueprints",
+  "query": "unreal engine blueprint generator",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_02090275",
+  "head_term": "study flashcards ai",
+  "query": "study flashcards maker",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_30724946",
+  "head_term": "android app icon generator",
+  "query": "android app icon generator",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_76454541",
+  "head_term": "best job highest salary",
+  "query": "best job highest salary",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_43990487",
+  "head_term": "docker and kubernetes",
+  "query": "docker kubernetes tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_76123310",
+  "head_term": "lesson plans",
+  "query": "lesson plan template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_01459513",
+  "head_term": "zapier excel integration",
+  "query": "list of zapier integrations",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_04121850",
+  "head_term": "ev charging",
+  "query": "ev charging cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_17253937",
+  "head_term": "performance review comments",
+  "query": "performance review comments",
+  "intent": "optimize"
+ },
+ {
+  "cluster_id": "c_23844090",
+  "head_term": "small business seo",
+  "query": "is seo worth it for small business",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_33091379",
+  "head_term": "maker's mark distillery",
+  "query": "maker's mark distillery tour",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_43126978",
+  "head_term": "door won't close",
+  "query": "door won't close",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_60961301",
+  "head_term": "llm chatgpt",
+  "query": "chatgpt llm tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_86165214",
+  "head_term": "maker's mark",
+  "query": "maker's mark",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_98074397",
+  "head_term": "password manager",
+  "query": "best password manager app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_22924753",
+  "head_term": "github actions",
+  "query": "github actions tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_28647219",
+  "head_term": "photography cameras",
+  "query": "best photography cameras for beginners",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_38358966",
+  "head_term": "stl files for 3d printing",
+  "query": "best stl files for 3d printing",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_50800018",
+  "head_term": "export settings youtube",
+  "query": "export settings youtube",
+  "intent": "convert"
+ },
+ {
+  "cluster_id": "c_73257790",
+  "head_term": "best settings for rocket league",
+  "query": "controller not working on rocket league pc",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_88852667",
+  "head_term": "android gradle plugin version",
+  "query": "android gradle plugin latest version",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_99840647",
+  "head_term": "apple watch series 10",
+  "query": "how much apple watch series 10",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_06057594",
+  "head_term": "best pc for modding",
+  "query": "best gaming pc for modded minecraft",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_20262960",
+  "head_term": "index funds",
+  "query": "index fund calculator",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_28579989",
+  "head_term": "solar panels",
+  "query": "solar panels cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_33099565",
+  "head_term": "android app development",
+  "query": "android app development tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_36930901",
+  "head_term": "mattress product",
+  "query": "best product mattress",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_42479138",
+  "head_term": "stable diffusion",
+  "query": "stable diffusion free alternatives",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_49332453",
+  "head_term": "rest api vs api",
+  "query": "rest api vs api",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_63776455",
+  "head_term": "apple development xcode",
+  "query": "android studio vs xcode",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_35274214",
+  "head_term": "rv workout equipment",
+  "query": "workout plan for beginners female",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_30767561",
+  "head_term": "change database postgres",
+  "query": "change database postgres",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_29644582",
+  "head_term": "sewing machine",
+  "query": "best sewing machine for beginners",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_84502367",
+  "head_term": "improve workout plans",
+  "query": "workout plan template word",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_82967678",
+  "head_term": "windows xp",
+  "query": "windows xp tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_33607288",
+  "head_term": "electric scooter",
+  "query": "how much electric scooter cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_26535906",
+  "head_term": "oil change",
+  "query": "oil change tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_59094584",
+  "head_term": "fitness planet plan",
+  "query": "how to workout at planet fitness",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_65919237",
+  "head_term": "weather radar",
+  "query": "weather radar update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_69843273",
+  "head_term": "obd2 code reader",
+  "query": "obd2 scanner code list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_95529958",
+  "head_term": "aged care changes",
+  "query": "aged care plan template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_56281638",
+  "head_term": "washing machine",
+  "query": "fix washing machine",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_98156622",
+  "head_term": "dropshipping suppliers",
+  "query": "how to find direct shipping costs",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_60617048",
+  "head_term": "magic the gathering",
+  "query": "is magic the gathering worth it",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_05274351",
+  "head_term": "photo camera settings",
+  "query": "best camera exposure settings",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_66034783",
+  "head_term": "game fortnite lego",
+  "query": "how to use game chat ps5",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_75879470",
+  "head_term": "weather forecast test",
+  "query": "how to weather forecast",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_36677277",
+  "head_term": "notion for office",
+  "query": "fix office software notions",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_93935810",
+  "head_term": "print photos",
+  "query": "photo print problem",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_82834441",
+  "head_term": null,
+  "query": "how much to negotiate salary job offer",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_63612157",
+  "head_term": "pull ups",
+  "query": "pull ups alternative",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_68699719",
+  "head_term": "windows 11 key",
+  "query": "where to find windows 11 key",
+  "intent": "find"
+ }
+]

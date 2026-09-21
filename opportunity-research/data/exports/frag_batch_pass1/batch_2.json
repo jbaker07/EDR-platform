@@ -1,0 +1,332 @@
+[
+ {
+  "cluster_id": "c_17786114",
+  "head_term": "cleaning schedule",
+  "query": "cleaning schedule",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_10039327",
+  "head_term": "does notion work with microsoft",
+  "query": "microsoft app similar to notion",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_01761489",
+  "head_term": "apple watch",
+  "query": "apple watch tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_28912995",
+  "head_term": "unreal engine blueprints",
+  "query": "unreal engine blueprint list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_02090275",
+  "head_term": "study flashcards ai",
+  "query": "create flashcards to study",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_30724946",
+  "head_term": "android app icon generator",
+  "query": "android app icon size",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_76454541",
+  "head_term": "best job highest salary",
+  "query": "job with highest salary in india per month",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_43990487",
+  "head_term": "docker and kubernetes",
+  "query": "docker vs kubernetes difference",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_76123310",
+  "head_term": "lesson plans",
+  "query": "lesson plan example",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_01459513",
+  "head_term": "zapier excel integration",
+  "query": "zapier api integration tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_04121850",
+  "head_term": "ev charging",
+  "query": "best ev charging app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_17253937",
+  "head_term": "performance review comments",
+  "query": "performance review problem solving comments",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_23844090",
+  "head_term": "small business seo",
+  "query": "how much does seo cost for a small business",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_33091379",
+  "head_term": "maker's mark distillery",
+  "query": "best maker's mark distillery tour",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_43126978",
+  "head_term": "door won't close",
+  "query": "should i close all doors",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_63216123",
+  "head_term": "game maker studio",
+  "query": "game maker studio",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_86165214",
+  "head_term": "maker's mark",
+  "query": "how much does maker's mark cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_98074397",
+  "head_term": "password manager",
+  "query": "password manager problem",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_22924753",
+  "head_term": "github actions",
+  "query": "github actions cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_28647219",
+  "head_term": "photography cameras",
+  "query": "how much does a good photography camera cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_38358966",
+  "head_term": "stl files for 3d printing",
+  "query": "how to design stl files for 3d printing",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_50800018",
+  "head_term": "export settings youtube",
+  "query": "best export settings youtube",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_75513861",
+  "head_term": "excel formulas",
+  "query": "excel formula list with examples pdf",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_89685491",
+  "head_term": "printer offline error",
+  "query": "printer offline error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_05174339",
+  "head_term": "kdp self publishing",
+  "query": "how to format for kdp publishing",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_06637354",
+  "head_term": "pc gaming emulator",
+  "query": "best pc gaming emulator",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_20262960",
+  "head_term": "index funds",
+  "query": "best index funds for beginners",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_28579989",
+  "head_term": "solar panels",
+  "query": "best solar panels",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_33099565",
+  "head_term": "android app development",
+  "query": "android app development cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_36930901",
+  "head_term": "mattress product",
+  "query": "what type of product is a mattress",
+  "intent": "identify"
+ },
+ {
+  "cluster_id": "c_42479138",
+  "head_term": "stable diffusion",
+  "query": "stable diffusion tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_49332453",
+  "head_term": "rest api vs api",
+  "query": "rest api tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_63776455",
+  "head_term": "apple development xcode",
+  "query": "xcode app development tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_35274214",
+  "head_term": "rv workout equipment",
+  "query": "best gym workout plan",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_30767561",
+  "head_term": "change database postgres",
+  "query": "check size database postgres",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_09425283",
+  "head_term": "regex programming",
+  "query": "programming regex or c#",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_47208708",
+  "head_term": "cibil score plan",
+  "query": "credit score vs cibil score",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_91441868",
+  "head_term": "substitute teacher checklist",
+  "query": "lesson plan guide for teachers",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_06715988",
+  "head_term": "best premiere pro export settings",
+  "query": "best premiere pro export settings",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_78251146",
+  "head_term": "house cleaning",
+  "query": "house cleaning list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_04258840",
+  "head_term": "smart tv kaise on kare",
+  "query": "smart tv update kaise kare",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_77496565",
+  "head_term": "air fryer",
+  "query": "how much air fryer",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_73534285",
+  "head_term": "graphic design plan",
+  "query": "graphic design template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_97018946",
+  "head_term": "linux distros",
+  "query": "best linux distro for gaming",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_78526289",
+  "head_term": "game maker rpg",
+  "query": "game maker studio rpg tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_37932240",
+  "head_term": "java vs kotlin",
+  "query": "java vs kotlin",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_67280724",
+  "head_term": "blender improve render",
+  "query": "blender won't render animation",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_02911633",
+  "head_term": "circuit breaker",
+  "query": "circuit breaker list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_73847079",
+  "head_term": "language learning translator",
+  "query": "how to create a language translator app",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_89041460",
+  "head_term": "unity build support",
+  "query": "how to build unity game for web",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_45694560",
+  "head_term": "where to watch love island",
+  "query": "where to watch love island",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_41059632",
+  "head_term": "capcut video editor review",
+  "query": "best video editor capcut",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_61856363",
+  "head_term": "guitar pedals",
+  "query": "best guitar pedals for beginners",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_92785728",
+  "head_term": "cpu cooler",
+  "query": "how many cpu coolers do i need",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_86660584",
+  "head_term": "green card",
+  "query": "best green cards",
+  "intent": "decide"
+ }
+]

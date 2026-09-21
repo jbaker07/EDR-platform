@@ -1,10 +1,20 @@
 {"seed": "javascript react", "skipped": "already expanded"}
-{"seed": "python", "new_queries": 2015, "suggestions_seen": 2660}
-{"seed": "java", "new_queries": 1949, "suggestions_seen": 2531}
-{"seed": "c#", "new_queries": 1676, "suggestions_seen": 2118}
-{"seed": "programming golang", "new_queries": 596, "suggestions_seen": 1108}
-{"seed": "php", "new_queries": 1774, "suggestions_seen": 2262}
-{"seed": "database postgresql", "new_queries": 938, "suggestions_seen": 1326}
-{"seed": "rest api", "new_queries": 1402, "suggestions_seen": 1931}
-{"seed": "css", "new_queries": 1765, "suggestions_seen": 2216}
-{"seed": "programming regex", "new_queries": 551, "suggestions_seen": 908}
+{"seed": "javascript next.js", "skipped": "already expanded"}
+{"seed": "python", "skipped": "already expanded"}
+{"seed": "python django", "new_queries": 826, "suggestions_seen": 1451}
+{"seed": "java", "skipped": "already expanded"}
+{"seed": "spring boot", "new_queries": 1602, "suggestions_seen": 2178}
+{"seed": "c#", "skipped": "already expanded"}
+{"seed": "c# .net", "new_queries": 867, "suggestions_seen": 1181}
+{"seed": "programming golang", "skipped": "already expanded"}
+{"seed": "programming rust", "new_queries": 608, "suggestions_seen": 1243}
+{"seed": "php", "skipped": "already expanded"}
+{"seed": "php laravel", "new_queries": 697, "suggestions_seen": 1548}
+{"seed": "database postgresql", "skipped": "already expanded"}
+{"seed": "database mysql", "new_queries": 1128, "suggestions_seen": 1591}
+{"seed": "rest api", "skipped": "already expanded"}
+{"seed": "programming graphql", "new_queries": 513, "suggestions_seen": 904}
+{"seed": "css", "skipped": "already expanded"}
+{"seed": "css tailwind", "new_queries": 977, "suggestions_seen": 1745}
+{"seed": "programming regex", "skipped": "already expanded"}
+{"seed": "programming json", "new_queries": 621, "suggestions_seen": 979}

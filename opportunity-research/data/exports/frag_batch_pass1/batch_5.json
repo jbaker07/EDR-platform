@@ -1,0 +1,332 @@
+[
+ {
+  "cluster_id": "c_40989600",
+  "head_term": "small business invoice",
+  "query": "small business invoice template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_73398641",
+  "head_term": "davinci resolve",
+  "query": "davinci resolve update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_27963426",
+  "head_term": "anime watch list",
+  "query": "where to watch anime",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_63944196",
+  "head_term": "how to move abroad",
+  "query": "how to move abroad",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_08500626",
+  "head_term": "inventory management",
+  "query": "best inventory management software free",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_53045367",
+  "head_term": "wedding planning",
+  "query": "wedding planning list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_05447803",
+  "head_term": "google sheets",
+  "query": "google sheets tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_66955467",
+  "head_term": "workout plan for muscle gain",
+  "query": "workout plan for muscle gain",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_99424356",
+  "head_term": "apple watch ultra",
+  "query": "apple watch 11 vs ultra 3",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_03150629",
+  "head_term": "song identify google",
+  "query": "song identify google",
+  "intent": "identify"
+ },
+ {
+  "cluster_id": "c_16184925",
+  "head_term": "photoshop lightroom",
+  "query": "how much is photoshop and lightroom per month",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_20464504",
+  "head_term": "workout plan",
+  "query": "workout plan for beginners",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_28348103",
+  "head_term": "blog post",
+  "query": "blog post template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_42981727",
+  "head_term": "song identifying game",
+  "query": "android app to identify songs",
+  "intent": "identify"
+ },
+ {
+  "cluster_id": "c_58438425",
+  "head_term": "how to transfer youtube downloads",
+  "query": "how to transfer music from youtube",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_82537392",
+  "head_term": "css vs tailwind",
+  "query": "convert css to tailwind",
+  "intent": "convert"
+ },
+ {
+  "cluster_id": "c_96742201",
+  "head_term": "houdini render setting",
+  "query": "how to render in houdini",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_05115342",
+  "head_term": "energy bills",
+  "query": "energy bill template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_28504254",
+  "head_term": "best settings for rivals",
+  "query": "what's the best settings in rivals",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_34482867",
+  "head_term": "running workout 5k",
+  "query": "running plan for 5k",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_47957693",
+  "head_term": "garden pruning",
+  "query": "best garden pruning tools",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_56761706",
+  "head_term": "the best synth vst",
+  "query": "the best synth vst",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_81482209",
+  "head_term": "travel itinerary",
+  "query": "best travel itinerary app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_90334794",
+  "head_term": "job resume",
+  "query": "best job resume",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_05810365",
+  "head_term": "renovation cost per square foot",
+  "query": "best renovation cost per square foot",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_07440867",
+  "head_term": "unity builds",
+  "query": "unity building tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_25613146",
+  "head_term": "cpu motherboard compatibility",
+  "query": "cpu motherboard compatibility list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_31255533",
+  "head_term": "guitar chords",
+  "query": "guitar chords tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_36147395",
+  "head_term": "board game rules",
+  "query": "board game rules template",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_40830266",
+  "head_term": "pet bird care",
+  "query": "best pet birds for beginners",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_44424148",
+  "head_term": "docker compose",
+  "query": "docker compose tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_62153479",
+  "head_term": "cleaning schedule daily weekly monthly",
+  "query": "house cleaning schedule daily weekly monthly",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_54603791",
+  "head_term": "monitor cheap hdmi",
+  "query": "how to use laptop as monitor",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_20699520",
+  "head_term": "premiere pro",
+  "query": "how much premiere pro cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_23507876",
+  "head_term": "smart tv",
+  "query": "best smart tv",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_57764859",
+  "head_term": "android studio",
+  "query": "android studio error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_80264676",
+  "head_term": "shipping suppliers",
+  "query": "fix shipping suppliers",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_75293098",
+  "head_term": "car tune up checklist",
+  "query": "how to use auto tune pro",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_21076306",
+  "head_term": "tax return",
+  "query": "tax return update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_29280507",
+  "head_term": "how to read knit patterns",
+  "query": "alternative crochet patterns free",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_57487716",
+  "head_term": "health insurance",
+  "query": "health insurance list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_21751222",
+  "head_term": "genshin impact",
+  "query": "genshin impact list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_76914374",
+  "head_term": "electricity bill plans",
+  "query": "electricity bill error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_47679360",
+  "head_term": "cat litter",
+  "query": "cat litters per year",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_78979717",
+  "head_term": "java won't install",
+  "query": "java won't install",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_55728630",
+  "head_term": "sewing machine stuck in reverse",
+  "query": "how to sewing machine singer",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_82873068",
+  "head_term": "game ps5",
+  "query": "ps5 game tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_11067737",
+  "head_term": "modeling cycles",
+  "query": "3d modeling cycles won't open",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_11062361",
+  "head_term": "credit score",
+  "query": "best credit score app",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_26324531",
+  "head_term": "convert linux to windows",
+  "query": "old pc won't turn on",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_66977409",
+  "head_term": "logo apple stuck",
+  "query": "how many apple watches can be paired to an iphone",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_67870265",
+  "head_term": "fix windows xp boot",
+  "query": "how to macos bootable usb",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_79955957",
+  "head_term": "fix washing machine not draining",
+  "query": "washing machine drain alternatives",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_06787437",
+  "head_term": "warhammer 40k total war",
+  "query": "does warhammer 40k work with space marines",
+  "intent": "compatibility"
+ },
+ {
+  "cluster_id": "c_30077023",
+  "head_term": "interview questions",
+  "query": "fix interview questions",
+  "intent": "fix"
+ }
+]

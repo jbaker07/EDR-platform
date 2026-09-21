@@ -1,5 +1,3 @@
-{"seed": "password manager", "new_queries": 1391, "suggestions_seen": 1945}
-{"seed": "security nmap", "new_queries": 525, "suggestions_seen": 819}
-{"seed": "security owasp", "new_queries": 632, "suggestions_seen": 1297}
-{"seed": "security gdpr", "new_queries": 618, "suggestions_seen": 883}
-{"seed": "firewall rules", "new_queries": 764, "suggestions_seen": 1350}
+{"seed": "password manager", "skipped": "already expanded"}
+{"seed": "security 2fa", "new_queries": 641, "suggestions_seen": 1093}
+{"seed": "security nmap", "skipped": "already expanded"}

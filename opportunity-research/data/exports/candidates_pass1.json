@@ -1,0 +1,7533 @@
+[
+ {
+  "cluster_id": "c_36948105",
+  "label": "lmp pregnancy nadu tamil",
+  "domain": "parenting_family",
+  "confidence": "unreviewed",
+  "members": 20,
+  "problem_members": 15,
+  "organic_problem_members": 13,
+  "corroborated_2plus": 2,
+  "intents": {
+   "calculate": 15,
+   "informational": 3,
+   "commercial_nav": 2
+  },
+  "subdomains": [
+   "pregnancy"
+  ],
+  "problem_examples": [
+   [
+    "pregnancy week calculator by lmp",
+    "calculate"
+   ],
+   [
+    "pregnancy week calculator by lmp tamil",
+    "calculate"
+   ],
+   [
+    "pregnancy week calculator by lmp telugu",
+    "calculate"
+   ],
+   [
+    "pregnancy week calculator in tamil nadu",
+    "calculate"
+   ],
+   [
+    "pregnancy week calculator by lmp formula",
+    "calculate"
+   ],
+   [
+    "pregnancy week calculator by lmp in urdu",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.75,
+  "head_term": "pregnancy week calendar by lmp",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_17786114",
+  "label": "clean schedule",
+  "domain": "parenting_family",
+  "confidence": "unreviewed",
+  "members": 51,
+  "problem_members": 49,
+  "organic_problem_members": 12,
+  "corroborated_2plus": 14,
+  "intents": {
+   "plan": 26,
+   "generate": 8,
+   "decide": 6,
+   "calculate": 4
+  },
+  "subdomains": [
+   "household"
+  ],
+  "problem_examples": [
+   [
+    "cleaning schedule",
+    "plan"
+   ],
+   [
+    "cleaning schedule templates free",
+    "plan"
+   ],
+   [
+    "cleaning schedule app",
+    "plan"
+   ],
+   [
+    "cleaning schedule pdf",
+    "plan"
+   ],
+   [
+    "cleaning schedule examples",
+    "plan"
+   ],
+   [
+    "cleaning schedule for work",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.96,
+  "head_term": "cleaning schedule",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_40989600",
+  "label": "invoice business small",
+  "domain": "small_business",
+  "confidence": "unreviewed",
+  "members": 62,
+  "problem_members": 32,
+  "organic_problem_members": 11,
+  "corroborated_2plus": 18,
+  "intents": {
+   "informational": 26,
+   "decide": 11,
+   "generate": 11,
+   "commercial_nav": 4
+  },
+  "subdomains": [
+   "accounting"
+  ],
+  "problem_examples": [
+   [
+    "small business invoice template",
+    "generate"
+   ],
+   [
+    "best small business invoice software",
+    "decide"
+   ],
+   [
+    "best invoice software for small business free",
+    "decide"
+   ],
+   [
+    "best small business invoice example",
+    "decide"
+   ],
+   [
+    "best small business invoice examples",
+    "decide"
+   ],
+   [
+    "best small business invoice template",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.52,
+  "head_term": "small business invoice",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_32451259",
+  "label": "7800x3d ryzen cooler cpu",
+  "domain": "pc_building",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 12,
+  "organic_problem_members": 11,
+  "corroborated_2plus": 5,
+  "intents": {
+   "decide": 12,
+   "informational": 10
+  },
+  "subdomains": [
+   "cooling_noise"
+  ],
+  "problem_examples": [
+   [
+    "best cpu cooler for ryzen 7 7800x3d",
+    "decide"
+   ],
+   [
+    "best cpu cooler for ryzen 7800x3d",
+    "decide"
+   ],
+   [
+    "best air cooler for ryzen 7 7800x3d",
+    "decide"
+   ],
+   [
+    "best cpu cooler for ryzen 9 7800x3d",
+    "decide"
+   ],
+   [
+    "best cpu cooler for amd ryzen 7800x3d",
+    "decide"
+   ],
+   [
+    "best cpu air cooler for ryzen 7 7800x3d",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "cpu cooler for 7800x3d",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_73398641",
+  "label": "davinci resolve",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 150,
+  "problem_members": 69,
+  "organic_problem_members": 10,
+  "corroborated_2plus": 49,
+  "intents": {
+   "informational": 59,
+   "how_to": 23,
+   "commercial_nav": 22,
+   "calculate": 10
+  },
+  "subdomains": [
+   "davinci"
+  ],
+  "problem_examples": [
+   [
+    "davinci resolve update",
+    "track"
+   ],
+   [
+    "davinci resolve tutorial",
+    "how_to"
+   ],
+   [
+    "davinci resolve 20 tutorial",
+    "how_to"
+   ],
+   [
+    "davinci resolve 21 tutorial",
+    "how_to"
+   ],
+   [
+    "davinci resolve tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "davinci resolve cost",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.46,
+  "head_term": "davinci resolve",
+  "trends_chain_value": 65.931,
+  "trends_error_pct": 16.3,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_60022455",
+  "label": "unreal engine",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 131,
+  "problem_members": 72,
+  "organic_problem_members": 10,
+  "corroborated_2plus": 38,
+  "intents": {
+   "informational": 42,
+   "how_to": 23,
+   "calculate": 18,
+   "commercial_nav": 17
+  },
+  "subdomains": [
+   "unreal"
+  ],
+  "problem_examples": [
+   [
+    "unreal engine 5 tutorial",
+    "how_to"
+   ],
+   [
+    "unreal engine tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "unreal engine 4 vs 5",
+    "compare"
+   ],
+   [
+    "unreal engine 6 vs 5",
+    "compare"
+   ],
+   [
+    "unreal engine tutorial",
+    "how_to"
+   ],
+   [
+    "unreal engine 5 cost",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "unreal engine",
+  "trends_chain_value": 39.762,
+  "trends_error_pct": 2.5,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_10039327",
+  "label": "notion microsoft similar loop",
+  "domain": "productivity_office",
+  "confidence": "unreviewed",
+  "members": 31,
+  "problem_members": 19,
+  "organic_problem_members": 10,
+  "corroborated_2plus": 3,
+  "intents": {
+   "alternative": 15,
+   "informational": 12,
+   "compatibility": 2,
+   "how_to": 1
+  },
+  "subdomains": [
+   "notes_pkm"
+  ],
+  "problem_examples": [
+   [
+    "does notion work with microsoft",
+    "compatibility"
+   ],
+   [
+    "microsoft app similar to notion",
+    "alternative"
+   ],
+   [
+    "software similar to notion",
+    "alternative"
+   ],
+   [
+    "microsoft alternative to notion",
+    "alternative"
+   ],
+   [
+    "what is microsoft loop vs notion",
+    "compare"
+   ],
+   [
+    "what microsoft app is like notion",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.61,
+  "head_term": "does notion work with microsoft",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_01761489",
+  "label": "apple watch",
+  "domain": "consumer_tech",
+  "confidence": "unreviewed",
+  "members": 114,
+  "problem_members": 72,
+  "organic_problem_members": 8,
+  "corroborated_2plus": 33,
+  "intents": {
+   "informational": 33,
+   "how_to": 15,
+   "calculate": 15,
+   "fix": 12
+  },
+  "subdomains": [
+   "wearables"
+  ],
+  "problem_examples": [
+   [
+    "best apple watch for beginners",
+    "decide"
+   ],
+   [
+    "apple watch tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "apple watch 11 tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "apple watch 11 vs 10",
+    "compare"
+   ],
+   [
+    "apple watch 11 vs 12",
+    "compare"
+   ],
+   [
+    "apple watch 10 tutorial for beginners",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.63,
+  "head_term": "apple watch",
+  "trends_chain_value": 962.25,
+  "trends_error_pct": 100.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_54253453",
+  "label": "maker game",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 92,
+  "problem_members": 76,
+  "organic_problem_members": 8,
+  "corroborated_2plus": 26,
+  "intents": {
+   "generate": 41,
+   "commercial_nav": 14,
+   "how_to": 13,
+   "decide": 9
+  },
+  "subdomains": [
+   "other_engines"
+  ],
+  "problem_examples": [
+   [
+    "game maker free",
+    "generate"
+   ],
+   [
+    "game maker",
+    "generate"
+   ],
+   [
+    "game maker 2",
+    "generate"
+   ],
+   [
+    "game maker online",
+    "generate"
+   ],
+   [
+    "game maker tutorial",
+    "how_to"
+   ],
+   [
+    "game maker tutorial for beginners",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.83,
+  "head_term": "game maker",
+  "trends_chain_value": 22.398,
+  "trends_error_pct": 3.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_28912995",
+  "label": "blueprint unreal engine",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 69,
+  "problem_members": 37,
+  "organic_problem_members": 8,
+  "corroborated_2plus": 14,
+  "intents": {
+   "informational": 29,
+   "how_to": 17,
+   "fix": 4,
+   "generate": 4
+  },
+  "subdomains": [
+   "unreal"
+  ],
+  "problem_examples": [
+   [
+    "unreal engine blueprint generator",
+    "generate"
+   ],
+   [
+    "unreal engine blueprint list",
+    "find"
+   ],
+   [
+    "unreal engine 5 blueprint tutorial",
+    "how_to"
+   ],
+   [
+    "unreal engine 4 blueprints tutorial",
+    "how_to"
+   ],
+   [
+    "unreal engine 5 blueprint tutorial pdf",
+    "how_to"
+   ],
+   [
+    "unreal engine 5 blueprint list",
+    "find"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "unreal engine blueprints",
+  "trends_chain_value": 0.375,
+  "trends_error_pct": 9.5,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_12253393",
+  "label": "flashcard study test schedule",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 66,
+  "problem_members": 32,
+  "organic_problem_members": 8,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 34,
+   "decide": 11,
+   "how_to": 6,
+   "generate": 4
+  },
+  "subdomains": [
+   "study_tools"
+  ],
+  "problem_examples": [
+   [
+    "best way to study flashcards",
+    "decide"
+   ],
+   [
+    "how to study flashcards fast",
+    "how_to"
+   ],
+   [
+    "best study flashcards app",
+    "decide"
+   ],
+   [
+    "study flashcards template",
+    "generate"
+   ],
+   [
+    "study flashcards generator",
+    "generate"
+   ],
+   [
+    "best study flashcards online",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "study flashcards",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_63944196",
+  "label": "move abroad american uk",
+  "domain": "travel",
+  "confidence": "unreviewed",
+  "members": 56,
+  "problem_members": 39,
+  "organic_problem_members": 8,
+  "corroborated_2plus": 5,
+  "intents": {
+   "how_to": 20,
+   "informational": 17,
+   "calculate": 10,
+   "decide": 7
+  },
+  "subdomains": [
+   "expat_moving"
+  ],
+  "problem_examples": [
+   [
+    "how to move abroad",
+    "how_to"
+   ],
+   [
+    "how to move abroad from uk",
+    "how_to"
+   ],
+   [
+    "how to move abroad with no money",
+    "how_to"
+   ],
+   [
+    "how to move abroad as an american",
+    "how_to"
+   ],
+   [
+    "best jobs to move abroad",
+    "decide"
+   ],
+   [
+    "how to move abroad from usa",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.7,
+  "head_term": "how to move abroad",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_27963426",
+  "label": "anime watch android",
+  "domain": "reading_media",
+  "confidence": "unreviewed",
+  "members": 50,
+  "problem_members": 29,
+  "organic_problem_members": 8,
+  "corroborated_2plus": 0,
+  "intents": {
+   "informational": 19,
+   "find": 15,
+   "decide": 10,
+   "track": 2
+  },
+  "subdomains": [
+   "android_dev",
+   "anime_comics",
+   "film_tv"
+  ],
+  "problem_examples": [
+   [
+    "where to watch anime",
+    "find"
+   ],
+   [
+    "free anime watch list",
+    "find"
+   ],
+   [
+    "reddit where watch anime",
+    "find"
+   ],
+   [
+    "best anime to watch reddit",
+    "decide"
+   ],
+   [
+    "where to watch 86 the anime",
+    "find"
+   ],
+   [
+    "where to watch anime for free",
+    "find"
+   ]
+  ],
+  "problem_share": 0.58,
+  "head_term": "anime watch list",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_53045367",
+  "label": "wedd plann",
+  "domain": "relationships_social",
+  "confidence": "unreviewed",
+  "members": 87,
+  "problem_members": 40,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 22,
+  "intents": {
+   "informational": 42,
+   "decide": 12,
+   "calculate": 7,
+   "find": 6
+  },
+  "subdomains": [
+   "weddings_events"
+  ],
+  "problem_examples": [
+   [
+    "wedding planning list",
+    "find"
+   ],
+   [
+    "wedding planning list free",
+    "find"
+   ],
+   [
+    "wedding planning template",
+    "generate"
+   ],
+   [
+    "best wedding planning guides",
+    "decide"
+   ],
+   [
+    "best wedding planning for free",
+    "decide"
+   ],
+   [
+    "wedding planning guide template",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.46,
+  "head_term": "wedding planning",
+  "trends_chain_value": 12.68,
+  "trends_error_pct": 5.2,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_08500626",
+  "label": "inventory management",
+  "domain": "logistics_operations",
+  "confidence": "unreviewed",
+  "members": 83,
+  "problem_members": 39,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 22,
+  "intents": {
+   "informational": 41,
+   "calculate": 12,
+   "decide": 8,
+   "how_to": 8
+  },
+  "subdomains": [
+   "inventory_warehouse"
+  ],
+  "problem_examples": [
+   [
+    "best inventory management software free",
+    "decide"
+   ],
+   [
+    "inventory management software cost",
+    "calculate"
+   ],
+   [
+    "inventory management software list",
+    "find"
+   ],
+   [
+    "top 5 inventory management tips",
+    "decide"
+   ],
+   [
+    "inventory management app template",
+    "generate"
+   ],
+   [
+    "inventory management app tutorial",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.47,
+  "head_term": "inventory management",
+  "trends_chain_value": 35.545,
+  "trends_error_pct": 12.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_08408999",
+  "label": "vue js",
+  "domain": "software_dev_web",
+  "confidence": "unreviewed",
+  "members": 43,
+  "problem_members": 27,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 9,
+  "intents": {
+   "how_to": 15,
+   "informational": 14,
+   "generate": 3,
+   "alternative": 2
+  },
+  "subdomains": [
+   "javascript_frameworks"
+  ],
+  "problem_examples": [
+   [
+    "vue js tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "vue js 3 tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "how to use vue js",
+    "how_to"
+   ],
+   [
+    "best vue js tutorial",
+    "how_to"
+   ],
+   [
+    "vue js tutorial youtube",
+    "how_to"
+   ],
+   [
+    "vue js 3 tutorial",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.63,
+  "head_term": "vue js for beginners",
+  "trends_chain_value": 0.005,
+  "trends_error_pct": 100.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_02090275",
+  "label": "flashcard study ai maker",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 24,
+  "problem_members": 19,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 6,
+  "intents": {
+   "generate": 9,
+   "how_to": 6,
+   "informational": 5,
+   "decide": 3
+  },
+  "subdomains": [
+   "study_tools"
+  ],
+  "problem_examples": [
+   [
+    "study flashcards maker",
+    "generate"
+   ],
+   [
+    "create flashcards to study",
+    "how_to"
+   ],
+   [
+    "study guide flashcard maker",
+    "generate"
+   ],
+   [
+    "online study flashcard maker",
+    "generate"
+   ],
+   [
+    "study flashcards maker free",
+    "generate"
+   ],
+   [
+    "create flashcards from study guide",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.79,
+  "head_term": "study flashcards ai",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_49060128",
+  "label": "train schedule time create",
+  "domain": "transport_commuting",
+  "confidence": "unreviewed",
+  "members": 68,
+  "problem_members": 67,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 4,
+  "intents": {
+   "plan": 28,
+   "how_to": 20,
+   "find": 6,
+   "decide": 3
+  },
+  "subdomains": [
+   "minecraft",
+   "transit"
+  ],
+  "problem_examples": [
+   [
+    "train schedule create",
+    "plan"
+   ],
+   [
+    "train schedule time",
+    "plan"
+   ],
+   [
+    "train schedule board",
+    "plan"
+   ],
+   [
+    "train schedule india",
+    "plan"
+   ],
+   [
+    "train schedule create mod",
+    "plan"
+   ],
+   [
+    "train schedule time table pdf",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.99,
+  "head_term": "train schedule change",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_30724946",
+  "label": "icon android change studio",
+  "domain": "software_dev_mobile",
+  "confidence": "unreviewed",
+  "members": 37,
+  "problem_members": 21,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 4,
+  "intents": {
+   "informational": 16,
+   "generate": 10,
+   "calculate": 5,
+   "how_to": 4
+  },
+  "subdomains": [
+   "android_dev",
+   "smartphones"
+  ],
+  "problem_examples": [
+   [
+    "android app icon generator",
+    "generate"
+   ],
+   [
+    "android app icon size",
+    "calculate"
+   ],
+   [
+    "android change app icon size",
+    "calculate"
+   ],
+   [
+    "how to change android app icon image",
+    "how_to"
+   ],
+   [
+    "how to change icons on android phone",
+    "how_to"
+   ],
+   [
+    "how to change android app icon design",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "android app icon generator",
+  "trends_chain_value": 0.0,
+  "trends_error_pct": 100.0,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_89542548",
+  "label": "processor motherboard amd support",
+  "domain": "pc_building",
+  "confidence": "unreviewed",
+  "members": 26,
+  "problem_members": 16,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 3,
+  "intents": {
+   "informational": 10,
+   "find": 8,
+   "how_to": 4,
+   "compare": 2
+  },
+  "subdomains": [
+   "compatibility",
+   "compliance"
+  ],
+  "problem_examples": [
+   [
+    "motherboard and processor compatibility list",
+    "find"
+   ],
+   [
+    "processor support motherboard",
+    "compatibility"
+   ],
+   [
+    "how to check processor compatibility",
+    "how_to"
+   ],
+   [
+    "find compatible processor for motherboard",
+    "find"
+   ],
+   [
+    "amd motherboard and processor compatibility list",
+    "find"
+   ],
+   [
+    "motherboard and processor compatibility list pdf",
+    "find"
+   ]
+  ],
+  "problem_share": 0.62,
+  "head_term": "find security processor",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_76454541",
+  "label": "highest salary job has",
+  "domain": "careers_jobs",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 11,
+  "organic_problem_members": 7,
+  "corroborated_2plus": 0,
+  "intents": {
+   "informational": 11,
+   "decide": 10,
+   "calculate": 1
+  },
+  "subdomains": [
+   "salary_negotiation"
+  ],
+  "problem_examples": [
+   [
+    "best job highest salary",
+    "decide"
+   ],
+   [
+    "which job pays highest salary",
+    "decide"
+   ],
+   [
+    "which jobs have highest salary",
+    "decide"
+   ],
+   [
+    "which job highest salary in dubai",
+    "decide"
+   ],
+   [
+    "which job has highest salary in world",
+    "decide"
+   ],
+   [
+    "which job gives highest salary in india",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "best job highest salary",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_05447803",
+  "label": "sheet google",
+  "domain": "productivity_office",
+  "confidence": "unreviewed",
+  "members": 108,
+  "problem_members": 62,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 30,
+  "intents": {
+   "informational": 34,
+   "how_to": 16,
+   "commercial_nav": 12,
+   "calculate": 12
+  },
+  "subdomains": [
+   "google_workspace"
+  ],
+  "problem_examples": [
+   [
+    "google sheets tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "best google sheets templates",
+    "decide"
+   ],
+   [
+    "google sheets tutorial",
+    "how_to"
+   ],
+   [
+    "google sheets app tutorial",
+    "how_to"
+   ],
+   [
+    "google sheets online update",
+    "track"
+   ],
+   [
+    "google sheets template tutorial",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "google sheets",
+  "trends_chain_value": 256.528,
+  "trends_error_pct": 71.4,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_99424356",
+  "label": "ultra apple watch",
+  "domain": "consumer_tech",
+  "confidence": "unreviewed",
+  "members": 37,
+  "problem_members": 20,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 17,
+  "intents": {
+   "informational": 15,
+   "compare": 10,
+   "how_to": 4,
+   "calculate": 4
+  },
+  "subdomains": [
+   "wearables"
+  ],
+  "problem_examples": [
+   [
+    "apple watch 11 vs ultra 3",
+    "compare"
+   ],
+   [
+    "apple watch ultra 3 vs ultra 2",
+    "compare"
+   ],
+   [
+    "apple watch ultra 4 vs 3",
+    "compare"
+   ],
+   [
+    "apple watch ultra 4 vs ultra 1",
+    "compare"
+   ],
+   [
+    "apple watch ultra 4 vs ultra 2",
+    "compare"
+   ],
+   [
+    "apple watch ultra 3 vs ultra 1",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "apple watch ultra",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_76123310",
+  "label": "lesson plan",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 73,
+  "problem_members": 65,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 16,
+  "intents": {
+   "plan": 28,
+   "generate": 14,
+   "how_to": 6,
+   "commercial_nav": 5
+  },
+  "subdomains": [
+   "teaching"
+  ],
+  "problem_examples": [
+   [
+    "lesson plan template",
+    "generate"
+   ],
+   [
+    "lesson plan example",
+    "plan"
+   ],
+   [
+    "lesson plan examples",
+    "plan"
+   ],
+   [
+    "lesson plan generator",
+    "generate"
+   ],
+   [
+    "lesson plan template pdf",
+    "generate"
+   ],
+   [
+    "lesson plan template free",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.89,
+  "head_term": "lesson plans",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_66955467",
+  "label": "workout plan loss weight",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 64,
+  "problem_members": 59,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 15,
+  "intents": {
+   "plan": 55,
+   "informational": 4,
+   "decide": 3,
+   "how_to": 1
+  },
+  "subdomains": [
+   "strength"
+  ],
+  "problem_examples": [
+   [
+    "workout plan for muscle gain",
+    "plan"
+   ],
+   [
+    "workout plan for weight loss",
+    "plan"
+   ],
+   [
+    "workout plan for weight loss male",
+    "plan"
+   ],
+   [
+    "workout plan for weight loss female",
+    "plan"
+   ],
+   [
+    "workout plan for men weight loss",
+    "plan"
+   ],
+   [
+    "workout plan for women's weight loss at gym",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.92,
+  "head_term": "workout plan for muscle gain",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_43990487",
+  "label": "kubernet docker",
+  "domain": "software_dev_ops",
+  "confidence": "unreviewed",
+  "members": 49,
+  "problem_members": 29,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 10,
+  "intents": {
+   "informational": 19,
+   "how_to": 12,
+   "compare": 9,
+   "alternative": 2
+  },
+  "subdomains": [
+   "containers"
+  ],
+  "problem_examples": [
+   [
+    "docker kubernetes tutorial",
+    "how_to"
+   ],
+   [
+    "docker vs kubernetes difference",
+    "compare"
+   ],
+   [
+    "is kubernetes better than docker",
+    "compare"
+   ],
+   [
+    "difference between docker and kubernetes",
+    "compare"
+   ],
+   [
+    "docker kubernetes tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "difference between kubernetes and docker reddit",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.59,
+  "head_term": "docker and kubernetes",
+  "trends_chain_value": 1.156,
+  "trends_error_pct": 3.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_77124544",
+  "label": "postgresql database",
+  "domain": "software_dev_web",
+  "confidence": "unreviewed",
+  "members": 48,
+  "problem_members": 45,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 6,
+  "intents": {
+   "find": 26,
+   "calculate": 4,
+   "decide": 3,
+   "commercial_nav": 3
+  },
+  "subdomains": [
+   "databases"
+  ],
+  "problem_examples": [
+   [
+    "database postgresql",
+    "find"
+   ],
+   [
+    "database postgresql tutorial",
+    "how_to"
+   ],
+   [
+    "database postgresql free",
+    "find"
+   ],
+   [
+    "database postgresql online",
+    "find"
+   ],
+   [
+    "database postgresql example",
+    "find"
+   ],
+   [
+    "database postgresql online free",
+    "find"
+   ]
+  ],
+  "problem_share": 0.94,
+  "head_term": "database postgresql",
+  "trends_chain_value": 5.577,
+  "trends_error_pct": 3.0,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_62387175",
+  "label": "gain muscle protein intake",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 53,
+  "problem_members": 28,
+  "organic_problem_members": 6,
+  "corroborated_2plus": 4,
+  "intents": {
+   "informational": 25,
+   "calculate": 21,
+   "decide": 3,
+   "how_to": 2
+  },
+  "subdomains": [
+   "nutrition_supplements"
+  ],
+  "problem_examples": [
+   [
+    "protein intake calculator for muscle gain",
+    "calculate"
+   ],
+   [
+    "protein intake for muscle gain per kg",
+    "calculate"
+   ],
+   [
+    "protein intake for muscle gain per day",
+    "calculate"
+   ],
+   [
+    "how many protein intake for muscle gain",
+    "calculate"
+   ],
+   [
+    "protein intake for muscle gain per pound",
+    "calculate"
+   ],
+   [
+    "protein intake for muscle gain calculator women",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.53,
+  "head_term": "protein intake for muscle gain",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_02655167",
+  "label": "effect after",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 113,
+  "problem_members": 58,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 37,
+  "intents": {
+   "informational": 40,
+   "commercial_nav": 15,
+   "calculate": 13,
+   "alternative": 9
+  },
+  "subdomains": [
+   "after_effects_motion"
+  ],
+  "problem_examples": [
+   [
+    "after effects alternative",
+    "alternative"
+   ],
+   [
+    "after effects free alternative",
+    "alternative"
+   ],
+   [
+    "after effects tutorial",
+    "how_to"
+   ],
+   [
+    "after effects tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "after effects template tutorial",
+    "how_to"
+   ],
+   [
+    "after effects update",
+    "track"
+   ]
+  ],
+  "problem_share": 0.51,
+  "head_term": "after effects",
+  "trends_chain_value": 129.564,
+  "trends_error_pct": 15.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_98074397",
+  "label": "password manager",
+  "domain": "cybersecurity",
+  "confidence": "unreviewed",
+  "members": 96,
+  "problem_members": 47,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 30,
+  "intents": {
+   "informational": 45,
+   "decide": 22,
+   "calculate": 7,
+   "find": 6
+  },
+  "subdomains": [
+   "home_security"
+  ],
+  "problem_examples": [
+   [
+    "best easy to use password manager",
+    "decide"
+   ],
+   [
+    "password manager problem",
+    "fix"
+   ],
+   [
+    "best password manager tool",
+    "decide"
+   ],
+   [
+    "is a password manager worth it",
+    "decide"
+   ],
+   [
+    "best free easy to use password manager",
+    "decide"
+   ],
+   [
+    "best password manager app",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "password manager",
+  "trends_chain_value": 84.544,
+  "trends_error_pct": 1.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_56316349",
+  "label": "roof leak repair flat",
+  "domain": "home_repair",
+  "confidence": "unreviewed",
+  "members": 77,
+  "problem_members": 36,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 16,
+  "intents": {
+   "informational": 41,
+   "how_to": 14,
+   "fix": 11,
+   "calculate": 4
+  },
+  "subdomains": [
+   "roof_exterior"
+  ],
+  "problem_examples": [
+   [
+    "roof leaking fix",
+    "fix"
+   ],
+   [
+    "roof leaking repair cost",
+    "calculate"
+   ],
+   [
+    "how to repair leaking roof",
+    "how_to"
+   ],
+   [
+    "how to repair a leaking metal roof",
+    "how_to"
+   ],
+   [
+    "how much does it cost to repair leaking roof",
+    "calculate"
+   ],
+   [
+    "how to stop a metal roof from leaking",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.47,
+  "head_term": "roof leaking",
+  "trends_chain_value": 4.731,
+  "trends_error_pct": 2.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_04121850",
+  "label": "ev charg",
+  "domain": "automotive",
+  "confidence": "unreviewed",
+  "members": 61,
+  "problem_members": 31,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 16,
+  "intents": {
+   "informational": 25,
+   "calculate": 10,
+   "commercial_nav": 5,
+   "decide": 4
+  },
+  "subdomains": [
+   "ev_hybrid"
+  ],
+  "problem_examples": [
+   [
+    "ev charging cost",
+    "calculate"
+   ],
+   [
+    "ev charging cost calculator",
+    "calculate"
+   ],
+   [
+    "ev charging calculator",
+    "calculate"
+   ],
+   [
+    "ev charging cost explained",
+    "calculate"
+   ],
+   [
+    "ev charging with generator",
+    "generate"
+   ],
+   [
+    "best ev charging app",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.51,
+  "head_term": "ev charging",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_28348103",
+  "label": "post blog",
+  "domain": "writing_publishing",
+  "confidence": "unreviewed",
+  "members": 68,
+  "problem_members": 38,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 15,
+  "intents": {
+   "informational": 27,
+   "calculate": 10,
+   "generate": 8,
+   "decide": 6
+  },
+  "subdomains": [
+   "nonfiction_blogging"
+  ],
+  "problem_examples": [
+   [
+    "blog post template",
+    "generate"
+   ],
+   [
+    "blog post template free",
+    "generate"
+   ],
+   [
+    "blog post ideas generator",
+    "generate"
+   ],
+   [
+    "blog post ideas list",
+    "find"
+   ],
+   [
+    "blog post example template",
+    "generate"
+   ],
+   [
+    "blog post alternatives",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.56,
+  "head_term": "blog post",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_95400142",
+  "label": "runn plan",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 61,
+  "problem_members": 59,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 13,
+  "intents": {
+   "plan": 26,
+   "decide": 10,
+   "optimize": 6,
+   "generate": 6
+  },
+  "subdomains": [
+   "cardio_endurance"
+  ],
+  "problem_examples": [
+   [
+    "running plan for beginners",
+    "plan"
+   ],
+   [
+    "running plan to get faster",
+    "optimize"
+   ],
+   [
+    "running plan",
+    "plan"
+   ],
+   [
+    "running plan generator",
+    "generate"
+   ],
+   [
+    "running plan apps",
+    "plan"
+   ],
+   [
+    "running plan for beginners pdf",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.97,
+  "head_term": "running plan",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_20464504",
+  "label": "workout plan",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 78,
+  "problem_members": 68,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 12,
+  "intents": {
+   "plan": 30,
+   "decide": 11,
+   "generate": 11,
+   "informational": 7
+  },
+  "subdomains": [
+   "strength"
+  ],
+  "problem_examples": [
+   [
+    "workout plan for beginners",
+    "plan"
+   ],
+   [
+    "workout plan",
+    "plan"
+   ],
+   [
+    "workout plan for week",
+    "plan"
+   ],
+   [
+    "workout plan template",
+    "generate"
+   ],
+   [
+    "workout plan app",
+    "plan"
+   ],
+   [
+    "workout plan guide",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.87,
+  "head_term": "workout plan",
+  "trends_chain_value": 31.913,
+  "trends_error_pct": 8.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_74700978",
+  "label": "obd2 cod scanner read",
+  "domain": "automotive",
+  "confidence": "unreviewed",
+  "members": 56,
+  "problem_members": 42,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 12,
+  "intents": {
+   "how_to": 19,
+   "informational": 10,
+   "find": 10,
+   "commercial_nav": 4
+  },
+  "subdomains": [
+   "diagnostics"
+  ],
+  "problem_examples": [
+   [
+    "obd2 codes list",
+    "find"
+   ],
+   [
+    "obd2 codes list pdf",
+    "find"
+   ],
+   [
+    "how to read obd2 codes",
+    "how_to"
+   ],
+   [
+    "obd2 scanner codes list",
+    "find"
+   ],
+   [
+    "obd2 codes list free",
+    "find"
+   ],
+   [
+    "how to clear obd2 codes",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.75,
+  "head_term": "obd2 codes",
+  "trends_chain_value": 1.529,
+  "trends_error_pct": 3.2,
+  "fragmentation": {
+   "websearch_tool": {
+    "n": 10,
+    "categories": {
+     "blog_editorial": 4,
+     "independent_site": 3,
+     "forum": 1,
+     "vendor_content": 2
+    },
+    "dominant_site": "autopi.io",
+    "dominant_share": 0.1,
+    "fragmented_share": 1.0
+   }
+  }
+ },
+ {
+  "cluster_id": "c_16184925",
+  "label": "lightroom photoshop",
+  "domain": "photography",
+  "confidence": "unreviewed",
+  "members": 52,
+  "problem_members": 28,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 11,
+  "intents": {
+   "informational": 19,
+   "calculate": 8,
+   "alternative": 6,
+   "commercial_nav": 5
+  },
+  "subdomains": [
+   "lightroom_photoshop"
+  ],
+  "problem_examples": [
+   [
+    "photoshop lightroom cost",
+    "calculate"
+   ],
+   [
+    "photoshop lightroom tutorial",
+    "how_to"
+   ],
+   [
+    "photoshop lightroom alternative",
+    "alternative"
+   ],
+   [
+    "photoshop lightroom alternatives",
+    "alternative"
+   ],
+   [
+    "photoshop lightroom tutorial pdf",
+    "how_to"
+   ],
+   [
+    "how much is photoshop and lightroom per month",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "photoshop lightroom",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_86165214",
+  "label": "mark maker open source",
+  "domain": "collecting_antiques",
+  "confidence": "unreviewed",
+  "members": 49,
+  "problem_members": 42,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 9,
+  "intents": {
+   "generate": 24,
+   "calculate": 6,
+   "alternative": 5,
+   "fix": 4
+  },
+  "subdomains": [
+   "identification"
+  ],
+  "problem_examples": [
+   [
+    "maker's mark",
+    "generate"
+   ],
+   [
+    "maker's mark 46",
+    "generate"
+   ],
+   [
+    "maker's mark review",
+    "generate"
+   ],
+   [
+    "how much does maker's mark cost",
+    "calculate"
+   ],
+   [
+    "maker's mark 101",
+    "generate"
+   ],
+   [
+    "best makers mark",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.86,
+  "head_term": "maker's mark",
+  "trends_chain_value": 6.205,
+  "trends_error_pct": 4.0,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_17253937",
+  "label": "employe performance comment ai",
+  "domain": "careers_jobs",
+  "confidence": "unreviewed",
+  "members": 30,
+  "problem_members": 30,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 7,
+  "intents": {
+   "optimize": 20,
+   "generate": 5,
+   "decide": 1,
+   "how_to": 1
+  },
+  "subdomains": [
+   "monitors",
+   "workplace"
+  ],
+  "problem_examples": [
+   [
+    "performance review comments",
+    "optimize"
+   ],
+   [
+    "performance reviews for employees",
+    "optimize"
+   ],
+   [
+    "performance review comments for employees",
+    "optimize"
+   ],
+   [
+    "performance review examples for employees",
+    "optimize"
+   ],
+   [
+    "performance review comments examples",
+    "optimize"
+   ],
+   [
+    "good performance review comments",
+    "optimize"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "performance review comments",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_25279857",
+  "label": "font graphic design",
+  "domain": "graphic_design",
+  "confidence": "unreviewed",
+  "members": 46,
+  "problem_members": 21,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 20,
+   "commercial_nav": 5,
+   "decide": 4,
+   "generate": 4
+  },
+  "subdomains": [
+   "assets"
+  ],
+  "problem_examples": [
+   [
+    "best graphic design fonts",
+    "decide"
+   ],
+   [
+    "graphic design fonts generator",
+    "generate"
+   ],
+   [
+    "best graphic design fonts reddit",
+    "decide"
+   ],
+   [
+    "best fonts for graphic design free",
+    "decide"
+   ],
+   [
+    "graphic design font generator free",
+    "generate"
+   ],
+   [
+    "top 10 graphic design fonts",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.46,
+  "head_term": "graphic design fonts",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_23844090",
+  "label": "seo business small",
+  "domain": "small_business",
+  "confidence": "unreviewed",
+  "members": 43,
+  "problem_members": 24,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 19,
+   "decide": 8,
+   "calculate": 7,
+   "alternative": 3
+  },
+  "subdomains": [
+   "marketing_seo"
+  ],
+  "problem_examples": [
+   [
+    "is seo worth it for small business",
+    "decide"
+   ],
+   [
+    "best seo software for small business",
+    "decide"
+   ],
+   [
+    "best small business seo tips",
+    "decide"
+   ],
+   [
+    "best small business seo guide",
+    "decide"
+   ],
+   [
+    "best seo software for small business reviews",
+    "decide"
+   ],
+   [
+    "how much does seo cost for a small business",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.56,
+  "head_term": "small business seo",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_07650702",
+  "label": "edition 40k warhammer 10th",
+  "domain": "tabletop_hobby_games",
+  "confidence": "unreviewed",
+  "members": 30,
+  "problem_members": 17,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 13,
+   "track": 8,
+   "find": 3,
+   "how_to": 2
+  },
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "problem_examples": [
+   [
+    "warhammer 40k 11th edition changes",
+    "track"
+   ],
+   [
+    "warhammer 40k edition changes",
+    "track"
+   ],
+   [
+    "warhammer 40k new edition changes",
+    "track"
+   ],
+   [
+    "warhammer 40k 10th edition changes",
+    "track"
+   ],
+   [
+    "warhammer 40k 11th edition vs 10th",
+    "compare"
+   ],
+   [
+    "how to play warhammer 40k 11th edition",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "warhammer 40k new edition",
+  "trends_chain_value": 0.172,
+  "trends_error_pct": 101.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_63216123",
+  "label": "maker studio game",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 24,
+  "problem_members": 21,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 6,
+  "intents": {
+   "generate": 13,
+   "calculate": 4,
+   "commercial_nav": 3,
+   "how_to": 3
+  },
+  "subdomains": [
+   "other_engines"
+  ],
+  "problem_examples": [
+   [
+    "game maker studio",
+    "generate"
+   ],
+   [
+    "game maker studio 2",
+    "generate"
+   ],
+   [
+    "game maker studio 2 tutorial",
+    "how_to"
+   ],
+   [
+    "game maker studio free",
+    "generate"
+   ],
+   [
+    "game maker studio tutorial",
+    "how_to"
+   ],
+   [
+    "game maker studio 1",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.88,
+  "head_term": "game maker studio",
+  "trends_chain_value": 0.788,
+  "trends_error_pct": 5.0,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_58438425",
+  "label": "transfer download music pendrive",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 20,
+  "problem_members": 9,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 6,
+  "intents": {
+   "commercial_nav": 10,
+   "how_to": 9,
+   "informational": 1
+  },
+  "subdomains": [
+   "codecs_export"
+  ],
+  "problem_examples": [
+   [
+    "how to transfer youtube downloaded videos",
+    "how_to"
+   ],
+   [
+    "how to transfer youtube downloaded video in pc",
+    "how_to"
+   ],
+   [
+    "how to transfer youtube downloaded video in laptop",
+    "how_to"
+   ],
+   [
+    "how to transfer youtube downloaded video in gallery",
+    "how_to"
+   ],
+   [
+    "how to transfer youtube downloaded video in pendrive",
+    "how_to"
+   ],
+   [
+    "how to transfer music from youtube",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "how to transfer youtube downloads",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_60961301",
+  "label": "chatgpt llm",
+  "domain": "data_ai",
+  "confidence": "unreviewed",
+  "members": 43,
+  "problem_members": 21,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 5,
+  "intents": {
+   "informational": 20,
+   "compare": 4,
+   "alternative": 4,
+   "decide": 3
+  },
+  "subdomains": [
+   "llm_usage"
+  ],
+  "problem_examples": [
+   [
+    "chatgpt llm cost",
+    "calculate"
+   ],
+   [
+    "chatgpt llm tutorial",
+    "how_to"
+   ],
+   [
+    "llm chatgpt alternative",
+    "alternative"
+   ],
+   [
+    "what type of llm is chatgpt",
+    "identify"
+   ],
+   [
+    "difference between llm and chatgpt",
+    "compare"
+   ],
+   [
+    "best chatgpt llm",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "llm chatgpt",
+  "trends_chain_value": 4.237,
+  "trends_error_pct": 6.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_96742201",
+  "label": "houdini render animation import",
+  "domain": "three_d_animation",
+  "confidence": "unreviewed",
+  "members": 26,
+  "problem_members": 21,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 5,
+  "intents": {
+   "how_to": 18,
+   "informational": 5,
+   "convert": 3
+  },
+  "subdomains": [
+   "vfx_sim"
+  ],
+  "problem_examples": [
+   [
+    "how to render in houdini",
+    "how_to"
+   ],
+   [
+    "import fbx into houdini",
+    "convert"
+   ],
+   [
+    "houdini fbx character import",
+    "convert"
+   ],
+   [
+    "houdini import fbx animation",
+    "convert"
+   ],
+   [
+    "houdini karma render tutorial",
+    "how_to"
+   ],
+   [
+    "how to render in houdini karma",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.81,
+  "head_term": "houdini render setting",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_33091379",
+  "label": "distillery mark maker tour",
+  "domain": "collecting_antiques",
+  "confidence": "unreviewed",
+  "members": 25,
+  "problem_members": 25,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 5,
+  "intents": {
+   "generate": 22,
+   "calculate": 2,
+   "decide": 1
+  },
+  "subdomains": [
+   "identification"
+  ],
+  "problem_examples": [
+   [
+    "maker's mark distillery tour",
+    "generate"
+   ],
+   [
+    "maker's mark distillery",
+    "generate"
+   ],
+   [
+    "maker's mark distillery photos",
+    "generate"
+   ],
+   [
+    "maker's mark tours kentucky",
+    "generate"
+   ],
+   [
+    "maker's mark distillery kentucky",
+    "generate"
+   ],
+   [
+    "maker's mark tour ky",
+    "generate"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "maker's mark distillery",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_43126978",
+  "label": "close door",
+  "domain": "home_repair",
+  "confidence": "unreviewed",
+  "members": 21,
+  "problem_members": 18,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 4,
+  "intents": {
+   "fix": 16,
+   "informational": 3,
+   "how_to": 1,
+   "decide": 1
+  },
+  "subdomains": [
+   "doors_windows"
+  ],
+  "problem_examples": [
+   [
+    "door won't close",
+    "fix"
+   ],
+   [
+    "door won't close all the way",
+    "fix"
+   ],
+   [
+    "door won't close at top",
+    "fix"
+   ],
+   [
+    "should i close all doors",
+    "decide"
+   ],
+   [
+    "door won't close how to fix",
+    "fix"
+   ],
+   [
+    "how to fix door that won't close all the way",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.86,
+  "head_term": "door won't close",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_03150629",
+  "label": "song identify music file",
+  "domain": "reading_media",
+  "confidence": "unreviewed",
+  "members": 37,
+  "problem_members": 37,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 3,
+  "intents": {
+   "identify": 31,
+   "how_to": 4,
+   "compatibility": 1,
+   "calculate": 1
+  },
+  "subdomains": [
+   "music_listening"
+  ],
+  "problem_examples": [
+   [
+    "song identify google",
+    "identify"
+   ],
+   [
+    "identify song by audio",
+    "identify"
+   ],
+   [
+    "song identify by music",
+    "identify"
+   ],
+   [
+    "song identify from file",
+    "identify"
+   ],
+   [
+    "song identify game malayalam",
+    "identify"
+   ],
+   [
+    "identify song by audio file",
+    "identify"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "song identify google",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_42981727",
+  "label": "song identify game tamil",
+  "domain": "reading_media",
+  "confidence": "unreviewed",
+  "members": 33,
+  "problem_members": 31,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 3,
+  "intents": {
+   "identify": 21,
+   "how_to": 4,
+   "alternative": 2,
+   "informational": 2
+  },
+  "subdomains": [
+   "android_dev",
+   "identification",
+   "music_listening"
+  ],
+  "problem_examples": [
+   [
+    "song identify online",
+    "identify"
+   ],
+   [
+    "song identify reddit",
+    "identify"
+   ],
+   [
+    "ways to identify a song",
+    "identify"
+   ],
+   [
+    "song identify from video",
+    "identify"
+   ],
+   [
+    "song identify game in tamil",
+    "identify"
+   ],
+   [
+    "android app to identify songs",
+    "identify"
+   ]
+  ],
+  "problem_share": 0.94,
+  "head_term": "song identifying game",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_37752267",
+  "label": "devic kindle amazon account",
+  "domain": "consumer_tech",
+  "confidence": "unreviewed",
+  "members": 26,
+  "problem_members": 15,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 3,
+  "intents": {
+   "informational": 11,
+   "compare": 3,
+   "alternative": 3,
+   "calculate": 3
+  },
+  "subdomains": [
+   "ereaders_tablets"
+  ],
+  "problem_examples": [
+   [
+    "devices like a kindle",
+    "alternative"
+   ],
+   [
+    "amazon kindle devices list",
+    "find"
+   ],
+   [
+    "how many devices amazon kindle",
+    "calculate"
+   ],
+   [
+    "amazon kindle supported devices",
+    "compatibility"
+   ],
+   [
+    "how do i find my kindle devices on amazon",
+    "how_to"
+   ],
+   [
+    "amazon kindle like devices",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.58,
+  "head_term": "amazon my kindle devices",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_01459513",
+  "label": "integration zapier office api",
+  "domain": "productivity_office",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 12,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 2,
+  "intents": {
+   "informational": 9,
+   "decide": 2,
+   "generate": 2,
+   "how_to": 2
+  },
+  "subdomains": [
+   "automation"
+  ],
+  "problem_examples": [
+   [
+    "list of zapier integrations",
+    "find"
+   ],
+   [
+    "zapier api integration tutorial",
+    "how_to"
+   ],
+   [
+    "how to create a zapier integration",
+    "how_to"
+   ],
+   [
+    "zapier api integration alternatives",
+    "alternative"
+   ],
+   [
+    "zapier api integration best practices",
+    "decide"
+   ],
+   [
+    "best office software zapier integration",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "zapier excel integration",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_20091063",
+  "label": "emulator gam pc android",
+  "domain": "gaming_pc",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 10,
+  "organic_problem_members": 5,
+  "corroborated_2plus": 2,
+  "intents": {
+   "informational": 9,
+   "decide": 7,
+   "commercial_nav": 3,
+   "fix": 2
+  },
+  "subdomains": [
+   "emulation"
+  ],
+  "problem_examples": [
+   [
+    "best gaming emulator for pc windows 10",
+    "decide"
+   ],
+   [
+    "best gaming emulator for pc windows 11",
+    "decide"
+   ],
+   [
+    "best windows gaming emulator for android",
+    "decide"
+   ],
+   [
+    "best android emulator for pc gaming reddit",
+    "decide"
+   ],
+   [
+    "top 5 best gaming emulator for pc games on android",
+    "decide"
+   ],
+   [
+    "fix pc gaming emulator on android",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "pc gaming emulator for android",
+  "trends_chain_value": 0.0,
+  "trends_error_pct": 100.0,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_41592593",
+  "label": "prep meal",
+  "domain": "cooking_baking",
+  "confidence": "unreviewed",
+  "members": 115,
+  "problem_members": 58,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 35,
+  "intents": {
+   "informational": 56,
+   "calculate": 15,
+   "how_to": 10,
+   "decide": 8
+  },
+  "subdomains": [
+   "meal_planning"
+  ],
+  "problem_examples": [
+   [
+    "how to meal prep for beginners",
+    "how_to"
+   ],
+   [
+    "is meal prep worth it",
+    "decide"
+   ],
+   [
+    "meal prep template pdf",
+    "generate"
+   ],
+   [
+    "how to meal prep for the week for beginners",
+    "how_to"
+   ],
+   [
+    "21 day fix meal prep",
+    "fix"
+   ],
+   [
+    "meal prep cost",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "meal prep",
+  "trends_chain_value": 125.728,
+  "trends_error_pct": 105.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_75513861",
+  "label": "formula excel",
+  "domain": "data_ai",
+  "confidence": "unreviewed",
+  "members": 93,
+  "problem_members": 53,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 28,
+  "intents": {
+   "informational": 26,
+   "commercial_nav": 14,
+   "fix": 11,
+   "find": 10
+  },
+  "subdomains": [
+   "data_analysis",
+   "excel"
+  ],
+  "problem_examples": [
+   [
+    "excel formula list with examples pdf",
+    "find"
+   ],
+   [
+    "excel formulas tutorial",
+    "how_to"
+   ],
+   [
+    "excel all formulas list pdf guide",
+    "find"
+   ],
+   [
+    "excel all formulas list pdf with examples",
+    "find"
+   ],
+   [
+    "excel formula list pdf",
+    "find"
+   ],
+   [
+    "best excel formulas",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "excel formulas",
+  "trends_chain_value": 10.545,
+  "trends_error_pct": 6.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_22924753",
+  "label": "action github",
+  "domain": "software_dev_ops",
+  "confidence": "unreviewed",
+  "members": 80,
+  "problem_members": 50,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 24,
+  "intents": {
+   "informational": 28,
+   "calculate": 19,
+   "how_to": 14,
+   "alternative": 6
+  },
+  "subdomains": [
+   "ci_cd"
+  ],
+  "problem_examples": [
+   [
+    "github actions tutorial",
+    "how_to"
+   ],
+   [
+    "github actions tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "github actions cost",
+    "calculate"
+   ],
+   [
+    "github actions issue template",
+    "fix"
+   ],
+   [
+    "best github actions",
+    "decide"
+   ],
+   [
+    "github actions error",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.62,
+  "head_term": "github actions",
+  "trends_chain_value": 27.72,
+  "trends_error_pct": 3.9,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_81482209",
+  "label": "itinerary travel",
+  "domain": "travel",
+  "confidence": "unreviewed",
+  "members": 65,
+  "problem_members": 37,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 16,
+  "intents": {
+   "informational": 22,
+   "generate": 13,
+   "calculate": 7,
+   "commercial_nav": 6
+  },
+  "subdomains": [
+   "planning"
+  ],
+  "problem_examples": [
+   [
+    "travel itinerary template",
+    "generate"
+   ],
+   [
+    "travel itinerary template free",
+    "generate"
+   ],
+   [
+    "travel itinerary tutorial",
+    "how_to"
+   ],
+   [
+    "example travel itinerary template",
+    "generate"
+   ],
+   [
+    "best travel itinerary app",
+    "decide"
+   ],
+   [
+    "make travel itinerary online",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "travel itinerary",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_99840647",
+  "label": "sery apple watch",
+  "domain": "consumer_tech",
+  "confidence": "unreviewed",
+  "members": 50,
+  "problem_members": 26,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 16,
+  "intents": {
+   "informational": 21,
+   "how_to": 11,
+   "calculate": 9,
+   "commercial_nav": 3
+  },
+  "subdomains": [
+   "wearables"
+  ],
+  "problem_examples": [
+   [
+    "apple watch series 10 vs 12",
+    "compare"
+   ],
+   [
+    "apple watch series 11 vs 12",
+    "compare"
+   ],
+   [
+    "apple watch series 11 vs 10",
+    "compare"
+   ],
+   [
+    "apple watch series 10 tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "apple watch tutorial series 10",
+    "how_to"
+   ],
+   [
+    "how much apple watch series 10",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.52,
+  "head_term": "apple watch series 10",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_90334794",
+  "label": "resume job",
+  "domain": "careers_jobs",
+  "confidence": "unreviewed",
+  "members": 89,
+  "problem_members": 40,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 13,
+  "intents": {
+   "informational": 44,
+   "generate": 10,
+   "calculate": 9,
+   "decide": 8
+  },
+  "subdomains": [
+   "resume_applications"
+  ],
+  "problem_examples": [
+   [
+    "job resume template",
+    "generate"
+   ],
+   [
+    "job resume generator",
+    "generate"
+   ],
+   [
+    "job resume template free",
+    "generate"
+   ],
+   [
+    "job resume template simple",
+    "generate"
+   ],
+   [
+    "best job resume",
+    "decide"
+   ],
+   [
+    "best job resume app",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "job resume",
+  "trends_chain_value": 36.993,
+  "trends_error_pct": 4.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_28647219",
+  "label": "photography camera",
+  "domain": "photography",
+  "confidence": "unreviewed",
+  "members": 58,
+  "problem_members": 29,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 11,
+  "intents": {
+   "informational": 24,
+   "decide": 12,
+   "calculate": 7,
+   "commercial_nav": 5
+  },
+  "subdomains": [
+   "camera_gear"
+  ],
+  "problem_examples": [
+   [
+    "best photography cameras for beginners",
+    "decide"
+   ],
+   [
+    "best photography tips camera",
+    "decide"
+   ],
+   [
+    "best photography camera review",
+    "decide"
+   ],
+   [
+    "best photography camera for beginners cheap",
+    "decide"
+   ],
+   [
+    "how much does a good photography camera cost",
+    "calculate"
+   ],
+   [
+    "what is the best camera for photography and video",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "photography cameras",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_51963424",
+  "label": "stain wood apply furniture",
+  "domain": "diy_woodworking",
+  "confidence": "unreviewed",
+  "members": 69,
+  "problem_members": 49,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 10,
+  "intents": {
+   "how_to": 27,
+   "informational": 20,
+   "decide": 9,
+   "calculate": 7
+  },
+  "subdomains": [
+   "finishing",
+   "laundry_care",
+   "woodworking"
+  ],
+  "problem_examples": [
+   [
+    "ways to remove oil stains best",
+    "decide"
+   ],
+   [
+    "best method to apply wood stain",
+    "decide"
+   ],
+   [
+    "best type of stain for wood deck",
+    "decide"
+   ],
+   [
+    "what kind of stain is the easiest to apply on wood",
+    "identify"
+   ],
+   [
+    "how to wood stain a door",
+    "how_to"
+   ],
+   [
+    "how to wood stain a table",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.71,
+  "head_term": "wood stain remover",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_02894523",
+  "label": "sat study",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 68,
+  "problem_members": 35,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 10,
+  "intents": {
+   "informational": 31,
+   "decide": 14,
+   "calculate": 6,
+   "how_to": 5
+  },
+  "subdomains": [
+   "exams"
+  ],
+  "problem_examples": [
+   [
+    "best sat study online",
+    "decide"
+   ],
+   [
+    "how to study for sat in one week",
+    "how_to"
+   ],
+   [
+    "is studying for the sat worth it",
+    "decide"
+   ],
+   [
+    "best way to study for sat in a week",
+    "decide"
+   ],
+   [
+    "best sat study",
+    "decide"
+   ],
+   [
+    "best sat study guide",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.51,
+  "head_term": "study sat",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_73257790",
+  "label": "rocket league setting controller",
+  "domain": "gaming_pc",
+  "confidence": "unreviewed",
+  "members": 31,
+  "problem_members": 29,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 10,
+  "intents": {
+   "decide": 22,
+   "fix": 7,
+   "informational": 2
+  },
+  "subdomains": [
+   "peripherals",
+   "settings"
+  ],
+  "problem_examples": [
+   [
+    "best settings for rocket league",
+    "decide"
+   ],
+   [
+    "controller not working on rocket league pc",
+    "fix"
+   ],
+   [
+    "controller not working on rocket league",
+    "fix"
+   ],
+   [
+    "controller not working pc rocket league epic games",
+    "fix"
+   ],
+   [
+    "best settings for pc rocket league",
+    "decide"
+   ],
+   [
+    "best settings for rocket league ps4",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.94,
+  "head_term": "best settings for rocket league",
+  "trends_chain_value": 0.453,
+  "trends_error_pct": 57.5,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_89685491",
+  "label": "offline printer",
+  "domain": "it_support",
+  "confidence": "unreviewed",
+  "members": 42,
+  "problem_members": 25,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 9,
+  "intents": {
+   "fix": 17,
+   "informational": 14,
+   "commercial_nav": 3,
+   "alternative": 3
+  },
+  "subdomains": [
+   "printers_drivers"
+  ],
+  "problem_examples": [
+   [
+    "printer offline error",
+    "fix"
+   ],
+   [
+    "printer offline issue",
+    "fix"
+   ],
+   [
+    "printer offline fix",
+    "fix"
+   ],
+   [
+    "printer offline problem how to fix",
+    "fix"
+   ],
+   [
+    "printer offline problem",
+    "fix"
+   ],
+   [
+    "best offline printer",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.6,
+  "head_term": "printer offline error",
+  "trends_chain_value": 0.094,
+  "trends_error_pct": 101.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_34482867",
+  "label": "5k runn plan week",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 35,
+  "problem_members": 28,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 9,
+  "intents": {
+   "plan": 18,
+   "optimize": 6,
+   "informational": 6,
+   "decide": 2
+  },
+  "subdomains": [
+   "cardio_endurance",
+   "strength",
+   "tracking_gear",
+   "transit"
+  ],
+  "problem_examples": [
+   [
+    "running plan for 5k",
+    "plan"
+   ],
+   [
+    "garmin 5k training plan review",
+    "plan"
+   ],
+   [
+    "running plan for 5k in 20 minutes",
+    "plan"
+   ],
+   [
+    "garmin 5k training plan",
+    "plan"
+   ],
+   [
+    "running plan for beginners 5k",
+    "plan"
+   ],
+   [
+    "running plan to improve 5k time",
+    "optimize"
+   ]
+  ],
+  "problem_share": 0.8,
+  "head_term": "running workout 5k",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_05115342",
+  "label": "energy bill",
+  "domain": "energy_sustainability",
+  "confidence": "unreviewed",
+  "members": 40,
+  "problem_members": 19,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 20,
+   "calculate": 7,
+   "alternative": 3,
+   "decide": 3
+  },
+  "subdomains": [
+   "efficiency"
+  ],
+  "problem_examples": [
+   [
+    "energy bill template",
+    "generate"
+   ],
+   [
+    "energy bill calculator",
+    "calculate"
+   ],
+   [
+    "energy bill cost calculator",
+    "calculate"
+   ],
+   [
+    "energy bill template pdf",
+    "generate"
+   ],
+   [
+    "best energy bill",
+    "decide"
+   ],
+   [
+    "energy bill update",
+    "track"
+   ]
+  ],
+  "problem_share": 0.47,
+  "head_term": "energy bills",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_28504254",
+  "label": "rival setting roblox sniper",
+  "domain": "gaming_pc",
+  "confidence": "unreviewed",
+  "members": 35,
+  "problem_members": 35,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 8,
+  "intents": {
+   "decide": 34,
+   "how_to": 1
+  },
+  "subdomains": [
+   "settings"
+  ],
+  "problem_examples": [
+   [
+    "best settings for rivals",
+    "decide"
+   ],
+   [
+    "best settings for rivals roblox mobile",
+    "decide"
+   ],
+   [
+    "best settings for marvel rivals",
+    "decide"
+   ],
+   [
+    "best settings for roblox rivals",
+    "decide"
+   ],
+   [
+    "what's the best settings in rivals",
+    "decide"
+   ],
+   [
+    "rivals best settings ps5",
+    "decide"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "best settings for rivals",
+  "trends_chain_value": 0.644,
+  "trends_error_pct": 36.4,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_38358966",
+  "label": "stl fil print 3d",
+  "domain": "three_d_printing",
+  "confidence": "unreviewed",
+  "members": 30,
+  "problem_members": 18,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 10,
+   "how_to": 5,
+   "decide": 2,
+   "calculate": 2
+  },
+  "subdomains": [
+   "models"
+  ],
+  "problem_examples": [
+   [
+    "best stl files for 3d printing",
+    "decide"
+   ],
+   [
+    "how to design stl files for 3d printing",
+    "how_to"
+   ],
+   [
+    "where to find stl files for 3d printing",
+    "find"
+   ],
+   [
+    "best stl files for 3d printing free",
+    "decide"
+   ],
+   [
+    "how to repair stl files for 3d printing",
+    "how_to"
+   ],
+   [
+    "stl files changes 3d printing",
+    "track"
+   ]
+  ],
+  "problem_share": 0.6,
+  "head_term": "stl files for 3d printing",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_26962621",
+  "label": "daw ableton",
+  "domain": "audio_music_production",
+  "confidence": "unreviewed",
+  "members": 39,
+  "problem_members": 19,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 7,
+  "intents": {
+   "informational": 17,
+   "alternative": 4,
+   "calculate": 3,
+   "commercial_nav": 3
+  },
+  "subdomains": [
+   "daws"
+  ],
+  "problem_examples": [
+   [
+    "ableton daw tutorial",
+    "how_to"
+   ],
+   [
+    "how much is ableton daw",
+    "calculate"
+   ],
+   [
+    "daw ableton 12 tutorial",
+    "how_to"
+   ],
+   [
+    "is ableton the best daw reddit",
+    "decide"
+   ],
+   [
+    "ableton daw cost",
+    "calculate"
+   ],
+   [
+    "daw ableton update 11",
+    "track"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "daw ableton",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_47957693",
+  "label": "prun garden tomato plant",
+  "domain": "gardening",
+  "confidence": "unreviewed",
+  "members": 42,
+  "problem_members": 19,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 23,
+   "decide": 7,
+   "find": 3,
+   "alternative": 2
+  },
+  "subdomains": [
+   "trees_shrubs"
+  ],
+  "problem_examples": [
+   [
+    "best garden pruning tools",
+    "decide"
+   ],
+   [
+    "best gardening services for pruning",
+    "decide"
+   ],
+   [
+    "which garden tool is used for pruning",
+    "decide"
+   ],
+   [
+    "best gardening services for fall pruning",
+    "decide"
+   ],
+   [
+    "best garden pruning",
+    "decide"
+   ],
+   [
+    "garden pruning schedule",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "garden pruning",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_88852667",
+  "label": "plugin gradle android version",
+  "domain": "software_dev_mobile",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 11,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 10,
+   "find": 4,
+   "how_to": 4,
+   "track": 3
+  },
+  "subdomains": [
+   "android_dev"
+  ],
+  "problem_examples": [
+   [
+    "android gradle plugin version list",
+    "find"
+   ],
+   [
+    "android gradle plugin latest version",
+    "track"
+   ],
+   [
+    "how to change android gradle plugin version",
+    "how_to"
+   ],
+   [
+    "android gradle plugin version compatibility list",
+    "find"
+   ],
+   [
+    "how to update android gradle plugin version",
+    "how_to"
+   ],
+   [
+    "how to check android gradle plugin",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "android gradle plugin version",
+  "trends_chain_value": 0.527,
+  "trends_error_pct": 50.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_56761706",
+  "label": "synth vst plugin analog",
+  "domain": "audio_music_production",
+  "confidence": "unreviewed",
+  "members": 20,
+  "problem_members": 14,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 3,
+  "intents": {
+   "decide": 14,
+   "informational": 5,
+   "commercial_nav": 1
+  },
+  "subdomains": [
+   "plugins"
+  ],
+  "problem_examples": [
+   [
+    "the best synth vst",
+    "decide"
+   ],
+   [
+    "best synth vst reddit",
+    "decide"
+   ],
+   [
+    "best vst plugins synth",
+    "decide"
+   ],
+   [
+    "best free synth vst reddit",
+    "decide"
+   ],
+   [
+    "the best synth plugins",
+    "decide"
+   ],
+   [
+    "the best free synth plugins",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.7,
+  "head_term": "the best synth vst",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_33506357",
+  "label": "christma holiday",
+  "domain": "events_seasonal",
+  "confidence": "unreviewed",
+  "members": 42,
+  "problem_members": 20,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 2,
+  "intents": {
+   "informational": 22,
+   "calculate": 6,
+   "decide": 3,
+   "alternative": 2
+  },
+  "subdomains": [
+   "holidays"
+  ],
+  "problem_examples": [
+   [
+    "why is christmas best holiday",
+    "decide"
+   ],
+   [
+    "what holiday is it near christmas",
+    "find"
+   ],
+   [
+    "what kind of holiday is christmas",
+    "identify"
+   ],
+   [
+    "what type of holiday is christmas",
+    "identify"
+   ],
+   [
+    "holiday christmas list",
+    "find"
+   ],
+   [
+    "christmas holiday update",
+    "track"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "holiday christmas",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_50800018",
+  "label": "export setting",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 21,
+  "problem_members": 21,
+  "organic_problem_members": 4,
+  "corroborated_2plus": 2,
+  "intents": {
+   "convert": 10,
+   "decide": 3,
+   "alternative": 3,
+   "calculate": 3
+  },
+  "subdomains": [
+   "codecs_export"
+  ],
+  "problem_examples": [
+   [
+    "export settings youtube",
+    "convert"
+   ],
+   [
+    "export settings for youtube video",
+    "convert"
+   ],
+   [
+    "best export settings youtube",
+    "decide"
+   ],
+   [
+    "best export settings for youtube videos",
+    "decide"
+   ],
+   [
+    "fix export settings youtube",
+    "fix"
+   ],
+   [
+    "free export settings youtube",
+    "convert"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "export settings youtube",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_94231707",
+  "label": "skylin city",
+  "domain": "gaming_titles",
+  "confidence": "unreviewed",
+  "members": 120,
+  "problem_members": 63,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 34,
+  "intents": {
+   "informational": 48,
+   "how_to": 11,
+   "track": 9,
+   "commercial_nav": 9
+  },
+  "subdomains": [
+   "sim_strategy"
+  ],
+  "problem_examples": [
+   [
+    "cities skylines 1 vs 2",
+    "compare"
+   ],
+   [
+    "cities skylines 2 update",
+    "track"
+   ],
+   [
+    "cities skylines not working",
+    "fix"
+   ],
+   [
+    "cities skylines error",
+    "fix"
+   ],
+   [
+    "cities skylines 2 slow",
+    "optimize"
+   ],
+   [
+    "cities skylines update",
+    "track"
+   ]
+  ],
+  "problem_share": 0.53,
+  "head_term": "cities skylines",
+  "trends_chain_value": 16.21,
+  "trends_error_pct": 4.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_82967678",
+  "label": "xp window",
+  "domain": "retro_computing_emulation",
+  "confidence": "unreviewed",
+  "members": 91,
+  "problem_members": 50,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 26,
+  "intents": {
+   "informational": 30,
+   "commercial_nav": 11,
+   "compare": 10,
+   "fix": 9
+  },
+  "subdomains": [
+   "legacy_software",
+   "windows"
+  ],
+  "problem_examples": [
+   [
+    "windows xp error",
+    "fix"
+   ],
+   [
+    "windows xp tutorial",
+    "how_to"
+   ],
+   [
+    "windows xp tutorial video",
+    "how_to"
+   ],
+   [
+    "windows xp vs 98",
+    "compare"
+   ],
+   [
+    "windows xp vs 2000",
+    "compare"
+   ],
+   [
+    "windows xp calculator",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "windows xp",
+  "trends_chain_value": 15.835,
+  "trends_error_pct": 20.2,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_28579989",
+  "label": "panel solar plan",
+  "domain": "energy_sustainability",
+  "confidence": "unreviewed",
+  "members": 67,
+  "problem_members": 36,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 25,
+  "intents": {
+   "informational": 25,
+   "calculate": 13,
+   "commercial_nav": 6,
+   "how_to": 5
+  },
+  "subdomains": [
+   "solar_home"
+  ],
+  "problem_examples": [
+   [
+    "solar panels cost",
+    "calculate"
+   ],
+   [
+    "solar panels worth it",
+    "decide"
+   ],
+   [
+    "how to make a simple solar panel",
+    "how_to"
+   ],
+   [
+    "how much solar panels cost",
+    "calculate"
+   ],
+   [
+    "best solar panels",
+    "decide"
+   ],
+   [
+    "solar panel error",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "solar panels",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_31255533",
+  "label": "guitar chord",
+  "domain": "playing_music",
+  "confidence": "unreviewed",
+  "members": 80,
+  "problem_members": 36,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 23,
+  "intents": {
+   "informational": 42,
+   "how_to": 7,
+   "generate": 7,
+   "calculate": 6
+  },
+  "subdomains": [
+   "guitar"
+  ],
+  "problem_examples": [
+   [
+    "guitar chords tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "guitar chords tutorial",
+    "how_to"
+   ],
+   [
+    "guitar chords tutorial for beginners pdf",
+    "how_to"
+   ],
+   [
+    "guitar chords list",
+    "find"
+   ],
+   [
+    "fix you guitar chords",
+    "fix"
+   ],
+   [
+    "best guitar chords",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "guitar chords",
+  "trends_chain_value": 82.432,
+  "trends_error_pct": 11.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_49332453",
+  "label": "rest api",
+  "domain": "software_dev_web",
+  "confidence": "unreviewed",
+  "members": 80,
+  "problem_members": 48,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 21,
+  "intents": {
+   "informational": 32,
+   "how_to": 11,
+   "fix": 10,
+   "calculate": 7
+  },
+  "subdomains": [
+   "apis_auth"
+  ],
+  "problem_examples": [
+   [
+    "rest api vs api",
+    "compare"
+   ],
+   [
+    "rest api tutorial",
+    "how_to"
+   ],
+   [
+    "rest api tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "best rest api tutorial",
+    "how_to"
+   ],
+   [
+    "rest api update",
+    "track"
+   ],
+   [
+    "how many rest api",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.6,
+  "head_term": "rest api vs api",
+  "trends_chain_value": 5.551,
+  "trends_error_pct": 3.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_42479138",
+  "label": "diffusion stable",
+  "domain": "data_ai",
+  "confidence": "unreviewed",
+  "members": 89,
+  "problem_members": 44,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 17,
+  "intents": {
+   "informational": 36,
+   "commercial_nav": 9,
+   "how_to": 8,
+   "decide": 6
+  },
+  "subdomains": [
+   "image_ai"
+  ],
+  "problem_examples": [
+   [
+    "stable diffusion tutorial",
+    "how_to"
+   ],
+   [
+    "best free stable diffusion online",
+    "decide"
+   ],
+   [
+    "free stable diffusion online generator",
+    "generate"
+   ],
+   [
+    "stable diffusion free alternatives",
+    "alternative"
+   ],
+   [
+    "best stable diffusion",
+    "decide"
+   ],
+   [
+    "free stable diffusion video generator",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "stable diffusion",
+  "trends_chain_value": 20.764,
+  "trends_error_pct": 6.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_68510373",
+  "label": "ryzen gpu 7800x3d 5600x",
+  "domain": "pc_building",
+  "confidence": "unreviewed",
+  "members": 62,
+  "problem_members": 54,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 16,
+  "intents": {
+   "decide": 54,
+   "informational": 8
+  },
+  "subdomains": [
+   "components",
+   "gpu_hardware"
+  ],
+  "problem_examples": [
+   [
+    "best gpu for ryzen 5 5600x",
+    "decide"
+   ],
+   [
+    "best gpu for ryzen 7 7800x3d",
+    "decide"
+   ],
+   [
+    "best gpu for ryzen 7 9800x3d",
+    "decide"
+   ],
+   [
+    "best gpu for ryzen 5 5600x 1080p",
+    "decide"
+   ],
+   [
+    "best gpu to pair with ryzen 5 5500",
+    "decide"
+   ],
+   [
+    "best gpu to pair with ryzen 5 5600x",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.87,
+  "head_term": "best gpu for ryzen 7800x3d",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_20262960",
+  "label": "fund index",
+  "domain": "personal_finance",
+  "confidence": "unreviewed",
+  "members": 61,
+  "problem_members": 29,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 16,
+  "intents": {
+   "informational": 30,
+   "decide": 13,
+   "calculate": 5,
+   "optimize": 2
+  },
+  "subdomains": [
+   "investing"
+  ],
+  "problem_examples": [
+   [
+    "index fund calculator",
+    "calculate"
+   ],
+   [
+    "best index funds for beginners",
+    "decide"
+   ],
+   [
+    "index funds list",
+    "find"
+   ],
+   [
+    "best index funds",
+    "decide"
+   ],
+   [
+    "index fund top 5",
+    "decide"
+   ],
+   [
+    "index fund problem",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "index funds",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_30432229",
+  "label": "lambda aws",
+  "domain": "software_dev_ops",
+  "confidence": "unreviewed",
+  "members": 50,
+  "problem_members": 29,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 15,
+  "intents": {
+   "informational": 20,
+   "how_to": 9,
+   "calculate": 8,
+   "alternative": 5
+  },
+  "subdomains": [
+   "cloud_aws"
+  ],
+  "problem_examples": [
+   [
+    "aws lambda cost",
+    "calculate"
+   ],
+   [
+    "aws lambda tutorial",
+    "how_to"
+   ],
+   [
+    "aws lambda example tutorial",
+    "how_to"
+   ],
+   [
+    "aws lambda update",
+    "track"
+   ],
+   [
+    "aws lambda cost calculator",
+    "calculate"
+   ],
+   [
+    "aws lambda tutorial for beginners",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.58,
+  "head_term": "aws lambda",
+  "trends_chain_value": 13.092,
+  "trends_error_pct": 4.2,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_50680442",
+  "label": "lab bambu",
+  "domain": "three_d_printing",
+  "confidence": "unreviewed",
+  "members": 72,
+  "problem_members": 42,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 14,
+  "intents": {
+   "informational": 25,
+   "fix": 14,
+   "how_to": 8,
+   "alternative": 6
+  },
+  "subdomains": [
+   "printers"
+  ],
+  "problem_examples": [
+   [
+    "how to update bambu lab",
+    "how_to"
+   ],
+   [
+    "bambu lab issue",
+    "fix"
+   ],
+   [
+    "bambu lab update issues",
+    "track"
+   ],
+   [
+    "bambu lab cost",
+    "calculate"
+   ],
+   [
+    "bambu lab tutorial",
+    "how_to"
+   ],
+   [
+    "bambu lab alternative",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.58,
+  "head_term": "bambu labs",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_33397016",
+  "label": "azure devop",
+  "domain": "software_dev_ops",
+  "confidence": "unreviewed",
+  "members": 62,
+  "problem_members": 38,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 13,
+  "intents": {
+   "informational": 19,
+   "how_to": 10,
+   "calculate": 8,
+   "fix": 5
+  },
+  "subdomains": [
+   "cloud_other"
+  ],
+  "problem_examples": [
+   [
+    "devops azure tutorial",
+    "how_to"
+   ],
+   [
+    "azure devops and azure are same or different",
+    "compare"
+   ],
+   [
+    "what is difference between azure and azure devops",
+    "compare"
+   ],
+   [
+    "devops azure cost",
+    "calculate"
+   ],
+   [
+    "azure devops calculator",
+    "calculate"
+   ],
+   [
+    "azure devops tools list",
+    "find"
+   ]
+  ],
+  "problem_share": 0.61,
+  "head_term": "devops azure",
+  "trends_chain_value": 15.985,
+  "trends_error_pct": 3.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_44424148",
+  "label": "compose docker",
+  "domain": "software_dev_ops",
+  "confidence": "unreviewed",
+  "members": 60,
+  "problem_members": 33,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 13,
+  "intents": {
+   "informational": 24,
+   "how_to": 8,
+   "alternative": 5,
+   "track": 4
+  },
+  "subdomains": [
+   "containers"
+  ],
+  "problem_examples": [
+   [
+    "docker compose tutorial",
+    "how_to"
+   ],
+   [
+    "docker compose tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "docker compose up not working",
+    "fix"
+   ],
+   [
+    "fix docker compose",
+    "fix"
+   ],
+   [
+    "docker compose list",
+    "find"
+   ],
+   [
+    "docker compose alternatives",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "docker compose",
+  "trends_chain_value": 31.805,
+  "trends_error_pct": 2.3,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_88181358",
+  "label": "max pro iphone",
+  "domain": "consumer_tech",
+  "confidence": "unreviewed",
+  "members": 28,
+  "problem_members": 18,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 13,
+  "intents": {
+   "calculate": 12,
+   "informational": 8,
+   "how_to": 4,
+   "commercial_nav": 2
+  },
+  "subdomains": [
+   "smartphones"
+  ],
+  "problem_examples": [
+   [
+    "iphone 18 pro max vs 17 pro max",
+    "compare"
+   ],
+   [
+    "iphone 18 pro max cost",
+    "calculate"
+   ],
+   [
+    "iphone 17 pro max vs 16 pro max",
+    "compare"
+   ],
+   [
+    "how much iphone 16 pro max",
+    "calculate"
+   ],
+   [
+    "how much iphone 17 pro max",
+    "calculate"
+   ],
+   [
+    "how much iphone 13 pro max",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.64,
+  "head_term": "iphone 17 pro max",
+  "trends_chain_value": 284.373,
+  "trends_error_pct": 5.9,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_74414600",
+  "label": "jetpack compose",
+  "domain": "software_dev_mobile",
+  "confidence": "unreviewed",
+  "members": 48,
+  "problem_members": 26,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 12,
+  "intents": {
+   "informational": 19,
+   "how_to": 10,
+   "find": 4,
+   "calculate": 3
+  },
+  "subdomains": [
+   "android_dev"
+  ],
+  "problem_examples": [
+   [
+    "jetpack compose tutorial",
+    "how_to"
+   ],
+   [
+    "jetpack compose tutorial pdf",
+    "how_to"
+   ],
+   [
+    "jetpack compose tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "jetpack compose list",
+    "find"
+   ],
+   [
+    "jetpack compose to pdf",
+    "convert"
+   ],
+   [
+    "jetpack compose update",
+    "track"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "jetpack compose",
+  "trends_chain_value": 2.811,
+  "trends_error_pct": 4.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_68053632",
+  "label": "lesson plan format english",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 28,
+  "problem_members": 25,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 11,
+  "intents": {
+   "plan": 17,
+   "generate": 3,
+   "find": 3,
+   "commercial_nav": 3
+  },
+  "subdomains": [
+   "teaching"
+  ],
+  "problem_examples": [
+   [
+    "lesson plan format",
+    "plan"
+   ],
+   [
+    "lesson plan new format",
+    "plan"
+   ],
+   [
+    "lesson plan english",
+    "plan"
+   ],
+   [
+    "updated lesson plan format",
+    "plan"
+   ],
+   [
+    "lesson plan format in english",
+    "plan"
+   ],
+   [
+    "lesson plan format pdf",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.89,
+  "head_term": "lesson plan format",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_40830266",
+  "label": "pet bird india kid",
+  "domain": "pets",
+  "confidence": "unreviewed",
+  "members": 42,
+  "problem_members": 26,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 9,
+  "intents": {
+   "decide": 13,
+   "informational": 13,
+   "calculate": 4,
+   "find": 4
+  },
+  "subdomains": [
+   "birds_small_pets"
+  ],
+  "problem_examples": [
+   [
+    "best pet birds for beginners",
+    "decide"
+   ],
+   [
+    "best pet birds for beginners in india",
+    "decide"
+   ],
+   [
+    "pet bird types list",
+    "find"
+   ],
+   [
+    "how to pet bird",
+    "how_to"
+   ],
+   [
+    "best pet birds for kids",
+    "decide"
+   ],
+   [
+    "which pet bird is best for home",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.62,
+  "head_term": "pet bird care",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_72114454",
+  "label": "godot engine",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 10,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 9,
+  "intents": {
+   "informational": 10,
+   "how_to": 5,
+   "commercial_nav": 2,
+   "calculate": 2
+  },
+  "subdomains": [
+   "godot"
+  ],
+  "problem_examples": [
+   [
+    "godot engine tutorial",
+    "how_to"
+   ],
+   [
+    "how to use godot engine for beginners",
+    "how_to"
+   ],
+   [
+    "godot engine 4 tutorial",
+    "how_to"
+   ],
+   [
+    "godot engine update",
+    "track"
+   ],
+   [
+    "godot engine not working",
+    "fix"
+   ],
+   [
+    "godot engine tutorial for beginners",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "godot engine",
+  "trends_chain_value": 3.44,
+  "trends_error_pct": 3.2,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_92479204",
+  "label": "value car",
+  "domain": "automotive",
+  "confidence": "unreviewed",
+  "members": 55,
+  "problem_members": 27,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 23,
+   "calculate": 10,
+   "decide": 5,
+   "commercial_nav": 5
+  },
+  "subdomains": [
+   "buying_selling"
+  ],
+  "problem_examples": [
+   [
+    "car value calculator",
+    "calculate"
+   ],
+   [
+    "car value fix it up",
+    "fix"
+   ],
+   [
+    "car value calculator free online",
+    "calculate"
+   ],
+   [
+    "best car value",
+    "decide"
+   ],
+   [
+    "how much car value",
+    "calculate"
+   ],
+   [
+    "free car value calculator",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "car value",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_33099565",
+  "label": "development android game",
+  "domain": "software_dev_mobile",
+  "confidence": "unreviewed",
+  "members": 20,
+  "problem_members": 11,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 8,
+   "how_to": 6,
+   "calculate": 3,
+   "commercial_nav": 1
+  },
+  "subdomains": [
+   "android_dev"
+  ],
+  "problem_examples": [
+   [
+    "android app development tutorial",
+    "how_to"
+   ],
+   [
+    "android app development cost",
+    "calculate"
+   ],
+   [
+    "android app development tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "android template app development",
+    "generate"
+   ],
+   [
+    "android app development calculator",
+    "calculate"
+   ],
+   [
+    "android app development to do list",
+    "find"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "android app development",
+  "trends_chain_value": 3.773,
+  "trends_error_pct": 4.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_97911708",
+  "label": "salary job plan",
+  "domain": "careers_jobs",
+  "confidence": "unreviewed",
+  "members": 41,
+  "problem_members": 21,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 7,
+  "intents": {
+   "informational": 19,
+   "decide": 6,
+   "calculate": 6,
+   "find": 3
+  },
+  "subdomains": [
+   "salary_negotiation"
+  ],
+  "problem_examples": [
+   [
+    "job salary calculator",
+    "calculate"
+   ],
+   [
+    "job salary list",
+    "find"
+   ],
+   [
+    "best jobs with good salary",
+    "decide"
+   ],
+   [
+    "best job salary",
+    "decide"
+   ],
+   [
+    "all job salary list",
+    "find"
+   ],
+   [
+    "best job salary 50000",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.51,
+  "head_term": "job salary",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_36147395",
+  "label": "board rul game",
+  "domain": "tabletop_hobby_games",
+  "confidence": "unreviewed",
+  "members": 40,
+  "problem_members": 18,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 7,
+  "intents": {
+   "informational": 22,
+   "calculate": 4,
+   "fix": 3,
+   "generate": 3
+  },
+  "subdomains": [
+   "board_games"
+  ],
+  "problem_examples": [
+   [
+    "board game rules template",
+    "generate"
+   ],
+   [
+    "make your own board game rules",
+    "how_to"
+   ],
+   [
+    "board game rules template pdf",
+    "generate"
+   ],
+   [
+    "how to explain board game rules",
+    "how_to"
+   ],
+   [
+    "fix board game rules",
+    "fix"
+   ],
+   [
+    "board game rules list",
+    "find"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "board game rules",
+  "trends_chain_value": 6.106,
+  "trends_error_pct": 4.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_24831406",
+  "label": "value card",
+  "domain": "collecting_antiques",
+  "confidence": "unreviewed",
+  "members": 32,
+  "problem_members": 15,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 7,
+  "intents": {
+   "informational": 15,
+   "decide": 4,
+   "generate": 3,
+   "alternative": 2
+  },
+  "subdomains": [
+   "buying_selling",
+   "trading_cards_toys"
+  ],
+  "problem_examples": [
+   [
+    "card value list",
+    "find"
+   ],
+   [
+    "best card value app",
+    "decide"
+   ],
+   [
+    "card value calculator",
+    "calculate"
+   ],
+   [
+    "card value generator",
+    "generate"
+   ],
+   [
+    "error card value",
+    "fix"
+   ],
+   [
+    "value card template",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.47,
+  "head_term": "card value",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_63776455",
+  "label": "xcode development ios mac",
+  "domain": "software_dev_mobile",
+  "confidence": "unreviewed",
+  "members": 73,
+  "problem_members": 39,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 32,
+   "how_to": 11,
+   "alternative": 5,
+   "optimize": 5
+  },
+  "subdomains": [
+   "android_dev",
+   "ios_dev"
+  ],
+  "problem_examples": [
+   [
+    "xcode app development tutorial",
+    "how_to"
+   ],
+   [
+    "xcode ios app development tutorial",
+    "how_to"
+   ],
+   [
+    "alternatives to xcode for ios development",
+    "alternative"
+   ],
+   [
+    "android studio vs xcode",
+    "compare"
+   ],
+   [
+    "how to app development xcode 14",
+    "how_to"
+   ],
+   [
+    "random app development xcode 14",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.53,
+  "head_term": "apple development xcode",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_72167218",
+  "label": "figma design",
+  "domain": "graphic_design",
+  "confidence": "unreviewed",
+  "members": 43,
+  "problem_members": 21,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 18,
+   "how_to": 6,
+   "calculate": 4,
+   "commercial_nav": 4
+  },
+  "subdomains": [
+   "tools"
+  ],
+  "problem_examples": [
+   [
+    "app design figma tutorial",
+    "how_to"
+   ],
+   [
+    "how to design using figma",
+    "how_to"
+   ],
+   [
+    "app design figma template",
+    "generate"
+   ],
+   [
+    "figma app design tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "best design in figma",
+    "decide"
+   ],
+   [
+    "best app design figma",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "design app figma",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_66227002",
+  "label": "bike repair",
+  "domain": "motorcycles_powersports",
+  "confidence": "unreviewed",
+  "members": 49,
+  "problem_members": 23,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 5,
+  "intents": {
+   "informational": 24,
+   "calculate": 9,
+   "decide": 3,
+   "alternative": 3
+  },
+  "subdomains": [
+   "bicycle"
+  ],
+  "problem_examples": [
+   [
+    "bike repair cost",
+    "calculate"
+   ],
+   [
+    "bike repair cost guide",
+    "calculate"
+   ],
+   [
+    "bike repair tools list",
+    "find"
+   ],
+   [
+    "best bike repair",
+    "decide"
+   ],
+   [
+    "bike repair list",
+    "find"
+   ],
+   [
+    "bike repair near by",
+    "find"
+   ]
+  ],
+  "problem_share": 0.47,
+  "head_term": "bike repair",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_99352889",
+  "label": "kindle device",
+  "domain": "consumer_tech",
+  "confidence": "unreviewed",
+  "members": 41,
+  "problem_members": 22,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 5,
+  "intents": {
+   "informational": 17,
+   "decide": 5,
+   "alternative": 3,
+   "calculate": 3
+  },
+  "subdomains": [
+   "ereaders_tablets"
+  ],
+  "problem_examples": [
+   [
+    "what type of device is a kindle",
+    "identify"
+   ],
+   [
+    "is kindle device worth it",
+    "decide"
+   ],
+   [
+    "what kind of kindle is this device",
+    "identify"
+   ],
+   [
+    "best kindle device",
+    "decide"
+   ],
+   [
+    "kindle device list",
+    "find"
+   ],
+   [
+    "kindle device slow",
+    "optimize"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "kindle device",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_62153479",
+  "label": "monthly weekly daily clean",
+  "domain": "local_services",
+  "confidence": "unreviewed",
+  "members": 26,
+  "problem_members": 25,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 5,
+  "intents": {
+   "plan": 21,
+   "generate": 2,
+   "convert": 1,
+   "find": 1
+  },
+  "subdomains": [
+   "cleaning_moving",
+   "household"
+  ],
+  "problem_examples": [
+   [
+    "house cleaning schedule daily weekly monthly",
+    "plan"
+   ],
+   [
+    "house cleaning checklist daily weekly monthly",
+    "plan"
+   ],
+   [
+    "cleaning schedule daily weekly monthly",
+    "plan"
+   ],
+   [
+    "house cleaning list daily weekly monthly",
+    "find"
+   ],
+   [
+    "daily weekly monthly cleaning schedule pdf",
+    "plan"
+   ],
+   [
+    "house cleaning checklist weekly monthly",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.96,
+  "head_term": "cleaning schedule daily weekly monthly",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_96066795",
+  "label": "sri lanka train schedule",
+  "domain": "transport_commuting",
+  "confidence": "unreviewed",
+  "members": 26,
+  "problem_members": 20,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 5,
+  "intents": {
+   "plan": 19,
+   "informational": 5,
+   "commercial_nav": 1,
+   "calculate": 1
+  },
+  "subdomains": [
+   "aviation",
+   "buying_selling",
+   "transit"
+  ],
+  "problem_examples": [
+   [
+    "train schedule sri lanka railway",
+    "plan"
+   ],
+   [
+    "train schedule in sri lanka",
+    "plan"
+   ],
+   [
+    "train schedule colombo to galle",
+    "plan"
+   ],
+   [
+    "train schedule sri lanka booking",
+    "plan"
+   ],
+   [
+    "train schedule sri lanka colombo to galle",
+    "plan"
+   ],
+   [
+    "train schedule sri lanka colombo to kandy",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.77,
+  "head_term": "train sri lanka",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_05810365",
+  "label": "foot square renovation sq",
+  "domain": "real_estate_housing",
+  "confidence": "unreviewed",
+  "members": 63,
+  "problem_members": 60,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 4,
+  "intents": {
+   "calculate": 56,
+   "commercial_nav": 2,
+   "decide": 1,
+   "fix": 1
+  },
+  "subdomains": [
+   "cleaning_moving",
+   "hardscape_irrigation",
+   "renovation_value",
+   "smart_home",
+   "trees_shrubs",
+   "vegetables",
+   "woodworking"
+  ],
+  "problem_examples": [
+   [
+    "renovation cost per square foot",
+    "calculate"
+   ],
+   [
+    "renovation costs per square foot uk",
+    "calculate"
+   ],
+   [
+    "house cleaning rates per square foot",
+    "calculate"
+   ],
+   [
+    "house cleaning cost per square foot",
+    "calculate"
+   ],
+   [
+    "renovation cost per square foot ontario",
+    "calculate"
+   ],
+   [
+    "renovation cost per sq",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.95,
+  "head_term": "renovation cost per square foot",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_89041460",
+  "label": "build unity ios support",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 50,
+  "problem_members": 35,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 4,
+  "intents": {
+   "informational": 13,
+   "compatibility": 10,
+   "how_to": 10,
+   "convert": 3
+  },
+  "subdomains": [
+   "unity"
+  ],
+  "problem_examples": [
+   [
+    "windows build support unity",
+    "compatibility"
+   ],
+   [
+    "android build support for unity",
+    "compatibility"
+   ],
+   [
+    "build android and ios app with unity",
+    "how_to"
+   ],
+   [
+    "how to build unity game for web",
+    "how_to"
+   ],
+   [
+    "unity web build slow",
+    "optimize"
+   ],
+   [
+    "unity build won't load",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.7,
+  "head_term": "unity build support",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_14498306",
+  "label": "ml dilution mg ug",
+  "domain": "engineering_professional",
+  "confidence": "unreviewed",
+  "members": 27,
+  "problem_members": 27,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 4,
+  "intents": {
+   "calculate": 27
+  },
+  "subdomains": [
+   "chemistry_lab"
+  ],
+  "problem_examples": [
+   [
+    "dilution calculator mg/ml",
+    "calculate"
+   ],
+   [
+    "dilution calculator ng/ul",
+    "calculate"
+   ],
+   [
+    "dilution calculator ug/ml",
+    "calculate"
+   ],
+   [
+    "dilution calculator mg/ml to ug/ml",
+    "calculate"
+   ],
+   [
+    "dilution calculator ng",
+    "calculate"
+   ],
+   [
+    "dilution calculator ug",
+    "calculate"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "dilution calculator mg/ml",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_98835008",
+  "label": "lift motorcycle atv jack",
+  "domain": "motorcycles_powersports",
+  "confidence": "unreviewed",
+  "members": 50,
+  "problem_members": 24,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "informational": 24,
+   "generate": 6,
+   "alternative": 4,
+   "decide": 3
+  },
+  "subdomains": [
+   "powersports"
+  ],
+  "problem_examples": [
+   [
+    "best motorcycle lift table",
+    "decide"
+   ],
+   [
+    "best motorcycle atv lift table",
+    "decide"
+   ],
+   [
+    "how to put a motorcycle on a lift table",
+    "how_to"
+   ],
+   [
+    "how to use an atv jack",
+    "how_to"
+   ],
+   [
+    "how to use an atv lift",
+    "how_to"
+   ],
+   [
+    "fix motorcycle atv jack",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "motorcycle atv lift",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_72160671",
+  "label": "angular js code version",
+  "domain": "software_dev_web",
+  "confidence": "unreviewed",
+  "members": 39,
+  "problem_members": 20,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "informational": 17,
+   "compare": 7,
+   "how_to": 6,
+   "track": 3
+  },
+  "subdomains": [
+   "javascript_frameworks"
+  ],
+  "problem_examples": [
+   [
+    "angular js source code",
+    "find"
+   ],
+   [
+    "angular js website source code",
+    "find"
+   ],
+   [
+    "difference between angular js and angular",
+    "compare"
+   ],
+   [
+    "angular js tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "angular js update",
+    "track"
+   ],
+   [
+    "angular js vs code",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.51,
+  "head_term": "what is angular js",
+  "trends_chain_value": 0.005,
+  "trends_error_pct": 100.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_43241913",
+  "label": "schedule train",
+  "domain": "transport_commuting",
+  "confidence": "unreviewed",
+  "members": 29,
+  "problem_members": 28,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "plan": 13,
+   "generate": 3,
+   "find": 2,
+   "decide": 2
+  },
+  "subdomains": [
+   "transit"
+  ],
+  "problem_examples": [
+   [
+    "train schedule",
+    "plan"
+   ],
+   [
+    "train schedule update",
+    "track"
+   ],
+   [
+    "train schedule app",
+    "plan"
+   ],
+   [
+    "best train schedule app",
+    "decide"
+   ],
+   [
+    "3 train schedule",
+    "plan"
+   ],
+   [
+    "best train schedule",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.97,
+  "head_term": "train schedule",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_25613146",
+  "label": "motherboard cpu",
+  "domain": "pc_building",
+  "confidence": "unreviewed",
+  "members": 25,
+  "problem_members": 12,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "informational": 13,
+   "decide": 3,
+   "find": 2,
+   "alternative": 2
+  },
+  "subdomains": [
+   "compatibility"
+  ],
+  "problem_examples": [
+   [
+    "cpu motherboard compatibility list",
+    "find"
+   ],
+   [
+    "best cpu compatible with my motherboard",
+    "decide"
+   ],
+   [
+    "cpu and motherboard compatibility calculator",
+    "calculate"
+   ],
+   [
+    "best motherboard for cpu",
+    "decide"
+   ],
+   [
+    "cpu motherboard compatible list",
+    "find"
+   ],
+   [
+    "how to get cpu out of motherboard",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "cpu motherboard compatibility",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_74808841",
+  "label": "export capcut setting audio",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 23,
+  "problem_members": 23,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "decide": 8,
+   "how_to": 8,
+   "convert": 5,
+   "compatibility": 1
+  },
+  "subdomains": [
+   "codecs_export",
+   "other_editors",
+   "settings"
+  ],
+  "problem_examples": [
+   [
+    "youtube audio export settings",
+    "convert"
+   ],
+   [
+    "capcut export settings youtube",
+    "convert"
+   ],
+   [
+    "capcut export settings for youtube video",
+    "convert"
+   ],
+   [
+    "how to export youtube videos to capcut",
+    "how_to"
+   ],
+   [
+    "best capcut export settings for youtube",
+    "decide"
+   ],
+   [
+    "how to export music from youtube to capcut",
+    "how_to"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "how to export on capcut",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_06057594",
+  "label": "modd gam pc minecraft",
+  "domain": "gaming_pc",
+  "confidence": "unreviewed",
+  "members": 22,
+  "problem_members": 11,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "informational": 10,
+   "how_to": 7,
+   "decide": 4,
+   "commercial_nav": 1
+  },
+  "subdomains": [
+   "game_mods"
+  ],
+  "problem_examples": [
+   [
+    "how to play modded games on pc",
+    "how_to"
+   ],
+   [
+    "pc game modding tutorial",
+    "how_to"
+   ],
+   [
+    "best pc for modding and gaming",
+    "decide"
+   ],
+   [
+    "how to get modded games on pc",
+    "how_to"
+   ],
+   [
+    "best gaming pc for modded minecraft",
+    "decide"
+   ],
+   [
+    "best pc for modding",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "best pc for modding",
+  "trends_chain_value": 0.005,
+  "trends_error_pct": 101.3,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_91470667",
+  "label": "half marathon plan runn",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 21,
+  "problem_members": 16,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 3,
+  "intents": {
+   "plan": 10,
+   "informational": 5,
+   "decide": 2,
+   "optimize": 2
+  },
+  "subdomains": [
+   "cardio_endurance",
+   "tracking_gear"
+  ],
+  "problem_examples": [
+   [
+    "running plan for half marathon",
+    "plan"
+   ],
+   [
+    "garmin half marathon training plan review",
+    "plan"
+   ],
+   [
+    "garmin half marathon training plan pdf",
+    "plan"
+   ],
+   [
+    "best running plan for half marathon",
+    "decide"
+   ],
+   [
+    "running plan to run half marathon",
+    "plan"
+   ],
+   [
+    "free running plan for half marathon",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.76,
+  "head_term": "running plan for half marathon",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_07440867",
+  "label": "build unity",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 33,
+  "problem_members": 19,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 2,
+  "intents": {
+   "informational": 13,
+   "fix": 6,
+   "optimize": 3,
+   "calculate": 2
+  },
+  "subdomains": [
+   "unity"
+  ],
+  "problem_examples": [
+   [
+    "unity build error",
+    "fix"
+   ],
+   [
+    "unity build not working",
+    "fix"
+   ],
+   [
+    "unity building tutorial",
+    "how_to"
+   ],
+   [
+    "fix unity builds",
+    "fix"
+   ],
+   [
+    "unity best build",
+    "decide"
+   ],
+   [
+    "unity build list",
+    "find"
+   ]
+  ],
+  "problem_share": 0.58,
+  "head_term": "unity builds",
+  "trends_chain_value": 0.133,
+  "trends_error_pct": 101.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_05174339",
+  "label": "publish kdp amazon book",
+  "domain": "writing_publishing",
+  "confidence": "unreviewed",
+  "members": 25,
+  "problem_members": 17,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 2,
+  "intents": {
+   "how_to": 12,
+   "informational": 7,
+   "calculate": 2,
+   "alternative": 1
+  },
+  "subdomains": [
+   "self_publishing"
+  ],
+  "problem_examples": [
+   [
+    "how to format for kdp publishing",
+    "how_to"
+   ],
+   [
+    "how much is kdp publishing",
+    "calculate"
+   ],
+   [
+    "how much does it cost to publish with kdp",
+    "calculate"
+   ],
+   [
+    "writing kdp vs publishing",
+    "compare"
+   ],
+   [
+    "how to publish on kindle kdp",
+    "how_to"
+   ],
+   [
+    "alternative to kdp publishing",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.68,
+  "head_term": "kdp self publishing",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_39618953",
+  "label": "pregnant week am heartbeat",
+  "domain": "parenting_family",
+  "confidence": "unreviewed",
+  "members": 40,
+  "problem_members": 25,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 1,
+  "intents": {
+   "calculate": 18,
+   "informational": 15,
+   "how_to": 4,
+   "compare": 2
+  },
+  "subdomains": [
+   "pregnancy"
+  ],
+  "problem_examples": [
+   [
+    "how many weeks pregnant am i",
+    "calculate"
+   ],
+   [
+    "how many weeks pregnant are you",
+    "calculate"
+   ],
+   [
+    "how many weeks pregnant will i be",
+    "calculate"
+   ],
+   [
+    "how to pregnant weeks",
+    "how_to"
+   ],
+   [
+    "how much pregnant weeks",
+    "calculate"
+   ],
+   [
+    "pregnant weeks vs months",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.62,
+  "head_term": "heartbeat at 8 weeks",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_06637354",
+  "label": "emulator gam pc",
+  "domain": "gaming_pc",
+  "confidence": "unreviewed",
+  "members": 34,
+  "problem_members": 17,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 1,
+  "intents": {
+   "informational": 12,
+   "decide": 6,
+   "commercial_nav": 5,
+   "alternative": 4
+  },
+  "subdomains": [
+   "emulation"
+  ],
+  "problem_examples": [
+   [
+    "best pc gaming emulator",
+    "decide"
+   ],
+   [
+    "top 5 gaming emulator for pc",
+    "decide"
+   ],
+   [
+    "top 10 gaming emulator for pc",
+    "decide"
+   ],
+   [
+    "fix pc gaming emulators",
+    "fix"
+   ],
+   [
+    "pc gaming emulator tutorial",
+    "how_to"
+   ],
+   [
+    "how many pc gaming emulators",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "pc gaming emulator",
+  "trends_chain_value": 0.05,
+  "trends_error_pct": 101.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_90912883",
+  "label": "shopify business small",
+  "domain": "small_business",
+  "confidence": "unreviewed",
+  "members": 32,
+  "problem_members": 16,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 1,
+  "intents": {
+   "informational": 15,
+   "alternative": 5,
+   "decide": 3,
+   "calculate": 3
+  },
+  "subdomains": [
+   "ecommerce_ops"
+  ],
+  "problem_examples": [
+   [
+    "shopify small business cost",
+    "calculate"
+   ],
+   [
+    "is shopify best for small business",
+    "decide"
+   ],
+   [
+    "is shopify worth it for a small business",
+    "decide"
+   ],
+   [
+    "small business shopify tutorial",
+    "how_to"
+   ],
+   [
+    "small business shopify not working",
+    "fix"
+   ],
+   [
+    "small business shopify alternatives",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "shopify small business cost",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_91615824",
+  "label": "quizlet flashcard study like",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 20,
+  "problem_members": 11,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 1,
+  "intents": {
+   "informational": 6,
+   "alternative": 4,
+   "how_to": 4,
+   "commercial_nav": 3
+  },
+  "subdomains": [
+   "exams",
+   "study_tools",
+   "writing_citation"
+  ],
+  "problem_examples": [
+   [
+    "how to study flashcards on quizlet",
+    "how_to"
+   ],
+   [
+    "study flashcards like quizlet",
+    "alternative"
+   ],
+   [
+    "study guide vs flashcards quizlet",
+    "compare"
+   ],
+   [
+    "generate flashcards quizlet",
+    "generate"
+   ],
+   [
+    "free flashcards like quizlet",
+    "alternative"
+   ],
+   [
+    "free study apps like quizlet",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.55,
+  "head_term": "generate flashcards quizlet",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_36930901",
+  "label": "mattress product database test",
+  "domain": "shopping_products",
+  "confidence": "unreviewed",
+  "members": 27,
+  "problem_members": 13,
+  "organic_problem_members": 3,
+  "corroborated_2plus": 0,
+  "intents": {
+   "informational": 13,
+   "find": 3,
+   "decide": 2,
+   "alternative": 2
+  },
+  "subdomains": [
+   "furniture_home_goods"
+  ],
+  "problem_examples": [
+   [
+    "best product mattress",
+    "decide"
+   ],
+   [
+    "product review best mattress",
+    "decide"
+   ],
+   [
+    "what type of product is a mattress",
+    "identify"
+   ],
+   [
+    "product mattress cost",
+    "calculate"
+   ],
+   [
+    "product mattress not working",
+    "fix"
+   ],
+   [
+    "product mattress alternatives",
+    "alternative"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "mattress product",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_20699520",
+  "label": "premiere pro",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 110,
+  "problem_members": 59,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 36,
+  "intents": {
+   "informational": 32,
+   "commercial_nav": 19,
+   "how_to": 18,
+   "calculate": 12
+  },
+  "subdomains": [
+   "premiere"
+  ],
+  "problem_examples": [
+   [
+    "premiere pro tutorial",
+    "how_to"
+   ],
+   [
+    "premiere pro tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "how much premiere pro cost",
+    "calculate"
+   ],
+   [
+    "premiere pro cost per month",
+    "calculate"
+   ],
+   [
+    "premiere pro alternative free",
+    "alternative"
+   ],
+   [
+    "how to use premiere pro templates",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "premiere pro",
+  "trends_chain_value": 54.68,
+  "trends_error_pct": 16.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_57764859",
+  "label": "studio android",
+  "domain": "software_dev_mobile",
+  "confidence": "unreviewed",
+  "members": 96,
+  "problem_members": 51,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 30,
+  "intents": {
+   "informational": 31,
+   "commercial_nav": 14,
+   "how_to": 14,
+   "alternative": 9
+  },
+  "subdomains": [
+   "android_dev"
+  ],
+  "problem_examples": [
+   [
+    "android studio tutorial for beginners",
+    "how_to"
+   ],
+   [
+    "android studio tutorial",
+    "how_to"
+   ],
+   [
+    "android studio error",
+    "fix"
+   ],
+   [
+    "android studio list",
+    "find"
+   ],
+   [
+    "best android studio",
+    "decide"
+   ],
+   [
+    "best android studio app",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.53,
+  "head_term": "android studio",
+  "trends_chain_value": 22.591,
+  "trends_error_pct": 3.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_57487716",
+  "label": "insurance health",
+  "domain": "personal_finance",
+  "confidence": "unreviewed",
+  "members": 73,
+  "problem_members": 41,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 28,
+  "intents": {
+   "informational": 30,
+   "calculate": 16,
+   "decide": 11,
+   "alternative": 4
+  },
+  "subdomains": [
+   "insurance_admin"
+  ],
+  "problem_examples": [
+   [
+    "health insurance alternatives",
+    "alternative"
+   ],
+   [
+    "health insurance cost",
+    "calculate"
+   ],
+   [
+    "health insurance list",
+    "find"
+   ],
+   [
+    "health insurance top 10",
+    "decide"
+   ],
+   [
+    "how much health insurance cost",
+    "calculate"
+   ],
+   [
+    "health insurance cost per month",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.56,
+  "head_term": "health insurance",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_78251146",
+  "label": "house clean",
+  "domain": "local_services",
+  "confidence": "unreviewed",
+  "members": 84,
+  "problem_members": 44,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 20,
+  "intents": {
+   "informational": 35,
+   "calculate": 11,
+   "decide": 8,
+   "generate": 6
+  },
+  "subdomains": [
+   "cleaning_moving"
+  ],
+  "problem_examples": [
+   [
+    "house cleaning list",
+    "find"
+   ],
+   [
+    "house cleaning guide template",
+    "generate"
+   ],
+   [
+    "house cleaning cost",
+    "calculate"
+   ],
+   [
+    "best house cleaning app",
+    "decide"
+   ],
+   [
+    "best house cleaning tools",
+    "decide"
+   ],
+   [
+    "house cleaning list template",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.52,
+  "head_term": "house cleaning",
+  "trends_chain_value": 73.439,
+  "trends_error_pct": 11.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_21751222",
+  "label": "genshin impact",
+  "domain": "gaming_titles",
+  "confidence": "unreviewed",
+  "members": 82,
+  "problem_members": 40,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 19,
+  "intents": {
+   "informational": 28,
+   "commercial_nav": 14,
+   "fix": 11,
+   "calculate": 6
+  },
+  "subdomains": [
+   "mobile_gacha"
+  ],
+  "problem_examples": [
+   [
+    "genshin impact update",
+    "track"
+   ],
+   [
+    "genshin impact latest update",
+    "track"
+   ],
+   [
+    "genshin impact list",
+    "find"
+   ],
+   [
+    "genshin impact error",
+    "fix"
+   ],
+   [
+    "genshin impact calculator",
+    "calculate"
+   ],
+   [
+    "genshin impact error 4201",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "genshin impact",
+  "trends_chain_value": 82.785,
+  "trends_error_pct": 1.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_82873068",
+  "label": "ps5 game",
+  "domain": "gaming_titles",
+  "confidence": "unreviewed",
+  "members": 70,
+  "problem_members": 38,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 19,
+  "intents": {
+   "informational": 20,
+   "commercial_nav": 12,
+   "fix": 9,
+   "calculate": 7
+  },
+  "subdomains": [
+   "console"
+  ],
+  "problem_examples": [
+   [
+    "ps5 game problem",
+    "fix"
+   ],
+   [
+    "ps5 game tutorial",
+    "how_to"
+   ],
+   [
+    "game ps5 list",
+    "find"
+   ],
+   [
+    "ps5 game error",
+    "fix"
+   ],
+   [
+    "game ps5 top 10",
+    "decide"
+   ],
+   [
+    "best game ps5 free",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.54,
+  "head_term": "game ps5",
+  "trends_chain_value": 99.87,
+  "trends_error_pct": 2.5,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_61856363",
+  "label": "pedal guitar",
+  "domain": "playing_music",
+  "confidence": "unreviewed",
+  "members": 62,
+  "problem_members": 28,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 18,
+  "intents": {
+   "informational": 32,
+   "decide": 8,
+   "calculate": 5,
+   "fix": 4
+  },
+  "subdomains": [
+   "gear_repair"
+  ],
+  "problem_examples": [
+   [
+    "best guitar pedals for beginners",
+    "decide"
+   ],
+   [
+    "guide to guitar pedals",
+    "how_to"
+   ],
+   [
+    "best guitar pedals",
+    "decide"
+   ],
+   [
+    "how to guitar pedals work",
+    "how_to"
+   ],
+   [
+    "guitar pedal list",
+    "find"
+   ],
+   [
+    "how many guitar pedals do you need",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.45,
+  "head_term": "guitar pedals",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_66034783",
+  "label": "fortnite game chat lego",
+  "domain": "gaming_titles",
+  "confidence": "unreviewed",
+  "members": 68,
+  "problem_members": 36,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 15,
+  "intents": {
+   "informational": 30,
+   "fix": 17,
+   "how_to": 13,
+   "calculate": 4
+  },
+  "subdomains": [
+   "console",
+   "shooters"
+  ],
+  "problem_examples": [
+   [
+    "fortnite game chat not working ps5",
+    "fix"
+   ],
+   [
+    "fortnite game size nintendo switch",
+    "calculate"
+   ],
+   [
+    "how to fix ps5 game chat",
+    "fix"
+   ],
+   [
+    "how to use game chat ps5",
+    "how_to"
+   ],
+   [
+    "game chat fortnite not working",
+    "fix"
+   ],
+   [
+    "how to fix fortnite game chat pc",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.53,
+  "head_term": "game fortnite lego",
+  "trends_chain_value": 0.529,
+  "trends_error_pct": 22.8,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_47679360",
+  "label": "litter cat",
+  "domain": "pets",
+  "confidence": "unreviewed",
+  "members": 69,
+  "problem_members": 39,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 14,
+  "intents": {
+   "informational": 28,
+   "calculate": 14,
+   "decide": 10,
+   "alternative": 7
+  },
+  "subdomains": [
+   "cats"
+  ],
+  "problem_examples": [
+   [
+    "cat litters per year",
+    "calculate"
+   ],
+   [
+    "cat litter tutorial",
+    "how_to"
+   ],
+   [
+    "cat litter alternatives cheap",
+    "alternative"
+   ],
+   [
+    "best cat litter",
+    "decide"
+   ],
+   [
+    "cat litter problem",
+    "fix"
+   ],
+   [
+    "best cat litter reddit",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "cat litter",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_45694560",
+  "label": "love island watch season",
+  "domain": "reading_media",
+  "confidence": "unreviewed",
+  "members": 34,
+  "problem_members": 34,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 13,
+  "intents": {
+   "find": 31,
+   "fix": 3
+  },
+  "subdomains": [
+   "film_tv"
+  ],
+  "problem_examples": [
+   [
+    "where to watch love island",
+    "find"
+   ],
+   [
+    "where to watch love island usa",
+    "find"
+   ],
+   [
+    "where to watch love island reunion",
+    "find"
+   ],
+   [
+    "where to watch stuck in love",
+    "fix"
+   ],
+   [
+    "where to watch love island uk",
+    "find"
+   ],
+   [
+    "where to watch love island reddit",
+    "find"
+   ]
+  ],
+  "problem_share": 1.0,
+  "head_term": "where to watch love island",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_64888520",
+  "label": "salary job title comparison",
+  "domain": "careers_jobs",
+  "confidence": "unreviewed",
+  "members": 47,
+  "problem_members": 32,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 12,
+  "intents": {
+   "compare": 22,
+   "informational": 15,
+   "calculate": 7,
+   "decide": 1
+  },
+  "subdomains": [
+   "salary_negotiation"
+  ],
+  "problem_examples": [
+   [
+    "job salary comparison",
+    "compare"
+   ],
+   [
+    "job salary comparison calculator",
+    "compare"
+   ],
+   [
+    "job salary calculator uk",
+    "calculate"
+   ],
+   [
+    "best job salary uk",
+    "decide"
+   ],
+   [
+    "salary calculator by job title",
+    "calculate"
+   ],
+   [
+    "salary comparison by job title",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.68,
+  "head_term": "job salary comparison",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_01444332",
+  "label": "ticket park",
+  "domain": "transport_commuting",
+  "confidence": "unreviewed",
+  "members": 46,
+  "problem_members": 27,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 12,
+  "intents": {
+   "informational": 17,
+   "calculate": 9,
+   "generate": 6,
+   "fix": 4
+  },
+  "subdomains": [
+   "parking_tolls"
+  ],
+  "problem_examples": [
+   [
+    "parking ticket template",
+    "generate"
+   ],
+   [
+    "how long to issue a parking ticket",
+    "fix"
+   ],
+   [
+    "parking ticket cost",
+    "calculate"
+   ],
+   [
+    "parking ticket template pdf",
+    "generate"
+   ],
+   [
+    "how many parking tickets can you get",
+    "calculate"
+   ],
+   [
+    "parking ticket update",
+    "track"
+   ]
+  ],
+  "problem_share": 0.59,
+  "head_term": "parking tickets",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_25498735",
+  "label": "c++ c# gdscript godot",
+  "domain": "software_dev_web",
+  "confidence": "unreviewed",
+  "members": 32,
+  "problem_members": 30,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 12,
+  "intents": {
+   "compare": 21,
+   "optimize": 3,
+   "calculate": 3,
+   "convert": 2
+  },
+  "subdomains": [
+   "dotnet",
+   "godot"
+  ],
+  "problem_examples": [
+   [
+    "c# vs c++",
+    "compare"
+   ],
+   [
+    "c# or gdscript for godot",
+    "compare"
+   ],
+   [
+    "c# vs c++ performance",
+    "compare"
+   ],
+   [
+    "c# vs c++ code",
+    "compare"
+   ],
+   [
+    "c# vs gdscript",
+    "compare"
+   ],
+   [
+    "c# vs c++ reddit",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.94,
+  "head_term": "c# vs c++",
+  "trends_chain_value": 0.179,
+  "trends_error_pct": 100.9,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_39244707",
+  "label": "40k warhammer",
+  "domain": "tabletop_hobby_games",
+  "confidence": "unreviewed",
+  "members": 60,
+  "problem_members": 30,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 11,
+  "intents": {
+   "informational": 27,
+   "calculate": 5,
+   "fix": 5,
+   "track": 5
+  },
+  "subdomains": [
+   "miniatures_warhammer"
+  ],
+  "problem_examples": [
+   [
+    "best way to get into warhammer 40k",
+    "decide"
+   ],
+   [
+    "difference between warhammer and 40k",
+    "compare"
+   ],
+   [
+    "warhammer 40k alternatives",
+    "alternative"
+   ],
+   [
+    "warhammer 40k update",
+    "track"
+   ],
+   [
+    "warhammer 40k tutorial",
+    "how_to"
+   ],
+   [
+    "warhammer 40k fix",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "warhammer 40k",
+  "trends_chain_value": 61.547,
+  "trends_error_pct": 1.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_10912544",
+  "label": "drywall repair",
+  "domain": "home_repair",
+  "confidence": "unreviewed",
+  "members": 44,
+  "problem_members": 23,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 11,
+  "intents": {
+   "informational": 20,
+   "calculate": 10,
+   "fix": 4,
+   "decide": 2
+  },
+  "subdomains": [
+   "walls_floors"
+  ],
+  "problem_examples": [
+   [
+    "drywall repair cost",
+    "calculate"
+   ],
+   [
+    "drywall repair list",
+    "find"
+   ],
+   [
+    "best drywall repair",
+    "decide"
+   ],
+   [
+    "drywall repair tools list",
+    "find"
+   ],
+   [
+    "how much is drywall repair",
+    "calculate"
+   ],
+   [
+    "how much drywall repair cost",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.52,
+  "head_term": "drywall repair",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_26535906",
+  "label": "oil change",
+  "domain": "automotive",
+  "confidence": "unreviewed",
+  "members": 73,
+  "problem_members": 44,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 10,
+  "intents": {
+   "informational": 24,
+   "decide": 10,
+   "how_to": 8,
+   "calculate": 8
+  },
+  "subdomains": [
+   "maintenance"
+  ],
+  "problem_examples": [
+   [
+    "oil change cost",
+    "calculate"
+   ],
+   [
+    "oil change tutorial",
+    "how_to"
+   ],
+   [
+    "oil change alternatives",
+    "alternative"
+   ],
+   [
+    "oil change cost calculator",
+    "calculate"
+   ],
+   [
+    "best oil change",
+    "decide"
+   ],
+   [
+    "oil change list",
+    "find"
+   ]
+  ],
+  "problem_share": 0.6,
+  "head_term": "oil change",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_44146718",
+  "label": "chicken farm start plan",
+  "domain": "agriculture_farming",
+  "confidence": "unreviewed",
+  "members": 58,
+  "problem_members": 31,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 10,
+  "intents": {
+   "informational": 24,
+   "calculate": 9,
+   "how_to": 8,
+   "plan": 5
+  },
+  "subdomains": [
+   "livestock"
+  ],
+  "problem_examples": [
+   [
+    "how to start a chicken farm",
+    "how_to"
+   ],
+   [
+    "chicken poultry farm business plan",
+    "plan"
+   ],
+   [
+    "chicken farm tutorial",
+    "how_to"
+   ],
+   [
+    "chicken farm plan",
+    "plan"
+   ],
+   [
+    "how do chicken farms work",
+    "how_to"
+   ],
+   [
+    "chicken farm business plan",
+    "plan"
+   ]
+  ],
+  "problem_share": 0.53,
+  "head_term": "farm chickens",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_42023175",
+  "label": "intake protein",
+  "domain": "fitness_health",
+  "confidence": "unreviewed",
+  "members": 46,
+  "problem_members": 27,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 10,
+  "intents": {
+   "informational": 18,
+   "calculate": 14,
+   "decide": 3,
+   "how_to": 3
+  },
+  "subdomains": [
+   "nutrition_supplements"
+  ],
+  "problem_examples": [
+   [
+    "protein intake per day",
+    "calculate"
+   ],
+   [
+    "protein intake calculator",
+    "calculate"
+   ],
+   [
+    "how to work out protein intake",
+    "how_to"
+   ],
+   [
+    "how much protein intake per day",
+    "calculate"
+   ],
+   [
+    "best protein intake",
+    "decide"
+   ],
+   [
+    "protein intake problem",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.59,
+  "head_term": "protein intake",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_23751453",
+  "label": "linux window",
+  "domain": "software_dev_ops",
+  "confidence": "unreviewed",
+  "members": 30,
+  "problem_members": 25,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 10,
+  "intents": {
+   "compare": 10,
+   "informational": 5,
+   "optimize": 4,
+   "alternative": 4
+  },
+  "subdomains": [
+   "linux_admin",
+   "windows"
+  ],
+  "problem_examples": [
+   [
+    "linux vs windows",
+    "compare"
+   ],
+   [
+    "why is linux faster than windows",
+    "optimize"
+   ],
+   [
+    "why is linux better than windows",
+    "compare"
+   ],
+   [
+    "linux vs windows reddit",
+    "compare"
+   ],
+   [
+    "how to linux in windows 11",
+    "how_to"
+   ],
+   [
+    "windows 11 vs linux reddit",
+    "compare"
+   ]
+  ],
+  "problem_share": 0.83,
+  "head_term": "linux vs windows",
+  "trends_chain_value": 5.603,
+  "trends_error_pct": 4.6,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_46122500",
+  "label": "sheet google excel",
+  "domain": "productivity_office",
+  "confidence": "unreviewed",
+  "members": 21,
+  "problem_members": 12,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 10,
+  "intents": {
+   "compare": 7,
+   "informational": 6,
+   "commercial_nav": 3,
+   "compatibility": 1
+  },
+  "subdomains": [
+   "excel",
+   "google_workspace"
+  ],
+  "problem_examples": [
+   [
+    "google sheets excel template",
+    "generate"
+   ],
+   [
+    "google sheets excel tutorial",
+    "how_to"
+   ],
+   [
+    "excel vs google sheets",
+    "compare"
+   ],
+   [
+    "google sheets vs excel 365",
+    "compare"
+   ],
+   [
+    "google sheets vs excel reddit",
+    "compare"
+   ],
+   [
+    "does excel work with google sheets",
+    "compatibility"
+   ]
+  ],
+  "problem_share": 0.57,
+  "head_term": "excel vs google sheets",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_80788060",
+  "label": "gauge wire",
+  "domain": "engineering_professional",
+  "confidence": "unreviewed",
+  "members": 49,
+  "problem_members": 25,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 9,
+  "intents": {
+   "informational": 22,
+   "calculate": 14,
+   "generate": 3,
+   "compare": 2
+  },
+  "subdomains": [
+   "electrical_pro"
+  ],
+  "problem_examples": [
+   [
+    "wire gauge list",
+    "find"
+   ],
+   [
+    "wire gauge calculator",
+    "calculate"
+   ],
+   [
+    "wire gauge calculator app",
+    "calculate"
+   ],
+   [
+    "gauge wire cost",
+    "calculate"
+   ],
+   [
+    "6 gauge wire cost",
+    "calculate"
+   ],
+   [
+    "8 gauge wire cost",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.51,
+  "head_term": "wire gauge",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_78526289",
+  "label": "rpg maker game gam",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 41,
+  "problem_members": 39,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 9,
+  "intents": {
+   "generate": 19,
+   "how_to": 12,
+   "fix": 4,
+   "find": 2
+  },
+  "subdomains": [
+   "godot",
+   "other_engines"
+  ],
+  "problem_examples": [
+   [
+    "game maker rpg tutorial",
+    "how_to"
+   ],
+   [
+    "game maker rpg",
+    "generate"
+   ],
+   [
+    "game maker studio rpg tutorial",
+    "how_to"
+   ],
+   [
+    "godot tutorial rpg",
+    "how_to"
+   ],
+   [
+    "godot tutorial 3d rpg",
+    "how_to"
+   ],
+   [
+    "game maker 2 rpg tutorial",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.95,
+  "head_term": "game maker rpg",
+  "trends_chain_value": 1.656,
+  "trends_error_pct": 5.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_50623986",
+  "label": "event plann start business",
+  "domain": "relationships_social",
+  "confidence": "unreviewed",
+  "members": 40,
+  "problem_members": 25,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 9,
+  "intents": {
+   "informational": 15,
+   "how_to": 12,
+   "generate": 6,
+   "plan": 3
+  },
+  "subdomains": [
+   "weddings_events"
+  ],
+  "problem_examples": [
+   [
+    "event planning checklist free",
+    "plan"
+   ],
+   [
+    "event planning checklist free template",
+    "generate"
+   ],
+   [
+    "how to event planning",
+    "how_to"
+   ],
+   [
+    "event planning tutorial",
+    "how_to"
+   ],
+   [
+    "event planning excel template",
+    "generate"
+   ],
+   [
+    "how to event planning business",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.62,
+  "head_term": "event planning database",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_34473606",
+  "label": "dark spot face product",
+  "domain": "shopping_products",
+  "confidence": "unreviewed",
+  "members": 31,
+  "problem_members": 27,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 9,
+  "intents": {
+   "decide": 27,
+   "informational": 4
+  },
+  "subdomains": [
+   "reviews_comparison"
+  ],
+  "problem_examples": [
+   [
+    "best product for dark spots on face",
+    "decide"
+   ],
+   [
+    "product best for dark spots",
+    "decide"
+   ],
+   [
+    "best cream for dark spots on face",
+    "decide"
+   ],
+   [
+    "best product to remove dark spots",
+    "decide"
+   ],
+   [
+    "best product to remove dark spots on face",
+    "decide"
+   ],
+   [
+    "best product for dark spots on face for men",
+    "decide"
+   ]
+  ],
+  "problem_share": 0.87,
+  "head_term": "product best for dark spots",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_28484140",
+  "label": "chemistry study",
+  "domain": "education_study",
+  "confidence": "unreviewed",
+  "members": 50,
+  "problem_members": 25,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 25,
+   "decide": 9,
+   "how_to": 6,
+   "generate": 2
+  },
+  "subdomains": [
+   "science"
+  ],
+  "problem_examples": [
+   [
+    "is studying chemistry worth it",
+    "decide"
+   ],
+   [
+    "best way to study chemistry reddit",
+    "decide"
+   ],
+   [
+    "how to study chemistry tips",
+    "how_to"
+   ],
+   [
+    "how to study chemistry for beginners",
+    "how_to"
+   ],
+   [
+    "best chemistry study",
+    "decide"
+   ],
+   [
+    "chemistry study template",
+    "generate"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "chemistry study guide",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_62861365",
+  "label": "arena gather magic android",
+  "domain": "tabletop_hobby_games",
+  "confidence": "unreviewed",
+  "members": 25,
+  "problem_members": 12,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 8,
+  "intents": {
+   "informational": 10,
+   "fix": 5,
+   "commercial_nav": 3,
+   "track": 2
+  },
+  "subdomains": [
+   "tcg"
+  ],
+  "problem_examples": [
+   [
+    "magic the gathering online vs arena",
+    "compare"
+   ],
+   [
+    "magic the gathering arena tutorial",
+    "how_to"
+   ],
+   [
+    "magic the gathering arena update",
+    "track"
+   ],
+   [
+    "magic the gathering arena not working",
+    "fix"
+   ],
+   [
+    "fix magic the gathering arena",
+    "fix"
+   ],
+   [
+    "magic the gathering arena slow",
+    "optimize"
+   ]
+  ],
+  "problem_share": 0.48,
+  "head_term": "magic the gathering arena",
+  "trends_chain_value": 1.612,
+  "trends_error_pct": 3.1,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_52479082",
+  "label": "backup photo",
+  "domain": "photography",
+  "confidence": "unreviewed",
+  "members": 41,
+  "problem_members": 20,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 7,
+  "intents": {
+   "informational": 18,
+   "decide": 5,
+   "calculate": 4,
+   "alternative": 4
+  },
+  "subdomains": [
+   "organizing"
+  ],
+  "problem_examples": [
+   [
+    "best photo backup software",
+    "decide"
+   ],
+   [
+    "best way to backup photos",
+    "decide"
+   ],
+   [
+    "best photo backup app",
+    "decide"
+   ],
+   [
+    "best photo backup",
+    "decide"
+   ],
+   [
+    "photo backup cost",
+    "calculate"
+   ],
+   [
+    "photo backup faster",
+    "optimize"
+   ]
+  ],
+  "problem_share": 0.49,
+  "head_term": "photo backup",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_62895071",
+  "label": "offline printer window",
+  "domain": "it_support",
+  "confidence": "unreviewed",
+  "members": 33,
+  "problem_members": 20,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 7,
+  "intents": {
+   "fix": 14,
+   "informational": 13,
+   "calculate": 3,
+   "compatibility": 2
+  },
+  "subdomains": [
+   "printers_drivers"
+  ],
+  "problem_examples": [
+   [
+    "printer offline problem how to fix windows 11",
+    "fix"
+   ],
+   [
+    "printer offline problem how to fix windows 10",
+    "fix"
+   ],
+   [
+    "printer offline problem windows 10",
+    "fix"
+   ],
+   [
+    "printer offline problem windows 11",
+    "fix"
+   ],
+   [
+    "printer offline issue windows 11",
+    "fix"
+   ],
+   [
+    "printer offline fix windows",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.61,
+  "head_term": "printer offline windows 11",
+  "trends_chain_value": 0.089,
+  "trends_error_pct": 100.7,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_96814484",
+  "label": "parrot pet",
+  "domain": "pets",
+  "confidence": "unreviewed",
+  "members": 26,
+  "problem_members": 13,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 7,
+  "intents": {
+   "informational": 11,
+   "decide": 3,
+   "calculate": 3,
+   "alternative": 2
+  },
+  "subdomains": [
+   "birds_small_pets"
+  ],
+  "problem_examples": [
+   [
+    "best pet parrot for beginners",
+    "decide"
+   ],
+   [
+    "pet parrot cost",
+    "calculate"
+   ],
+   [
+    "best pet parrots",
+    "decide"
+   ],
+   [
+    "pet parrot list",
+    "find"
+   ],
+   [
+    "best pet parrot reddit",
+    "decide"
+   ],
+   [
+    "how much is pet parrot",
+    "calculate"
+   ]
+  ],
+  "problem_share": 0.5,
+  "head_term": "pet parrot",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_65601198",
+  "label": "subtitl edit database studio",
+  "domain": "video_editing",
+  "confidence": "unreviewed",
+  "members": 46,
+  "problem_members": 27,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 17,
+   "decide": 7,
+   "how_to": 4,
+   "calculate": 3
+  },
+  "subdomains": [
+   "subtitles_audio"
+  ],
+  "problem_examples": [
+   [
+    "best editing for subtitles",
+    "decide"
+   ],
+   [
+    "best video editing software for subtitles",
+    "decide"
+   ],
+   [
+    "best editing app for subtitles",
+    "decide"
+   ],
+   [
+    "how to edit subtitles on youtube",
+    "how_to"
+   ],
+   [
+    "best video editing app for subtitles",
+    "decide"
+   ],
+   [
+    "how to edit subtitles in youtube studio",
+    "how_to"
+   ]
+  ],
+  "problem_share": 0.59,
+  "head_term": "best editing app for subtitles",
+  "trends_chain_value": null,
+  "trends_error_pct": null,
+  "fragmentation": {}
+ },
+ {
+  "cluster_id": "c_73501029",
+  "label": "shader unity",
+  "domain": "game_development",
+  "confidence": "unreviewed",
+  "members": 40,
+  "problem_members": 24,
+  "organic_problem_members": 2,
+  "corroborated_2plus": 6,
+  "intents": {
+   "informational": 15,
+   "how_to": 7,
+   "fix": 5,
+   "calculate": 3
+  },
+  "subdomains": [
+   "unity"
+  ],
+  "problem_examples": [
+   [
+    "unity shader tutorial",
+    "how_to"
+   ],
+   [
+    "unity shader tutorial pdf",
+    "how_to"
+   ],
+   [
+    "best unity shaders",
+    "decide"
+   ],
+   [
+    "unity shader list",
+    "find"
+   ],
+   [
+    "unity shader update",
+    "track"
+   ],
+   [
+    "unity 6 shader error",
+    "fix"
+   ]
+  ],
+  "problem_share": 0.6,
+  "head_term": "unity shaders",
+  "trends_chain_value": 0.453,
+  "trends_error_pct": 54.9,
+  "fragmentation": {}
+ }
+]

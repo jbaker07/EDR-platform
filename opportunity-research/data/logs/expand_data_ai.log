@@ -1,6 +1,1 @@
-{"seed": "llm chatgpt", "new_queries": 534, "suggestions_seen": 1031}
-{"seed": "machine learning pytorch", "new_queries": 446, "suggestions_seen": 1790}
-{"seed": "excel formula", "new_queries": 1410, "suggestions_seen": 1927}
-{"seed": "machine learning airflow", "new_queries": 457, "suggestions_seen": 1649}
-{"seed": "stable diffusion", "new_queries": 1366, "suggestions_seen": 1885}
-{"seed": "gpu for ai", "new_queries": 745, "suggestions_seen": 1779}
+{"seed": "llm chatgpt", "skipped": "already expanded"}

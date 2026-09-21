@@ -1,0 +1,332 @@
+[
+ {
+  "cluster_id": "c_17786114",
+  "head_term": "cleaning schedule",
+  "query": "cleaning schedule generator",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_60022455",
+  "head_term": "unreal engine",
+  "query": "unreal engine 5 tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_12253393",
+  "head_term": "study flashcards",
+  "query": "best way to study flashcards",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_54253453",
+  "head_term": "game maker",
+  "query": "game maker free",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_08408999",
+  "head_term": "vue js for beginners",
+  "query": "vue js tutorial for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_49060128",
+  "head_term": "train schedule change",
+  "query": "train schedule create",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_89542548",
+  "head_term": "find security processor",
+  "query": "motherboard and processor compatibility list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_62387175",
+  "head_term": "protein intake for muscle gain",
+  "query": "protein intake calculator for muscle gain",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_77124544",
+  "head_term": "database postgresql",
+  "query": "database postgresql",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_02655167",
+  "head_term": "after effects",
+  "query": "after effects alternative",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_07650702",
+  "head_term": "warhammer 40k new edition",
+  "query": "how to play warhammer 40k 11th edition",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_20091063",
+  "head_term": "pc gaming emulator for android",
+  "query": "best gaming emulator for pc windows 10",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_25279857",
+  "head_term": "graphic design fonts",
+  "query": "best graphic design fonts",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_37752267",
+  "head_term": "amazon my kindle devices",
+  "query": "devices like a kindle",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_56316349",
+  "head_term": "roof leaking",
+  "query": "how to stop a metal roof from leaking",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_63216123",
+  "head_term": "game maker studio",
+  "query": "game maker studio 2 tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_95400142",
+  "head_term": "running plan",
+  "query": "running plan for beginners",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_02894523",
+  "head_term": "study sat",
+  "query": "best sat study",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_26962621",
+  "head_term": "daw ableton",
+  "query": "ableton daw tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_33506357",
+  "head_term": "holiday christmas",
+  "query": "holiday christmas list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_41592593",
+  "head_term": "meal prep",
+  "query": "how to meal prep for beginners",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_51963424",
+  "head_term": "wood stain remover",
+  "query": "how to wood stain a door",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_75513861",
+  "head_term": "excel formulas",
+  "query": "excel formulas tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_89685491",
+  "head_term": "printer offline error",
+  "query": "best offline printer",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_05174339",
+  "head_term": "kdp self publishing",
+  "query": "how much is kdp publishing",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_06637354",
+  "head_term": "pc gaming emulator",
+  "query": "fix pc gaming emulators",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_24831406",
+  "head_term": "card value",
+  "query": "card value list",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_30432229",
+  "head_term": "aws lambda",
+  "query": "aws lambda cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_33397016",
+  "head_term": "devops azure",
+  "query": "devops azure tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_39618953",
+  "head_term": "heartbeat at 8 weeks",
+  "query": "how many weeks pregnant am i",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_43241913",
+  "head_term": "train schedule",
+  "query": "train schedule",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_50680442",
+  "head_term": "bambu labs",
+  "query": "how to update bambu lab",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_00649614",
+  "head_term": "random minecraft seed",
+  "query": "best java seeds",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_94231707",
+  "head_term": "cities skylines",
+  "query": "cities skylines 1 vs 2",
+  "intent": "compare"
+ },
+ {
+  "cluster_id": "c_68510373",
+  "head_term": "best gpu for ryzen 7800x3d",
+  "query": "best gpu for ryzen 5 5600x",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_09425283",
+  "head_term": "regex programming",
+  "query": "programming regex tutorial",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_47208708",
+  "head_term": "cibil score plan",
+  "query": "cibil score plan",
+  "intent": "plan"
+ },
+ {
+  "cluster_id": "c_91441868",
+  "head_term": "substitute teacher checklist",
+  "query": "how to lesson plan for new teachers",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_06715988",
+  "head_term": "best premiere pro export settings",
+  "query": "where to find premiere pro exports",
+  "intent": "find"
+ },
+ {
+  "cluster_id": "c_78251146",
+  "head_term": "house cleaning",
+  "query": "house cleaning cost",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_04258840",
+  "head_term": "smart tv kaise on kare",
+  "query": "capcut video editing slow motion kaise kare",
+  "intent": "optimize"
+ },
+ {
+  "cluster_id": "c_77496565",
+  "head_term": "air fryer",
+  "query": "best air fryer",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_73534285",
+  "head_term": "graphic design plan",
+  "query": "graphic design new update",
+  "intent": "track"
+ },
+ {
+  "cluster_id": "c_97018946",
+  "head_term": "linux distros",
+  "query": "linux distros like windows",
+  "intent": "alternative"
+ },
+ {
+  "cluster_id": "c_78526289",
+  "head_term": "game maker rpg",
+  "query": "game maker rpg",
+  "intent": "generate"
+ },
+ {
+  "cluster_id": "c_37932240",
+  "head_term": "java vs kotlin",
+  "query": "android app tutorial kotlin",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_67280724",
+  "head_term": "blender improve render",
+  "query": "how to blender render",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_02911633",
+  "head_term": "circuit breaker",
+  "query": "circuit breaker error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_73847079",
+  "head_term": "language learning translator",
+  "query": "best free language translator",
+  "intent": "decide"
+ },
+ {
+  "cluster_id": "c_89041460",
+  "head_term": "unity build support",
+  "query": "windows build support unity",
+  "intent": "compatibility"
+ },
+ {
+  "cluster_id": "c_45694560",
+  "head_term": "where to watch love island",
+  "query": "where to watch stuck in love",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_41059632",
+  "head_term": "capcut video editor review",
+  "query": "how much is capcut video editor",
+  "intent": "calculate"
+ },
+ {
+  "cluster_id": "c_61856363",
+  "head_term": "guitar pedals",
+  "query": "how to guitar pedals work",
+  "intent": "how_to"
+ },
+ {
+  "cluster_id": "c_92785728",
+  "head_term": "cpu cooler",
+  "query": "cpu cooler error",
+  "intent": "fix"
+ },
+ {
+  "cluster_id": "c_86660584",
+  "head_term": "green card",
+  "query": "green card update",
+  "intent": "track"
+ }
+]

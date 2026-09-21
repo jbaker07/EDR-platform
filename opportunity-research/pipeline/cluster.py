@@ -16,12 +16,14 @@ from pipeline import store
 from pipeline.clean import topic_key
 
 INTENT = [
+    # commercial/navigational first: vendors and app stores already answer these, so they are not problem intents
+    ("commercial_nav", r"\b(download|downloads|price|prices|pricing|login|log in|sign in|sign up|coupon|discount|crack|apk|buy|for sale|deals?|subscription|premium|pro version|full version)\b"),
     ("fix", r"\b(not working|won'?t|can'?t|doesn'?t|isn'?t|error|fix|stuck|broken|fail|crash|problem|issue|missing|freez|lag)\b"),
     ("how_to", r"^(how (to|do|can)|tutorial|guide|setup|set up|install|make|create|build)\b|\b(tutorial|how to)\b"),
     ("compare", r"\b(vs|versus|or|compared|comparison|difference between|better than)\b"),
     ("decide", r"\b(best|which|should i|recommend|top \d+|worth it)\b"),
     ("compatibility", r"\b(compatib|work with|works with|support(s|ed)? |fit|fits)\b"),
-    ("alternative", r"\b(alternative|instead of|free|open source|like)\b"),
+    ("alternative", r"\b(alternative|alternatives|instead of|free alternative|open source|similar to|like)\b"),
     ("calculate", r"\b(calculator|how much|how many|cost|price|estimate|calculate|size|per)\b"),
     ("generate", r"\b(generator|generate|random|template|maker|create a)\b"),
     ("convert", r"\b(convert|converter|to (pdf|mp4|mp3|png|jpg|svg|stl|obj|fbx|gltf)|export|import)\b"),

@@ -1819,16 +1819,683 @@
    "reads": 18.23,
    "anchor_reads": 48.45,
    "error_pct": 3.8
+  },
+  "c# cheat": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 25.6,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "jetpack compose": {
+   "value": 2.811,
+   "anchor": "unreal engine games",
+   "reads": 23.42,
+   "anchor_reads": 25.6,
+   "error_pct": 4.1
+  },
+  "database postgresql": {
+   "value": 5.577,
+   "anchor": "unreal engine games",
+   "reads": 46.45,
+   "anchor_reads": 25.6,
+   "error_pct": 3.0
+  },
+  "java vs kotlin": {
+   "value": 0.27,
+   "anchor": "unreal engine games",
+   "reads": 1.62,
+   "anchor_reads": 18.47,
+   "error_pct": 33.5
+  },
+  "owasp security": {
+   "value": 4.923,
+   "anchor": "unreal engine games",
+   "reads": 29.58,
+   "anchor_reads": 18.47,
+   "error_pct": 4.4
+  },
+  "maker's mark": {
+   "value": 6.205,
+   "anchor": "unreal engine games",
+   "reads": 37.28,
+   "anchor_reads": 18.47,
+   "error_pct": 4.0
+  },
+  "pc gaming steam": {
+   "value": 4.782,
+   "anchor": "unreal engine games",
+   "reads": 28.74,
+   "anchor_reads": 18.47,
+   "error_pct": 4.4
+  },
+  "meal prep": {
+   "value": 125.728,
+   "anchor": "board game rules",
+   "reads": 8.55,
+   "anchor_reads": 0.42,
+   "error_pct": 105.8
+  },
+  "apple watch": {
+   "value": 962.25,
+   "anchor": "board game rules",
+   "reads": 65.42,
+   "anchor_reads": 0.42,
+   "error_pct": 100.8
+  },
+  "logo design": {
+   "value": 40.958,
+   "anchor": "board game rules",
+   "reads": 22.53,
+   "anchor_reads": 3.36,
+   "error_pct": 17.1
+  },
+  "davinci resolve": {
+   "value": 65.931,
+   "anchor": "board game rules",
+   "reads": 36.26,
+   "anchor_reads": 3.36,
+   "error_pct": 16.3
+  },
+  "after effects": {
+   "value": 129.564,
+   "anchor": "board game rules",
+   "reads": 71.26,
+   "anchor_reads": 3.36,
+   "error_pct": 15.6
+  },
+  "premiere pro": {
+   "value": 54.68,
+   "anchor": "board game rules",
+   "reads": 30.08,
+   "anchor_reads": 3.36,
+   "error_pct": 16.6
+  },
+  "google sheets": {
+   "value": 256.528,
+   "anchor": "maker's mark",
+   "reads": 29.64,
+   "anchor_reads": 0.72,
+   "error_pct": 71.4
+  },
+  "smart tv": {
+   "value": 299.31,
+   "anchor": "maker's mark",
+   "reads": 34.58,
+   "anchor_reads": 0.72,
+   "error_pct": 71.2
+  },
+  "dog training": {
+   "value": 110.057,
+   "anchor": "maker's mark",
+   "reads": 12.72,
+   "anchor_reads": 0.72,
+   "error_pct": 73.7
+  },
+  "video editing capcut download": {
+   "value": 0.0,
+   "anchor": "maker's mark",
+   "reads": 0,
+   "anchor_reads": 3.45,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "sewing machine": {
+   "value": 125.253,
+   "anchor": "maker's mark",
+   "reads": 69.7,
+   "anchor_reads": 3.45,
+   "error_pct": 15.2
+  },
+  "windows xp": {
+   "value": 15.835,
+   "anchor": "maker's mark",
+   "reads": 8.81,
+   "anchor_reads": 3.45,
+   "error_pct": 20.2
+  },
+  "air fryer": {
+   "value": 772.966,
+   "anchor": "maker's mark",
+   "reads": 65.81,
+   "anchor_reads": 0.53,
+   "error_pct": 95.4
+  },
+  "job resume": {
+   "value": 36.993,
+   "anchor": "maker's mark",
+   "reads": 85.38,
+   "anchor_reads": 14.32,
+   "error_pct": 4.1
+  },
+  "knitting patterns": {
+   "value": 6.851,
+   "anchor": "maker's mark",
+   "reads": 15.81,
+   "anchor_reads": 14.32,
+   "error_pct": 6.7
+  },
+  "habit tracker": {
+   "value": 5.379,
+   "anchor": "maker's mark",
+   "reads": 12.42,
+   "anchor_reads": 14.32,
+   "error_pct": 7.5
+  },
+  "wedding planning": {
+   "value": 12.68,
+   "anchor": "maker's mark",
+   "reads": 29.26,
+   "anchor_reads": 14.32,
+   "error_pct": 5.2
+  },
+  "house cleaning": {
+   "value": 73.439,
+   "anchor": "rest api documentation",
+   "reads": 51.92,
+   "anchor_reads": 4.62,
+   "error_pct": 11.8
+  },
+  "inventory management": {
+   "value": 35.545,
+   "anchor": "rest api documentation",
+   "reads": 25.13,
+   "anchor_reads": 4.62,
+   "error_pct": 12.8
+  },
+  "ui design": {
+   "value": 22.816,
+   "anchor": "rest api documentation",
+   "reads": 16.13,
+   "anchor_reads": 4.62,
+   "error_pct": 13.9
+  },
+  "guitar chords": {
+   "value": 82.432,
+   "anchor": "rest api documentation",
+   "reads": 58.28,
+   "anchor_reads": 4.62,
+   "error_pct": 11.7
+  },
+  "electric scooter": {
+   "value": 125.562,
+   "anchor": "linux distros",
+   "reads": 19.23,
+   "anchor_reads": 1.28,
+   "error_pct": 41.6
+  },
+  "weather radar": {
+   "value": 342.676,
+   "anchor": "linux distros",
+   "reads": 52.47,
+   "anchor_reads": 1.28,
+   "error_pct": 39.9
+  },
+  "ableton live tutorial": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 7.79,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "workout plan": {
+   "value": 31.913,
+   "anchor": "linux distros",
+   "reads": 29.68,
+   "anchor_reads": 7.79,
+   "error_pct": 8.1
+  },
+  "novel writing": {
+   "value": 8.846,
+   "anchor": "linux distros",
+   "reads": 8.23,
+   "anchor_reads": 7.79,
+   "error_pct": 12.5
+  },
+  "random minecraft seed": {
+   "value": 0.224,
+   "anchor": "steam page",
+   "reads": 1.3,
+   "anchor_reads": 51.51,
+   "error_pct": 39.4
+  },
+  "roof leaking": {
+   "value": 4.731,
+   "anchor": "steam page",
+   "reads": 27.47,
+   "anchor_reads": 51.51,
+   "error_pct": 2.8
+  },
+  "types of 3d modeling": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 2,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "substitute for steak": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 2,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "credit score": {
+   "value": 342.195,
+   "anchor": "linux distros",
+   "reads": 81.68,
+   "anchor_reads": 2,
+   "error_pct": 25.6
+  },
+  "washing machine": {
+   "value": 265.601,
+   "anchor": "linux distros",
+   "reads": 75.36,
+   "anchor_reads": 2.38,
+   "error_pct": 21.7
+  },
+  "woodworking plans": {
+   "value": 2.297,
+   "anchor": "steam page",
+   "reads": 13.34,
+   "anchor_reads": 51.51,
+   "error_pct": 4.7
+  },
+  "improve workout plans": {
+   "value": 0.0,
+   "anchor": "steam page",
+   "reads": 0,
+   "anchor_reads": 51.51,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "novel writing ai": {
+   "value": 0.988,
+   "anchor": "steam page",
+   "reads": 5.74,
+   "anchor_reads": 51.51,
+   "error_pct": 9.7
+  },
+  "cooking and canning": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 1.08,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "tax return": {
+   "value": 241.521,
+   "anchor": "linux distros",
+   "reads": 31,
+   "anchor_reads": 1.08,
+   "error_pct": 48.1
+  },
+  "lawn care": {
+   "value": 106.869,
+   "anchor": "linux distros",
+   "reads": 13.72,
+   "anchor_reads": 1.08,
+   "error_pct": 50.1
+  },
+  "oil change": {
+   "value": 587.108,
+   "anchor": "linux distros",
+   "reads": 76.68,
+   "anchor_reads": 1.09,
+   "error_pct": 46.3
+  },
+  "health insurance": {
+   "value": 580.896,
+   "anchor": "linux distros",
+   "reads": 75.87,
+   "anchor_reads": 1.09,
+   "error_pct": 46.3
+  },
+  "piano chords": {
+   "value": 27.992,
+   "anchor": "linux distros",
+   "reads": 76.58,
+   "anchor_reads": 22.92,
+   "error_pct": 2.8
+  },
+  "lesson plans": {
+   "value": 12.517,
+   "anchor": "linux distros",
+   "reads": 34.25,
+   "anchor_reads": 22.92,
+   "error_pct": 3.6
+  },
+  "video editing obs studio": {
+   "value": 0.0,
+   "anchor": "steam page",
+   "reads": 0,
+   "anchor_reads": 51.51,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "apple development xcode": {
+   "value": 0.201,
+   "anchor": "steam page",
+   "reads": 1.17,
+   "anchor_reads": 51.51,
+   "error_pct": 43.7
+  },
+  "substitute for buttermilk": {
+   "value": 3.178,
+   "anchor": "steam page",
+   "reads": 18.45,
+   "anchor_reads": 51.51,
+   "error_pct": 3.7
+  },
+  "bambu labs": {
+   "value": 31.301,
+   "anchor": "steam page",
+   "reads": 59.72,
+   "anchor_reads": 16.92,
+   "error_pct": 3.8
+  },
+  "rv workout equipment": {
+   "value": 0.0,
+   "anchor": "steam page",
+   "reads": 0,
+   "anchor_reads": 51.49,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "modeling cycles": {
+   "value": 0.163,
+   "anchor": "steam page",
+   "reads": 0.94,
+   "anchor_reads": 51.49,
+   "error_pct": 54.0
+  },
+  "java won't install": {
+   "value": 0.0,
+   "anchor": "steam page",
+   "reads": 0,
+   "anchor_reads": 51.51,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "video editor subtitles": {
+   "value": 0.25,
+   "anchor": "steam page",
+   "reads": 1.45,
+   "anchor_reads": 51.51,
+   "error_pct": 35.4
+  },
+  "shipping suppliers": {
+   "value": 1.784,
+   "anchor": "steam page",
+   "reads": 10.36,
+   "anchor_reads": 51.51,
+   "error_pct": 5.8
+  },
+  "woodworking projects": {
+   "value": 2.087,
+   "anchor": "steam page",
+   "reads": 12.11,
+   "anchor_reads": 51.49,
+   "error_pct": 5.1
+  },
+  "cibil score plan": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 32.15,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "capcut video editor review": {
+   "value": 0.202,
+   "anchor": "linux distros",
+   "reads": 0.77,
+   "anchor_reads": 32.15,
+   "error_pct": 66.2
+  },
+  "off grid solar system": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 1.6,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "monitor cheap hdmi": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 1.6,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "smart home": {
+   "value": 167.974,
+   "anchor": "linux distros",
+   "reads": 32.15,
+   "anchor_reads": 1.6,
+   "error_pct": 32.7
+  },
+  "vehicle cdl requirements": {
+   "value": 0.0,
+   "anchor": "linux distros",
+   "reads": 0,
+   "anchor_reads": 4,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "cat litter": {
+   "value": 124.223,
+   "anchor": "linux distros",
+   "reads": 59.3,
+   "anchor_reads": 4,
+   "error_pct": 13.3
+  },
+  "external hard drive best": {
+   "value": 5.335,
+   "anchor": "steam page",
+   "reads": 9.96,
+   "anchor_reads": 16.57,
+   "error_pct": 8.0
+  },
+  "study sat": {
+   "value": 7.002,
+   "anchor": "steam page",
+   "reads": 13.08,
+   "anchor_reads": 16.57,
+   "error_pct": 6.8
+  },
+  "blog post": {
+   "value": 28.422,
+   "anchor": "steam page",
+   "reads": 53.08,
+   "anchor_reads": 16.57,
+   "error_pct": 4.0
   }
  },
  "pending": [
-  "c# cheat",
-  "jetpack compose",
-  "database postgresql",
-  "java vs kotlin",
-  "owasp security",
-  "maker's mark",
-  "pc gaming steam"
+  "wood stain remover",
+  "train schedule change",
+  "audio interface",
+  "electricity bill plans",
+  "solar panels",
+  "cpu cooler",
+  "study flashcards",
+  "feature engineering",
+  "travel itinerary",
+  "concrete mix",
+  "study com algebra",
+  "workout plan for muscle gain",
+  "renovation cost per square foot",
+  "change database postgres",
+  "watercolor flower craft",
+  "chord progressions",
+  "how to read knit patterns",
+  "small business invoice",
+  "microsoft word for free",
+  "guitar pedals",
+  "best gpu for ryzen 7800x3d",
+  "print photos",
+  "ev charging",
+  "index funds",
+  "tax return irs",
+  "car tune up checklist",
+  "learning workflows",
+  "running plan",
+  "healthcare therapy services",
+  "driving test",
+  "office microsoft word",
+  "coin value",
+  "ev charger stuck",
+  "fitness planet plan",
+  "free language learning app duolingo",
+  "woodworking drill press",
+  "dog training collars",
+  "candle making",
+  "baby sleeping bag",
+  "photography cameras",
+  "farm chickens",
+  "holiday christmas movie",
+  "car tuning",
+  "ukulele chords",
+  "language learning translator",
+  "screen reader",
+  "book recommendations",
+  "substitute teacher checklist",
+  "photo camera settings",
+  "crop rotation",
+  "baby sleep",
+  "how to move abroad",
+  "job description to resume match",
+  "hobby science telescope lab",
+  "pull ups",
+  "car value",
+  "drink cocktail names",
+  "jewelry making",
+  "remote jobs",
+  "wellbeing meditation",
+  "credit score calculator for car",
+  "smart tv kaise on kare",
+  "sous vide",
+  "visa requirements",
+  "protein intake for muscle gain",
+  "photoshop lightroom",
+  "sewing machine stuck in reverse",
+  "ham radio",
+  "study algebra",
+  "cleaning schedule",
+  "motorcycle maintenance",
+  "guitar tab database",
+  "dropshipping suppliers",
+  "substitute for heavy cream",
+  "anime watch list",
+  "chemistry study guide",
+  "crypto bitcoin",
+  "pilot license",
+  "trail hiking shoes",
+  "small business invoices",
+  "poultry farm plan",
+  "unity build support",
+  "motorcycle atv lift",
+  "apple watch series 10",
+  "interview questions",
+  "car modification basics",
+  "vocal ranges",
+  "bike repair",
+  "computer chromebook",
+  "wire gauge",
+  "what is cmyk image",
+  "aged care changes",
+  "skincare routine",
+  "rock climbing",
+  "notion for office",
+  "fix windows xp boot",
+  "graphic design plan",
+  "bird identification",
+  "apple watch bands",
+  "ui designer jobs",
+  "job salary comparison",
+  "engineering fea",
+  "off grid",
+  "pull ups vs chin ups",
+  "drug interactions",
+  "parking tickets",
+  "baby sleep schedule 6 months",
+  "gpu for ai",
+  "graphic design fonts",
+  "meal prep for weight loss",
+  "fix wood stain",
+  "song identifier google",
+  "protein intake",
+  "craft watercolor",
+  "best editing app for subtitles",
+  "duolingo learn languages free",
+  "green card",
+  "ham radio deluxe",
+  "best premiere pro export settings",
+  "appliance parts",
+  "care mold remediation",
+  "thank you notes",
+  "well being meditation",
+  "bluetooth headphones",
+  "rv there yet",
+  "drywall repair",
+  "duolingo spanish lessons",
+  "running plan to lose weight",
+  "landlord houses to rent",
+  "small business seo",
+  "job certifications",
+  "design app figma",
+  "office trello",
+  "holiday christmas",
+  "free thank you note template",
+  "pet bird care",
+  "garden pruning",
+  "icd 10 code list pdf",
+  "blender improve render",
+  "microsoft fix it office",
+  "ham radio frequencies",
+  "photography exposure",
+  "photo backup",
+  "weather forecast test",
+  "tomato plants",
+  "free office word software",
+  "3d model converter fbx",
+  "job salary",
+  "kindle device",
+  "energy bills",
+  "what trucks require a cdl",
+  "how can i mix music",
+  "heartbeat at 8 weeks",
+  "puppy training schedule",
+  "soccer drills",
+  "event planning database",
+  "apple watch alternatives for iphone",
+  "logo apple stuck",
+  "problems with rental property",
+  "book writing plan",
+  "logo design illustrator",
+  "laptop dell",
+  "stl files",
+  "device does not have bluetooth",
+  "daw ableton",
+  "bed leveling",
+  "smart tv 32 inch",
+  "random song id",
+  "is notion on windows",
+  "protein intake to build muscle",
+  "zapier office",
+  "convert linux to windows",
+  "apple watch se 3 44mm",
+  "generate chord progression fl studio",
+  "math study plan",
+  "vinyl record price guide",
+  "class a cdl vehicles"
  ],
  "log": [
   {
@@ -5535,6 +6202,577 @@
    "requeued": [
     "c# cheat"
    ]
+  },
+  {
+   "at": 1789968729.5294075,
+   "anchor": "unreal engine games",
+   "batch": [
+    "c# cheat",
+    "jetpack compose",
+    "database postgresql",
+    "java vs kotlin"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 25.6,
+    "c# cheat": 0,
+    "jetpack compose": 23.42,
+    "database postgresql": 46.45,
+    "java vs kotlin": 2.15
+   },
+   "requeued": [
+    "java vs kotlin"
+   ]
+  },
+  {
+   "at": 1789968785.851699,
+   "anchor": "unreal engine games",
+   "batch": [
+    "java vs kotlin",
+    "owasp security",
+    "maker's mark",
+    "pc gaming steam"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 18.47,
+    "java vs kotlin": 1.62,
+    "owasp security": 29.58,
+    "maker's mark": 37.28,
+    "pc gaming steam": 28.74
+   }
+  },
+  {
+   "at": 1789968842.4317048,
+   "anchor": "board game rules",
+   "batch": [
+    "davinci resolve",
+    "logo design",
+    "meal prep",
+    "apple watch"
+   ],
+   "ok": true,
+   "means": {
+    "board game rules": 0.42,
+    "davinci resolve": 5,
+    "logo design": 3.11,
+    "meal prep": 8.55,
+    "apple watch": 65.42
+   },
+   "requeued": [
+    "davinci resolve",
+    "logo design"
+   ]
+  },
+  {
+   "at": 1789969007.226083,
+   "anchor": "board game rules",
+   "batch": [
+    "logo design",
+    "davinci resolve",
+    "after effects",
+    "premiere pro"
+   ],
+   "ok": true,
+   "means": {
+    "board game rules": 3.36,
+    "logo design": 22.53,
+    "davinci resolve": 36.26,
+    "after effects": 71.26,
+    "premiere pro": 30.08
+   }
+  },
+  {
+   "at": 1789969063.5915556,
+   "anchor": "maker's mark",
+   "batch": [
+    "google sheets",
+    "smart tv",
+    "video editing capcut download",
+    "dog training"
+   ],
+   "ok": true,
+   "means": {
+    "maker's mark": 0.72,
+    "google sheets": 29.64,
+    "smart tv": 34.58,
+    "video editing capcut download": 0,
+    "dog training": 12.72
+   },
+   "requeued": [
+    "video editing capcut download"
+   ]
+  },
+  {
+   "at": 1789969120.3556566,
+   "anchor": "maker's mark",
+   "batch": [
+    "video editing capcut download",
+    "sewing machine",
+    "windows xp",
+    "habit tracker"
+   ],
+   "ok": true,
+   "means": {
+    "maker's mark": 3.45,
+    "video editing capcut download": 0,
+    "sewing machine": 69.7,
+    "windows xp": 8.81,
+    "habit tracker": 3.04
+   },
+   "requeued": [
+    "habit tracker"
+   ]
+  },
+  {
+   "at": 1789969176.7543356,
+   "anchor": "maker's mark",
+   "batch": [
+    "habit tracker",
+    "knitting patterns",
+    "job resume",
+    "air fryer"
+   ],
+   "ok": true,
+   "means": {
+    "maker's mark": 0.53,
+    "habit tracker": 0.38,
+    "knitting patterns": 0.6,
+    "job resume": 3.04,
+    "air fryer": 65.81
+   },
+   "requeued": [
+    "habit tracker",
+    "knitting patterns",
+    "job resume"
+   ]
+  },
+  {
+   "at": 1789969233.133391,
+   "anchor": "maker's mark",
+   "batch": [
+    "job resume",
+    "knitting patterns",
+    "habit tracker",
+    "wedding planning"
+   ],
+   "ok": true,
+   "means": {
+    "maker's mark": 14.32,
+    "job resume": 85.38,
+    "knitting patterns": 15.81,
+    "habit tracker": 12.42,
+    "wedding planning": 29.26
+   }
+  },
+  {
+   "at": 1789969289.7305336,
+   "anchor": "rest api documentation",
+   "batch": [
+    "house cleaning",
+    "inventory management",
+    "ui design",
+    "guitar chords"
+   ],
+   "ok": true,
+   "means": {
+    "rest api documentation": 4.62,
+    "house cleaning": 51.92,
+    "inventory management": 25.13,
+    "ui design": 16.13,
+    "guitar chords": 58.28
+   }
+  },
+  {
+   "at": 1789969403.363361,
+   "anchor": "linux distros",
+   "batch": [
+    "electric scooter",
+    "random minecraft seed",
+    "weather radar",
+    "ableton live tutorial"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 1.28,
+    "electric scooter": 19.23,
+    "random minecraft seed": 0,
+    "weather radar": 52.47,
+    "ableton live tutorial": 0
+   },
+   "requeued": [
+    "random minecraft seed",
+    "ableton live tutorial"
+   ]
+  },
+  {
+   "at": 1789969459.8367646,
+   "anchor": "linux distros",
+   "batch": [
+    "ableton live tutorial",
+    "random minecraft seed",
+    "workout plan",
+    "novel writing"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 7.79,
+    "ableton live tutorial": 0,
+    "random minecraft seed": 0.06,
+    "workout plan": 29.68,
+    "novel writing": 8.23
+   },
+   "requeued": [
+    "random minecraft seed"
+   ]
+  },
+  {
+   "at": 1789969516.1728175,
+   "anchor": "steam page",
+   "batch": [
+    "random minecraft seed",
+    "substitute for steak",
+    "types of 3d modeling",
+    "roof leaking"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.51,
+    "random minecraft seed": 1.3,
+    "substitute for steak": 6.55,
+    "types of 3d modeling": 0,
+    "roof leaking": 27.47
+   },
+   "requeued": [
+    "substitute for steak",
+    "types of 3d modeling"
+   ]
+  },
+  {
+   "at": 1789969572.773849,
+   "anchor": "linux distros",
+   "batch": [
+    "types of 3d modeling",
+    "substitute for steak",
+    "credit score",
+    "novel writing ai"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 2,
+    "types of 3d modeling": 0,
+    "substitute for steak": 0,
+    "credit score": 81.68,
+    "novel writing ai": 0
+   },
+   "requeued": [
+    "novel writing ai"
+   ]
+  },
+  {
+   "at": 1789969629.3300116,
+   "anchor": "linux distros",
+   "batch": [
+    "novel writing ai",
+    "washing machine",
+    "improve workout plans",
+    "woodworking plans"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 2.38,
+    "novel writing ai": 0.04,
+    "washing machine": 75.36,
+    "improve workout plans": 0,
+    "woodworking plans": 0.89
+   },
+   "requeued": [
+    "novel writing ai",
+    "improve workout plans",
+    "woodworking plans"
+   ]
+  },
+  {
+   "at": 1789969685.7797837,
+   "anchor": "steam page",
+   "batch": [
+    "woodworking plans",
+    "improve workout plans",
+    "novel writing ai",
+    "cooking and canning"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.51,
+    "woodworking plans": 13.34,
+    "improve workout plans": 0,
+    "novel writing ai": 5.74,
+    "cooking and canning": 0.11
+   },
+   "requeued": [
+    "cooking and canning"
+   ]
+  },
+  {
+   "at": 1789969792.5157874,
+   "anchor": "linux distros",
+   "batch": [
+    "cooking and canning",
+    "tax return",
+    "lawn care",
+    "piano chords"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 1.08,
+    "cooking and canning": 0,
+    "tax return": 31,
+    "lawn care": 13.72,
+    "piano chords": 3.57
+   },
+   "requeued": [
+    "piano chords"
+   ]
+  },
+  {
+   "at": 1789969848.9608705,
+   "anchor": "linux distros",
+   "batch": [
+    "piano chords",
+    "oil change",
+    "health insurance",
+    "apple development xcode"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 1.09,
+    "piano chords": 3.89,
+    "oil change": 76.68,
+    "health insurance": 75.87,
+    "apple development xcode": 0
+   },
+   "requeued": [
+    "piano chords",
+    "apple development xcode"
+   ]
+  },
+  {
+   "at": 1789969905.414109,
+   "anchor": "linux distros",
+   "batch": [
+    "apple development xcode",
+    "piano chords",
+    "lesson plans",
+    "video editing obs studio"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 22.92,
+    "apple development xcode": 0.58,
+    "piano chords": 76.58,
+    "lesson plans": 34.25,
+    "video editing obs studio": 0
+   },
+   "requeued": [
+    "apple development xcode",
+    "video editing obs studio"
+   ]
+  },
+  {
+   "at": 1789969961.768661,
+   "anchor": "steam page",
+   "batch": [
+    "video editing obs studio",
+    "apple development xcode",
+    "modeling cycles",
+    "substitute for buttermilk"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.51,
+    "video editing obs studio": 0,
+    "apple development xcode": 1.17,
+    "modeling cycles": 0.94,
+    "substitute for buttermilk": 18.45
+   },
+   "requeued": [
+    "modeling cycles"
+   ]
+  },
+  {
+   "at": 1789970018.122743,
+   "anchor": "steam page",
+   "batch": [
+    "modeling cycles",
+    "rv workout equipment",
+    "video editor subtitles",
+    "bambu labs"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 16.92,
+    "modeling cycles": 0.42,
+    "rv workout equipment": 0,
+    "video editor subtitles": 0.6,
+    "bambu labs": 59.72
+   },
+   "requeued": [
+    "modeling cycles",
+    "rv workout equipment",
+    "video editor subtitles"
+   ]
+  },
+  {
+   "at": 1789970074.4717288,
+   "anchor": "steam page",
+   "batch": [
+    "video editor subtitles",
+    "rv workout equipment",
+    "modeling cycles",
+    "java won't install"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.49,
+    "video editor subtitles": 1.45,
+    "rv workout equipment": 0,
+    "modeling cycles": 0.94,
+    "java won't install": 0
+   },
+   "requeued": [
+    "video editor subtitles",
+    "java won't install"
+   ]
+  },
+  {
+   "at": 1789970153.3112457,
+   "anchor": "steam page",
+   "batch": [
+    "java won't install",
+    "video editor subtitles",
+    "shipping suppliers",
+    "capcut video editor review"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.51,
+    "java won't install": 0,
+    "video editor subtitles": 1.45,
+    "shipping suppliers": 10.36,
+    "capcut video editor review": 1.17
+   },
+   "requeued": [
+    "capcut video editor review"
+   ]
+  },
+  {
+   "at": 1789970209.6935763,
+   "anchor": "steam page",
+   "batch": [
+    "capcut video editor review",
+    "monitor cheap hdmi",
+    "woodworking projects",
+    "cibil score plan"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 51.49,
+    "capcut video editor review": 1.17,
+    "monitor cheap hdmi": 1.08,
+    "woodworking projects": 12.11,
+    "cibil score plan": 0
+   },
+   "requeued": [
+    "capcut video editor review",
+    "monitor cheap hdmi",
+    "cibil score plan"
+   ]
+  },
+  {
+   "at": 1789970266.0784137,
+   "anchor": "linux distros",
+   "batch": [
+    "cibil score plan",
+    "monitor cheap hdmi",
+    "capcut video editor review",
+    "off grid solar system"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 32.15,
+    "cibil score plan": 0,
+    "monitor cheap hdmi": 0.66,
+    "capcut video editor review": 0.77,
+    "off grid solar system": 5.26
+   },
+   "requeued": [
+    "monitor cheap hdmi",
+    "off grid solar system"
+   ]
+  },
+  {
+   "at": 1789970322.4162145,
+   "anchor": "linux distros",
+   "batch": [
+    "off grid solar system",
+    "monitor cheap hdmi",
+    "smart home",
+    "vehicle cdl requirements"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 1.6,
+    "off grid solar system": 0,
+    "monitor cheap hdmi": 0,
+    "smart home": 32.15,
+    "vehicle cdl requirements": 0
+   },
+   "requeued": [
+    "vehicle cdl requirements"
+   ]
+  },
+  {
+   "at": 1789970378.783922,
+   "anchor": "linux distros",
+   "batch": [
+    "vehicle cdl requirements",
+    "cat litter",
+    "wood stain remover",
+    "external hard drive best"
+   ],
+   "ok": true,
+   "means": {
+    "linux distros": 4,
+    "vehicle cdl requirements": 0,
+    "cat litter": 59.3,
+    "wood stain remover": 0.74,
+    "external hard drive best": 2.55
+   },
+   "requeued": [
+    "wood stain remover",
+    "external hard drive best"
+   ]
+  },
+  {
+   "at": 1789970435.4790814,
+   "anchor": "steam page",
+   "batch": [
+    "external hard drive best",
+    "wood stain remover",
+    "study sat",
+    "blog post"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 16.57,
+    "external hard drive best": 9.96,
+    "wood stain remover": 3.47,
+    "study sat": 13.08,
+    "blog post": 53.08
+   },
+   "requeued": [
+    "wood stain remover"
+   ]
   }
  ],
  "anchors": [
@@ -5578,13 +6816,13 @@
   "cpu motherboard compatibility check": 2,
   "docker and kubernetes": 2,
   "chess openings": 1,
-  "c# cheat": 2,
-  "jetpack compose": 1,
-  "database postgresql": 1,
-  "java vs kotlin": 1,
-  "owasp security": 1,
-  "maker's mark": 1,
-  "pc gaming steam": 1,
+  "c# cheat": 3,
+  "jetpack compose": 2,
+  "database postgresql": 2,
+  "java vs kotlin": 3,
+  "owasp security": 2,
+  "maker's mark": 2,
+  "pc gaming steam": 2,
   "circuit breaker box": 3,
   "devops azure pricing": 3,
   "macos tahoe": 1,
@@ -5794,6 +7032,69 @@
   "dnd 5e classes": 2,
   "all the equalizer settings": 2,
   "best pc for steam": 1,
-  "free dnd 5e campaigns": 2
+  "free dnd 5e campaigns": 2,
+  "davinci resolve": 2,
+  "logo design": 2,
+  "meal prep": 1,
+  "apple watch": 1,
+  "after effects": 1,
+  "premiere pro": 1,
+  "google sheets": 1,
+  "smart tv": 1,
+  "video editing capcut download": 2,
+  "dog training": 1,
+  "sewing machine": 1,
+  "windows xp": 1,
+  "habit tracker": 3,
+  "knitting patterns": 2,
+  "job resume": 2,
+  "air fryer": 1,
+  "wedding planning": 1,
+  "house cleaning": 1,
+  "inventory management": 1,
+  "ui design": 1,
+  "guitar chords": 1,
+  "electric scooter": 1,
+  "random minecraft seed": 3,
+  "weather radar": 1,
+  "ableton live tutorial": 2,
+  "workout plan": 1,
+  "novel writing": 1,
+  "substitute for steak": 2,
+  "types of 3d modeling": 2,
+  "roof leaking": 1,
+  "credit score": 1,
+  "novel writing ai": 3,
+  "washing machine": 1,
+  "improve workout plans": 2,
+  "woodworking plans": 2,
+  "cooking and canning": 2,
+  "tax return": 1,
+  "lawn care": 1,
+  "piano chords": 3,
+  "oil change": 1,
+  "health insurance": 1,
+  "apple development xcode": 3,
+  "lesson plans": 1,
+  "video editing obs studio": 2,
+  "modeling cycles": 3,
+  "substitute for buttermilk": 1,
+  "rv workout equipment": 2,
+  "video editor subtitles": 3,
+  "bambu labs": 1,
+  "java won't install": 2,
+  "shipping suppliers": 1,
+  "capcut video editor review": 3,
+  "monitor cheap hdmi": 3,
+  "woodworking projects": 1,
+  "cibil score plan": 2,
+  "off grid solar system": 2,
+  "smart home": 1,
+  "vehicle cdl requirements": 2,
+  "cat litter": 1,
+  "wood stain remover": 2,
+  "external hard drive best": 2,
+  "study sat": 1,
+  "blog post": 1
  }
 }

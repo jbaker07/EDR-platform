@@ -1,8 +1,9 @@
-{"seed": "minecraft", "new_queries": 2079, "suggestions_seen": 2822}
-{"seed": "game terraria", "new_queries": 856, "suggestions_seen": 1256}
-{"seed": "elden ring build", "new_queries": 968, "suggestions_seen": 1814}
-{"seed": "game fortnite", "new_queries": 1194, "suggestions_seen": 1476}
-{"seed": "cities skylines", "new_queries": 1415, "suggestions_seen": 2115}
-{"seed": "genshin impact", "new_queries": 1684, "suggestions_seen": 2340}
-{"seed": "fc 24", "new_queries": 1353, "suggestions_seen": 1887}
-{"seed": "game ps5", "new_queries": 1531, "suggestions_seen": 1978}
+{"seed": "minecraft", "skipped": "already expanded"}
+{"seed": "minecraft server", "new_queries": 1619, "suggestions_seen": 2375}
+{"seed": "game terraria", "skipped": "already expanded"}
+{"seed": "game valheim", "new_queries": 663, "suggestions_seen": 1121}
+{"seed": "elden ring build", "skipped": "already expanded"}
+{"seed": "baldur's gate 3 build", "new_queries": 698, "suggestions_seen": 1637}
+{"seed": "game fortnite", "skipped": "already expanded"}
+{"seed": "game valorant", "new_queries": 930, "suggestions_seen": 1438}
+{"seed": "cities skylines", "skipped": "already expanded"}
