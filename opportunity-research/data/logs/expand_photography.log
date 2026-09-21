@@ -7,3 +7,6 @@
 {"seed": "photography exposure", "skipped": "already expanded"}
 {"seed": "photography iso", "new_queries": 551, "suggestions_seen": 1075}
 {"seed": "print photos", "skipped": "already expanded"}
+{"seed": "photo scanner", "new_queries": 1088, "suggestions_seen": 1718}
+{"seed": "photo backup", "skipped": "already expanded"}
+{"seed": "duplicate photos", "new_queries": 994, "suggestions_seen": 1577}

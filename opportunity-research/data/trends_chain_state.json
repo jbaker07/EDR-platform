@@ -2774,27 +2774,119 @@
    "reads": 48.62,
    "anchor_reads": 7.64,
    "error_pct": 7.6
+  },
+  "sewing machine stuck in reverse": {
+   "value": 0.0,
+   "anchor": "how to iphone mirror",
+   "reads": 0,
+   "anchor_reads": 31.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "photoshop lightroom": {
+   "value": 3.286,
+   "anchor": "how to iphone mirror",
+   "reads": 10.23,
+   "anchor_reads": 31.62,
+   "error_pct": 6.5
+  },
+  "ham radio": {
+   "value": 23.022,
+   "anchor": "how to iphone mirror",
+   "reads": 71.64,
+   "anchor_reads": 31.62,
+   "error_pct": 2.3
+  },
+  "protein intake for muscle gain": {
+   "value": 0.744,
+   "anchor": "how to iphone mirror",
+   "reads": 2.49,
+   "anchor_reads": 34,
+   "error_pct": 21.5
+  },
+  "study algebra": {
+   "value": 3.164,
+   "anchor": "how to iphone mirror",
+   "reads": 10.58,
+   "anchor_reads": 34,
+   "error_pct": 6.2
+  },
+  "cleaning schedule": {
+   "value": 14.741,
+   "anchor": "how to iphone mirror",
+   "reads": 49.32,
+   "anchor_reads": 34,
+   "error_pct": 2.5
+  },
+  "motorcycle maintenance": {
+   "value": 3.778,
+   "anchor": "how to iphone mirror",
+   "reads": 12.64,
+   "anchor_reads": 34,
+   "error_pct": 5.4
+  },
+  "dropshipping suppliers": {
+   "value": 1.893,
+   "anchor": "how to iphone mirror",
+   "reads": 11.21,
+   "anchor_reads": 60.15,
+   "error_pct": 5.3
+  },
+  "substitute for heavy cream": {
+   "value": 7.446,
+   "anchor": "how to iphone mirror",
+   "reads": 44.08,
+   "anchor_reads": 60.15,
+   "error_pct": 2.0
+  },
+  "anime watch list": {
+   "value": 1.412,
+   "anchor": "how to iphone mirror",
+   "reads": 8.36,
+   "anchor_reads": 60.15,
+   "error_pct": 6.8
+  },
+  "guitar tab database": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 16.43,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "crypto bitcoin": {
+   "value": 27.127,
+   "anchor": "game assets",
+   "reads": 46.25,
+   "anchor_reads": 16.43,
+   "error_pct": 4.1
+  },
+  "pilot license": {
+   "value": 11.765,
+   "anchor": "game assets",
+   "reads": 20.06,
+   "anchor_reads": 16.43,
+   "error_pct": 5.5
+  },
+  "trail hiking shoes": {
+   "value": 4.247,
+   "anchor": "how to iphone mirror",
+   "reads": 30.28,
+   "anchor_reads": 72.45,
+   "error_pct": 2.3
+  },
+  "chemistry study guide": {
+   "value": 0.921,
+   "anchor": "game assets",
+   "reads": 4.32,
+   "anchor_reads": 45.21,
+   "error_pct": 12.7
   }
  },
  "pending": [
-  "sewing machine stuck in reverse",
-  "photoshop lightroom",
-  "protein intake for muscle gain",
-  "ham radio",
-  "study algebra",
-  "cleaning schedule",
-  "motorcycle maintenance",
-  "guitar tab database",
-  "dropshipping suppliers",
-  "substitute for heavy cream",
-  "anime watch list",
-  "chemistry study guide",
-  "crypto bitcoin",
-  "pilot license",
-  "trail hiking shoes",
+  "unity build support",
   "small business invoices",
   "poultry farm plan",
-  "unity build support",
   "motorcycle atv lift",
   "apple watch series 10",
   "interview questions",
@@ -2889,7 +2981,8 @@
   "generate chord progression fl studio",
   "math study plan",
   "vinyl record price guide",
-  "class a cdl vehicles"
+  "class a cdl vehicles",
+  "video editing subtitles"
  ],
  "log": [
   {
@@ -7819,6 +7912,133 @@
     "photoshop lightroom",
     "sewing machine stuck in reverse"
    ]
+  },
+  {
+   "at": 1789972479.0803475,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "sewing machine stuck in reverse",
+    "photoshop lightroom",
+    "protein intake for muscle gain",
+    "ham radio"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 31.62,
+    "sewing machine stuck in reverse": 0,
+    "photoshop lightroom": 10.23,
+    "protein intake for muscle gain": 2.32,
+    "ham radio": 71.64
+   },
+   "requeued": [
+    "protein intake for muscle gain"
+   ]
+  },
+  {
+   "at": 1789972535.4318767,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "protein intake for muscle gain",
+    "study algebra",
+    "cleaning schedule",
+    "motorcycle maintenance"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 34,
+    "protein intake for muscle gain": 2.49,
+    "study algebra": 10.58,
+    "cleaning schedule": 49.32,
+    "motorcycle maintenance": 12.64
+   }
+  },
+  {
+   "at": 1789972591.789393,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "guitar tab database",
+    "dropshipping suppliers",
+    "substitute for heavy cream",
+    "anime watch list"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 60.15,
+    "guitar tab database": 0,
+    "dropshipping suppliers": 11.21,
+    "substitute for heavy cream": 44.08,
+    "anime watch list": 8.36
+   },
+   "requeued": [
+    "guitar tab database"
+   ]
+  },
+  {
+   "at": 1789972648.185103,
+   "anchor": "game assets",
+   "batch": [
+    "guitar tab database",
+    "chemistry study guide",
+    "crypto bitcoin",
+    "pilot license"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 16.43,
+    "guitar tab database": 0,
+    "chemistry study guide": 1.51,
+    "crypto bitcoin": 46.25,
+    "pilot license": 20.06
+   },
+   "requeued": [
+    "chemistry study guide"
+   ]
+  },
+  {
+   "at": 1789972704.5459013,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "chemistry study guide",
+    "trail hiking shoes",
+    "small business invoices",
+    "poultry farm plan"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.45,
+    "chemistry study guide": 6.45,
+    "trail hiking shoes": 30.28,
+    "small business invoices": 3.98,
+    "poultry farm plan": 0.11
+   },
+   "requeued": [
+    "chemistry study guide",
+    "small business invoices",
+    "poultry farm plan"
+   ]
+  },
+  {
+   "at": 1789972760.8958573,
+   "anchor": "game assets",
+   "batch": [
+    "poultry farm plan",
+    "small business invoices",
+    "chemistry study guide",
+    "unity build support"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "poultry farm plan": 0.06,
+    "small business invoices": 2.7,
+    "chemistry study guide": 4.32,
+    "unity build support": 1.68
+   },
+   "requeued": [
+    "poultry farm plan",
+    "small business invoices",
+    "unity build support"
+   ]
   }
  ],
  "anchors": [
@@ -8205,8 +8425,23 @@
   "smart tv kaise on kare": 2,
   "sous vide": 1,
   "visa requirements": 1,
-  "protein intake for muscle gain": 1,
-  "photoshop lightroom": 1,
-  "sewing machine stuck in reverse": 1
+  "protein intake for muscle gain": 3,
+  "photoshop lightroom": 2,
+  "sewing machine stuck in reverse": 2,
+  "ham radio": 1,
+  "study algebra": 1,
+  "cleaning schedule": 1,
+  "motorcycle maintenance": 1,
+  "guitar tab database": 2,
+  "dropshipping suppliers": 1,
+  "substitute for heavy cream": 1,
+  "anime watch list": 1,
+  "chemistry study guide": 3,
+  "crypto bitcoin": 1,
+  "pilot license": 1,
+  "trail hiking shoes": 1,
+  "small business invoices": 2,
+  "poultry farm plan": 2,
+  "unity build support": 1
  }
 }

@@ -18,7 +18,8 @@ from pipeline.cluster import intent_of  # noqa: E402
 from pipeline.sources import serp  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-ORDER = "organic_problem_members desc, corroborated_2plus desc, members desc (Trends and fragmentation shown, not used for order until placed/measured for all rows)"
+ORDER = ("clusters with >= 10 checked results first, by fragmented share desc, then tool hits asc, then organic problem members desc; "
+         "unchecked clusters after, by organic problem members desc, corroboration desc")
 
 
 def metrics(con, min_members: int = 15) -> list[dict]:
@@ -67,36 +68,48 @@ def metrics(con, min_members: int = 15) -> list[dict]:
         a["head_term"] = sig.get("head_term")
         a["trends_chain_value"] = sig.get("trends_chain_value")
         a["trends_error_pct"] = (sig.get("trends_chain_meta") or {}).get("error_pct")
-        serp_rows = con.execute("""SELECT s.engine, s.category, s.site FROM serp s JOIN cluster_members m ON m.query=s.query
-                                   WHERE m.cluster_id=?""", (a["cluster_id"],)).fetchall()
-        a["fragmentation"] = {e: serp.mix([{"category": r[1], "site": r[2]} for r in serp_rows if r[0] == e])
-                              for e in {r[0] for r in serp_rows}}
+        serp_rows = con.execute("""SELECT s.engine, s.category, s.site, s.title, s.query FROM serp s JOIN cluster_members m ON m.query=s.query
+                                   WHERE m.cluster_id=? AND s.engine='websearch_tool'""", (a["cluster_id"],)).fetchall()
+        a["fragmentation"] = serp.mix([{"category": r[1], "site": r[2], "title": r[3]} for r in serp_rows]) if serp_rows else {}
+        a["queries_checked"] = sorted({r[4] for r in serp_rows})
         out.append(a)
     return out
 
 
-def write(con, top: int = 150, min_members: int = 20, min_problem_share: float = 0.45, tag: str = "pass1") -> Path:
+def write(con, top: int = 100, min_members: int = 20, min_problem_share: float = 0.45, tag: str = "pass1") -> Path:
     rows = [r for r in metrics(con, min_members) if r["problem_share"] >= min_problem_share]
-    rows.sort(key=lambda r: (-r["organic_problem_members"], -r["corroborated_2plus"], -r["members"]))
+    def key(r):
+        f = r["fragmentation"]
+        checked = f.get("n", 0) >= 10
+        return (0 if checked else 1, -(f.get("fragmented_share", 0) if checked else 0), f.get("tool_hits", 0) if checked else 0,
+                -r["organic_problem_members"], -r["corroborated_2plus"], -r["members"])
+    rows.sort(key=key)
     rows = rows[:top]
     (ROOT / "data" / "exports" / f"candidates_{tag}.json").write_text(json.dumps(rows, indent=1, default=list))
     md = [f"# Candidate problem clusters ({tag}, free route)\n",
           f"Filter: members >= {min_members} and problem-intent share >= {min_problem_share}. Order: {ORDER}. "
           "No monthly search volume exists in this dataset; `trends` is the head term's relative interest on the chained "
           "Google Trends scale (root anchor = 100) with its rounding error, blank when not yet placed. `frag` is the "
-          "fragmented share of the web-search results checked so far (blank = not checked). Cluster labels are lexical.\n",
-          "| # | head term | domain | members | problem (share) | organic | corr | intents | trends (±%) | frag | problem-intent examples (organic first) |",
-          "|---|---|---|---|---|---|---|---|---|---|---|"]
+          "fragmented share (community + editorial + aggregator) of the web-search results for the cluster's checked queries, `tool` the "
+          "number of those results from a tool site or with a tool-naming title, `vendor` the product-vendor share, `uncl` the unclassified "
+          "share, `n` the results checked (blank = not checked; the web-search tool is a US-only proxy, not Google). Cluster labels are lexical.\n",
+          "| # | head term | domain | members | problem (share) | organic | corr | intents | trends (±%) | frag | tool | vendor | uncl | n | problem-intent examples (organic first) |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for i, r in enumerate(rows, 1):
         tv = ""
         if r["trends_chain_value"] is not None:
             err = r["trends_error_pct"] or 0
             tv = f"{r['trends_chain_value']:.1f} (±{err})" if err < 50 else f"~{r['trends_chain_value']:.0f} (unreliable, ±{err})"
-        fr = "; ".join(f"{e}:{m.get('fragmented_share', 0):.2f}/{m.get('results', 0)}" for e, m in r["fragmentation"].items())
+        f = r["fragmentation"]
+        fr = f"{f['fragmented_share']:.2f}" if f else ""
+        tool = str(f.get("tool_hits", "")) if f else ""
+        vend = f"{f['vendor_share']:.2f}" if f else ""
+        uncl = f"{f['unclassified_share']:.2f}" if f else ""
+        nres = str(f.get("n", "")) if f else ""
         ints = ", ".join(f"{k}:{v}" for k, v in r["intents"].items())
         ex = "; ".join(q for q, _ in r["problem_examples"][:3])
         md.append(f"| {i} | {r['head_term'] or r['label']} | {r['domain']} | {r['members']} | {r['problem_members']} ({r['problem_share']}) | "
-                  f"{r['organic_problem_members']} | {r['corroborated_2plus']} | {ints} | {tv} | {fr} | {ex} |")
+                  f"{r['organic_problem_members']} | {r['corroborated_2plus']} | {ints} | {tv} | {fr} | {tool} | {vend} | {uncl} | {nres} | {ex} |")
     p = ROOT / "data" / "exports" / f"candidates_{tag}.md"
     p.write_text("\n".join(md) + "\n")
     return p

@@ -13,26 +13,38 @@ import urllib.parse
 
 from pipeline import http
 
-CATEGORIES = [
-    ("reddit", r"reddit\.com"), ("stackexchange", r"stackoverflow\.com|stackexchange\.com|superuser\.com|serverfault\.com|askubuntu\.com"),
-    ("forum", r"forum|discussions\.|community\.|/t/|boards\.|\.proboards|discourse|answers\.|/threads/|quora\.com|/topic/"),
-    ("youtube", r"youtube\.com|youtu\.be"), ("github", r"github\.com|gitlab\.com|bitbucket\.org"),
-    ("docs", r"docs\.|documentation|/docs/|/manual/|readthedocs|developer\.|learn\.microsoft|developer\.mozilla|/wiki/|wiki\."),
-    ("wikipedia", r"wikipedia\.org"), ("video_other", r"vimeo\.com|tiktok\.com"),
-    ("marketplace", r"amazon\.|ebay\.|etsy\.|aliexpress|walmart\.|homedepot\.|lowes\.|assetstore|marketplace|gumroad|itch\.io"),
-    ("qa_platform", r"answers\.|quora\.com"), ("government", r"\.gov|\.edu|nih\.gov|europa\.eu"),
-    ("large_platform", r"microsoft\.com|apple\.com|google\.com|adobe\.com|autodesk\.com|unity\.com|epicgames\.com|ifixit\.com|wikihow\.com"),
-    ("blog_editorial", r"medium\.com|substack|blog|/articles?/|magazine|news|\.io/[a-z-]+$|all3dp\.com|tomshardware\.com|howtogeek|lifehacker|thespruce|bobvila|familyhandyman|wikihow"),
-    ("recipe_site", r"allrecipes|kingarthurbaking|seriouseats|foodnetwork|bbcgoodfood|recipe"),
-    ("vendor_content", r"autozone\.com|kbb\.com|repairpal|carparts|advanceautoparts|creality|sovol3d|prusa3d|bambulab|makerbot|simplify3d|overture3d|homedepot|lowes"),
+# Classes used for fragmentation analysis. Curated sites first (taxonomy/site_classes.yaml), then URL
+# patterns, then "unclassified" -- which is reported separately and never counted as fragmented.
+import yaml
+from pathlib import Path
+
+_SITE_CLASSES: dict[str, str] = {}
+for _cls, _sites in yaml.safe_load((Path(__file__).resolve().parents[2] / "taxonomy" / "site_classes.yaml").read_text()).items():
+    for _s in _sites:
+        _SITE_CLASSES[_s] = _cls
+
+PATTERNS = [
+    ("community", r"reddit\.com|stackoverflow\.com|stackexchange\.com|superuser\.com|serverfault\.com|askubuntu\.com|quora\.com|"
+                  r"youtube\.com|youtu\.be|github\.com|gitlab\.com|forum|discussions\.|community\.|/threads/|discourse|boards\.|"
+                  r"answers\.|/topic/|substack\.com|medium\.com|tiktok\.com|vimeo\.com|facebook\.com"),
+    ("reference", r"wikipedia\.org|fandom\.com|wiki\."),
+    ("official", r"\.gov(\.|/|$)|\.edu(\.|/|$)|\.nhs\.uk|europa\.eu|\.org\.uk"),
+    ("marketplace", r"amazon\.|ebay\.|etsy\.|aliexpress|walmart\.|homedepot\.|lowes\.|assetstore|gumroad|itch\.io|store\."),
+    ("vendor", r"docs\.|/docs/|/manual/|readthedocs|developer\.|support\.|help\.|helpx\.|learn\.|apps\.apple|play\.google|"
+               r"microsoft\.com|apple\.com|google\.com|adobe\.com|autodesk\.com|unity\.com|epicgames\.com"),
+    ("editorial", r"blog|/articles?/|magazine|news|/guide/|/guides/|lifehacker|thespruce|bobvila|familyhandyman|wikihow|ifixit|allrecipes|seriouseats"),
 ]
-# an unmatched domain is an independent site (a blog, a shop, a company page), not "unknown"
-FALLBACK = "independent_site"
+FALLBACK = "unclassified"
+TOOL_TITLE = re.compile(r"\b(calculator|generator|template|templates|maker|converter|checker|finder|planner|database|tracker|simulator|"
+                        r"lookup|estimator|builder|free tool|online tool)\b", re.I)
 
 
 def classify(url: str) -> str:
+    s = site(url)
+    if s in _SITE_CLASSES:
+        return _SITE_CLASSES[s]
     u = url.lower()
-    for name, pat in CATEGORIES:
+    for name, pat in PATTERNS:
         if re.search(pat, u):
             return name
     return FALLBACK
@@ -82,15 +94,24 @@ def youtube_results(q: str) -> dict:
 
 
 def mix(results: list[dict]) -> dict:
-    """Fragmentation view of one SERP: category shares, dominant site share, fragmented share."""
+    """Fragmentation view of one or more SERPs: class shares, dominant site, and the counts the ranking shows.
+
+    fragmented_share = community + editorial + aggregator results (answers that must be pieced together).
+    tool_hits = results from a curated tool site or whose title names a tool (calculator, generator, ...).
+    vendor_share / official_share = the answer is owned by the product vendor or an official source.
+    """
     if not results:
         return {}
-    cats = {}
-    sites = {}
+    cats: dict[str, int] = {}
+    sites: dict[str, int] = {}
+    tool_hits = 0
     for r in results:
         cats[r["category"]] = cats.get(r["category"], 0) + 1
         sites[r["site"]] = sites.get(r["site"], 0) + 1
+        if r["category"] == "tool" or (r.get("title") and TOOL_TITLE.search(r["title"])):
+            tool_hits += 1
     n = len(results)
-    fragmented = sum(v for k, v in cats.items() if k in ("reddit", "stackexchange", "forum", "youtube", "github", "blog_editorial", "qa_platform", "video_other", "independent_site", "recipe_site", "vendor_content"))
-    return {"n": n, "categories": cats, "dominant_site": max(sites, key=sites.get), "dominant_share": max(sites.values()) / n,
-            "fragmented_share": fragmented / n}
+    frag = sum(v for k, v in cats.items() if k in ("community", "editorial", "aggregator"))
+    return {"n": n, "categories": cats, "dominant_site": max(sites, key=sites.get), "dominant_share": round(max(sites.values()) / n, 2),
+            "fragmented_share": round(frag / n, 2), "tool_hits": tool_hits, "vendor_share": round(cats.get("vendor", 0) / n, 2),
+            "official_share": round(cats.get("official", 0) / n, 2), "unclassified_share": round(cats.get(FALLBACK, 0) / n, 2)}
