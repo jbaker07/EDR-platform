@@ -945,62 +945,395 @@
    "reads": 0.02,
    "anchor_reads": 68.49,
    "error_pct": 100.7
+  },
+  "vue js reactive": {
+   "value": 0.0,
+   "anchor": "cities skylines",
+   "reads": 0,
+   "anchor_reads": 68.49,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "password manager norton": {
+   "value": 0.674,
+   "anchor": "cities skylines",
+   "reads": 2.85,
+   "anchor_reads": 68.49,
+   "error_pct": 18.3
+  },
+  "steam official web page": {
+   "value": 0.022,
+   "anchor": "cities skylines",
+   "reads": 0.09,
+   "anchor_reads": 68.49,
+   "error_pct": 100.7
+  },
+  "dnd 5e character sheet": {
+   "value": 1.943,
+   "anchor": "cities skylines",
+   "reads": 8.21,
+   "anchor_reads": 68.49,
+   "error_pct": 6.8
+  },
+  "magic the gathering arena": {
+   "value": 1.612,
+   "anchor": "security gdpr",
+   "reads": 24.53,
+   "anchor_reads": 47.08,
+   "error_pct": 3.1
+  },
+  "php programmer": {
+   "value": 0.035,
+   "anchor": "devops azure",
+   "reads": 0.09,
+   "anchor_reads": 43.68,
+   "error_pct": 101.1
+  },
+  "azure monitor prometheus": {
+   "value": 0.0,
+   "anchor": "devops azure",
+   "reads": 0,
+   "anchor_reads": 43.68,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "unity build for ios": {
+   "value": 0.021,
+   "anchor": "devops azure",
+   "reads": 0.06,
+   "anchor_reads": 43.68,
+   "error_pct": 101.1
+  },
+  "dnd 5e vs pathfinder 2e": {
+   "value": 0.0,
+   "anchor": "security gdpr",
+   "reads": 0,
+   "anchor_reads": 47.04,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "iptables rules order": {
+   "value": 0.015,
+   "anchor": "security gdpr",
+   "reads": 0.23,
+   "anchor_reads": 47.04,
+   "error_pct": 101.1
+  },
+  "improve iphone camera": {
+   "value": 0.297,
+   "anchor": "devops azure",
+   "reads": 0.81,
+   "anchor_reads": 43.7,
+   "error_pct": 62.8
+  },
+  "css tutorial apna college": {
+   "value": 0.007,
+   "anchor": "devops azure",
+   "reads": 0.02,
+   "anchor_reads": 43.7,
+   "error_pct": 101.1
+  },
+  "fix steam games": {
+   "value": 0.837,
+   "anchor": "security gdpr",
+   "reads": 12.74,
+   "anchor_reads": 47.08,
+   "error_pct": 5.0
+  },
+  "elden ring cost": {
+   "value": 1.928,
+   "anchor": "security gdpr",
+   "reads": 29.34,
+   "anchor_reads": 47.08,
+   "error_pct": 2.8
+  },
+  "unity animator any state": {
+   "value": 0.006,
+   "anchor": "security gdpr",
+   "reads": 0.09,
+   "anchor_reads": 47.08,
+   "error_pct": 101.1
+  },
+  "obd2 codes": {
+   "value": 1.529,
+   "anchor": "security gdpr",
+   "reads": 23.26,
+   "anchor_reads": 47.08,
+   "error_pct": 3.2
+  },
+  "java minecraft": {
+   "value": 90.585,
+   "anchor": "windows 11 key",
+   "reads": 70.64,
+   "anchor_reads": 12.11,
+   "error_pct": 4.8
+  },
+  "docker for windows": {
+   "value": 3.827,
+   "anchor": "windows 11 key",
+   "reads": 18.55,
+   "anchor_reads": 75.28,
+   "error_pct": 3.4
+  },
+  "macos sequoia": {
+   "value": 6.135,
+   "anchor": "windows 11 key",
+   "reads": 29.74,
+   "anchor_reads": 75.28,
+   "error_pct": 2.3
+  },
+  "pc gaming emulator for android": {
+   "value": 0.0,
+   "anchor": "windows 11 key",
+   "reads": 0,
+   "anchor_reads": 75.28,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "ea fc 24 steam": {
+   "value": 0.0,
+   "anchor": "linux os",
+   "reads": 0,
+   "anchor_reads": 76.6,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "fc 24 microsoft store": {
+   "value": 0.0,
+   "anchor": "linux os",
+   "reads": 0,
+   "anchor_reads": 76.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "unity animation generator": {
+   "value": 0.0,
+   "anchor": "linux os",
+   "reads": 0,
+   "anchor_reads": 76.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "how to write regex": {
+   "value": 0.04,
+   "anchor": "linux os",
+   "reads": 0.23,
+   "anchor_reads": 76.64,
+   "error_pct": 100.7
+  },
+  "godot engine": {
+   "value": 3.44,
+   "anchor": "linux os",
+   "reads": 19.32,
+   "anchor_reads": 76.64,
+   "error_pct": 3.2
+  },
+  "macos tutorial for windows users": {
+   "value": 0.0,
+   "anchor": "linux os",
+   "reads": 0,
+   "anchor_reads": 76.64,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "excel formulas for dates": {
+   "value": 0.007,
+   "anchor": "linux os",
+   "reads": 0.04,
+   "anchor_reads": 76.64,
+   "error_pct": 100.7
+  },
+  "obd code": {
+   "value": 4.048,
+   "anchor": "linux os",
+   "reads": 22.74,
+   "anchor_reads": 76.64,
+   "error_pct": 2.9
+  },
+  "warhammer 40k factions": {
+   "value": 0.983,
+   "anchor": "security gdpr",
+   "reads": 14.94,
+   "anchor_reads": 47.06,
+   "error_pct": 4.4
+  },
+  "check engine light catalytic converter": {
+   "value": 1.218,
+   "anchor": "security gdpr",
+   "reads": 18.53,
+   "anchor_reads": 47.06,
+   "error_pct": 3.8
+  },
+  "css vs tailwind": {
+   "value": 1.2,
+   "anchor": "security gdpr",
+   "reads": 18.25,
+   "anchor_reads": 47.06,
+   "error_pct": 3.8
+  },
+  "godot vscode": {
+   "value": 0.047,
+   "anchor": "macos tahoe",
+   "reads": 0.17,
+   "anchor_reads": 42.04,
+   "error_pct": 101.2
+  },
+  "pubg best settings ps5": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.06,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "game dev pathfinding": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.06,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "world edit in minecraft free": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.06,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "dnd 5e book pdf": {
+   "value": 0.005,
+   "anchor": "macos tahoe",
+   "reads": 0.02,
+   "anchor_reads": 42.06,
+   "error_pct": 101.2
+  },
+  "random c# syntax": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.06,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "pottery marks": {
+   "value": 0.684,
+   "anchor": "macos tahoe",
+   "reads": 2.49,
+   "anchor_reads": 42.04,
+   "error_pct": 21.3
+  },
+  "docker helm": {
+   "value": 0.476,
+   "anchor": "macos tahoe",
+   "reads": 1.74,
+   "anchor_reads": 42.04,
+   "error_pct": 30.0
+  },
+  "java update windows 11": {
+   "value": 0.026,
+   "anchor": "macos tahoe",
+   "reads": 0.09,
+   "anchor_reads": 42.04,
+   "error_pct": 101.2
+  },
+  "genshin impact vs wuthering waves": {
+   "value": 0.021,
+   "anchor": "macos tahoe",
+   "reads": 0.08,
+   "anchor_reads": 42.06,
+   "error_pct": 101.2
+  },
+  "unreal engine games": {
+   "value": 3.074,
+   "anchor": "macos tahoe",
+   "reads": 11.21,
+   "anchor_reads": 42.06,
+   "error_pct": 5.7
+  },
+  "macos golden gate": {
+   "value": 0.835,
+   "anchor": "sourdough starter recipe",
+   "reads": 4.47,
+   "anchor_reads": 57.75,
+   "error_pct": 12.0
+  },
+  "firewall rule maker": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.75,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "rest api question": {
+   "value": 0.183,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.98,
+   "anchor_reads": 57.75,
+   "error_pct": 51.8
+  },
+  "rest api client": {
+   "value": 0.8,
+   "anchor": "sourdough starter recipe",
+   "reads": 4.28,
+   "anchor_reads": 57.75,
+   "error_pct": 12.5
+  },
+  "php guide for web development": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.74,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "php orm": {
+   "value": 0.018,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.09,
+   "anchor_reads": 57.74,
+   "error_pct": 100.9
+  },
+  "best pc for modding": {
+   "value": 0.005,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.02,
+   "anchor_reads": 39.58,
+   "error_pct": 101.3
+  },
+  "minecraft servers": {
+   "value": 18.15,
+   "anchor": "sourdough starter recipe",
+   "reads": 66.62,
+   "anchor_reads": 39.58,
+   "error_pct": 2.0
+  },
+  "android studio update gradle": {
+   "value": 0.0,
+   "anchor": "macos tahoe",
+   "reads": 0,
+   "anchor_reads": 42.06,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "obd2 code guide": {
+   "value": 0.005,
+   "anchor": "macos tahoe",
+   "reads": 0.02,
+   "anchor_reads": 42.06,
+   "error_pct": 101.2
+  },
+  "windows 11 media creation tool": {
+   "value": 2.671,
+   "anchor": "macos tahoe",
+   "reads": 9.74,
+   "anchor_reads": 42.06,
+   "error_pct": 6.3
   }
  },
  "pending": [
-  "vue js reactive",
-  "password manager norton",
-  "steam official web page",
-  "dnd 5e character sheet",
-  "php programmer",
-  "azure monitor prometheus",
-  "unity build for ios",
-  "magic the gathering arena",
-  "iptables rules order",
-  "dnd 5e vs pathfinder 2e",
-  "improve iphone camera",
-  "css tutorial apna college",
-  "unity animator any state",
-  "obd2 codes",
-  "elden ring cost",
-  "fix steam games",
-  "pc gaming emulator for android",
-  "macos sequoia",
-  "docker for windows",
-  "java minecraft",
-  "ea fc 24 steam",
-  "unity animation generator",
-  "how to write regex",
-  "fc 24 microsoft store",
-  "excel formulas for dates",
-  "godot engine",
-  "macos tutorial for windows users",
-  "css vs tailwind",
-  "obd code",
-  "check engine light catalytic converter",
-  "warhammer 40k factions",
-  "godot vscode",
-  "game dev pathfinding",
-  "dnd 5e book pdf",
-  "pubg best settings ps5",
-  "world edit in minecraft free",
-  "pottery marks",
-  "random c# syntax",
-  "docker helm",
-  "java update windows 11",
-  "genshin impact vs wuthering waves",
-  "macos golden gate",
-  "rest api question",
-  "unreal engine games",
-  "rest api client",
-  "firewall rule maker",
-  "php orm",
-  "php guide for web development",
-  "best pc for modding",
-  "obd2 code guide",
-  "android studio update gradle",
-  "minecraft servers",
-  "windows 11 media creation tool",
   "owasp web application testing",
   "card game rules",
   "pc nintendo emulator",
@@ -3327,6 +3660,669 @@
     "password manager norton",
     "vue js reactive"
    ]
+  },
+  {
+   "at": 1789963309.1810305,
+   "anchor": "cities skylines",
+   "batch": [
+    "vue js reactive",
+    "password manager norton",
+    "steam official web page",
+    "dnd 5e character sheet"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.49,
+    "vue js reactive": 0,
+    "password manager norton": 2.85,
+    "steam official web page": 0.09,
+    "dnd 5e character sheet": 8.21
+   }
+  },
+  {
+   "at": 1789963365.6824005,
+   "anchor": "cities skylines",
+   "batch": [
+    "php programmer",
+    "azure monitor prometheus",
+    "unity build for ios",
+    "magic the gathering arena"
+   ],
+   "ok": true,
+   "means": {
+    "cities skylines": 68.47,
+    "php programmer": 0.09,
+    "azure monitor prometheus": 0,
+    "unity build for ios": 0.08,
+    "magic the gathering arena": 6.91
+   },
+   "requeued": [
+    "php programmer",
+    "azure monitor prometheus",
+    "unity build for ios",
+    "magic the gathering arena"
+   ]
+  },
+  {
+   "at": 1789963422.0005357,
+   "anchor": "security gdpr",
+   "batch": [
+    "magic the gathering arena",
+    "unity build for ios",
+    "azure monitor prometheus",
+    "php programmer"
+   ],
+   "ok": true,
+   "means": {
+    "security gdpr": 47.08,
+    "magic the gathering arena": 24.53,
+    "unity build for ios": 0.3,
+    "azure monitor prometheus": 0.02,
+    "php programmer": 0.42
+   },
+   "requeued": [
+    "unity build for ios",
+    "azure monitor prometheus",
+    "php programmer"
+   ]
+  },
+  {
+   "at": 1789963478.3422186,
+   "anchor": "devops azure",
+   "batch": [
+    "php programmer",
+    "azure monitor prometheus",
+    "unity build for ios",
+    "iptables rules order"
+   ],
+   "ok": true,
+   "means": {
+    "devops azure": 43.68,
+    "php programmer": 0.09,
+    "azure monitor prometheus": 0,
+    "unity build for ios": 0.06,
+    "iptables rules order": 0.04
+   },
+   "requeued": [
+    "iptables rules order"
+   ]
+  },
+  {
+   "at": 1789963534.6849642,
+   "anchor": "devops azure",
+   "batch": [
+    "iptables rules order",
+    "dnd 5e vs pathfinder 2e",
+    "improve iphone camera",
+    "css tutorial apna college"
+   ],
+   "ok": true,
+   "means": {
+    "devops azure": 43.68,
+    "iptables rules order": 0.04,
+    "dnd 5e vs pathfinder 2e": 0,
+    "improve iphone camera": 0.81,
+    "css tutorial apna college": 0.02
+   },
+   "requeued": [
+    "iptables rules order",
+    "dnd 5e vs pathfinder 2e",
+    "improve iphone camera",
+    "css tutorial apna college"
+   ]
+  },
+  {
+   "at": 1789963591.017782,
+   "anchor": "security gdpr",
+   "batch": [
+    "css tutorial apna college",
+    "improve iphone camera",
+    "dnd 5e vs pathfinder 2e",
+    "iptables rules order"
+   ],
+   "ok": true,
+   "means": {
+    "security gdpr": 47.04,
+    "css tutorial apna college": 0.11,
+    "improve iphone camera": 4.64,
+    "dnd 5e vs pathfinder 2e": 0,
+    "iptables rules order": 0.23
+   },
+   "requeued": [
+    "css tutorial apna college",
+    "improve iphone camera"
+   ]
+  },
+  {
+   "at": 1789963653.0974894,
+   "anchor": "devops azure",
+   "batch": [
+    "improve iphone camera",
+    "css tutorial apna college",
+    "unity animator any state",
+    "obd2 codes"
+   ],
+   "ok": true,
+   "means": {
+    "devops azure": 43.7,
+    "improve iphone camera": 0.81,
+    "css tutorial apna college": 0.02,
+    "unity animator any state": 0.02,
+    "obd2 codes": 4.28
+   },
+   "requeued": [
+    "unity animator any state",
+    "obd2 codes"
+   ]
+  },
+  {
+   "at": 1789963709.4520283,
+   "anchor": "devops azure",
+   "batch": [
+    "obd2 codes",
+    "unity animator any state",
+    "elden ring cost",
+    "fix steam games"
+   ],
+   "ok": true,
+   "means": {
+    "devops azure": 43.7,
+    "obd2 codes": 4.26,
+    "unity animator any state": 0.02,
+    "elden ring cost": 5.26,
+    "fix steam games": 2.26
+   },
+   "requeued": [
+    "obd2 codes",
+    "unity animator any state",
+    "elden ring cost",
+    "fix steam games"
+   ]
+  },
+  {
+   "at": 1789963765.7914352,
+   "anchor": "security gdpr",
+   "batch": [
+    "fix steam games",
+    "elden ring cost",
+    "unity animator any state",
+    "obd2 codes"
+   ],
+   "ok": true,
+   "means": {
+    "security gdpr": 47.08,
+    "fix steam games": 12.74,
+    "elden ring cost": 29.34,
+    "unity animator any state": 0.09,
+    "obd2 codes": 23.26
+   }
+  },
+  {
+   "at": 1789963822.3578274,
+   "anchor": "windows 11 key",
+   "batch": [
+    "pc gaming emulator for android",
+    "macos sequoia",
+    "docker for windows",
+    "java minecraft"
+   ],
+   "ok": true,
+   "means": {
+    "windows 11 key": 12.11,
+    "pc gaming emulator for android": 0,
+    "macos sequoia": 4.72,
+    "docker for windows": 3.04,
+    "java minecraft": 70.64
+   },
+   "requeued": [
+    "pc gaming emulator for android",
+    "macos sequoia",
+    "docker for windows"
+   ]
+  },
+  {
+   "at": 1789963878.6961465,
+   "anchor": "windows 11 key",
+   "batch": [
+    "docker for windows",
+    "macos sequoia",
+    "pc gaming emulator for android",
+    "ea fc 24 steam"
+   ],
+   "ok": true,
+   "means": {
+    "windows 11 key": 75.28,
+    "docker for windows": 18.55,
+    "macos sequoia": 29.74,
+    "pc gaming emulator for android": 0,
+    "ea fc 24 steam": 0
+   },
+   "requeued": [
+    "ea fc 24 steam"
+   ]
+  },
+  {
+   "at": 1789963935.051257,
+   "anchor": "linux os",
+   "batch": [
+    "ea fc 24 steam",
+    "unity animation generator",
+    "how to write regex",
+    "fc 24 microsoft store"
+   ],
+   "ok": true,
+   "means": {
+    "linux os": 76.6,
+    "ea fc 24 steam": 0,
+    "unity animation generator": 0,
+    "how to write regex": 0.23,
+    "fc 24 microsoft store": 0
+   },
+   "requeued": [
+    "unity animation generator",
+    "how to write regex",
+    "fc 24 microsoft store"
+   ]
+  },
+  {
+   "at": 1789963997.49103,
+   "anchor": "linux os",
+   "batch": [
+    "fc 24 microsoft store",
+    "how to write regex",
+    "unity animation generator",
+    "excel formulas for dates"
+   ],
+   "ok": true,
+   "means": {
+    "linux os": 76.62,
+    "fc 24 microsoft store": 0,
+    "how to write regex": 0.23,
+    "unity animation generator": 0,
+    "excel formulas for dates": 0.04
+   },
+   "requeued": [
+    "how to write regex",
+    "excel formulas for dates"
+   ]
+  },
+  {
+   "at": 1789964053.9301465,
+   "anchor": "linux os",
+   "batch": [
+    "excel formulas for dates",
+    "how to write regex",
+    "godot engine",
+    "macos tutorial for windows users"
+   ],
+   "ok": true,
+   "means": {
+    "linux os": 76.64,
+    "excel formulas for dates": 0.04,
+    "how to write regex": 0.23,
+    "godot engine": 19.32,
+    "macos tutorial for windows users": 0
+   },
+   "requeued": [
+    "excel formulas for dates",
+    "macos tutorial for windows users"
+   ]
+  },
+  {
+   "at": 1789964110.2848258,
+   "anchor": "linux os",
+   "batch": [
+    "macos tutorial for windows users",
+    "excel formulas for dates",
+    "css vs tailwind",
+    "obd code"
+   ],
+   "ok": true,
+   "means": {
+    "linux os": 76.64,
+    "macos tutorial for windows users": 0,
+    "excel formulas for dates": 0.04,
+    "css vs tailwind": 6.79,
+    "obd code": 22.74
+   },
+   "requeued": [
+    "css vs tailwind"
+   ]
+  },
+  {
+   "at": 1789964166.6571004,
+   "anchor": "aws lambda",
+   "batch": [
+    "css vs tailwind",
+    "check engine light catalytic converter",
+    "warhammer 40k factions",
+    "godot vscode"
+   ],
+   "ok": true,
+   "means": {
+    "aws lambda": 47.92,
+    "css vs tailwind": 4.38,
+    "check engine light catalytic converter": 4.45,
+    "warhammer 40k factions": 3.62,
+    "godot vscode": 0.17
+   },
+   "requeued": [
+    "css vs tailwind",
+    "check engine light catalytic converter",
+    "warhammer 40k factions",
+    "godot vscode"
+   ]
+  },
+  {
+   "at": 1789964223.2548285,
+   "anchor": "security gdpr",
+   "batch": [
+    "godot vscode",
+    "warhammer 40k factions",
+    "check engine light catalytic converter",
+    "css vs tailwind"
+   ],
+   "ok": true,
+   "means": {
+    "security gdpr": 47.06,
+    "godot vscode": 0.92,
+    "warhammer 40k factions": 14.94,
+    "check engine light catalytic converter": 18.53,
+    "css vs tailwind": 18.25
+   },
+   "requeued": [
+    "godot vscode"
+   ]
+  },
+  {
+   "at": 1789964279.7510538,
+   "anchor": "macos tahoe",
+   "batch": [
+    "godot vscode",
+    "game dev pathfinding",
+    "dnd 5e book pdf",
+    "pubg best settings ps5"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "godot vscode": 0.17,
+    "game dev pathfinding": 0,
+    "dnd 5e book pdf": 0.02,
+    "pubg best settings ps5": 0
+   },
+   "requeued": [
+    "game dev pathfinding",
+    "dnd 5e book pdf",
+    "pubg best settings ps5"
+   ]
+  },
+  {
+   "at": 1789964342.4004424,
+   "anchor": "macos tahoe",
+   "batch": [
+    "pubg best settings ps5",
+    "dnd 5e book pdf",
+    "game dev pathfinding",
+    "world edit in minecraft free"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "pubg best settings ps5": 0,
+    "dnd 5e book pdf": 0.02,
+    "game dev pathfinding": 0,
+    "world edit in minecraft free": 0
+   },
+   "requeued": [
+    "dnd 5e book pdf",
+    "world edit in minecraft free"
+   ]
+  },
+  {
+   "at": 1789964398.759766,
+   "anchor": "macos tahoe",
+   "batch": [
+    "world edit in minecraft free",
+    "dnd 5e book pdf",
+    "pottery marks",
+    "random c# syntax"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "world edit in minecraft free": 0,
+    "dnd 5e book pdf": 0.02,
+    "pottery marks": 2.49,
+    "random c# syntax": 0
+   },
+   "requeued": [
+    "pottery marks",
+    "random c# syntax"
+   ]
+  },
+  {
+   "at": 1789964455.2718542,
+   "anchor": "macos tahoe",
+   "batch": [
+    "random c# syntax",
+    "pottery marks",
+    "docker helm",
+    "java update windows 11"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "random c# syntax": 0,
+    "pottery marks": 2.49,
+    "docker helm": 1.74,
+    "java update windows 11": 0.13
+   },
+   "requeued": [
+    "pottery marks",
+    "docker helm",
+    "java update windows 11"
+   ]
+  },
+  {
+   "at": 1789964511.6414635,
+   "anchor": "macos tahoe",
+   "batch": [
+    "java update windows 11",
+    "docker helm",
+    "pottery marks",
+    "genshin impact vs wuthering waves"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "java update windows 11": 0.09,
+    "docker helm": 1.74,
+    "pottery marks": 2.49,
+    "genshin impact vs wuthering waves": 0.08
+   },
+   "requeued": [
+    "java update windows 11",
+    "docker helm",
+    "genshin impact vs wuthering waves"
+   ]
+  },
+  {
+   "at": 1789964568.020846,
+   "anchor": "macos tahoe",
+   "batch": [
+    "genshin impact vs wuthering waves",
+    "docker helm",
+    "java update windows 11",
+    "macos golden gate"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "genshin impact vs wuthering waves": 0.08,
+    "docker helm": 1.74,
+    "java update windows 11": 0.09,
+    "macos golden gate": 3.04
+   },
+   "requeued": [
+    "genshin impact vs wuthering waves",
+    "macos golden gate"
+   ]
+  },
+  {
+   "at": 1789964624.3967342,
+   "anchor": "macos tahoe",
+   "batch": [
+    "macos golden gate",
+    "genshin impact vs wuthering waves",
+    "rest api question",
+    "unreal engine games"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "macos golden gate": 3.06,
+    "genshin impact vs wuthering waves": 0.08,
+    "rest api question": 0.58,
+    "unreal engine games": 11.21
+   },
+   "requeued": [
+    "macos golden gate",
+    "rest api question"
+   ]
+  },
+  {
+   "at": 1789964687.3913105,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "rest api question",
+    "macos golden gate",
+    "rest api client",
+    "firewall rule maker"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.75,
+    "rest api question": 0.98,
+    "macos golden gate": 4.47,
+    "rest api client": 4.28,
+    "firewall rule maker": 0
+   },
+   "requeued": [
+    "rest api question",
+    "rest api client",
+    "firewall rule maker"
+   ]
+  },
+  {
+   "at": 1789964743.8400218,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "firewall rule maker",
+    "rest api client",
+    "rest api question",
+    "php orm"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.75,
+    "firewall rule maker": 0,
+    "rest api client": 4.28,
+    "rest api question": 0.98,
+    "php orm": 0.09
+   },
+   "requeued": [
+    "rest api client",
+    "php orm"
+   ]
+  },
+  {
+   "at": 1789964800.2376215,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "php orm",
+    "rest api client",
+    "php guide for web development",
+    "best pc for modding"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.75,
+    "php orm": 0.09,
+    "rest api client": 4.28,
+    "php guide for web development": 0,
+    "best pc for modding": 0.04
+   },
+   "requeued": [
+    "php orm",
+    "php guide for web development",
+    "best pc for modding"
+   ]
+  },
+  {
+   "at": 1789964856.5864248,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "best pc for modding",
+    "php guide for web development",
+    "php orm",
+    "obd2 code guide"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.74,
+    "best pc for modding": 0.04,
+    "php guide for web development": 0,
+    "php orm": 0.09,
+    "obd2 code guide": 0.02
+   },
+   "requeued": [
+    "best pc for modding",
+    "obd2 code guide"
+   ]
+  },
+  {
+   "at": 1789964913.4477723,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "obd2 code guide",
+    "best pc for modding",
+    "android studio update gradle",
+    "minecraft servers"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 39.58,
+    "obd2 code guide": 0.02,
+    "best pc for modding": 0.02,
+    "android studio update gradle": 0,
+    "minecraft servers": 66.62
+   },
+   "requeued": [
+    "obd2 code guide",
+    "android studio update gradle"
+   ]
+  },
+  {
+   "at": 1789964969.812526,
+   "anchor": "macos tahoe",
+   "batch": [
+    "android studio update gradle",
+    "obd2 code guide",
+    "windows 11 media creation tool",
+    "owasp web application testing"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.06,
+    "android studio update gradle": 0,
+    "obd2 code guide": 0.02,
+    "windows 11 media creation tool": 9.74,
+    "owasp web application testing": 0.04
+   },
+   "requeued": [
+    "owasp web application testing"
+   ]
   }
  ],
  "anchors": [
@@ -3485,8 +4481,59 @@
   "security gdpr": 1,
   "docker container": 1,
   "password keeper pc": 3,
-  "password manager norton": 2,
-  "steam official web page": 2,
-  "vue js reactive": 1
+  "password manager norton": 3,
+  "steam official web page": 3,
+  "vue js reactive": 2,
+  "dnd 5e character sheet": 1,
+  "php programmer": 3,
+  "azure monitor prometheus": 3,
+  "unity build for ios": 3,
+  "magic the gathering arena": 2,
+  "iptables rules order": 3,
+  "dnd 5e vs pathfinder 2e": 2,
+  "improve iphone camera": 3,
+  "css tutorial apna college": 3,
+  "unity animator any state": 3,
+  "obd2 codes": 3,
+  "elden ring cost": 2,
+  "fix steam games": 2,
+  "pc gaming emulator for android": 2,
+  "macos sequoia": 2,
+  "docker for windows": 2,
+  "java minecraft": 1,
+  "ea fc 24 steam": 2,
+  "unity animation generator": 2,
+  "how to write regex": 3,
+  "fc 24 microsoft store": 2,
+  "excel formulas for dates": 3,
+  "godot engine": 1,
+  "macos tutorial for windows users": 2,
+  "css vs tailwind": 3,
+  "obd code": 1,
+  "check engine light catalytic converter": 2,
+  "warhammer 40k factions": 2,
+  "godot vscode": 3,
+  "game dev pathfinding": 2,
+  "dnd 5e book pdf": 3,
+  "pubg best settings ps5": 2,
+  "world edit in minecraft free": 2,
+  "pottery marks": 3,
+  "random c# syntax": 2,
+  "docker helm": 3,
+  "java update windows 11": 3,
+  "genshin impact vs wuthering waves": 3,
+  "macos golden gate": 3,
+  "rest api question": 3,
+  "unreal engine games": 1,
+  "rest api client": 3,
+  "firewall rule maker": 2,
+  "php orm": 3,
+  "php guide for web development": 2,
+  "best pc for modding": 3,
+  "obd2 code guide": 3,
+  "android studio update gradle": 2,
+  "minecraft servers": 1,
+  "windows 11 media creation tool": 1,
+  "owasp web application testing": 1
  }
 }
