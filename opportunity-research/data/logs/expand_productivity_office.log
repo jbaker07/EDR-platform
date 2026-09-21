@@ -1,12 +1,14 @@
 {"seed": "excel", "skipped": "already expanded"}
-{"seed": "excel vlookup", "new_queries": 1009, "suggestions_seen": 1576}
+{"seed": "excel vlookup", "skipped": "already expanded"}
+{"seed": "excel xlookup", "new_queries": 666, "suggestions_seen": 1443}
 {"seed": "google sheets", "skipped": "already expanded"}
-{"seed": "google docs", "new_queries": 1501, "suggestions_seen": 2299}
+{"seed": "google docs", "skipped": "already expanded"}
+{"seed": "google forms", "new_queries": 1306, "suggestions_seen": 1917}
 {"seed": "office software notion", "skipped": "already expanded"}
-{"seed": "office software obsidian", "new_queries": 511, "suggestions_seen": 1305}
+{"seed": "office software obsidian", "skipped": "already expanded"}
+{"seed": "office software onenote", "new_queries": 761, "suggestions_seen": 1421}
 {"seed": "office software trello", "skipped": "already expanded"}
-{"seed": "office software asana", "new_queries": 513, "suggestions_seen": 1329}
+{"seed": "office software asana", "skipped": "already expanded"}
+{"seed": "office software jira", "new_queries": 734, "suggestions_seen": 1413}
 {"seed": "office software zapier", "skipped": "already expanded"}
-{"seed": "office software make.com", "new_queries": 954, "suggestions_seen": 1434}
-{"seed": "office software word", "skipped": "already expanded"}
-{"seed": "office software powerpoint", "new_queries": 1032, "suggestions_seen": 1723}
+{"seed": "office software make.com", "skipped": "already expanded"}

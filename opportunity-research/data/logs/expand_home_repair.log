@@ -15,3 +15,7 @@
 {"seed": "home repair siding", "new_queries": 681, "suggestions_seen": 1739}
 {"seed": "door won't close", "skipped": "already expanded"}
 {"seed": "window replacement", "skipped": "already expanded"}
+{"seed": "weather stripping", "new_queries": 796, "suggestions_seen": 1257}
+{"seed": "home repair mold", "skipped": "already expanded"}
+{"seed": "home repair termites", "skipped": "already expanded"}
+{"seed": "home repair mice", "new_queries": 737, "suggestions_seen": 1456}

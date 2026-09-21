@@ -1,8 +1,9 @@
 {"seed": "novel writing", "skipped": "already expanded"}
-{"seed": "writing plot", "new_queries": 691, "suggestions_seen": 1276}
+{"seed": "writing plot", "skipped": "already expanded"}
+{"seed": "character names", "new_queries": 1105, "suggestions_seen": 1560}
 {"seed": "blog post", "skipped": "already expanded"}
-{"seed": "writing newsletter", "new_queries": 604, "suggestions_seen": 1094}
+{"seed": "writing newsletter", "skipped": "already expanded"}
+{"seed": "writing substack", "new_queries": 445, "suggestions_seen": 960}
 {"seed": "writing kdp", "skipped": "already expanded"}
-{"seed": "self publishing", "new_queries": 972, "suggestions_seen": 1631}
-{"seed": "writing headline", "skipped": "already expanded"}
-{"seed": "copywriting", "new_queries": 1157, "suggestions_seen": 1661}
+{"seed": "self publishing", "skipped": "already expanded"}
+{"source_error": "bing", "probe": "how to book cover design", "error": "RemoteDisconnected: Remote end closed connection without response"}

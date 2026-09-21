@@ -3,3 +3,10 @@
 {"seed": "washer error code", "new_queries": 793, "suggestions_seen": 1901}
 {"seed": "appliance dishwasher", "skipped": "already expanded"}
 {"seed": "refrigerator not cooling", "skipped": "already expanded"}
+{"seed": "appliance oven", "new_queries": 800, "suggestions_seen": 1018}
+{"seed": "air fryer", "skipped": "already expanded"}
+{"seed": "espresso machine", "skipped": "already expanded"}
+{"seed": "appliance blender", "new_queries": 640, "suggestions_seen": 972}
+{"seed": "appliance parts", "skipped": "already expanded"}
+{"seed": "model number", "skipped": "already expanded"}
+{"seed": "error code", "new_queries": 1440, "suggestions_seen": 1814}

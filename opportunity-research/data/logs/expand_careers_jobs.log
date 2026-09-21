@@ -1,12 +1,18 @@
 {"seed": "job resume", "skipped": "already expanded"}
-{"seed": "cover letter", "new_queries": 1376, "suggestions_seen": 2015}
+{"seed": "cover letter", "skipped": "already expanded"}
+{"seed": "job cv", "new_queries": 889, "suggestions_seen": 1424}
 {"seed": "interview questions", "skipped": "already expanded"}
-{"seed": "coding interview", "new_queries": 879, "suggestions_seen": 1655}
+{"seed": "coding interview", "skipped": "already expanded"}
+{"seed": "interview leetcode", "new_queries": 513, "suggestions_seen": 1239}
 {"seed": "job salary", "skipped": "already expanded"}
-{"seed": "negotiate salary", "new_queries": 674, "suggestions_seen": 1164}
+{"seed": "negotiate salary", "skipped": "already expanded"}
+{"seed": "job raise", "new_queries": 702, "suggestions_seen": 1053}
 {"seed": "remote jobs", "skipped": "already expanded"}
-{"seed": "job board", "new_queries": 1246, "suggestions_seen": 1664}
+{"seed": "job board", "skipped": "already expanded"}
+{"seed": "career change", "new_queries": 1000, "suggestions_seen": 1517}
 {"seed": "job certification", "skipped": "already expanded"}
-{"seed": "job pmp", "new_queries": 621, "suggestions_seen": 895}
+{"seed": "job pmp", "skipped": "already expanded"}
+{"seed": "aws certification", "new_queries": 935, "suggestions_seen": 1450}
 {"seed": "performance review", "skipped": "already expanded"}
-{"seed": "resignation letter", "new_queries": 1200, "suggestions_seen": 1661}
+{"seed": "resignation letter", "skipped": "already expanded"}
+{"seed": "job pto", "new_queries": 799, "suggestions_seen": 1106}

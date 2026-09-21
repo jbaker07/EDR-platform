@@ -5323,21 +5323,84 @@
    "reads": 41.81,
    "anchor_reads": 5.91,
    "error_pct": 9.7
+  },
+  "marathon training": {
+   "value": 22.855,
+   "anchor": "docker desktop",
+   "reads": 72,
+   "anchor_reads": 34.83,
+   "error_pct": 2.1
+  },
+  "podcast hosting": {
+   "value": 1.711,
+   "anchor": "docker desktop",
+   "reads": 8.85,
+   "anchor_reads": 57.17,
+   "error_pct": 6.5
+  },
+  "knee pain and clicking": {
+   "value": 0.0,
+   "anchor": "docker desktop",
+   "reads": 0,
+   "anchor_reads": 6.96,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "fix laptop battery": {
+   "value": 0.36,
+   "anchor": "docker desktop",
+   "reads": 0.23,
+   "anchor_reads": 6.96,
+   "error_pct": 107.2
+  },
+  "pet insurance": {
+   "value": 114.155,
+   "anchor": "docker desktop",
+   "reads": 71.89,
+   "anchor_reads": 6.96,
+   "error_pct": 7.9
+  },
+  "performance review phrases": {
+   "value": 0.548,
+   "anchor": "what is language learning",
+   "reads": 2.55,
+   "anchor_reads": 51.75,
+   "error_pct": 20.6
+  },
+  "3d printer prusa software": {
+   "value": 0.0,
+   "anchor": "what is language learning",
+   "reads": 0,
+   "anchor_reads": 51.77,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "editing in h264": {
+   "value": 0.0,
+   "anchor": "what is language learning",
+   "reads": 0,
+   "anchor_reads": 51.77,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "termite repair": {
+   "value": 1.019,
+   "anchor": "what is language learning",
+   "reads": 4.74,
+   "anchor_reads": 51.79,
+   "error_pct": 11.5
+  },
+  "music amplifier": {
+   "value": 2.91,
+   "anchor": "what is language learning",
+   "reads": 13.53,
+   "anchor_reads": 51.79,
+   "error_pct": 4.7
   }
  },
  "pending": [
-  "marathon training",
-  "knee pain and clicking",
-  "podcast hosting",
-  "fix laptop battery",
-  "performance review phrases",
-  "pet insurance",
-  "termite repair",
-  "editing in h264",
-  "3d printer prusa software",
-  "books manga anime",
-  "music amplifier",
   "photography iso aperture shutter speed",
+  "books manga anime",
   "device ip address",
   "canva design app free download",
   "coffee machine names",
@@ -5482,7 +5545,8 @@
   "study active uk",
   "music amp",
   "writing newsletters",
-  "second hand car issues"
+  "second hand car issues",
+  "drip irrigation system uk"
  ],
  "log": [
   {
@@ -14478,6 +14542,140 @@
    ],
    "ok": false,
    "error": "no data (throttled or unknown terms)"
+  },
+  {
+   "at": 1789987657.24918,
+   "anchor": "docker desktop",
+   "batch": [
+    "marathon training",
+    "knee pain and clicking",
+    "podcast hosting",
+    "fix laptop battery"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 34.83,
+    "marathon training": 72,
+    "knee pain and clicking": 0.64,
+    "podcast hosting": 5.4,
+    "fix laptop battery": 1.91
+   },
+   "requeued": [
+    "knee pain and clicking",
+    "podcast hosting",
+    "fix laptop battery"
+   ]
+  },
+  {
+   "at": 1789987718.565397,
+   "anchor": "docker desktop",
+   "batch": [
+    "fix laptop battery",
+    "podcast hosting",
+    "knee pain and clicking",
+    "performance review phrases"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 57.17,
+    "fix laptop battery": 3.19,
+    "podcast hosting": 8.85,
+    "knee pain and clicking": 1.04,
+    "performance review phrases": 2.79
+   },
+   "requeued": [
+    "fix laptop battery",
+    "knee pain and clicking",
+    "performance review phrases"
+   ]
+  },
+  {
+   "at": 1789987779.9700243,
+   "anchor": "docker desktop",
+   "batch": [
+    "performance review phrases",
+    "knee pain and clicking",
+    "fix laptop battery",
+    "pet insurance"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 6.96,
+    "performance review phrases": 0.19,
+    "knee pain and clicking": 0,
+    "fix laptop battery": 0.23,
+    "pet insurance": 71.89
+   },
+   "requeued": [
+    "performance review phrases"
+   ]
+  },
+  {
+   "at": 1789987841.3494046,
+   "anchor": "what is language learning",
+   "batch": [
+    "performance review phrases",
+    "termite repair",
+    "editing in h264",
+    "3d printer prusa software"
+   ],
+   "ok": true,
+   "means": {
+    "what is language learning": 51.75,
+    "performance review phrases": 2.55,
+    "termite repair": 4.74,
+    "editing in h264": 0,
+    "3d printer prusa software": 0
+   },
+   "requeued": [
+    "termite repair",
+    "editing in h264",
+    "3d printer prusa software"
+   ]
+  },
+  {
+   "at": 1789987902.8695302,
+   "anchor": "what is language learning",
+   "batch": [
+    "3d printer prusa software",
+    "editing in h264",
+    "termite repair",
+    "books manga anime"
+   ],
+   "ok": true,
+   "means": {
+    "what is language learning": 51.77,
+    "3d printer prusa software": 0,
+    "editing in h264": 0,
+    "termite repair": 4.74,
+    "books manga anime": 3.43
+   },
+   "requeued": [
+    "termite repair",
+    "books manga anime"
+   ]
+  },
+  {
+   "at": 1789987964.2058125,
+   "anchor": "what is language learning",
+   "batch": [
+    "books manga anime",
+    "termite repair",
+    "music amplifier",
+    "photography iso aperture shutter speed"
+   ],
+   "ok": true,
+   "means": {
+    "what is language learning": 51.79,
+    "books manga anime": 3.43,
+    "termite repair": 4.74,
+    "music amplifier": 13.53,
+    "photography iso aperture shutter speed": 0.77
+   },
+   "requeued": [
+    "books manga anime",
+    "photography iso aperture shutter speed"
+   ]
   }
  ],
  "anchors": [
@@ -15219,6 +15417,18 @@
   "senior tablet phone": 2,
   "mod manager total war": 2,
   "jet ski": 1,
-  "window replacement": 1
+  "window replacement": 1,
+  "marathon training": 1,
+  "knee pain and clicking": 3,
+  "podcast hosting": 2,
+  "fix laptop battery": 3,
+  "performance review phrases": 3,
+  "pet insurance": 1,
+  "termite repair": 3,
+  "editing in h264": 2,
+  "3d printer prusa software": 2,
+  "books manga anime": 2,
+  "music amplifier": 1,
+  "photography iso aperture shutter speed": 1
  }
 }

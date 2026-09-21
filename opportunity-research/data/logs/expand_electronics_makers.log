@@ -1,10 +1,15 @@
 {"seed": "electronics arduino", "skipped": "already expanded"}
-{"seed": "raspberry pi", "new_queries": 1751, "suggestions_seen": 2367}
+{"seed": "raspberry pi", "skipped": "already expanded"}
+{"seed": "electronics esp32", "new_queries": 591, "suggestions_seen": 822}
 {"seed": "electronics resistor", "skipped": "already expanded"}
-{"seed": "electronics capacitor", "new_queries": 519, "suggestions_seen": 878}
+{"seed": "electronics capacitor", "skipped": "already expanded"}
+{"seed": "electronics transistor", "new_queries": 439, "suggestions_seen": 750}
 {"seed": "electronics soldering", "skipped": "already expanded"}
-{"seed": "electronics multimeter", "new_queries": 660, "suggestions_seen": 1245}
+{"seed": "electronics multimeter", "skipped": "already expanded"}
+{"seed": "circuit repair", "new_queries": 607, "suggestions_seen": 1006}
 {"seed": "electronics battery", "skipped": "already expanded"}
-{"seed": "lithium battery", "new_queries": 1557, "suggestions_seen": 2224}
+{"seed": "lithium battery", "skipped": "already expanded"}
+{"seed": "charging circuit", "new_queries": 881, "suggestions_seen": 1356}
 {"seed": "electronics zigbee", "skipped": "already expanded"}
-{"seed": "home assistant automation", "new_queries": 709, "suggestions_seen": 2055}
+{"seed": "home assistant automation", "skipped": "already expanded"}
+{"seed": "electronics mqtt", "new_queries": 468, "suggestions_seen": 872}

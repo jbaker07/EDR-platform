@@ -9,3 +9,10 @@
 {"seed": "lawn fertilizer", "new_queries": 868, "suggestions_seen": 1544}
 {"seed": "garden pruning", "skipped": "already expanded"}
 {"seed": "tree disease", "skipped": "already expanded"}
+{"seed": "garden hydrangea", "new_queries": 705, "suggestions_seen": 1069}
+{"seed": "garden aphids", "skipped": "already expanded"}
+{"seed": "plant disease", "skipped": "already expanded"}
+{"seed": "fungus gnats", "new_queries": 868, "suggestions_seen": 1550}
+{"seed": "garden irrigation", "skipped": "already expanded"}
+{"seed": "garden sprinkler", "skipped": "already expanded"}
+{"seed": "drip irrigation", "new_queries": 1001, "suggestions_seen": 1866}

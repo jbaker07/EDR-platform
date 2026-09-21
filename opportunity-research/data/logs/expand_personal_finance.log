@@ -1,12 +1,17 @@
 {"seed": "finance budget", "skipped": "already expanded"}
-{"seed": "budget template", "new_queries": 1018, "suggestions_seen": 1508}
+{"seed": "budget template", "skipped": "already expanded"}
+{"seed": "finance savings", "new_queries": 646, "suggestions_seen": 981}
 {"seed": "tax return", "skipped": "already expanded"}
-{"seed": "tax deduction", "new_queries": 1327, "suggestions_seen": 1671}
+{"seed": "tax deduction", "skipped": "already expanded"}
+{"seed": "tax 1099", "new_queries": 966, "suggestions_seen": 1409}
 {"seed": "index fund", "skipped": "already expanded"}
-{"seed": "finance etf", "new_queries": 665, "suggestions_seen": 1022}
+{"seed": "finance etf", "skipped": "already expanded"}
+{"seed": "roth ira", "new_queries": 1349, "suggestions_seen": 1913}
 {"seed": "credit score", "skipped": "already expanded"}
-{"seed": "credit card", "new_queries": 1834, "suggestions_seen": 2537}
+{"seed": "credit card", "skipped": "already expanded"}
+{"seed": "mortgage calculator", "new_queries": 1218, "suggestions_seen": 1624}
 {"seed": "crypto bitcoin", "skipped": "already expanded"}
-{"seed": "crypto wallet", "new_queries": 1147, "suggestions_seen": 1721}
+{"seed": "crypto wallet", "skipped": "already expanded"}
+{"seed": "crypto ethereum", "new_queries": 700, "suggestions_seen": 1322}
 {"seed": "health insurance", "skipped": "already expanded"}
-{"seed": "life insurance", "new_queries": 1695, "suggestions_seen": 2316}
+{"seed": "life insurance", "skipped": "already expanded"}

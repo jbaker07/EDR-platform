@@ -12,3 +12,7 @@
 {"seed": "woodworking tig", "new_queries": 585, "suggestions_seen": 891}
 {"seed": "woodworking stain", "skipped": "already expanded"}
 {"seed": "woodworking polyurethane", "skipped": "already expanded"}
+{"seed": "epoxy resin", "new_queries": 1270, "suggestions_seen": 1863}
+{"seed": "screw size", "skipped": "already expanded"}
+{"seed": "bolt size", "skipped": "already expanded"}
+{"seed": "woodworking anchor", "new_queries": 520, "suggestions_seen": 880}

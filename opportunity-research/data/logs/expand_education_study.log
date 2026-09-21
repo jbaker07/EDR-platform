@@ -1,12 +1,18 @@
 {"seed": "study algebra", "skipped": "already expanded"}
-{"seed": "study calculus", "new_queries": 667, "suggestions_seen": 1216}
+{"seed": "study calculus", "skipped": "already expanded"}
+{"seed": "study derivative", "new_queries": 552, "suggestions_seen": 1019}
 {"seed": "study chemistry", "skipped": "already expanded"}
-{"seed": "study physics", "new_queries": 942, "suggestions_seen": 1481}
+{"seed": "study physics", "skipped": "already expanded"}
+{"seed": "study biology", "new_queries": 901, "suggestions_seen": 1533}
 {"seed": "study essay", "skipped": "already expanded"}
-{"seed": "study citation", "new_queries": 713, "suggestions_seen": 1028}
+{"seed": "study citation", "skipped": "already expanded"}
+{"seed": "apa format", "new_queries": 1341, "suggestions_seen": 1808}
 {"seed": "study sat", "skipped": "already expanded"}
-{"seed": "study act", "new_queries": 909, "suggestions_seen": 1414}
+{"seed": "study act", "skipped": "already expanded"}
+{"seed": "study gre", "new_queries": 806, "suggestions_seen": 1276}
 {"seed": "study flashcards", "skipped": "already expanded"}
-{"seed": "study anki", "new_queries": 699, "suggestions_seen": 1316}
+{"seed": "study anki", "skipped": "already expanded"}
+{"seed": "study schedule", "new_queries": 860, "suggestions_seen": 1743}
 {"seed": "lesson plan", "skipped": "already expanded"}
-{"seed": "study worksheet", "new_queries": 679, "suggestions_seen": 947}
+{"seed": "study worksheet", "skipped": "already expanded"}
+{"seed": "study rubric", "new_queries": 533, "suggestions_seen": 908}
