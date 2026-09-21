@@ -1,493 +1,2651 @@
-# Phase 1 taxonomy of human search/problem domains. Breadth over depth: the point is not to
-# miss a category. Each subdomain carries seed terms for autocomplete expansion (Phase 2).
-# Seeds are neutral nouns, not pre-judged "opportunities". Domains are ids; nothing here is a
-# conclusion. Counts: see `python -m pipeline.cli taxonomy-stats` (or the README).
 version: 1
 domains:
 - id: software_dev_web
-  title: "Software development -- web and application"
+  title: Software development -- web and application
   subdomains:
-  - {id: javascript_frameworks, seeds: ["react", "next.js", "vue", "angular", "svelte", "node.js"]}
-  - {id: python_dev, seeds: ["python", "django", "flask", "fastapi", "pandas"]}
-  - {id: java_kotlin, seeds: ["java", "spring boot", "kotlin", "gradle", "maven"]}
-  - {id: dotnet, seeds: ["c#", ".net", "asp.net", "entity framework"]}
-  - {id: go_rust_cpp, seeds: ["golang", "rust", "c++", "cmake"]}
-  - {id: php_ruby, seeds: ["php", "laravel", "wordpress plugin", "ruby on rails"]}
-  - {id: databases, seeds: ["postgresql", "mysql", "sqlite", "mongodb", "redis", "sql query"]}
-  - {id: apis_auth, seeds: ["rest api", "graphql", "oauth", "jwt", "webhook"]}
-  - {id: css_layout, seeds: ["css", "tailwind", "flexbox", "css grid", "responsive design"]}
-  - {id: regex_formats, seeds: ["regex", "json", "yaml", "csv", "xml", "cron expression"]}
+  - id: javascript_frameworks
+    seeds:
+    - javascript react
+    - javascript next.js
+    - javascript vue
+    - javascript angular
+    - javascript svelte
+    - javascript node.js
+    qualifier: javascript
+  - id: python_dev
+    seeds:
+    - python
+    - python django
+    - python flask
+    - python fastapi
+    - python pandas
+    qualifier: python
+  - id: java_kotlin
+    seeds:
+    - java
+    - spring boot
+    - java kotlin
+    - java gradle
+    - java maven
+    qualifier: java
+  - id: dotnet
+    seeds:
+    - c#
+    - c# .net
+    - c# asp.net
+    - entity framework
+    qualifier: c#
+  - id: go_rust_cpp
+    seeds:
+    - programming golang
+    - programming rust
+    - programming c++
+    - programming cmake
+    qualifier: programming
+  - id: php_ruby
+    seeds:
+    - php
+    - php laravel
+    - wordpress plugin
+    - ruby on rails
+    qualifier: php
+  - id: databases
+    seeds:
+    - database postgresql
+    - database mysql
+    - database sqlite
+    - database mongodb
+    - database redis
+    - sql query
+    qualifier: database
+  - id: apis_auth
+    seeds:
+    - rest api
+    - programming graphql
+    - programming oauth
+    - programming jwt
+    - programming webhook
+    qualifier: programming
+  - id: css_layout
+    seeds:
+    - css
+    - css tailwind
+    - css flexbox
+    - css grid
+    - responsive design
+    qualifier: css
+  - id: regex_formats
+    seeds:
+    - programming regex
+    - programming json
+    - programming yaml
+    - programming csv
+    - programming xml
+    - cron expression
+    qualifier: programming
+  qualifier: programming
 - id: software_dev_ops
-  title: "DevOps, cloud and infrastructure"
+  title: DevOps, cloud and infrastructure
   subdomains:
-  - {id: containers, seeds: ["docker", "docker compose", "kubernetes", "helm"]}
-  - {id: cloud_aws, seeds: ["aws lambda", "s3", "ec2", "iam policy", "cloudfront"]}
-  - {id: cloud_other, seeds: ["azure", "google cloud", "cloudflare", "vercel", "terraform"]}
-  - {id: ci_cd, seeds: ["github actions", "gitlab ci", "jenkins", "ci pipeline"]}
-  - {id: linux_admin, seeds: ["linux", "ubuntu", "bash script", "systemd", "ssh", "nginx", "apache"]}
-  - {id: git, seeds: ["git", "git merge", "git rebase", "gitignore"]}
-  - {id: monitoring, seeds: ["prometheus", "grafana", "logging", "uptime"]}
+  - id: containers
+    seeds:
+    - docker
+    - docker compose
+    - docker kubernetes
+    - docker helm
+    qualifier: docker
+  - id: cloud_aws
+    seeds:
+    - aws lambda
+    - devops s3
+    - devops ec2
+    - iam policy
+    - devops cloudfront
+    qualifier: devops
+  - id: cloud_other
+    seeds:
+    - devops azure
+    - google cloud
+    - devops cloudflare
+    - devops vercel
+    - devops terraform
+    qualifier: devops
+  - id: ci_cd
+    seeds:
+    - github actions
+    - gitlab ci
+    - devops jenkins
+    - ci pipeline
+    qualifier: devops
+  - id: linux_admin
+    seeds:
+    - linux
+    - linux ubuntu
+    - bash script
+    - linux systemd
+    - linux ssh
+    - linux nginx
+    - linux apache
+    qualifier: linux
+  - id: git
+    seeds:
+    - git
+    - git merge
+    - git rebase
+    - gitignore
+    qualifier: git
+  - id: monitoring
+    seeds:
+    - devops prometheus
+    - devops grafana
+    - devops logging
+    - devops uptime
+    qualifier: devops
+  qualifier: devops
 - id: software_dev_mobile
-  title: "Mobile development"
+  title: Mobile development
   subdomains:
-  - {id: android_dev, seeds: ["android studio", "android app", "jetpack compose", "gradle android"]}
-  - {id: ios_dev, seeds: ["xcode", "swift", "swiftui", "ios app", "testflight"]}
-  - {id: cross_platform, seeds: ["flutter", "react native", "expo", "capacitor"]}
-  - {id: app_store_ops, seeds: ["app store review", "play console", "app signing"]}
+  - id: android_dev
+    seeds:
+    - android studio
+    - android app
+    - jetpack compose
+    - gradle android
+    qualifier: app development
+  - id: ios_dev
+    seeds:
+    - app development xcode
+    - app development swift
+    - app development swiftui
+    - ios app
+    - app development testflight
+    qualifier: app development
+  - id: cross_platform
+    seeds:
+    - app development flutter
+    - react native
+    - app development expo
+    - app development capacitor
+    qualifier: app development
+  - id: app_store_ops
+    seeds:
+    - app store review
+    - play console
+    - app signing
+    qualifier: app development
+  qualifier: app development
 - id: game_development
-  title: "Game development"
+  title: Game development
   subdomains:
-  - {id: unity, seeds: ["unity", "unity navmesh", "unity animator", "unity shader", "unity build"]}
-  - {id: unreal, seeds: ["unreal engine", "blueprints", "unreal nanite", "unreal lumen", "unreal packaging"]}
-  - {id: godot, seeds: ["godot", "gdscript", "godot export", "godot shader"]}
-  - {id: other_engines, seeds: ["game maker", "roblox studio", "love2d", "phaser", "construct 3", "rpg maker"]}
-  - {id: game_assets, seeds: ["game asset", "sprite sheet", "tileset", "game sound effects"]}
-  - {id: game_publishing, seeds: ["steam page", "steamworks", "itch.io upload", "game trailer"]}
-  - {id: game_math_ai, seeds: ["pathfinding", "procedural generation", "game ai", "physics engine"]}
+  - id: unity
+    seeds:
+    - unity
+    - unity navmesh
+    - unity animator
+    - unity shader
+    - unity build
+    qualifier: unity
+  - id: unreal
+    seeds:
+    - unreal engine
+    - unreal engine blueprints
+    - unreal nanite
+    - unreal lumen
+    - unreal packaging
+    qualifier: unreal engine
+  - id: godot
+    seeds:
+    - godot
+    - godot gdscript
+    - godot export
+    - godot shader
+    qualifier: godot
+  - id: other_engines
+    seeds:
+    - game maker
+    - roblox studio
+    - game dev love2d
+    - game dev phaser
+    - construct 3
+    - rpg maker
+    qualifier: game dev
+  - id: game_assets
+    seeds:
+    - game asset
+    - sprite sheet
+    - game dev tileset
+    - game sound effects
+    qualifier: game dev
+  - id: game_publishing
+    seeds:
+    - steam page
+    - game dev steamworks
+    - itch.io upload
+    - game trailer
+    qualifier: game dev
+  - id: game_math_ai
+    seeds:
+    - game dev pathfinding
+    - procedural generation
+    - game ai
+    - physics engine
+    qualifier: game dev
+  qualifier: game dev
 - id: gaming_pc
-  title: "PC gaming"
+  title: PC gaming
   subdomains:
-  - {id: performance, seeds: ["fps drops", "stuttering", "low fps", "game crashing", "game won't launch"]}
-  - {id: settings, seeds: ["best settings", "graphics settings", "dlss", "fsr", "ray tracing"]}
-  - {id: launchers, seeds: ["steam", "epic games launcher", "game pass pc", "gog"]}
-  - {id: game_mods, seeds: ["mods", "mod manager", "mod not working", "modpack", "nexus mods"]}
-  - {id: emulation, seeds: ["emulator", "retroarch", "dolphin emulator", "yuzu", "pcsx2"]}
-  - {id: peripherals, seeds: ["controller not working", "gaming mouse", "keyboard remap", "steam deck"]}
+  - id: performance
+    seeds:
+    - fps drops
+    - pc gaming stuttering
+    - low fps
+    - game crashing
+    - game won't launch
+    qualifier: pc gaming
+  - id: settings
+    seeds:
+    - best settings
+    - graphics settings
+    - pc gaming dlss
+    - pc gaming fsr
+    - ray tracing
+    qualifier: pc gaming
+  - id: launchers
+    seeds:
+    - pc gaming steam
+    - epic games launcher
+    - game pass pc
+    - pc gaming gog
+    qualifier: pc gaming
+  - id: game_mods
+    seeds:
+    - pc gaming mods
+    - mod manager
+    - mod not working
+    - pc gaming modpack
+    - nexus mods
+    qualifier: pc gaming
+  - id: emulation
+    seeds:
+    - pc gaming emulator
+    - pc gaming retroarch
+    - dolphin emulator
+    - pc gaming yuzu
+    - pcsx2
+    qualifier: pc gaming
+  - id: peripherals
+    seeds:
+    - controller not working
+    - gaming mouse
+    - keyboard remap
+    - steam deck
+    qualifier: pc gaming
+  qualifier: pc gaming
 - id: gaming_titles
-  title: "Specific games (guides, builds, items, mechanics)"
+  title: Specific games (guides, builds, items, mechanics)
   subdomains:
-  - {id: minecraft, seeds: ["minecraft", "minecraft server", "minecraft seed", "minecraft redstone", "minecraft enchant"]}
-  - {id: survival_crafting, seeds: ["terraria", "valheim", "palworld", "ark", "rust game", "7 days to die"]}
-  - {id: rpg_builds, seeds: ["elden ring build", "baldur's gate 3 build", "diablo build", "path of exile build", "skyrim"]}
-  - {id: shooters, seeds: ["fortnite", "valorant", "counter strike", "apex legends", "call of duty"]}
-  - {id: sim_strategy, seeds: ["cities skylines", "factorio", "satisfactory", "stardew valley", "rimworld", "civilization"]}
-  - {id: mobile_gacha, seeds: ["genshin impact", "honkai star rail", "clash of clans", "pokemon go"]}
-  - {id: sports_racing, seeds: ["fc 24", "nba 2k", "forza", "gran turismo", "assetto corsa"]}
-  - {id: console, seeds: ["ps5", "xbox series x", "nintendo switch", "controller"]}
+  - id: minecraft
+    seeds:
+    - minecraft
+    - minecraft server
+    - minecraft seed
+    - minecraft redstone
+    - minecraft enchant
+    qualifier: minecraft
+  - id: survival_crafting
+    seeds:
+    - game terraria
+    - game valheim
+    - game palworld
+    - game ark
+    - rust game
+    - 7 days to die
+    qualifier: game
+  - id: rpg_builds
+    seeds:
+    - elden ring build
+    - baldur's gate 3 build
+    - diablo build
+    - path of exile build
+    - game skyrim
+    qualifier: game
+  - id: shooters
+    seeds:
+    - game fortnite
+    - game valorant
+    - counter strike
+    - apex legends
+    - call of duty
+    qualifier: game
+  - id: sim_strategy
+    seeds:
+    - cities skylines
+    - game factorio
+    - game satisfactory
+    - stardew valley
+    - game rimworld
+    - game civilization
+    qualifier: game
+  - id: mobile_gacha
+    seeds:
+    - genshin impact
+    - honkai star rail
+    - clash of clans
+    - pokemon go
+    qualifier: game
+  - id: sports_racing
+    seeds:
+    - fc 24
+    - nba 2k
+    - game forza
+    - gran turismo
+    - assetto corsa
+    qualifier: game
+  - id: console
+    seeds:
+    - game ps5
+    - xbox series x
+    - nintendo switch
+    - game controller
+    qualifier: game
+  qualifier: game
 - id: tabletop_hobby_games
-  title: "Tabletop, card and hobby games"
+  title: Tabletop, card and hobby games
   subdomains:
-  - {id: dnd_ttrpg, seeds: ["dnd 5e", "dungeons and dragons", "pathfinder 2e", "dm tools", "character sheet"]}
-  - {id: board_games, seeds: ["board game rules", "catan", "monopoly rules", "board game night"]}
-  - {id: tcg, seeds: ["magic the gathering", "pokemon cards", "yugioh", "card value", "deck builder"]}
-  - {id: miniatures_warhammer, seeds: ["warhammer 40k", "miniature painting", "army list", "3d printed miniatures"]}
-  - {id: puzzles_chess, seeds: ["chess opening", "chess puzzle", "crossword clue", "sudoku", "wordle"]}
+  - id: dnd_ttrpg
+    seeds:
+    - dnd 5e
+    - dungeons and dragons
+    - pathfinder 2e
+    - dm tools
+    - character sheet
+    qualifier: board game
+  - id: board_games
+    seeds:
+    - board game rules
+    - board game catan
+    - monopoly rules
+    - board game night
+    qualifier: board game
+  - id: tcg
+    seeds:
+    - magic the gathering
+    - pokemon cards
+    - board game yugioh
+    - card value
+    - deck builder
+    qualifier: board game
+  - id: miniatures_warhammer
+    seeds:
+    - warhammer 40k
+    - miniature painting
+    - army list
+    - 3d printed miniatures
+    qualifier: board game
+  - id: puzzles_chess
+    seeds:
+    - chess opening
+    - chess puzzle
+    - crossword clue
+    - board game sudoku
+    - board game wordle
+    qualifier: board game
+  qualifier: board game
 - id: cybersecurity
-  title: "Cybersecurity and privacy"
+  title: Cybersecurity and privacy
   subdomains:
-  - {id: home_security, seeds: ["password manager", "2fa", "phishing", "vpn", "malware removal"]}
-  - {id: pentest, seeds: ["nmap", "burp suite", "metasploit", "ctf", "kali linux"]}
-  - {id: appsec, seeds: ["owasp", "sql injection", "xss", "cve", "dependency vulnerability"]}
-  - {id: compliance, seeds: ["gdpr", "soc 2", "iso 27001", "hipaa compliance"]}
-  - {id: hardening, seeds: ["firewall rules", "ssl certificate", "tls", "ssh key"]}
+  - id: home_security
+    seeds:
+    - password manager
+    - security 2fa
+    - security phishing
+    - security vpn
+    - malware removal
+    qualifier: security
+  - id: pentest
+    seeds:
+    - security nmap
+    - burp suite
+    - security metasploit
+    - security ctf
+    - kali linux
+    qualifier: security
+  - id: appsec
+    seeds:
+    - security owasp
+    - sql injection
+    - security xss
+    - security cve
+    - dependency vulnerability
+    qualifier: security
+  - id: compliance
+    seeds:
+    - security gdpr
+    - soc 2
+    - iso 27001
+    - hipaa compliance
+    qualifier: security
+  - id: hardening
+    seeds:
+    - firewall rules
+    - ssl certificate
+    - security tls
+    - ssh key
+    qualifier: security
+  qualifier: security
 - id: data_ai
-  title: "Data, machine learning and AI tooling"
+  title: Data, machine learning and AI tooling
   subdomains:
-  - {id: llm_usage, seeds: ["chatgpt", "prompt", "llm", "rag", "fine tuning", "ollama"]}
-  - {id: ml_frameworks, seeds: ["pytorch", "tensorflow", "hugging face", "cuda", "scikit-learn"]}
-  - {id: data_analysis, seeds: ["excel formula", "google sheets formula", "pivot table", "power bi", "tableau"]}
-  - {id: data_engineering, seeds: ["airflow", "spark", "dbt", "etl", "snowflake"]}
-  - {id: image_ai, seeds: ["stable diffusion", "comfyui", "lora training", "midjourney", "upscale image ai"]}
-  - {id: gpu_hardware, seeds: ["gpu for ai", "vram", "run llm locally", "nvidia driver"]}
+  - id: llm_usage
+    seeds:
+    - llm chatgpt
+    - llm prompt
+    - llm
+    - llm rag
+    - fine tuning
+    - llm ollama
+    qualifier: llm
+  - id: ml_frameworks
+    seeds:
+    - machine learning pytorch
+    - machine learning tensorflow
+    - hugging face
+    - machine learning cuda
+    - machine learning scikit-learn
+    qualifier: machine learning
+  - id: data_analysis
+    seeds:
+    - excel formula
+    - google sheets formula
+    - pivot table
+    - power bi
+    - spreadsheet tableau
+    qualifier: spreadsheet
+  - id: data_engineering
+    seeds:
+    - machine learning airflow
+    - machine learning spark
+    - machine learning dbt
+    - machine learning etl
+    - machine learning snowflake
+    qualifier: machine learning
+  - id: image_ai
+    seeds:
+    - stable diffusion
+    - ai image comfyui
+    - lora training
+    - ai image midjourney
+    - upscale image ai
+    qualifier: ai image
+  - id: gpu_hardware
+    seeds:
+    - gpu for ai
+    - machine learning vram
+    - run llm locally
+    - nvidia driver
+    qualifier: machine learning
+  qualifier: machine learning
 - id: it_support
-  title: "IT, Windows/Mac troubleshooting, home networking"
+  title: IT, Windows/Mac troubleshooting, home networking
   subdomains:
-  - {id: windows, seeds: ["windows 11", "windows update", "blue screen", "windows activation", "file explorer"]}
-  - {id: macos, seeds: ["macos", "mac slow", "macbook battery", "homebrew", "finder"]}
-  - {id: printers_drivers, seeds: ["printer offline", "driver", "printer not printing", "scanner"]}
-  - {id: networking, seeds: ["wifi not working", "router settings", "port forwarding", "dns", "mesh wifi", "ethernet"]}
-  - {id: email_office, seeds: ["outlook", "gmail", "microsoft teams", "zoom", "onedrive", "google drive"]}
-  - {id: browsers, seeds: ["chrome", "firefox", "browser extension", "clear cache", "cookies"]}
-  - {id: storage_backup, seeds: ["external hard drive", "nas", "backup", "recover deleted files", "ssd clone"]}
+  - id: windows
+    seeds:
+    - windows 11
+    - windows update
+    - blue screen
+    - windows activation
+    - file explorer
+    qualifier: windows
+  - id: macos
+    seeds:
+    - macos
+    - mac slow
+    - macbook battery
+    - mac homebrew
+    - mac finder
+    qualifier: mac
+  - id: printers_drivers
+    seeds:
+    - printer offline
+    - printer driver
+    - printer not printing
+    - printer scanner
+    qualifier: printer
+  - id: networking
+    seeds:
+    - wifi not working
+    - router settings
+    - port forwarding
+    - wifi dns
+    - mesh wifi
+    - wifi ethernet
+    qualifier: wifi
+  - id: email_office
+    seeds:
+    - computer outlook
+    - computer gmail
+    - microsoft teams
+    - computer zoom
+    - computer onedrive
+    - google drive
+    qualifier: computer
+  - id: browsers
+    seeds:
+    - computer chrome
+    - computer firefox
+    - browser extension
+    - clear cache
+    - computer cookies
+    qualifier: computer
+  - id: storage_backup
+    seeds:
+    - external hard drive
+    - computer nas
+    - computer backup
+    - recover deleted files
+    - ssd clone
+    qualifier: computer
+  qualifier: computer
 - id: consumer_tech
-  title: "Consumer technology and gadgets"
+  title: Consumer technology and gadgets
   subdomains:
-  - {id: smartphones, seeds: ["iphone", "android phone", "samsung galaxy", "pixel", "phone battery", "phone storage"]}
-  - {id: smart_home, seeds: ["smart home", "home assistant", "alexa", "google home", "smart plug", "smart bulb"]}
-  - {id: tv_streaming, seeds: ["smart tv", "roku", "fire stick", "streaming device", "tv settings"]}
-  - {id: audio_gear, seeds: ["bluetooth headphones", "earbuds", "soundbar", "speaker pairing"]}
-  - {id: wearables, seeds: ["apple watch", "garmin", "fitbit", "smartwatch"]}
-  - {id: cameras_drones, seeds: ["drone", "gopro", "dashcam", "security camera"]}
-  - {id: ereaders_tablets, seeds: ["kindle", "ipad", "tablet", "stylus"]}
+  - id: smartphones
+    seeds:
+    - iphone
+    - android phone
+    - samsung galaxy
+    - phone pixel
+    - phone battery
+    - phone storage
+    qualifier: phone
+  - id: smart_home
+    seeds:
+    - smart home
+    - home assistant
+    - smart home alexa
+    - google home
+    - smart plug
+    - smart bulb
+    qualifier: smart home
+  - id: tv_streaming
+    seeds:
+    - smart tv
+    - device roku
+    - fire stick
+    - streaming device
+    - tv settings
+    qualifier: device
+  - id: audio_gear
+    seeds:
+    - bluetooth headphones
+    - device earbuds
+    - device soundbar
+    - speaker pairing
+    qualifier: device
+  - id: wearables
+    seeds:
+    - apple watch
+    - device garmin
+    - device fitbit
+    - device smartwatch
+    qualifier: device
+  - id: cameras_drones
+    seeds:
+    - device drone
+    - device gopro
+    - device dashcam
+    - security camera
+    qualifier: device
+  - id: ereaders_tablets
+    seeds:
+    - device kindle
+    - device ipad
+    - device tablet
+    - device stylus
+    qualifier: device
+  qualifier: device
 - id: pc_building
-  title: "PC building and hardware"
+  title: PC building and hardware
   subdomains:
-  - {id: compatibility, seeds: ["cpu motherboard compatible", "ram compatibility", "psu wattage", "case fit", "gpu fit"]}
-  - {id: components, seeds: ["best gpu", "best cpu", "ssd nvme", "ddr5", "motherboard"]}
-  - {id: assembly_troubleshoot, seeds: ["pc won't turn on", "no display", "bios", "xmp", "overheating", "thermal paste"]}
-  - {id: laptops, seeds: ["laptop", "laptop battery", "laptop upgrade", "gaming laptop"]}
-  - {id: monitors, seeds: ["monitor", "144hz", "hdr monitor", "monitor calibration", "display port"]}
-  - {id: cooling_noise, seeds: ["cpu cooler", "aio", "fan curve", "pc noise", "undervolt"]}
+  - id: compatibility
+    seeds:
+    - cpu motherboard compatible
+    - ram compatibility
+    - psu wattage
+    - case fit
+    - gpu fit
+    qualifier: pc build
+  - id: components
+    seeds:
+    - best gpu
+    - best cpu
+    - ssd nvme
+    - pc build ddr5
+    - pc build motherboard
+    qualifier: pc build
+  - id: assembly_troubleshoot
+    seeds:
+    - pc won't turn on
+    - no display
+    - pc build bios
+    - pc build xmp
+    - pc build overheating
+    - thermal paste
+    qualifier: pc build
+  - id: laptops
+    seeds:
+    - laptop
+    - laptop battery
+    - laptop upgrade
+    - gaming laptop
+    qualifier: laptop
+  - id: monitors
+    seeds:
+    - monitor
+    - monitor 144hz
+    - hdr monitor
+    - monitor calibration
+    - display port
+    qualifier: monitor
+  - id: cooling_noise
+    seeds:
+    - cpu cooler
+    - pc build aio
+    - fan curve
+    - pc noise
+    - pc build undervolt
+    qualifier: pc build
+  qualifier: pc build
 - id: video_editing
-  title: "Video editing and production"
+  title: Video editing and production
   subdomains:
-  - {id: premiere, seeds: ["premiere pro", "premiere pro export", "premiere crash"]}
-  - {id: davinci, seeds: ["davinci resolve", "davinci resolve free", "resolve export", "fusion"]}
-  - {id: other_editors, seeds: ["capcut", "final cut pro", "kdenlive", "shotcut", "filmora"]}
-  - {id: after_effects_motion, seeds: ["after effects", "motion graphics", "keyframes", "expression"]}
-  - {id: codecs_export, seeds: ["export settings youtube", "h264", "h265", "bitrate", "ffmpeg", "mkv to mp4"]}
-  - {id: streaming_recording, seeds: ["obs", "obs settings", "twitch stream", "screen recording", "capture card"]}
-  - {id: subtitles_audio, seeds: ["subtitles", "captions", "remove background noise", "audio sync"]}
+  - id: premiere
+    seeds:
+    - premiere pro
+    - premiere pro export
+    - premiere crash
+    qualifier: premiere pro
+  - id: davinci
+    seeds:
+    - davinci resolve
+    - davinci resolve free
+    - resolve export
+    - davinci resolve fusion
+    qualifier: davinci resolve
+  - id: other_editors
+    seeds:
+    - video editing capcut
+    - final cut pro
+    - video editing kdenlive
+    - video editing shotcut
+    - video editing filmora
+    qualifier: video editing
+  - id: after_effects_motion
+    seeds:
+    - after effects
+    - motion graphics
+    - video editing keyframes
+    - video editing expression
+    qualifier: video editing
+  - id: codecs_export
+    seeds:
+    - export settings youtube
+    - video editing h264
+    - video editing h265
+    - video editing bitrate
+    - video editing ffmpeg
+    - mkv to mp4
+    qualifier: video editing
+  - id: streaming_recording
+    seeds:
+    - video editing obs
+    - obs settings
+    - twitch stream
+    - screen recording
+    - capture card
+    qualifier: video editing
+  - id: subtitles_audio
+    seeds:
+    - video editing subtitles
+    - video editing captions
+    - remove background noise
+    - audio sync
+    qualifier: video editing
+  qualifier: video editing
 - id: photography
-  title: "Photography and photo editing"
+  title: Photography and photo editing
   subdomains:
-  - {id: lightroom_photoshop, seeds: ["lightroom", "photoshop", "camera raw", "presets", "layers"]}
-  - {id: alternatives_free, seeds: ["gimp", "darktable", "affinity photo", "free photo editor"]}
-  - {id: camera_gear, seeds: ["camera", "lens", "sony a7", "canon", "fujifilm", "tripod"]}
-  - {id: technique, seeds: ["exposure", "iso", "aperture", "shutter speed", "white balance", "focus"]}
-  - {id: printing_scanning, seeds: ["print photos", "photo scanner", "film scan", "photo book"]}
-  - {id: organizing, seeds: ["photo backup", "duplicate photos", "photo organizer", "raw files"]}
+  - id: lightroom_photoshop
+    seeds:
+    - photoshop lightroom
+    - photoshop
+    - camera raw
+    - photoshop presets
+    - photoshop layers
+    qualifier: photoshop
+  - id: alternatives_free
+    seeds:
+    - photography gimp
+    - photography darktable
+    - affinity photo
+    - free photo editor
+    qualifier: photography
+  - id: camera_gear
+    seeds:
+    - photography camera
+    - photography lens
+    - sony a7
+    - photography canon
+    - photography fujifilm
+    - photography tripod
+    qualifier: photography
+  - id: technique
+    seeds:
+    - photography exposure
+    - photography iso
+    - photography aperture
+    - shutter speed
+    - white balance
+    - photography focus
+    qualifier: photography
+  - id: printing_scanning
+    seeds:
+    - print photos
+    - photo scanner
+    - film scan
+    - photo book
+    qualifier: photography
+  - id: organizing
+    seeds:
+    - photo backup
+    - duplicate photos
+    - photo organizer
+    - raw files
+    qualifier: photography
+  qualifier: photography
 - id: graphic_design
-  title: "Graphic design, UI/UX and typography"
+  title: Graphic design, UI/UX and typography
   subdomains:
-  - {id: tools, seeds: ["figma", "canva", "illustrator", "indesign", "affinity designer", "inkscape"]}
-  - {id: assets, seeds: ["fonts", "free fonts", "icons", "svg", "mockup", "stock photos", "color palette"]}
-  - {id: print_prep, seeds: ["cmyk", "bleed", "dpi", "print ready pdf", "business card size"]}
-  - {id: ui_ux, seeds: ["ui design", "ux", "design system", "wireframe", "prototype", "accessibility"]}
-  - {id: branding, seeds: ["logo design", "brand guidelines", "logo maker"]}
+  - id: tools
+    seeds:
+    - design app figma
+    - design app canva
+    - design app illustrator
+    - indesign
+    - affinity designer
+    - design app inkscape
+    qualifier: design app
+  - id: assets
+    seeds:
+    - graphic design fonts
+    - free fonts
+    - graphic design icons
+    - graphic design svg
+    - graphic design mockup
+    - stock photos
+    - color palette
+    qualifier: graphic design
+  - id: print_prep
+    seeds:
+    - graphic design cmyk
+    - graphic design bleed
+    - graphic design dpi
+    - print ready pdf
+    - business card size
+    qualifier: graphic design
+  - id: ui_ux
+    seeds:
+    - ui design
+    - graphic design ux
+    - design system
+    - graphic design wireframe
+    - graphic design prototype
+    - graphic design accessibility
+    qualifier: graphic design
+  - id: branding
+    seeds:
+    - logo design
+    - brand guidelines
+    - logo maker
+    qualifier: graphic design
+  qualifier: graphic design
 - id: three_d_animation
-  title: "3D modelling, animation and rendering"
+  title: 3D modelling, animation and rendering
   subdomains:
-  - {id: blender, seeds: ["blender", "blender render", "blender modifier", "blender rigging", "blender export"]}
-  - {id: cad, seeds: ["fusion 360", "solidworks", "freecad", "onshape", "autocad", "sketchup"]}
-  - {id: sculpt_texture, seeds: ["zbrush", "substance painter", "uv unwrap", "texture", "pbr"]}
-  - {id: rendering, seeds: ["cycles", "eevee", "arnold", "render farm", "render time"]}
-  - {id: formats, seeds: ["fbx", "obj", "gltf", "stl", "usd", "convert 3d model"]}
-  - {id: vfx_sim, seeds: ["houdini", "particles", "cloth simulation", "fluid simulation"]}
+  - id: blender
+    seeds:
+    - blender
+    - blender render
+    - blender modifier
+    - blender rigging
+    - blender export
+    qualifier: blender
+  - id: cad
+    seeds:
+    - fusion 360
+    - cad solidworks
+    - freecad
+    - cad onshape
+    - autocad
+    - cad sketchup
+    qualifier: cad
+  - id: sculpt_texture
+    seeds:
+    - 3d modeling zbrush
+    - substance painter
+    - uv unwrap
+    - 3d modeling texture
+    - 3d modeling pbr
+    qualifier: 3d modeling
+  - id: rendering
+    seeds:
+    - 3d modeling cycles
+    - 3d modeling eevee
+    - 3d modeling arnold
+    - render farm
+    - render time
+    qualifier: 3d modeling
+  - id: formats
+    seeds:
+    - 3d modeling fbx
+    - 3d modeling obj
+    - 3d modeling gltf
+    - 3d modeling stl
+    - 3d modeling usd
+    - convert 3d model
+    qualifier: 3d modeling
+  - id: vfx_sim
+    seeds:
+    - 3d modeling houdini
+    - 3d modeling particles
+    - cloth simulation
+    - fluid simulation
+    qualifier: 3d modeling
+  qualifier: 3d modeling
 - id: three_d_printing
-  title: "3D printing"
+  title: 3D printing
   subdomains:
-  - {id: printers, seeds: ["bambu lab", "prusa", "ender 3", "creality", "resin printer"]}
-  - {id: slicing, seeds: ["cura", "prusaslicer", "orcaslicer", "slicer settings", "supports"]}
-  - {id: troubleshooting, seeds: ["stringing", "layer shift", "bed adhesion", "warping", "under extrusion", "clogged nozzle"]}
-  - {id: materials, seeds: ["pla", "petg", "abs", "tpu", "filament", "resin"]}
-  - {id: models, seeds: ["stl files", "thingiverse", "printables", "3d model free"]}
-  - {id: calibration, seeds: ["bed leveling", "flow calibration", "pressure advance", "temperature tower"]}
+  - id: printers
+    seeds:
+    - bambu lab
+    - 3d printer prusa
+    - ender 3
+    - 3d printer creality
+    - resin printer
+    qualifier: 3d printer
+  - id: slicing
+    seeds:
+    - 3d printer cura
+    - 3d printer prusaslicer
+    - 3d printer orcaslicer
+    - slicer settings
+    - 3d printer supports
+    qualifier: 3d printer
+  - id: troubleshooting
+    seeds:
+    - 3d printer stringing
+    - layer shift
+    - bed adhesion
+    - 3d printer warping
+    - under extrusion
+    - clogged nozzle
+    qualifier: 3d printer
+  - id: materials
+    seeds:
+    - 3d printer pla
+    - 3d printer petg
+    - 3d printer abs
+    - 3d printer tpu
+    - 3d printer filament
+    - 3d printer resin
+    qualifier: 3d printer
+  - id: models
+    seeds:
+    - stl files
+    - 3d printer thingiverse
+    - 3d printer printables
+    - 3d model free
+    qualifier: 3d printer
+  - id: calibration
+    seeds:
+    - bed leveling
+    - flow calibration
+    - pressure advance
+    - temperature tower
+    qualifier: 3d printer
+  qualifier: 3d printer
 - id: audio_music_production
-  title: "Audio and music production"
+  title: Audio and music production
   subdomains:
-  - {id: daws, seeds: ["ableton", "fl studio", "logic pro", "reaper", "pro tools", "garageband"]}
-  - {id: plugins, seeds: ["vst", "free vst", "plugin", "synth", "sample pack"]}
-  - {id: mixing_mastering, seeds: ["mixing", "mastering", "eq", "compression", "lufs", "vocal chain"]}
-  - {id: recording_gear, seeds: ["audio interface", "microphone", "monitors", "midi keyboard", "latency"]}
-  - {id: theory_songwriting, seeds: ["chord progression", "scale", "bpm", "key of song", "music theory"]}
-  - {id: podcasting, seeds: ["podcast", "podcast hosting", "audacity", "remove noise"]}
+  - id: daws
+    seeds:
+    - daw ableton
+    - fl studio
+    - logic pro
+    - daw reaper
+    - pro tools
+    - daw garageband
+    qualifier: daw
+  - id: plugins
+    seeds:
+    - music production vst
+    - free vst
+    - music production plugin
+    - music production synth
+    - sample pack
+    qualifier: music production
+  - id: mixing_mastering
+    seeds:
+    - music production mixing
+    - music production mastering
+    - music production eq
+    - music production compression
+    - music production lufs
+    - vocal chain
+    qualifier: music production
+  - id: recording_gear
+    seeds:
+    - audio interface
+    - music production microphone
+    - music production monitors
+    - midi keyboard
+    - music production latency
+    qualifier: music production
+  - id: theory_songwriting
+    seeds:
+    - chord progression
+    - music production scale
+    - music production bpm
+    - key of song
+    - music theory
+    qualifier: music production
+  - id: podcasting
+    seeds:
+    - music production podcast
+    - podcast hosting
+    - music production audacity
+    - remove noise
+    qualifier: music production
+  qualifier: music production
 - id: playing_music
-  title: "Learning and playing instruments"
+  title: Learning and playing instruments
   subdomains:
-  - {id: guitar, seeds: ["guitar chords", "guitar tabs", "guitar tuning", "guitar setup", "barre chord"]}
-  - {id: piano, seeds: ["piano chords", "sheet music", "piano lessons", "midi"]}
-  - {id: other_instruments, seeds: ["ukulele chords", "drums", "violin", "bass guitar"]}
-  - {id: singing, seeds: ["vocal range", "singing lessons", "karaoke"]}
-  - {id: gear_repair, seeds: ["guitar pedal", "amp", "strings", "tuner", "guitar repair"]}
+  - id: guitar
+    seeds:
+    - guitar chords
+    - guitar tabs
+    - guitar tuning
+    - guitar setup
+    - barre chord
+    qualifier: guitar
+  - id: piano
+    seeds:
+    - piano chords
+    - sheet music
+    - piano lessons
+    - piano midi
+    qualifier: piano
+  - id: other_instruments
+    seeds:
+    - ukulele chords
+    - music drums
+    - music violin
+    - bass guitar
+    qualifier: music
+  - id: singing
+    seeds:
+    - vocal range
+    - singing lessons
+    - music karaoke
+    qualifier: music
+  - id: gear_repair
+    seeds:
+    - guitar pedal
+    - music amp
+    - music strings
+    - music tuner
+    - guitar repair
+    qualifier: music
+  qualifier: music
 - id: automotive
-  title: "Cars: repair, maintenance, buying"
+  title: 'Cars: repair, maintenance, buying'
   subdomains:
-  - {id: diagnostics, seeds: ["check engine light", "obd2 code", "p0420", "car won't start", "car noise"]}
-  - {id: maintenance, seeds: ["oil change", "brake pads", "tire size", "battery replacement", "coolant", "spark plugs"]}
-  - {id: parts_fitment, seeds: ["parts compatibility", "oem part number", "tire fitment", "wheel offset", "bolt pattern"]}
-  - {id: buying_selling, seeds: ["car value", "used car", "vin check", "car loan calculator", "lease vs buy"]}
-  - {id: ev_hybrid, seeds: ["ev charging", "tesla", "ev range", "hybrid battery", "home charger"]}
-  - {id: mods_tuning, seeds: ["car tuning", "ecu tune", "exhaust", "suspension", "wrap"]}
-  - {id: driving_admin, seeds: ["driving test", "license renewal", "car insurance", "registration"]}
+  - id: diagnostics
+    seeds:
+    - check engine light
+    - obd2 code
+    - car p0420
+    - car won't start
+    - car noise
+    qualifier: car
+  - id: maintenance
+    seeds:
+    - oil change
+    - brake pads
+    - tire size
+    - battery replacement
+    - car coolant
+    - spark plugs
+    qualifier: car
+  - id: parts_fitment
+    seeds:
+    - parts compatibility
+    - oem part number
+    - tire fitment
+    - wheel offset
+    - bolt pattern
+    qualifier: car
+  - id: buying_selling
+    seeds:
+    - car value
+    - used car
+    - vin check
+    - car loan calculator
+    - lease vs buy
+    qualifier: car
+  - id: ev_hybrid
+    seeds:
+    - ev charging
+    - ev tesla
+    - ev range
+    - hybrid battery
+    - home charger
+    qualifier: ev
+  - id: mods_tuning
+    seeds:
+    - car tuning
+    - ecu tune
+    - car exhaust
+    - car suspension
+    - car wrap
+    qualifier: car
+  - id: driving_admin
+    seeds:
+    - driving test
+    - license renewal
+    - car insurance
+    - car registration
+    qualifier: car
+  qualifier: car
 - id: motorcycles_powersports
-  title: "Motorcycles, bikes and powersports"
+  title: Motorcycles, bikes and powersports
   subdomains:
-  - {id: motorcycle, seeds: ["motorcycle maintenance", "motorcycle won't start", "chain tension", "motorcycle gear"]}
-  - {id: bicycle, seeds: ["bike repair", "bike size", "gear ratio", "tubeless", "bike chain", "ebike"]}
-  - {id: powersports, seeds: ["atv", "jet ski", "snowmobile", "dirt bike", "boat motor"]}
-  - {id: rv_camping, seeds: ["rv", "camper van", "trailer wiring", "rv battery", "campsite"]}
+  - id: motorcycle
+    seeds:
+    - motorcycle maintenance
+    - motorcycle won't start
+    - chain tension
+    - motorcycle gear
+    qualifier: motorcycle
+  - id: bicycle
+    seeds:
+    - bike repair
+    - bike size
+    - gear ratio
+    - bike tubeless
+    - bike chain
+    - ebike
+    qualifier: bike
+  - id: powersports
+    seeds:
+    - motorcycle atv
+    - jet ski
+    - motorcycle snowmobile
+    - dirt bike
+    - boat motor
+    qualifier: motorcycle
+  - id: rv_camping
+    seeds:
+    - rv
+    - camper van
+    - trailer wiring
+    - rv battery
+    - rv campsite
+    qualifier: rv
+  qualifier: motorcycle
 - id: home_repair
-  title: "Home repair and maintenance"
+  title: Home repair and maintenance
   subdomains:
-  - {id: plumbing, seeds: ["leaking faucet", "toilet running", "water heater", "clogged drain", "pipe fitting"]}
-  - {id: electrical, seeds: ["outlet not working", "circuit breaker", "wiring", "light switch", "gfci"]}
-  - {id: hvac, seeds: ["ac not cooling", "furnace", "thermostat", "air filter size", "heat pump"]}
-  - {id: walls_floors, seeds: ["drywall repair", "paint", "tile", "flooring", "laminate", "grout"]}
-  - {id: roof_exterior, seeds: ["roof leak", "gutter", "siding", "deck", "fence"]}
-  - {id: doors_windows, seeds: ["door won't close", "window replacement", "weather stripping", "garage door"]}
-  - {id: pests_mold, seeds: ["mold", "termites", "mice", "ants", "bed bugs"]}
+  - id: plumbing
+    seeds:
+    - leaking faucet
+    - toilet running
+    - water heater
+    - clogged drain
+    - pipe fitting
+    qualifier: plumbing
+  - id: electrical
+    seeds:
+    - outlet not working
+    - circuit breaker
+    - electrical wiring
+    - light switch
+    - electrical gfci
+    qualifier: electrical
+  - id: hvac
+    seeds:
+    - ac not cooling
+    - hvac furnace
+    - hvac thermostat
+    - air filter size
+    - heat pump
+    qualifier: hvac
+  - id: walls_floors
+    seeds:
+    - drywall repair
+    - home repair paint
+    - home repair tile
+    - home repair flooring
+    - home repair laminate
+    - home repair grout
+    qualifier: home repair
+  - id: roof_exterior
+    seeds:
+    - roof leak
+    - home repair gutter
+    - home repair siding
+    - home repair deck
+    - home repair fence
+    qualifier: home repair
+  - id: doors_windows
+    seeds:
+    - door won't close
+    - window replacement
+    - weather stripping
+    - garage door
+    qualifier: home repair
+  - id: pests_mold
+    seeds:
+    - home repair mold
+    - home repair termites
+    - home repair mice
+    - home repair ants
+    - bed bugs
+    qualifier: home repair
+  qualifier: home repair
 - id: diy_woodworking
-  title: "DIY, woodworking and metalworking"
+  title: DIY, woodworking and metalworking
   subdomains:
-  - {id: woodworking, seeds: ["woodworking", "dovetail joint", "table saw", "wood glue", "wood finish", "plywood"]}
-  - {id: plans_calcs, seeds: ["woodworking plans", "board feet", "cut list", "lumber calculator", "shelf plans"]}
-  - {id: tools, seeds: ["drill", "router bits", "circular saw", "sander", "tool battery"]}
-  - {id: metal_welding, seeds: ["welding", "mig", "tig", "metal cutting", "rust removal"]}
-  - {id: finishing, seeds: ["stain", "polyurethane", "epoxy resin", "spray paint", "varnish"]}
-  - {id: fasteners_hardware, seeds: ["screw size", "bolt size", "anchor", "drill bit size", "thread pitch"]}
+  - id: woodworking
+    seeds:
+    - woodworking
+    - dovetail joint
+    - table saw
+    - wood glue
+    - wood finish
+    - woodworking plywood
+    qualifier: woodworking
+  - id: plans_calcs
+    seeds:
+    - woodworking plans
+    - board feet
+    - cut list
+    - lumber calculator
+    - shelf plans
+    qualifier: woodworking
+  - id: tools
+    seeds:
+    - woodworking drill
+    - router bits
+    - circular saw
+    - woodworking sander
+    - tool battery
+    qualifier: woodworking
+  - id: metal_welding
+    seeds:
+    - woodworking welding
+    - woodworking mig
+    - woodworking tig
+    - metal cutting
+    - rust removal
+    qualifier: woodworking
+  - id: finishing
+    seeds:
+    - woodworking stain
+    - woodworking polyurethane
+    - epoxy resin
+    - spray paint
+    - woodworking varnish
+    qualifier: woodworking
+  - id: fasteners_hardware
+    seeds:
+    - screw size
+    - bolt size
+    - woodworking anchor
+    - drill bit size
+    - thread pitch
+    qualifier: woodworking
+  qualifier: woodworking
 - id: gardening
-  title: "Gardening and landscaping"
+  title: Gardening and landscaping
   subdomains:
-  - {id: vegetables, seeds: ["tomato plant", "when to plant", "seed starting", "raised bed", "vegetable garden"]}
-  - {id: houseplants, seeds: ["houseplant", "monstera", "yellow leaves", "overwatering", "repotting", "snake plant"]}
-  - {id: lawn, seeds: ["lawn care", "grass seed", "fertilizer", "lawn mower", "weeds"]}
-  - {id: trees_shrubs, seeds: ["pruning", "tree disease", "hydrangea", "roses", "hedge"]}
-  - {id: pests_disease, seeds: ["aphids", "plant disease", "fungus gnats", "powdery mildew"]}
-  - {id: hardscape_irrigation, seeds: ["irrigation", "sprinkler", "drip irrigation", "patio", "retaining wall"]}
+  - id: vegetables
+    seeds:
+    - tomato plant
+    - when to plant
+    - seed starting
+    - raised bed
+    - vegetable garden
+    qualifier: garden
+  - id: houseplants
+    seeds:
+    - houseplant
+    - houseplant monstera
+    - yellow leaves
+    - houseplant overwatering
+    - houseplant repotting
+    - snake plant
+    qualifier: houseplant
+  - id: lawn
+    seeds:
+    - lawn care
+    - grass seed
+    - lawn fertilizer
+    - lawn mower
+    - lawn weeds
+    qualifier: lawn
+  - id: trees_shrubs
+    seeds:
+    - garden pruning
+    - tree disease
+    - garden hydrangea
+    - garden roses
+    - garden hedge
+    qualifier: garden
+  - id: pests_disease
+    seeds:
+    - garden aphids
+    - plant disease
+    - fungus gnats
+    - powdery mildew
+    qualifier: garden
+  - id: hardscape_irrigation
+    seeds:
+    - garden irrigation
+    - garden sprinkler
+    - drip irrigation
+    - garden patio
+    - retaining wall
+    qualifier: garden
+  qualifier: garden
 - id: appliances
-  title: "Home appliances"
+  title: Home appliances
   subdomains:
-  - {id: laundry, seeds: ["washing machine", "dryer not heating", "washer error code", "dryer vent"]}
-  - {id: kitchen_appliances, seeds: ["dishwasher", "refrigerator not cooling", "oven", "microwave", "ice maker"]}
-  - {id: small_appliances, seeds: ["air fryer", "espresso machine", "blender", "vacuum", "robot vacuum", "instant pot"]}
-  - {id: parts_manuals, seeds: ["appliance parts", "model number", "error code", "user manual", "warranty"]}
+  - id: laundry
+    seeds:
+    - washing machine
+    - dryer not heating
+    - washer error code
+    - dryer vent
+    qualifier: appliance
+  - id: kitchen_appliances
+    seeds:
+    - appliance dishwasher
+    - refrigerator not cooling
+    - appliance oven
+    - appliance microwave
+    - ice maker
+    qualifier: appliance
+  - id: small_appliances
+    seeds:
+    - air fryer
+    - espresso machine
+    - appliance blender
+    - appliance vacuum
+    - robot vacuum
+    - instant pot
+    qualifier: appliance
+  - id: parts_manuals
+    seeds:
+    - appliance parts
+    - model number
+    - error code
+    - user manual
+    - appliance warranty
+    qualifier: appliance
+  qualifier: appliance
 - id: electronics_makers
-  title: "Electronics, makers and microcontrollers"
+  title: Electronics, makers and microcontrollers
   subdomains:
-  - {id: arduino_rpi, seeds: ["arduino", "raspberry pi", "esp32", "esp8266", "micropython"]}
-  - {id: components, seeds: ["resistor", "capacitor", "transistor", "datasheet", "pinout", "voltage regulator"]}
-  - {id: soldering_repair, seeds: ["soldering", "multimeter", "circuit repair", "pcb", "kicad"]}
-  - {id: batteries_power, seeds: ["battery", "lithium battery", "charging circuit", "power supply", "solar panel"]}
-  - {id: home_automation_diy, seeds: ["zigbee", "home assistant automation", "mqtt", "esphome"]}
+  - id: arduino_rpi
+    seeds:
+    - electronics arduino
+    - raspberry pi
+    - electronics esp32
+    - electronics esp8266
+    - electronics micropython
+    qualifier: electronics
+  - id: components
+    seeds:
+    - electronics resistor
+    - electronics capacitor
+    - electronics transistor
+    - electronics datasheet
+    - electronics pinout
+    - voltage regulator
+    qualifier: electronics
+  - id: soldering_repair
+    seeds:
+    - electronics soldering
+    - electronics multimeter
+    - circuit repair
+    - electronics pcb
+    - electronics kicad
+    qualifier: electronics
+  - id: batteries_power
+    seeds:
+    - electronics battery
+    - lithium battery
+    - charging circuit
+    - power supply
+    - solar panel
+    qualifier: electronics
+  - id: home_automation_diy
+    seeds:
+    - electronics zigbee
+    - home assistant automation
+    - electronics mqtt
+    - electronics esphome
+    qualifier: electronics
+  qualifier: electronics
 - id: education_study
-  title: "Education and study"
+  title: Education and study
   subdomains:
-  - {id: math, seeds: ["algebra", "calculus", "derivative", "integral", "statistics", "geometry", "math problem"]}
-  - {id: science, seeds: ["chemistry", "physics", "biology", "periodic table", "molar mass", "cell"]}
-  - {id: writing_citation, seeds: ["essay", "citation", "apa format", "mla", "thesis", "grammar"]}
-  - {id: exams, seeds: ["sat", "act", "gre", "ap exam", "mcat", "bar exam"]}
-  - {id: study_tools, seeds: ["flashcards", "anki", "study schedule", "notes app"]}
-  - {id: teaching, seeds: ["lesson plan", "worksheet", "rubric", "classroom"]}
+  - id: math
+    seeds:
+    - study algebra
+    - study calculus
+    - study derivative
+    - study integral
+    - study statistics
+    - study geometry
+    - math problem
+    qualifier: study
+  - id: science
+    seeds:
+    - study chemistry
+    - study physics
+    - study biology
+    - periodic table
+    - molar mass
+    - study cell
+    qualifier: study
+  - id: writing_citation
+    seeds:
+    - study essay
+    - study citation
+    - apa format
+    - study mla
+    - study thesis
+    - study grammar
+    qualifier: study
+  - id: exams
+    seeds:
+    - study sat
+    - study act
+    - study gre
+    - ap exam
+    - study mcat
+    - bar exam
+    qualifier: study
+  - id: study_tools
+    seeds:
+    - study flashcards
+    - study anki
+    - study schedule
+    - notes app
+    qualifier: study
+  - id: teaching
+    seeds:
+    - lesson plan
+    - study worksheet
+    - study rubric
+    - study classroom
+    qualifier: study
+  qualifier: study
 - id: language_learning
-  title: "Languages and translation"
+  title: Languages and translation
   subdomains:
-  - {id: learning_apps, seeds: ["duolingo", "learn spanish", "learn japanese", "learn french", "learn german"]}
-  - {id: grammar_usage, seeds: ["conjugation", "grammar", "verb tense", "pronunciation", "phrases"]}
-  - {id: translation, seeds: ["translate", "meaning", "dictionary", "kanji", "hangul", "english to spanish"]}
-  - {id: tests, seeds: ["ielts", "toefl", "jlpt", "delf", "hsk"]}
+  - id: learning_apps
+    seeds:
+    - language learning duolingo
+    - learn spanish
+    - learn japanese
+    - learn french
+    - learn german
+    qualifier: language learning
+  - id: grammar_usage
+    seeds:
+    - language learning conjugation
+    - language learning grammar
+    - verb tense
+    - language learning pronunciation
+    - language learning phrases
+    qualifier: language learning
+  - id: translation
+    seeds:
+    - language learning translate
+    - language learning meaning
+    - language learning dictionary
+    - language learning kanji
+    - language learning hangul
+    - english to spanish
+    qualifier: language learning
+  - id: tests
+    seeds:
+    - language learning ielts
+    - language learning toefl
+    - language learning jlpt
+    - language learning delf
+    - language learning hsk
+    qualifier: language learning
+  qualifier: language learning
 - id: careers_jobs
-  title: "Careers, jobs and interviews"
+  title: Careers, jobs and interviews
   subdomains:
-  - {id: resume_applications, seeds: ["resume", "cover letter", "cv", "linkedin profile", "portfolio"]}
-  - {id: interviews, seeds: ["interview questions", "coding interview", "leetcode", "system design interview", "behavioral interview"]}
-  - {id: salary_negotiation, seeds: ["salary", "negotiate salary", "raise", "job offer", "equity"]}
-  - {id: job_search, seeds: ["remote jobs", "job board", "career change", "freelance", "upwork"]}
-  - {id: certifications, seeds: ["certification", "pmp", "aws certification", "comptia", "cpa"]}
-  - {id: workplace, seeds: ["performance review", "resignation letter", "pto", "workplace conflict"]}
+  - id: resume_applications
+    seeds:
+    - job resume
+    - cover letter
+    - job cv
+    - linkedin profile
+    - job portfolio
+    qualifier: job
+  - id: interviews
+    seeds:
+    - interview questions
+    - coding interview
+    - interview leetcode
+    - system design interview
+    - behavioral interview
+    qualifier: interview
+  - id: salary_negotiation
+    seeds:
+    - job salary
+    - negotiate salary
+    - job raise
+    - job offer
+    - job equity
+    qualifier: job
+  - id: job_search
+    seeds:
+    - remote jobs
+    - job board
+    - career change
+    - job freelance
+    - job upwork
+    qualifier: job
+  - id: certifications
+    seeds:
+    - job certification
+    - job pmp
+    - aws certification
+    - job comptia
+    - job cpa
+    qualifier: job
+  - id: workplace
+    seeds:
+    - performance review
+    - resignation letter
+    - job pto
+    - workplace conflict
+    qualifier: job
+  qualifier: job
 - id: personal_finance
-  title: "Personal finance and taxes"
+  title: Personal finance and taxes
   subdomains:
-  - {id: budgeting, seeds: ["budget", "budget template", "savings", "emergency fund", "debt payoff"]}
-  - {id: taxes, seeds: ["tax return", "tax deduction", "1099", "w2", "tax calculator", "capital gains tax"]}
-  - {id: investing, seeds: ["index fund", "etf", "roth ira", "401k", "dividend", "stock"]}
-  - {id: credit_loans, seeds: ["credit score", "credit card", "mortgage calculator", "refinance", "student loan"]}
-  - {id: crypto, seeds: ["bitcoin", "crypto wallet", "ethereum", "crypto tax", "staking"]}
-  - {id: insurance_admin, seeds: ["health insurance", "life insurance", "claim", "deductible"]}
+  - id: budgeting
+    seeds:
+    - finance budget
+    - budget template
+    - finance savings
+    - emergency fund
+    - debt payoff
+    qualifier: finance
+  - id: taxes
+    seeds:
+    - tax return
+    - tax deduction
+    - tax 1099
+    - tax w2
+    - tax calculator
+    - capital gains tax
+    qualifier: tax
+  - id: investing
+    seeds:
+    - index fund
+    - finance etf
+    - roth ira
+    - finance 401k
+    - finance dividend
+    - finance stock
+    qualifier: finance
+  - id: credit_loans
+    seeds:
+    - credit score
+    - credit card
+    - mortgage calculator
+    - refinance
+    - student loan
+    qualifier: finance
+  - id: crypto
+    seeds:
+    - crypto bitcoin
+    - crypto wallet
+    - crypto ethereum
+    - crypto tax
+    - crypto staking
+    qualifier: crypto
+  - id: insurance_admin
+    seeds:
+    - health insurance
+    - life insurance
+    - finance claim
+    - finance deductible
+    qualifier: finance
+  qualifier: finance
 - id: small_business
-  title: "Small business and freelancing"
+  title: Small business and freelancing
   subdomains:
-  - {id: formation_legal, seeds: ["llc", "ein", "business license", "contract template", "nda"]}
-  - {id: accounting, seeds: ["invoice", "bookkeeping", "quickbooks", "expenses", "profit margin"]}
-  - {id: marketing_seo, seeds: ["seo", "google business profile", "keyword research", "backlinks", "email marketing"]}
-  - {id: social_media, seeds: ["instagram", "tiktok", "youtube channel", "hashtags", "content calendar"]}
-  - {id: ecommerce_ops, seeds: ["shopify", "etsy shop", "amazon fba", "dropshipping", "print on demand", "shipping cost"]}
-  - {id: payments_pricing, seeds: ["stripe", "paypal", "pricing", "subscription", "chargeback"]}
+  - id: formation_legal
+    seeds:
+    - small business llc
+    - small business ein
+    - business license
+    - contract template
+    - small business nda
+    qualifier: small business
+  - id: accounting
+    seeds:
+    - small business invoice
+    - small business bookkeeping
+    - small business quickbooks
+    - small business expenses
+    - profit margin
+    qualifier: small business
+  - id: marketing_seo
+    seeds:
+    - small business seo
+    - google business profile
+    - keyword research
+    - small business backlinks
+    - email marketing
+    qualifier: small business
+  - id: social_media
+    seeds:
+    - small business instagram
+    - small business tiktok
+    - youtube channel
+    - small business hashtags
+    - content calendar
+    qualifier: small business
+  - id: ecommerce_ops
+    seeds:
+    - small business shopify
+    - etsy shop
+    - amazon fba
+    - small business dropshipping
+    - print on demand
+    - shipping cost
+    qualifier: small business
+  - id: payments_pricing
+    seeds:
+    - small business stripe
+    - small business paypal
+    - small business pricing
+    - small business subscription
+    - small business chargeback
+    qualifier: small business
+  qualifier: small business
 - id: productivity_office
-  title: "Productivity and office software"
+  title: Productivity and office software
   subdomains:
-  - {id: excel, seeds: ["excel", "vlookup", "xlookup", "excel macro", "conditional formatting", "excel chart"]}
-  - {id: google_workspace, seeds: ["google sheets", "google docs", "google forms", "google calendar", "gmail filter"]}
-  - {id: notes_pkm, seeds: ["notion", "obsidian", "onenote", "evernote", "notes template"]}
-  - {id: pm_tools, seeds: ["trello", "asana", "jira", "monday.com", "gantt chart"]}
-  - {id: automation, seeds: ["zapier", "make.com", "power automate", "ifttt", "automation workflow"]}
-  - {id: documents, seeds: ["word", "powerpoint", "pdf", "merge pdf", "e-signature", "docx"]}
+  - id: excel
+    seeds:
+    - excel
+    - excel vlookup
+    - excel xlookup
+    - excel macro
+    - conditional formatting
+    - excel chart
+    qualifier: excel
+  - id: google_workspace
+    seeds:
+    - google sheets
+    - google docs
+    - google forms
+    - google calendar
+    - gmail filter
+    qualifier: office software
+  - id: notes_pkm
+    seeds:
+    - office software notion
+    - office software obsidian
+    - office software onenote
+    - office software evernote
+    - notes template
+    qualifier: office software
+  - id: pm_tools
+    seeds:
+    - office software trello
+    - office software asana
+    - office software jira
+    - office software monday.com
+    - gantt chart
+    qualifier: office software
+  - id: automation
+    seeds:
+    - office software zapier
+    - office software make.com
+    - power automate
+    - office software ifttt
+    - automation workflow
+    qualifier: office software
+  - id: documents
+    seeds:
+    - office software word
+    - office software powerpoint
+    - office software pdf
+    - merge pdf
+    - office software e-signature
+    - office software docx
+    qualifier: office software
+  qualifier: office software
 - id: writing_publishing
-  title: "Writing, publishing and content"
+  title: Writing, publishing and content
   subdomains:
-  - {id: fiction, seeds: ["novel writing", "plot", "character names", "worldbuilding", "scrivener"]}
-  - {id: nonfiction_blogging, seeds: ["blog post", "newsletter", "substack", "medium", "wordpress"]}
-  - {id: self_publishing, seeds: ["kdp", "self publishing", "book cover", "isbn", "ebook format"]}
-  - {id: copywriting, seeds: ["headline", "copywriting", "product description", "ad copy"]}
+  - id: fiction
+    seeds:
+    - novel writing
+    - writing plot
+    - character names
+    - writing worldbuilding
+    - writing scrivener
+    qualifier: writing
+  - id: nonfiction_blogging
+    seeds:
+    - blog post
+    - writing newsletter
+    - writing substack
+    - writing medium
+    - writing wordpress
+    qualifier: writing
+  - id: self_publishing
+    seeds:
+    - writing kdp
+    - self publishing
+    - book cover
+    - writing isbn
+    - ebook format
+    qualifier: writing
+  - id: copywriting
+    seeds:
+    - writing headline
+    - copywriting
+    - product description
+    - ad copy
+    qualifier: writing
+  qualifier: writing
 - id: cooking_baking
-  title: "Cooking and baking"
+  title: Cooking and baking
   subdomains:
-  - {id: baking, seeds: ["sourdough starter", "bread", "cake", "cookies", "pizza dough", "macarons"]}
-  - {id: techniques, seeds: ["sous vide", "smoking meat", "cast iron", "knife sharpening", "air fryer recipe"]}
-  - {id: substitutions_conversion, seeds: ["substitute for", "cups to grams", "oven temperature", "egg substitute", "butter to oil"]}
-  - {id: meal_planning, seeds: ["meal prep", "weekly meal plan", "grocery list", "batch cooking"]}
-  - {id: diets_nutrition, seeds: ["keto", "vegan", "gluten free", "calories in", "protein", "macros"]}
-  - {id: drinks, seeds: ["cocktail", "coffee", "espresso", "homebrew beer", "wine pairing", "tea"]}
-  - {id: preservation, seeds: ["canning", "fermentation", "freezing", "food storage", "how long does"]}
+  - id: baking
+    seeds:
+    - sourdough starter
+    - baking bread
+    - baking cake
+    - baking cookies
+    - pizza dough
+    - baking macarons
+    qualifier: baking
+  - id: techniques
+    seeds:
+    - sous vide
+    - smoking meat
+    - cast iron
+    - knife sharpening
+    - air fryer recipe
+    qualifier: cooking
+  - id: substitutions_conversion
+    seeds:
+    - substitute for
+    - cups to grams
+    - oven temperature
+    - egg substitute
+    - butter to oil
+    qualifier: cooking
+  - id: meal_planning
+    seeds:
+    - meal prep
+    - weekly meal plan
+    - grocery list
+    - batch cooking
+    qualifier: cooking
+  - id: diets_nutrition
+    seeds:
+    - cooking keto
+    - cooking vegan
+    - gluten free
+    - calories in
+    - cooking protein
+    - cooking macros
+    qualifier: cooking
+  - id: drinks
+    seeds:
+    - drink cocktail
+    - drink coffee
+    - drink espresso
+    - homebrew beer
+    - wine pairing
+    - drink tea
+    qualifier: drink
+  - id: preservation
+    seeds:
+    - cooking canning
+    - cooking fermentation
+    - cooking freezing
+    - food storage
+    - how long does
+    qualifier: cooking
+  qualifier: cooking
 - id: fitness_health
-  title: "Fitness, sports training and health"
+  title: Fitness, sports training and health
   subdomains:
-  - {id: strength, seeds: ["workout plan", "deadlift", "squat", "bench press", "progressive overload", "home workout"]}
-  - {id: cardio_endurance, seeds: ["running plan", "marathon training", "cycling training", "zone 2", "vo2 max"]}
-  - {id: bodyweight_calisthenics, seeds: ["pull ups", "push ups", "calisthenics", "mobility", "stretching"]}
-  - {id: nutrition_supplements, seeds: ["protein intake", "creatine", "calorie deficit", "tdee", "supplements"]}
-  - {id: injury_recovery, seeds: ["knee pain", "back pain", "plantar fasciitis", "physical therapy exercises", "sleep"]}
-  - {id: tracking_gear, seeds: ["garmin training", "strava", "heart rate zones", "smart scale", "gym equipment"]}
-  - {id: medical_symptoms, seeds: ["symptoms", "medication", "dosage", "side effects", "blood test results"]}
+  - id: strength
+    seeds:
+    - workout plan
+    - fitness deadlift
+    - fitness squat
+    - bench press
+    - progressive overload
+    - home workout
+    qualifier: fitness
+  - id: cardio_endurance
+    seeds:
+    - running plan
+    - marathon training
+    - cycling training
+    - zone 2
+    - vo2 max
+    qualifier: fitness
+  - id: bodyweight_calisthenics
+    seeds:
+    - pull ups
+    - push ups
+    - fitness calisthenics
+    - fitness mobility
+    - fitness stretching
+    qualifier: fitness
+  - id: nutrition_supplements
+    seeds:
+    - protein intake
+    - fitness creatine
+    - calorie deficit
+    - fitness tdee
+    - fitness supplements
+    qualifier: fitness
+  - id: injury_recovery
+    seeds:
+    - knee pain
+    - back pain
+    - plantar fasciitis
+    - physical therapy exercises
+    - fitness sleep
+    qualifier: fitness
+  - id: tracking_gear
+    seeds:
+    - garmin training
+    - fitness strava
+    - heart rate zones
+    - smart scale
+    - gym equipment
+    qualifier: fitness
+  - id: medical_symptoms
+    seeds:
+    - health symptoms
+    - health medication
+    - health dosage
+    - side effects
+    - blood test results
+    qualifier: health
+  qualifier: fitness
 - id: sports_outdoors
-  title: "Sports and outdoor activities"
+  title: Sports and outdoor activities
   subdomains:
-  - {id: hiking_camping, seeds: ["hiking trail", "backpacking gear", "tent", "camping checklist", "national park"]}
-  - {id: fishing_hunting, seeds: ["fishing", "fishing license", "lure", "hunting season", "bow hunting"]}
-  - {id: water_snow, seeds: ["kayak", "surfing", "skiing", "snowboard", "scuba diving"]}
-  - {id: team_sports, seeds: ["soccer drills", "basketball", "golf swing", "tennis", "pickleball"]}
-  - {id: climbing_running_events, seeds: ["rock climbing", "trail running", "triathlon", "race calendar"]}
+  - id: hiking_camping
+    seeds:
+    - hiking trail
+    - backpacking gear
+    - hiking tent
+    - camping checklist
+    - national park
+    qualifier: hiking
+  - id: fishing_hunting
+    seeds:
+    - fishing
+    - fishing license
+    - fishing lure
+    - hunting season
+    - bow hunting
+    qualifier: fishing
+  - id: water_snow
+    seeds:
+    - outdoor kayak
+    - outdoor surfing
+    - outdoor skiing
+    - outdoor snowboard
+    - scuba diving
+    qualifier: outdoor
+  - id: team_sports
+    seeds:
+    - soccer drills
+    - outdoor basketball
+    - golf swing
+    - outdoor tennis
+    - outdoor pickleball
+    qualifier: outdoor
+  - id: climbing_running_events
+    seeds:
+    - rock climbing
+    - trail running
+    - outdoor triathlon
+    - race calendar
+    qualifier: outdoor
+  qualifier: outdoor
 - id: pets
-  title: "Pets and animals"
+  title: Pets and animals
   subdomains:
-  - {id: dogs, seeds: ["dog training", "puppy", "dog food", "dog breed", "dog vomiting", "dog behavior"]}
-  - {id: cats, seeds: ["cat litter", "cat not eating", "cat behavior", "kitten", "cat food"]}
-  - {id: aquarium_reptiles, seeds: ["aquarium", "fish tank", "betta", "reptile", "terrarium", "water parameters"]}
-  - {id: birds_small_pets, seeds: ["parrot", "hamster", "rabbit", "guinea pig", "chicken coop"]}
-  - {id: vet_health, seeds: ["vet cost", "pet insurance", "dog medication dosage", "flea treatment", "pet symptoms"]}
+  - id: dogs
+    seeds:
+    - dog training
+    - dog puppy
+    - dog food
+    - dog breed
+    - dog vomiting
+    - dog behavior
+    qualifier: dog
+  - id: cats
+    seeds:
+    - cat litter
+    - cat not eating
+    - cat behavior
+    - cat kitten
+    - cat food
+    qualifier: cat
+  - id: aquarium_reptiles
+    seeds:
+    - aquarium
+    - fish tank
+    - aquarium betta
+    - aquarium reptile
+    - aquarium terrarium
+    - water parameters
+    qualifier: aquarium
+  - id: birds_small_pets
+    seeds:
+    - pet parrot
+    - pet hamster
+    - pet rabbit
+    - guinea pig
+    - chicken coop
+    qualifier: pet
+  - id: vet_health
+    seeds:
+    - vet cost
+    - pet insurance
+    - dog medication dosage
+    - flea treatment
+    - pet symptoms
+    qualifier: pet
+  qualifier: pet
 - id: travel
-  title: "Travel"
+  title: Travel
   subdomains:
-  - {id: planning, seeds: ["itinerary", "travel checklist", "best time to visit", "things to do in"]}
-  - {id: flights_points, seeds: ["cheap flights", "award flights", "credit card points", "airline miles", "layover"]}
-  - {id: visas_admin, seeds: ["visa requirements", "passport renewal", "esta", "schengen", "travel insurance"]}
-  - {id: lodging_transport, seeds: ["airbnb", "hotel", "train", "rental car", "road trip"]}
-  - {id: packing_gear, seeds: ["packing list", "carry on size", "luggage", "travel adapter"]}
-  - {id: expat_moving, seeds: ["moving abroad", "digital nomad", "cost of living", "relocation"]}
+  - id: planning
+    seeds:
+    - travel itinerary
+    - travel checklist
+    - best time to visit
+    - things to do in
+    qualifier: travel
+  - id: flights_points
+    seeds:
+    - cheap flights
+    - award flights
+    - credit card points
+    - airline miles
+    - travel layover
+    qualifier: travel
+  - id: visas_admin
+    seeds:
+    - visa requirements
+    - passport renewal
+    - travel esta
+    - travel schengen
+    - travel insurance
+    qualifier: travel
+  - id: lodging_transport
+    seeds:
+    - travel airbnb
+    - travel hotel
+    - travel train
+    - rental car
+    - road trip
+    qualifier: travel
+  - id: packing_gear
+    seeds:
+    - packing list
+    - carry on size
+    - travel luggage
+    - travel adapter
+    qualifier: travel
+  - id: expat_moving
+    seeds:
+    - moving abroad
+    - digital nomad
+    - cost of living
+    - travel relocation
+    qualifier: travel
+  qualifier: travel
 - id: shopping_products
-  title: "Shopping and product decisions"
+  title: Shopping and product decisions
   subdomains:
-  - {id: reviews_comparison, seeds: ["best", "vs", "review", "worth it", "alternative to"]}
-  - {id: sizing_fit, seeds: ["size chart", "shoe size conversion", "ring size", "bra size", "clothing size"]}
-  - {id: deals_returns, seeds: ["price history", "price drop", "return policy", "warranty claim", "coupon"]}
-  - {id: identification, seeds: ["what is this", "identify product", "model number lookup", "serial number"]}
-  - {id: furniture_home_goods, seeds: ["mattress", "sofa", "desk", "office chair", "standing desk"]}
+  - id: reviews_comparison
+    seeds:
+    - product best
+    - product vs
+    - product review
+    - worth it
+    - alternative to
+    qualifier: product
+  - id: sizing_fit
+    seeds:
+    - size chart
+    - shoe size conversion
+    - ring size
+    - bra size
+    - clothing size
+    qualifier: product
+  - id: deals_returns
+    seeds:
+    - price history
+    - price drop
+    - return policy
+    - warranty claim
+    - product coupon
+    qualifier: product
+  - id: identification
+    seeds:
+    - what is this
+    - identify product
+    - model number lookup
+    - serial number
+    qualifier: product
+  - id: furniture_home_goods
+    seeds:
+    - product mattress
+    - product sofa
+    - product desk
+    - office chair
+    - standing desk
+    qualifier: product
+  qualifier: product
 - id: fashion_beauty
-  title: "Fashion, beauty and personal care"
+  title: Fashion, beauty and personal care
   subdomains:
-  - {id: skincare_hair, seeds: ["skincare routine", "retinol", "acne", "hair loss", "hair dye", "curly hair"]}
-  - {id: makeup_nails, seeds: ["makeup", "foundation shade", "nails", "gel nails", "eyeshadow"]}
-  - {id: clothing_style, seeds: ["outfit", "capsule wardrobe", "dress code", "suit fit", "jeans fit"]}
-  - {id: laundry_care, seeds: ["stain removal", "wash symbols", "shrink", "dry clean", "fabric care"]}
+  - id: skincare_hair
+    seeds:
+    - skincare routine
+    - beauty retinol
+    - beauty acne
+    - hair loss
+    - hair dye
+    - curly hair
+    qualifier: beauty
+  - id: makeup_nails
+    seeds:
+    - beauty makeup
+    - foundation shade
+    - beauty nails
+    - gel nails
+    - beauty eyeshadow
+    qualifier: beauty
+  - id: clothing_style
+    seeds:
+    - beauty outfit
+    - capsule wardrobe
+    - dress code
+    - suit fit
+    - jeans fit
+    qualifier: beauty
+  - id: laundry_care
+    seeds:
+    - stain removal
+    - wash symbols
+    - beauty shrink
+    - dry clean
+    - fabric care
+    qualifier: beauty
+  qualifier: beauty
 - id: crafts_sewing
-  title: "Crafts, sewing and textiles"
+  title: Crafts, sewing and textiles
   subdomains:
-  - {id: sewing, seeds: ["sewing machine", "sewing pattern", "seam", "hem", "fabric type", "thread tension"]}
-  - {id: knitting_crochet, seeds: ["knitting pattern", "crochet pattern", "yarn weight", "gauge", "stitch"]}
-  - {id: paper_crafts, seeds: ["cricut", "silhouette", "svg files", "scrapbook", "origami"]}
-  - {id: jewelry_leather, seeds: ["jewelry making", "resin", "leather craft", "beading"]}
-  - {id: painting_drawing, seeds: ["watercolor", "acrylic painting", "drawing", "procreate", "sketch"]}
-  - {id: candles_soap, seeds: ["candle making", "soap making", "fragrance oil", "wax"]}
+  - id: sewing
+    seeds:
+    - sewing machine
+    - sewing pattern
+    - sewing seam
+    - sewing hem
+    - fabric type
+    - thread tension
+    qualifier: sewing
+  - id: knitting_crochet
+    seeds:
+    - knitting pattern
+    - crochet pattern
+    - yarn weight
+    - knitting gauge
+    - knitting stitch
+    qualifier: knitting
+  - id: paper_crafts
+    seeds:
+    - craft cricut
+    - craft silhouette
+    - svg files
+    - craft scrapbook
+    - craft origami
+    qualifier: craft
+  - id: jewelry_leather
+    seeds:
+    - jewelry making
+    - craft resin
+    - leather craft
+    - craft beading
+    qualifier: craft
+  - id: painting_drawing
+    seeds:
+    - craft watercolor
+    - acrylic painting
+    - craft drawing
+    - craft procreate
+    - craft sketch
+    qualifier: craft
+  - id: candles_soap
+    seeds:
+    - candle making
+    - soap making
+    - fragrance oil
+    - craft wax
+    qualifier: craft
+  qualifier: craft
 - id: collecting_antiques
-  title: "Collecting, antiques and valuation"
+  title: Collecting, antiques and valuation
   subdomains:
-  - {id: coins_stamps, seeds: ["coin value", "error coin", "stamp value", "silver coin", "coin grading"]}
-  - {id: trading_cards_toys, seeds: ["card value", "pokemon card value", "lego set value", "funko pop value", "vintage toys"]}
-  - {id: antiques_art, seeds: ["antique value", "vintage", "appraisal", "art value", "furniture identification"]}
-  - {id: vinyl_books_watches, seeds: ["vinyl record value", "first edition book", "vintage watch", "watch identification"]}
-  - {id: identification, seeds: ["maker's mark", "pottery mark", "silver hallmark", "glass identification"]}
+  - id: coins_stamps
+    seeds:
+    - coin value
+    - error coin
+    - stamp value
+    - silver coin
+    - coin grading
+    qualifier: coin
+  - id: trading_cards_toys
+    seeds:
+    - card value
+    - pokemon card value
+    - lego set value
+    - funko pop value
+    - vintage toys
+    qualifier: antique
+  - id: antiques_art
+    seeds:
+    - antique value
+    - antique vintage
+    - antique appraisal
+    - art value
+    - furniture identification
+    qualifier: antique
+  - id: vinyl_books_watches
+    seeds:
+    - vinyl record value
+    - first edition book
+    - vintage watch
+    - watch identification
+    qualifier: antique
+  - id: identification
+    seeds:
+    - maker's mark
+    - pottery mark
+    - silver hallmark
+    - glass identification
+    qualifier: antique
+  qualifier: antique
 - id: reading_media
-  title: "Books, film, TV and music consumption"
+  title: Books, film, TV and music consumption
   subdomains:
-  - {id: books, seeds: ["book recommendations", "reading order", "book series", "summary", "similar books"]}
-  - {id: film_tv, seeds: ["where to watch", "streaming", "watch order", "ending explained", "similar movies"]}
-  - {id: music_listening, seeds: ["song identify", "playlist", "lyrics meaning", "concert setlist", "similar artists"]}
-  - {id: anime_comics, seeds: ["anime watch order", "manga", "comics reading order", "webtoon"]}
-  - {id: podcasts_audiobooks, seeds: ["audiobook", "podcast recommendations", "audible"]}
+  - id: books
+    seeds:
+    - book recommendations
+    - reading order
+    - book series
+    - book summary
+    - similar books
+    qualifier: book
+  - id: film_tv
+    seeds:
+    - where to watch
+    - book streaming
+    - watch order
+    - ending explained
+    - similar movies
+    qualifier: book
+  - id: music_listening
+    seeds:
+    - song identify
+    - book playlist
+    - lyrics meaning
+    - concert setlist
+    - similar artists
+    qualifier: book
+  - id: anime_comics
+    seeds:
+    - anime watch order
+    - book manga
+    - comics reading order
+    - book webtoon
+    qualifier: book
+  - id: podcasts_audiobooks
+    seeds:
+    - audiobook
+    - podcast recommendations
+    - book audible
+    qualifier: book
+  qualifier: book
 - id: parenting_family
-  title: "Parenting, family and home life"
+  title: Parenting, family and home life
   subdomains:
-  - {id: baby, seeds: ["baby sleep", "feeding schedule", "car seat", "stroller", "baby names"]}
-  - {id: kids_activities, seeds: ["kids activities", "crafts for kids", "screen time", "homework help"]}
-  - {id: pregnancy, seeds: ["pregnancy week", "due date", "prenatal", "fertility"]}
-  - {id: elder_care, seeds: ["elder care", "caregiver", "medicare", "assisted living"]}
-  - {id: household, seeds: ["cleaning schedule", "chore chart", "declutter", "moving checklist"]}
+  - id: baby
+    seeds:
+    - baby sleep
+    - feeding schedule
+    - car seat
+    - parenting stroller
+    - baby names
+    qualifier: parenting
+  - id: kids_activities
+    seeds:
+    - kids activities
+    - crafts for kids
+    - screen time
+    - homework help
+    qualifier: parenting
+  - id: pregnancy
+    seeds:
+    - pregnancy week
+    - due date
+    - parenting prenatal
+    - parenting fertility
+    qualifier: parenting
+  - id: elder_care
+    seeds:
+    - elder care
+    - parenting caregiver
+    - parenting medicare
+    - assisted living
+    qualifier: parenting
+  - id: household
+    seeds:
+    - cleaning schedule
+    - chore chart
+    - parenting declutter
+    - moving checklist
+    qualifier: parenting
+  qualifier: parenting
 - id: relationships_social
-  title: "Relationships, events and social"
+  title: Relationships, events and social
   subdomains:
-  - {id: weddings_events, seeds: ["wedding planning", "wedding budget", "invitation wording", "party planning", "seating chart"]}
-  - {id: gifts, seeds: ["gift ideas", "gift for", "birthday gift", "anniversary gift"]}
-  - {id: dating_relationships, seeds: ["dating profile", "relationship advice", "breakup", "long distance"]}
-  - {id: etiquette_messages, seeds: ["thank you note", "condolence message", "toast", "speech"]}
+  - id: weddings_events
+    seeds:
+    - wedding planning
+    - wedding budget
+    - invitation wording
+    - party planning
+    - seating chart
+    qualifier: relationship
+  - id: gifts
+    seeds:
+    - gift ideas
+    - gift for
+    - birthday gift
+    - anniversary gift
+    qualifier: relationship
+  - id: dating_relationships
+    seeds:
+    - dating profile
+    - relationship advice
+    - relationship breakup
+    - long distance
+    qualifier: relationship
+  - id: etiquette_messages
+    seeds:
+    - thank you note
+    - condolence message
+    - relationship toast
+    - relationship speech
+    qualifier: relationship
+  qualifier: relationship
 - id: legal_government
-  title: "Legal, government and civic"
+  title: Legal, government and civic
   subdomains:
-  - {id: everyday_legal, seeds: ["small claims", "tenant rights", "lease agreement", "power of attorney", "will"]}
-  - {id: immigration, seeds: ["green card", "visa status", "citizenship test", "work permit"]}
-  - {id: government_services, seeds: ["dmv", "passport", "social security", "unemployment benefits", "voter registration"]}
-  - {id: consumer_rights, seeds: ["refund rights", "warranty law", "dispute charge", "complaint"]}
+  - id: everyday_legal
+    seeds:
+    - small claims
+    - tenant rights
+    - lease agreement
+    - power of attorney
+    - legal will
+    qualifier: legal
+  - id: immigration
+    seeds:
+    - green card
+    - visa status
+    - citizenship test
+    - work permit
+    qualifier: legal
+  - id: government_services
+    seeds:
+    - legal dmv
+    - legal passport
+    - social security
+    - unemployment benefits
+    - voter registration
+    qualifier: legal
+  - id: consumer_rights
+    seeds:
+    - refund rights
+    - warranty law
+    - dispute charge
+    - legal complaint
+    qualifier: legal
+  qualifier: legal
 - id: real_estate_housing
-  title: "Real estate, renting and housing"
+  title: Real estate, renting and housing
   subdomains:
-  - {id: buying, seeds: ["mortgage", "home inspection", "closing costs", "first time home buyer", "property tax"]}
-  - {id: renting, seeds: ["rent", "apartment hunting", "security deposit", "roommate", "lease break"]}
-  - {id: renovation_value, seeds: ["renovation cost", "kitchen remodel", "home value", "adu", "permit"]}
-  - {id: landlord_investing, seeds: ["landlord", "rental property", "airbnb hosting", "cap rate"]}
+  - id: buying
+    seeds:
+    - real estate mortgage
+    - home inspection
+    - closing costs
+    - first time home buyer
+    - property tax
+    qualifier: real estate
+  - id: renting
+    seeds:
+    - rent
+    - apartment hunting
+    - security deposit
+    - renting roommate
+    - lease break
+    qualifier: renting
+  - id: renovation_value
+    seeds:
+    - renovation cost
+    - kitchen remodel
+    - home value
+    - real estate adu
+    - real estate permit
+    qualifier: real estate
+  - id: landlord_investing
+    seeds:
+    - real estate landlord
+    - rental property
+    - airbnb hosting
+    - cap rate
+    qualifier: real estate
+  qualifier: real estate
 - id: energy_sustainability
-  title: "Energy, solar and sustainability"
+  title: Energy, solar and sustainability
   subdomains:
-  - {id: solar_home, seeds: ["solar panels", "solar calculator", "battery storage", "net metering", "inverter"]}
-  - {id: efficiency, seeds: ["energy bill", "insulation", "heat pump", "led", "smart thermostat"]}
-  - {id: off_grid, seeds: ["off grid", "generator", "propane", "rainwater", "composting"]}
+  - id: solar_home
+    seeds:
+    - solar panels
+    - solar calculator
+    - battery storage
+    - net metering
+    - home energy inverter
+    qualifier: home energy
+  - id: efficiency
+    seeds:
+    - energy bill
+    - home energy insulation
+    - heat pump
+    - home energy led
+    - smart thermostat
+    qualifier: home energy
+  - id: off_grid
+    seeds:
+    - off grid
+    - home energy generator
+    - home energy propane
+    - home energy rainwater
+    - home energy composting
+    qualifier: home energy
+  qualifier: home energy
 - id: science_hobby
-  title: "Science hobbies and nature"
+  title: Science hobbies and nature
   subdomains:
-  - {id: astronomy, seeds: ["telescope", "astrophotography", "planets tonight", "stargazing", "meteor shower"]}
-  - {id: weather_climate, seeds: ["weather radar", "barometer", "frost date", "hurricane tracker"]}
-  - {id: nature_id, seeds: ["bird identification", "plant identification", "mushroom identification", "insect identification", "rock identification"]}
-  - {id: amateur_radio, seeds: ["ham radio", "sdr", "antenna", "gmrs"]}
+  - id: astronomy
+    seeds:
+    - hobby science telescope
+    - hobby science astrophotography
+    - planets tonight
+    - hobby science stargazing
+    - meteor shower
+    qualifier: hobby science
+  - id: weather_climate
+    seeds:
+    - weather radar
+    - hobby science barometer
+    - frost date
+    - hurricane tracker
+    qualifier: hobby science
+  - id: nature_id
+    seeds:
+    - bird identification
+    - plant identification
+    - mushroom identification
+    - insect identification
+    - rock identification
+    qualifier: hobby science
+  - id: amateur_radio
+    seeds:
+    - ham radio
+    - hobby science sdr
+    - hobby science antenna
+    - hobby science gmrs
+    qualifier: hobby science
+  qualifier: hobby science
 - id: vehicles_other
-  title: "Aviation, boating and other vehicles"
+  title: Aviation, boating and other vehicles
   subdomains:
-  - {id: aviation, seeds: ["pilot license", "flight simulator", "drone license", "aviation weather"]}
-  - {id: boating, seeds: ["boat", "outboard motor", "boat trailer", "marine battery", "sailing"]}
-  - {id: trucking_fleet, seeds: ["cdl", "truck driver", "dot regulations", "trailer hitch"]}
+  - id: aviation
+    seeds:
+    - pilot license
+    - flight simulator
+    - drone license
+    - aviation weather
+    qualifier: vehicle
+  - id: boating
+    seeds:
+    - vehicle boat
+    - outboard motor
+    - boat trailer
+    - marine battery
+    - vehicle sailing
+    qualifier: vehicle
+  - id: trucking_fleet
+    seeds:
+    - vehicle cdl
+    - truck driver
+    - dot regulations
+    - trailer hitch
+    qualifier: vehicle
+  qualifier: vehicle
 - id: engineering_professional
-  title: "Engineering and technical professions"
+  title: Engineering and technical professions
   subdomains:
-  - {id: mechanical, seeds: ["tolerance", "gd&t", "bearing", "gear ratio", "torque spec", "material properties"]}
-  - {id: electrical_pro, seeds: ["wire gauge", "nec code", "load calculation", "plc", "ladder logic"]}
-  - {id: civil_construction, seeds: ["concrete mix", "rebar", "load bearing", "building code", "blueprint"]}
-  - {id: chemistry_lab, seeds: ["dilution calculator", "molarity", "lab safety", "sds"]}
-  - {id: simulation_analysis, seeds: ["fea", "cfd", "matlab", "simulink", "ansys"]}
+  - id: mechanical
+    seeds:
+    - engineering tolerance
+    - engineering gd&t
+    - engineering bearing
+    - gear ratio
+    - torque spec
+    - material properties
+    qualifier: engineering
+  - id: electrical_pro
+    seeds:
+    - wire gauge
+    - nec code
+    - load calculation
+    - engineering plc
+    - ladder logic
+    qualifier: engineering
+  - id: civil_construction
+    seeds:
+    - concrete mix
+    - engineering rebar
+    - load bearing
+    - building code
+    - engineering blueprint
+    qualifier: engineering
+  - id: chemistry_lab
+    seeds:
+    - dilution calculator
+    - engineering molarity
+    - lab safety
+    - engineering sds
+    qualifier: engineering
+  - id: simulation_analysis
+    seeds:
+    - engineering fea
+    - engineering cfd
+    - engineering matlab
+    - engineering simulink
+    - engineering ansys
+    qualifier: engineering
+  qualifier: engineering
 - id: healthcare_professional
-  title: "Healthcare and caregiving professions"
+  title: Healthcare and caregiving professions
   subdomains:
-  - {id: nursing, seeds: ["nclex", "nursing school", "dosage calculation", "iv drip rate", "nursing care plan"]}
-  - {id: medical_coding_admin, seeds: ["icd 10 code", "cpt code", "medical billing", "prior authorization"]}
-  - {id: pharmacy, seeds: ["drug interactions", "pharmacy technician", "medication list"]}
-  - {id: mental_health, seeds: ["therapy", "anxiety", "adhd", "meditation", "sleep"]}
+  - id: nursing
+    seeds:
+    - healthcare nclex
+    - nursing school
+    - dosage calculation
+    - iv drip rate
+    - nursing care plan
+    qualifier: healthcare
+  - id: medical_coding_admin
+    seeds:
+    - icd 10 code
+    - cpt code
+    - medical billing
+    - prior authorization
+    qualifier: healthcare
+  - id: pharmacy
+    seeds:
+    - drug interactions
+    - pharmacy technician
+    - medication list
+    qualifier: healthcare
+  - id: mental_health
+    seeds:
+    - healthcare therapy
+    - healthcare anxiety
+    - healthcare adhd
+    - healthcare meditation
+    - healthcare sleep
+    qualifier: healthcare
+  qualifier: healthcare
 - id: logistics_operations
-  title: "Logistics, shipping and operations"
+  title: Logistics, shipping and operations
   subdomains:
-  - {id: shipping, seeds: ["shipping rates", "package tracking", "customs", "hs code", "freight"]}
-  - {id: inventory_warehouse, seeds: ["inventory management", "barcode", "sku", "pallet", "warehouse layout"]}
-  - {id: supply_chain, seeds: ["supplier", "alibaba", "lead time", "moq", "import duty"]}
+  - id: shipping
+    seeds:
+    - shipping rates
+    - package tracking
+    - shipping customs
+    - hs code
+    - shipping freight
+    qualifier: shipping
+  - id: inventory_warehouse
+    seeds:
+    - inventory management
+    - shipping barcode
+    - shipping sku
+    - shipping pallet
+    - warehouse layout
+    qualifier: shipping
+  - id: supply_chain
+    seeds:
+    - shipping supplier
+    - shipping alibaba
+    - lead time
+    - shipping moq
+    - import duty
+    qualifier: shipping
+  qualifier: shipping
 - id: agriculture_farming
-  title: "Agriculture and homesteading"
+  title: Agriculture and homesteading
   subdomains:
-  - {id: livestock, seeds: ["chickens", "goats", "beekeeping", "cattle", "feed"]}
-  - {id: crops, seeds: ["crop rotation", "soil test", "greenhouse", "hydroponics", "tractor"]}
-  - {id: homesteading, seeds: ["homestead", "canning", "root cellar", "well water"]}
+  - id: livestock
+    seeds:
+    - farm chickens
+    - farm goats
+    - farm beekeeping
+    - farm cattle
+    - farm feed
+    qualifier: farm
+  - id: crops
+    seeds:
+    - crop rotation
+    - soil test
+    - farm greenhouse
+    - farm hydroponics
+    - farm tractor
+    qualifier: farm
+  - id: homesteading
+    seeds:
+    - farm homestead
+    - farm canning
+    - root cellar
+    - well water
+    qualifier: farm
+  qualifier: farm
 - id: events_seasonal
-  title: "Seasonal, holidays and celebrations"
+  title: Seasonal, holidays and celebrations
   subdomains:
-  - {id: holidays, seeds: ["christmas", "halloween costume", "thanksgiving", "easter", "diwali"]}
-  - {id: seasonal_tasks, seeds: ["winterize", "spring cleaning", "back to school", "tax season"]}
+  - id: holidays
+    seeds:
+    - holiday christmas
+    - halloween costume
+    - holiday thanksgiving
+    - holiday easter
+    - holiday diwali
+    qualifier: holiday
+  - id: seasonal_tasks
+    seeds:
+    - holiday winterize
+    - spring cleaning
+    - back to school
+    - tax season
+    qualifier: holiday
+  qualifier: holiday
 - id: accessibility_assistive
-  title: "Accessibility and assistive technology"
+  title: Accessibility and assistive technology
   subdomains:
-  - {id: assistive, seeds: ["screen reader", "hearing aid", "wheelchair", "captioning", "dyslexia font"]}
-  - {id: senior_tech, seeds: ["large button phone", "senior tablet", "medical alert"]}
+  - id: assistive
+    seeds:
+    - screen reader
+    - hearing aid
+    - accessibility wheelchair
+    - accessibility captioning
+    - dyslexia font
+    qualifier: accessibility
+  - id: senior_tech
+    seeds:
+    - large button phone
+    - senior tablet
+    - medical alert
+    qualifier: accessibility
+  qualifier: accessibility
 - id: retro_computing_emulation
-  title: "Retro computing and legacy technology"
+  title: Retro computing and legacy technology
   subdomains:
-  - {id: retro_hardware, seeds: ["retro pc", "commodore 64", "amiga", "floppy disk", "crt monitor"]}
-  - {id: legacy_software, seeds: ["windows xp", "old software", "dos games", "abandonware", "floppy to usb"]}
+  - id: retro_hardware
+    seeds:
+    - retro pc
+    - commodore 64
+    - retro computer amiga
+    - floppy disk
+    - crt monitor
+    qualifier: retro computer
+  - id: legacy_software
+    seeds:
+    - windows xp
+    - old software
+    - dos games
+    - retro computer abandonware
+    - floppy to usb
+    qualifier: retro computer
+  qualifier: retro computer
 - id: spirituality_wellbeing
-  title: "Wellbeing, spirituality and self-improvement"
+  title: Wellbeing, spirituality and self-improvement
   subdomains:
-  - {id: habits, seeds: ["habit tracker", "morning routine", "journaling", "goal setting"]}
-  - {id: spiritual, seeds: ["meditation", "yoga", "tarot", "astrology birth chart", "bible verse"]}
+  - id: habits
+    seeds:
+    - habit tracker
+    - morning routine
+    - wellbeing journaling
+    - goal setting
+    qualifier: wellbeing
+  - id: spiritual
+    seeds:
+    - wellbeing meditation
+    - wellbeing yoga
+    - wellbeing tarot
+    - astrology birth chart
+    - bible verse
+    qualifier: wellbeing
+  qualifier: wellbeing
 - id: local_services
-  title: "Local services and trades (consumer side)"
+  title: Local services and trades (consumer side)
   subdomains:
-  - {id: hiring_trades, seeds: ["plumber cost", "electrician cost", "handyman", "contractor quote", "roofer"]}
-  - {id: cleaning_moving, seeds: ["house cleaning", "movers", "junk removal", "storage unit"]}
-  - {id: personal_services, seeds: ["haircut", "tattoo", "piercing", "dry cleaning"]}
+  - id: hiring_trades
+    seeds:
+    - plumber cost
+    - electrician cost
+    - local service handyman
+    - contractor quote
+    - local service roofer
+    qualifier: local service
+  - id: cleaning_moving
+    seeds:
+    - house cleaning
+    - local service movers
+    - junk removal
+    - storage unit
+    qualifier: local service
+  - id: personal_services
+    seeds:
+    - local service haircut
+    - local service tattoo
+    - local service piercing
+    - dry cleaning
+    qualifier: local service
+  qualifier: local service
 - id: transport_commuting
-  title: "Public transport, commuting and urban life"
+  title: Public transport, commuting and urban life
   subdomains:
-  - {id: transit, seeds: ["train schedule", "bus route", "metro map", "transit card"]}
-  - {id: parking_tolls, seeds: ["parking ticket", "toll", "congestion charge", "parking permit"]}
-  - {id: micromobility, seeds: ["electric scooter", "e-bike laws", "bike lane"]}
+  - id: transit
+    seeds:
+    - train schedule
+    - bus route
+    - metro map
+    - transit card
+    qualifier: transit
+  - id: parking_tolls
+    seeds:
+    - parking ticket
+    - transit toll
+    - congestion charge
+    - parking permit
+    qualifier: transit
+  - id: micromobility
+    seeds:
+    - electric scooter
+    - e-bike laws
+    - bike lane
+    qualifier: transit
+  qualifier: transit

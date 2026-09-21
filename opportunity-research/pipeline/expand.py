@@ -63,8 +63,12 @@ def expand_seed(con, seed: str, *, domain: str, subdomain: str, sources=("google
                 store.add_observation(con, q, f"suggest:{src}", probe, r.get("rank"),
                                       {"intent_probe": intent, "relevance": r.get("relevance"), "type": r.get("type")})
         con.commit()
-    # depth 2: the most-corroborated depth-1 queries (seen across probes/sources) become bare probes
-    for q, _ in sorted(found.items(), key=lambda kv: -kv[1])[:depth2_cap]:
+    # depth 2: the most-corroborated depth-1 queries become bare probes, but only those that still
+    # share a canonical token with the seed (the pilot showed depth 2 is where drift enters)
+    from pipeline.clean import canonical_key
+    seed_toks = set(canonical_key(seed).split())
+    on_topic = {q: n for q, n in found.items() if seed_toks & set(canonical_key(q).split())}
+    for q, _ in sorted(on_topic.items(), key=lambda kv: -kv[1])[:depth2_cap]:
         for src in sources:
             fn = suggest.SOURCES[src]
             results = fn(q, hl=hl, gl=gl) if src == "google" else fn(q)

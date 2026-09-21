@@ -10,6 +10,32 @@ Everything below is one of three kinds of statement, and says which:
 **hypothesis** (to be tested). Nothing in this project sums a community post count
 into a search volume.
 
+## 0. Route chosen: free first (decided 2026-09-21)
+
+The research runs on free sources to the Top 20. Demand is reported as RELATIVE tiers from
+Google Trends chained comparisons plus autocomplete corroboration, labelled as such; no
+monthly search figure is stated anywhere until a volume provider is added. The $50
+DataForSEO deposit is deferred to the finalists, if wanted. What the free route cannot
+say is written into every cluster report: absolute size, cost-per-click, and real Google
+result pages at scale.
+
+Seeds were revised after the pilot: every single-word seed carries its subdomain's
+qualifier ("3d printer stringing", not "stringing"), and depth-2 probes only follow
+queries that still share a token with the seed. The full run (`run_full.sh 4 --no-soup
+--depth2 20`) started 2026-09-21 with four workers; `checkpoint.sh` exports the raw
+tables and commits them every three hours.
+
+### Free relative-demand method
+
+`pipeline/sources/trends_chain.py` places cluster head terms on one scale: each Trends
+request carries an anchor whose value is already placed; the other four terms are placed
+by the ratio of their 12-month mean interest to the anchor's. Terms reading below 8
+against an anchor are re-queued with a smaller anchor so integer rounding stays under
+about 15 percent per placement; the rounding error of each placement is stored with it.
+Cadence is one request per 90 seconds because this address was throttled at faster rates.
+`pipeline/demand_free.py` adds, per cluster, the count of members suggested by two or
+three engines and Google's own autocomplete relevance scores. None of these is a volume.
+
 ## 1. What this sandbox can and cannot reach (measured 2026-09-20)
 
 | source | role in the pipeline | status from this sandbox |
