@@ -1,8 +1,8 @@
 {"seed": "real estate mortgage", "skipped": "already expanded"}
-{"seed": "home inspection", "new_queries": 730, "suggestions_seen": 922}
+{"seed": "home inspection", "skipped": "already expanded"}
+{"seed": "closing costs", "new_queries": 1045, "suggestions_seen": 1498}
 {"seed": "rent", "skipped": "already expanded"}
-{"seed": "apartment hunting", "new_queries": 313, "suggestions_seen": 818}
+{"seed": "apartment hunting", "skipped": "already expanded"}
+{"seed": "security deposit", "new_queries": 1194, "suggestions_seen": 1647}
 {"seed": "renovation cost", "skipped": "already expanded"}
-{"seed": "kitchen remodel", "new_queries": 677, "suggestions_seen": 905}
-{"seed": "real estate landlord", "skipped": "already expanded"}
-{"seed": "rental property", "new_queries": 818, "suggestions_seen": 1025}
+{"seed": "kitchen remodel", "skipped": "already expanded"}

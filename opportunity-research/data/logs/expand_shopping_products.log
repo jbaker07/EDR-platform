@@ -7,3 +7,9 @@
 {"seed": "price history", "skipped": "already expanded"}
 {"seed": "price drop", "skipped": "already expanded"}
 {"seed": "return policy", "new_queries": 1205, "suggestions_seen": 1707}
+{"seed": "what is this", "new_queries": 11, "suggestions_seen": 1699}
+{"seed": "identify product", "skipped": "already expanded"}
+{"seed": "model number lookup", "new_queries": 535, "suggestions_seen": 1654}
+{"seed": "product mattress", "skipped": "already expanded"}
+{"seed": "product sofa", "skipped": "already expanded"}
+{"seed": "product desk", "new_queries": 844, "suggestions_seen": 1034}

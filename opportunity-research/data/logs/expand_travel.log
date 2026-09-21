@@ -9,3 +9,10 @@
 {"seed": "travel esta", "new_queries": 773, "suggestions_seen": 1204}
 {"seed": "travel airbnb", "skipped": "already expanded"}
 {"seed": "travel hotel", "skipped": "already expanded"}
+{"seed": "travel train", "new_queries": 1205, "suggestions_seen": 1640}
+{"seed": "packing list", "skipped": "already expanded"}
+{"seed": "carry on size", "skipped": "already expanded"}
+{"seed": "travel luggage", "new_queries": 1200, "suggestions_seen": 1757}
+{"seed": "moving abroad", "skipped": "already expanded"}
+{"seed": "digital nomad", "skipped": "already expanded"}
+{"seed": "cost of living", "new_queries": 1547, "suggestions_seen": 2303}

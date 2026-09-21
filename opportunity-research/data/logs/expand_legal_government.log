@@ -1,8 +1,8 @@
 {"seed": "small claims", "skipped": "already expanded"}
-{"seed": "tenant rights", "new_queries": 404, "suggestions_seen": 604}
+{"seed": "tenant rights", "skipped": "already expanded"}
+{"seed": "lease agreement", "new_queries": 1266, "suggestions_seen": 1798}
 {"seed": "green card", "skipped": "already expanded"}
-{"seed": "visa status", "new_queries": 496, "suggestions_seen": 796}
+{"seed": "visa status", "skipped": "already expanded"}
+{"seed": "citizenship test", "new_queries": 1111, "suggestions_seen": 1727}
 {"seed": "legal dmv", "skipped": "already expanded"}
-{"seed": "legal passport", "new_queries": 331, "suggestions_seen": 452}
-{"seed": "refund rights", "skipped": "already expanded"}
-{"seed": "warranty law", "new_queries": 412, "suggestions_seen": 590}
+{"seed": "legal passport", "skipped": "already expanded"}

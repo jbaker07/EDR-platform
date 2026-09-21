@@ -1,10 +1,15 @@
 {"seed": "coin value", "skipped": "already expanded"}
-{"seed": "error coin", "new_queries": 330, "suggestions_seen": 771}
+{"seed": "error coin", "skipped": "already expanded"}
+{"seed": "stamp value", "new_queries": 833, "suggestions_seen": 1317}
 {"seed": "card value", "skipped": "already expanded"}
-{"seed": "pokemon card value", "new_queries": 347, "suggestions_seen": 755}
+{"seed": "pokemon card value", "skipped": "already expanded"}
+{"seed": "lego set value", "new_queries": 717, "suggestions_seen": 1736}
 {"seed": "antique value", "skipped": "already expanded"}
-{"seed": "antique vintage", "new_queries": 335, "suggestions_seen": 563}
+{"seed": "antique vintage", "skipped": "already expanded"}
+{"seed": "antique appraisal", "new_queries": 506, "suggestions_seen": 1194}
 {"seed": "vinyl record value", "skipped": "already expanded"}
-{"seed": "first edition book", "new_queries": 523, "suggestions_seen": 1120}
+{"seed": "first edition book", "skipped": "already expanded"}
+{"seed": "vintage watch", "new_queries": 1056, "suggestions_seen": 1721}
 {"seed": "maker's mark", "skipped": "already expanded"}
 {"seed": "pottery mark", "skipped": "already expanded"}
+{"seed": "silver hallmark", "new_queries": 703, "suggestions_seen": 1370}

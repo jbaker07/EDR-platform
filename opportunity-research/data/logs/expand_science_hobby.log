@@ -1,8 +1,5 @@
 {"seed": "hobby science telescope", "skipped": "already expanded"}
-{"seed": "hobby science astrophotography", "new_queries": 202, "suggestions_seen": 782}
+{"seed": "hobby science astrophotography", "skipped": "already expanded"}
+{"seed": "planets tonight", "new_queries": 677, "suggestions_seen": 1098}
 {"seed": "weather radar", "skipped": "already expanded"}
-{"seed": "hobby science barometer", "new_queries": 219, "suggestions_seen": 1277}
-{"seed": "bird identification", "skipped": "already expanded"}
-{"seed": "plant identification", "new_queries": 380, "suggestions_seen": 799}
-{"seed": "ham radio", "skipped": "already expanded"}
-{"seed": "hobby science sdr", "new_queries": 177, "suggestions_seen": 253}
+{"seed": "hobby science barometer", "skipped": "already expanded"}

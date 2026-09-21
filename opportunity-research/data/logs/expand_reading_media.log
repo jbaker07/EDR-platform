@@ -1,10 +1,15 @@
 {"seed": "book recommendations", "skipped": "already expanded"}
-{"seed": "reading order", "new_queries": 572, "suggestions_seen": 823}
+{"seed": "reading order", "skipped": "already expanded"}
+{"seed": "book series", "new_queries": 1240, "suggestions_seen": 1711}
 {"seed": "where to watch", "skipped": "already expanded"}
-{"seed": "book streaming", "new_queries": 306, "suggestions_seen": 510}
+{"seed": "book streaming", "skipped": "already expanded"}
+{"seed": "watch order", "new_queries": 877, "suggestions_seen": 1327}
 {"seed": "song identify", "skipped": "already expanded"}
-{"seed": "book playlist", "new_queries": 339, "suggestions_seen": 509}
+{"seed": "book playlist", "skipped": "already expanded"}
+{"seed": "lyrics meaning", "new_queries": 1137, "suggestions_seen": 1495}
 {"seed": "anime watch order", "skipped": "already expanded"}
-{"seed": "book manga", "new_queries": 361, "suggestions_seen": 480}
+{"seed": "book manga", "skipped": "already expanded"}
+{"seed": "comics reading order", "new_queries": 677, "suggestions_seen": 1635}
 {"seed": "audiobook", "skipped": "already expanded"}
-{"seed": "podcast recommendations", "new_queries": 367, "suggestions_seen": 798}
+{"seed": "podcast recommendations", "skipped": "already expanded"}
+{"seed": "book audible", "new_queries": 1118, "suggestions_seen": 1533}

@@ -1,10 +1,15 @@
 {"seed": "baby sleep", "skipped": "already expanded"}
-{"seed": "feeding schedule", "new_queries": 371, "suggestions_seen": 929}
+{"seed": "feeding schedule", "skipped": "already expanded"}
+{"seed": "car seat", "new_queries": 1854, "suggestions_seen": 2394}
 {"seed": "kids activities", "skipped": "already expanded"}
-{"seed": "crafts for kids", "new_queries": 602, "suggestions_seen": 1014}
+{"seed": "crafts for kids", "skipped": "already expanded"}
+{"seed": "screen time", "new_queries": 1583, "suggestions_seen": 2104}
 {"seed": "pregnancy week", "skipped": "already expanded"}
-{"seed": "due date", "new_queries": 689, "suggestions_seen": 880}
+{"seed": "due date", "skipped": "already expanded"}
+{"seed": "parenting prenatal", "new_queries": 686, "suggestions_seen": 939}
 {"seed": "elder care", "skipped": "already expanded"}
-{"seed": "parenting caregiver", "new_queries": 248, "suggestions_seen": 437}
+{"seed": "parenting caregiver", "skipped": "already expanded"}
+{"seed": "parenting medicare", "new_queries": 559, "suggestions_seen": 792}
 {"seed": "cleaning schedule", "skipped": "already expanded"}
-{"seed": "chore chart", "new_queries": 446, "suggestions_seen": 843}
+{"seed": "chore chart", "skipped": "already expanded"}
+{"seed": "parenting declutter", "new_queries": 540, "suggestions_seen": 850}
