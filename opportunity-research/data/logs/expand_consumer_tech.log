@@ -1,7 +1,14 @@
-{"seed": "iphone", "new_queries": 2135, "suggestions_seen": 2896}
-{"seed": "smart home", "new_queries": 1641, "suggestions_seen": 2172}
-{"seed": "smart tv", "new_queries": 1817, "suggestions_seen": 2428}
-{"seed": "bluetooth headphones", "new_queries": 1458, "suggestions_seen": 1949}
-{"seed": "apple watch", "new_queries": 1982, "suggestions_seen": 2754}
-{"seed": "device drone", "new_queries": 851, "suggestions_seen": 1027}
-{"seed": "device kindle", "new_queries": 887, "suggestions_seen": 1260}
+{"seed": "iphone", "skipped": "already expanded"}
+{"seed": "android phone", "new_queries": 1832, "suggestions_seen": 2483}
+{"seed": "smart home", "skipped": "already expanded"}
+{"seed": "home assistant", "new_queries": 1638, "suggestions_seen": 2315}
+{"seed": "smart tv", "skipped": "already expanded"}
+{"seed": "device roku", "new_queries": 927, "suggestions_seen": 1285}
+{"seed": "bluetooth headphones", "skipped": "already expanded"}
+{"seed": "device earbuds", "new_queries": 789, "suggestions_seen": 1068}
+{"seed": "apple watch", "skipped": "already expanded"}
+{"seed": "device garmin", "new_queries": 796, "suggestions_seen": 1164}
+{"seed": "device drone", "skipped": "already expanded"}
+{"seed": "device gopro", "new_queries": 704, "suggestions_seen": 922}
+{"seed": "device kindle", "skipped": "already expanded"}
+{"seed": "device ipad", "new_queries": 954, "suggestions_seen": 1226}

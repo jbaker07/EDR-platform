@@ -2316,76 +2316,470 @@
    "reads": 53.08,
    "anchor_reads": 16.57,
    "error_pct": 4.0
+  },
+  "wood stain remover": {
+   "value": 1.916,
+   "anchor": "steam page",
+   "reads": 2.85,
+   "anchor_reads": 13.19,
+   "error_pct": 21.3
+  },
+  "audio interface": {
+   "value": 24.43,
+   "anchor": "steam page",
+   "reads": 36.32,
+   "anchor_reads": 13.19,
+   "error_pct": 5.2
+  },
+  "electricity bill plans": {
+   "value": 0.0,
+   "anchor": "steam page",
+   "reads": 0,
+   "anchor_reads": 3.02,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "solar panels": {
+   "value": 104.955,
+   "anchor": "steam page",
+   "reads": 35.72,
+   "anchor_reads": 3.02,
+   "error_pct": 18.0
+  },
+  "cpu cooler": {
+   "value": 19.407,
+   "anchor": "chess openings",
+   "reads": 37.4,
+   "anchor_reads": 18.38,
+   "error_pct": 4.1
+  },
+  "train schedule change": {
+   "value": 0.969,
+   "anchor": "chess openings",
+   "reads": 1.87,
+   "anchor_reads": 18.38,
+   "error_pct": 29.5
+  },
+  "feature engineering": {
+   "value": 5.914,
+   "anchor": "chess openings",
+   "reads": 11.4,
+   "anchor_reads": 18.38,
+   "error_pct": 7.1
+  },
+  "travel itinerary": {
+   "value": 19.098,
+   "anchor": "chess openings",
+   "reads": 44.17,
+   "anchor_reads": 22.06,
+   "error_pct": 3.4
+  },
+  "concrete mix": {
+   "value": 21.587,
+   "anchor": "chess openings",
+   "reads": 49.92,
+   "anchor_reads": 22.06,
+   "error_pct": 3.3
+  },
+  "study com algebra": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 45.23,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "study flashcards": {
+   "value": 1.983,
+   "anchor": "game assets",
+   "reads": 9.3,
+   "anchor_reads": 45.23,
+   "error_pct": 6.5
+  },
+  "watercolor flower craft": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.64,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "workout plan for muscle gain": {
+   "value": 0.295,
+   "anchor": "unreal engine games",
+   "reads": 4.66,
+   "anchor_reads": 48.64,
+   "error_pct": 11.8
+  },
+  "renovation cost per square foot": {
+   "value": 0.876,
+   "anchor": "unreal engine games",
+   "reads": 13.87,
+   "anchor_reads": 48.64,
+   "error_pct": 4.6
+  },
+  "change database postgres": {
+   "value": 0.057,
+   "anchor": "chess openings",
+   "reads": 0.21,
+   "anchor_reads": 34.81,
+   "error_pct": 101.4
+  },
+  "chord progressions": {
+   "value": 5.179,
+   "anchor": "chess openings",
+   "reads": 18.91,
+   "anchor_reads": 34.81,
+   "error_pct": 4.1
+  },
+  "microsoft word for free": {
+   "value": 3.561,
+   "anchor": "chess openings",
+   "reads": 12.94,
+   "anchor_reads": 34.66,
+   "error_pct": 5.3
+  },
+  "guitar pedals": {
+   "value": 6.796,
+   "anchor": "chess openings",
+   "reads": 24.7,
+   "anchor_reads": 34.66,
+   "error_pct": 3.5
+  },
+  "how to read knit patterns": {
+   "value": 0.0,
+   "anchor": "steam page",
+   "reads": 0,
+   "anchor_reads": 9.94,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "small business invoice": {
+   "value": 2.037,
+   "anchor": "steam page",
+   "reads": 2.28,
+   "anchor_reads": 9.94,
+   "error_pct": 26.9
+  },
+  "print photos": {
+   "value": 42.891,
+   "anchor": "steam page",
+   "reads": 48.08,
+   "anchor_reads": 9.94,
+   "error_pct": 6.1
+  },
+  "ev charging": {
+   "value": 58.106,
+   "anchor": "steam page",
+   "reads": 53.02,
+   "anchor_reads": 8.09,
+   "error_pct": 7.1
+  },
+  "index funds": {
+   "value": 33.044,
+   "anchor": "steam page",
+   "reads": 30.15,
+   "anchor_reads": 8.09,
+   "error_pct": 7.8
+  },
+  "tax return irs": {
+   "value": 28.35,
+   "anchor": "steam page",
+   "reads": 25.87,
+   "anchor_reads": 8.09,
+   "error_pct": 8.1
+  },
+  "best gpu for ryzen 7800x3d": {
+   "value": 0.039,
+   "anchor": "game assets",
+   "reads": 0.13,
+   "anchor_reads": 32.25,
+   "error_pct": 101.6
+  },
+  "running plan": {
+   "value": 15.298,
+   "anchor": "game assets",
+   "reads": 51.17,
+   "anchor_reads": 32.25,
+   "error_pct": 2.5
+  },
+  "car tune up checklist": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 8.17,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "driving test": {
+   "value": 87.651,
+   "anchor": "game assets",
+   "reads": 74.28,
+   "anchor_reads": 8.17,
+   "error_pct": 6.8
+  },
+  "learning workflows": {
+   "value": 1.4,
+   "anchor": "how to iphone mirror",
+   "reads": 1.96,
+   "anchor_reads": 14.25,
+   "error_pct": 29.0
+  },
+  "coin value": {
+   "value": 43.421,
+   "anchor": "how to iphone mirror",
+   "reads": 60.87,
+   "anchor_reads": 14.25,
+   "error_pct": 4.3
+  },
+  "office microsoft word": {
+   "value": 5.659,
+   "anchor": "how to iphone mirror",
+   "reads": 40.36,
+   "anchor_reads": 72.47,
+   "error_pct": 1.9
+  },
+  "healthcare therapy services": {
+   "value": 1.476,
+   "anchor": "how to iphone mirror",
+   "reads": 10.53,
+   "anchor_reads": 72.47,
+   "error_pct": 5.4
+  },
+  "fitness planet plan": {
+   "value": 1.675,
+   "anchor": "how to iphone mirror",
+   "reads": 11.94,
+   "anchor_reads": 72.47,
+   "error_pct": 4.9
+  },
+  "dog training collars": {
+   "value": 6.56,
+   "anchor": "game assets",
+   "reads": 23.19,
+   "anchor_reads": 34.08,
+   "error_pct": 3.6
+  },
+  "ev charger stuck": {
+   "value": 0.011,
+   "anchor": "chess openings",
+   "reads": 0.04,
+   "anchor_reads": 34.21,
+   "error_pct": 101.5
+  },
+  "candle making": {
+   "value": 16.391,
+   "anchor": "chess openings",
+   "reads": 58.79,
+   "anchor_reads": 34.21,
+   "error_pct": 2.3
+  },
+  "free language learning app duolingo": {
+   "value": 0.008,
+   "anchor": "game assets",
+   "reads": 0.04,
+   "anchor_reads": 45.21,
+   "error_pct": 101.1
+  },
+  "woodworking drill press": {
+   "value": 0.06,
+   "anchor": "game assets",
+   "reads": 0.28,
+   "anchor_reads": 45.21,
+   "error_pct": 101.1
+  },
+  "baby sleeping bag": {
+   "value": 1.947,
+   "anchor": "game assets",
+   "reads": 9.13,
+   "anchor_reads": 45.21,
+   "error_pct": 6.6
+  },
+  "photography cameras": {
+   "value": 5.786,
+   "anchor": "game assets",
+   "reads": 27.13,
+   "anchor_reads": 45.21,
+   "error_pct": 2.9
+  },
+  "holiday christmas movie": {
+   "value": 4.029,
+   "anchor": "chess openings",
+   "reads": 9.36,
+   "anchor_reads": 22.15,
+   "error_pct": 7.6
+  },
+  "car tuning": {
+   "value": 6.808,
+   "anchor": "chess openings",
+   "reads": 15.81,
+   "anchor_reads": 22.15,
+   "error_pct": 5.4
+  },
+  "ukulele chords": {
+   "value": 16.418,
+   "anchor": "chess openings",
+   "reads": 38.13,
+   "anchor_reads": 22.15,
+   "error_pct": 3.6
+  },
+  "book recommendations": {
+   "value": 42.094,
+   "anchor": "chess openings",
+   "reads": 12.08,
+   "anchor_reads": 2.74,
+   "error_pct": 22.4
+  },
+  "screen reader": {
+   "value": 9.592,
+   "anchor": "game assets",
+   "reads": 44.98,
+   "anchor_reads": 45.21,
+   "error_pct": 2.2
+  },
+  "farm chickens": {
+   "value": 3.114,
+   "anchor": "game assets",
+   "reads": 14.6,
+   "anchor_reads": 45.21,
+   "error_pct": 4.5
+  },
+  "language learning translator": {
+   "value": 0.094,
+   "anchor": "screen reader",
+   "reads": 0.45,
+   "anchor_reads": 46.34,
+   "error_pct": 101.1
+  },
+  "crop rotation": {
+   "value": 4.593,
+   "anchor": "screen reader",
+   "reads": 22.19,
+   "anchor_reads": 46.34,
+   "error_pct": 3.3
+  },
+  "substitute teacher checklist": {
+   "value": 0.0,
+   "anchor": "chess openings",
+   "reads": 0,
+   "anchor_reads": 5.62,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "baby sleep": {
+   "value": 113.484,
+   "anchor": "chess openings",
+   "reads": 66.91,
+   "anchor_reads": 5.62,
+   "error_pct": 9.6
+  },
+  "photo camera settings": {
+   "value": 0.967,
+   "anchor": "screen reader",
+   "reads": 4.68,
+   "anchor_reads": 46.42,
+   "error_pct": 11.8
+  },
+  "hobby science telescope lab": {
+   "value": 0.0,
+   "anchor": "screen reader",
+   "reads": 0,
+   "anchor_reads": 19.43,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "how to move abroad": {
+   "value": 0.698,
+   "anchor": "screen reader",
+   "reads": 1.42,
+   "anchor_reads": 19.43,
+   "error_pct": 37.9
+  },
+  "pull ups": {
+   "value": 37.893,
+   "anchor": "screen reader",
+   "reads": 76.77,
+   "anchor_reads": 19.43,
+   "error_pct": 3.2
+  },
+  "job description to resume match": {
+   "value": 0.0,
+   "anchor": "screen reader",
+   "reads": 0,
+   "anchor_reads": 5.58,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "car value": {
+   "value": 126.964,
+   "anchor": "screen reader",
+   "reads": 73.92,
+   "anchor_reads": 5.58,
+   "error_pct": 9.6
+  },
+  "jewelry making": {
+   "value": 16.494,
+   "anchor": "screen reader",
+   "reads": 9.6,
+   "anchor_reads": 5.58,
+   "error_pct": 14.2
+  },
+  "remote jobs": {
+   "value": 333.498,
+   "anchor": "game assets",
+   "reads": 82.25,
+   "anchor_reads": 2.38,
+   "error_pct": 21.6
+  },
+  "drink cocktail names": {
+   "value": 0.205,
+   "anchor": "game assets",
+   "reads": 0.96,
+   "anchor_reads": 45.23,
+   "error_pct": 53.1
+  },
+  "smart tv kaise on kare": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 8.77,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "wellbeing meditation": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 8.77,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "credit score calculator for car": {
+   "value": 0.746,
+   "anchor": "game assets",
+   "reads": 0.68,
+   "anchor_reads": 8.77,
+   "error_pct": 79.3
+  },
+  "sous vide": {
+   "value": 45.92,
+   "anchor": "game assets",
+   "reads": 41.79,
+   "anchor_reads": 8.77,
+   "error_pct": 6.9
+  },
+  "visa requirements": {
+   "value": 64.66,
+   "anchor": "how to iphone mirror",
+   "reads": 48.62,
+   "anchor_reads": 7.64,
+   "error_pct": 7.6
   }
  },
  "pending": [
-  "wood stain remover",
-  "train schedule change",
-  "audio interface",
-  "electricity bill plans",
-  "solar panels",
-  "cpu cooler",
-  "study flashcards",
-  "feature engineering",
-  "travel itinerary",
-  "concrete mix",
-  "study com algebra",
-  "workout plan for muscle gain",
-  "renovation cost per square foot",
-  "change database postgres",
-  "watercolor flower craft",
-  "chord progressions",
-  "how to read knit patterns",
-  "small business invoice",
-  "microsoft word for free",
-  "guitar pedals",
-  "best gpu for ryzen 7800x3d",
-  "print photos",
-  "ev charging",
-  "index funds",
-  "tax return irs",
-  "car tune up checklist",
-  "learning workflows",
-  "running plan",
-  "healthcare therapy services",
-  "driving test",
-  "office microsoft word",
-  "coin value",
-  "ev charger stuck",
-  "fitness planet plan",
-  "free language learning app duolingo",
-  "woodworking drill press",
-  "dog training collars",
-  "candle making",
-  "baby sleeping bag",
-  "photography cameras",
-  "farm chickens",
-  "holiday christmas movie",
-  "car tuning",
-  "ukulele chords",
-  "language learning translator",
-  "screen reader",
-  "book recommendations",
-  "substitute teacher checklist",
-  "photo camera settings",
-  "crop rotation",
-  "baby sleep",
-  "how to move abroad",
-  "job description to resume match",
-  "hobby science telescope lab",
-  "pull ups",
-  "car value",
-  "drink cocktail names",
-  "jewelry making",
-  "remote jobs",
-  "wellbeing meditation",
-  "credit score calculator for car",
-  "smart tv kaise on kare",
-  "sous vide",
-  "visa requirements",
-  "protein intake for muscle gain",
-  "photoshop lightroom",
   "sewing machine stuck in reverse",
+  "photoshop lightroom",
+  "protein intake for muscle gain",
   "ham radio",
   "study algebra",
   "cleaning schedule",
@@ -6773,6 +7167,658 @@
    "requeued": [
     "wood stain remover"
    ]
+  },
+  {
+   "at": 1789970528.2842424,
+   "anchor": "steam page",
+   "batch": [
+    "wood stain remover",
+    "train schedule change",
+    "audio interface",
+    "electricity bill plans"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 13.19,
+    "wood stain remover": 2.85,
+    "train schedule change": 1.38,
+    "audio interface": 36.32,
+    "electricity bill plans": 0.21
+   },
+   "requeued": [
+    "train schedule change",
+    "electricity bill plans"
+   ]
+  },
+  {
+   "at": 1789970584.6818864,
+   "anchor": "steam page",
+   "batch": [
+    "electricity bill plans",
+    "train schedule change",
+    "solar panels",
+    "cpu cooler"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 3.02,
+    "electricity bill plans": 0,
+    "train schedule change": 0.19,
+    "solar panels": 35.72,
+    "cpu cooler": 6.66
+   },
+   "requeued": [
+    "train schedule change",
+    "cpu cooler"
+   ]
+  },
+  {
+   "at": 1789970641.0003128,
+   "anchor": "chess openings",
+   "batch": [
+    "cpu cooler",
+    "train schedule change",
+    "study flashcards",
+    "feature engineering"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 18.38,
+    "cpu cooler": 37.4,
+    "train schedule change": 1.87,
+    "study flashcards": 3.81,
+    "feature engineering": 11.4
+   },
+   "requeued": [
+    "study flashcards"
+   ]
+  },
+  {
+   "at": 1789970697.3882973,
+   "anchor": "chess openings",
+   "batch": [
+    "study flashcards",
+    "travel itinerary",
+    "concrete mix",
+    "study com algebra"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 22.06,
+    "study flashcards": 4.62,
+    "travel itinerary": 44.17,
+    "concrete mix": 49.92,
+    "study com algebra": 0
+   },
+   "requeued": [
+    "study flashcards",
+    "study com algebra"
+   ]
+  },
+  {
+   "at": 1789970753.7544851,
+   "anchor": "game assets",
+   "batch": [
+    "study com algebra",
+    "study flashcards",
+    "workout plan for muscle gain",
+    "renovation cost per square foot"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "study com algebra": 0,
+    "study flashcards": 9.3,
+    "workout plan for muscle gain": 1.32,
+    "renovation cost per square foot": 4.23
+   },
+   "requeued": [
+    "workout plan for muscle gain",
+    "renovation cost per square foot"
+   ]
+  },
+  {
+   "at": 1789970810.1002629,
+   "anchor": "game assets",
+   "batch": [
+    "renovation cost per square foot",
+    "workout plan for muscle gain",
+    "change database postgres",
+    "watercolor flower craft"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "renovation cost per square foot": 4.23,
+    "workout plan for muscle gain": 1.32,
+    "change database postgres": 0.25,
+    "watercolor flower craft": 0
+   },
+   "requeued": [
+    "renovation cost per square foot",
+    "workout plan for muscle gain",
+    "change database postgres",
+    "watercolor flower craft"
+   ]
+  },
+  {
+   "at": 1789970921.4499698,
+   "anchor": "unreal engine games",
+   "batch": [
+    "watercolor flower craft",
+    "change database postgres",
+    "workout plan for muscle gain",
+    "renovation cost per square foot"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.64,
+    "watercolor flower craft": 0,
+    "change database postgres": 0.96,
+    "workout plan for muscle gain": 4.66,
+    "renovation cost per square foot": 13.87
+   },
+   "requeued": [
+    "change database postgres"
+   ]
+  },
+  {
+   "at": 1789970977.8105605,
+   "anchor": "chess openings",
+   "batch": [
+    "change database postgres",
+    "chord progressions",
+    "how to read knit patterns",
+    "small business invoice"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 34.81,
+    "change database postgres": 0.21,
+    "chord progressions": 18.91,
+    "how to read knit patterns": 0.02,
+    "small business invoice": 7.6
+   },
+   "requeued": [
+    "how to read knit patterns",
+    "small business invoice"
+   ]
+  },
+  {
+   "at": 1789971034.2073312,
+   "anchor": "chess openings",
+   "batch": [
+    "small business invoice",
+    "how to read knit patterns",
+    "microsoft word for free",
+    "guitar pedals"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 34.66,
+    "small business invoice": 7.58,
+    "how to read knit patterns": 0.02,
+    "microsoft word for free": 12.94,
+    "guitar pedals": 24.7
+   },
+   "requeued": [
+    "small business invoice",
+    "how to read knit patterns"
+   ]
+  },
+  {
+   "at": 1789971090.6327643,
+   "anchor": "steam page",
+   "batch": [
+    "how to read knit patterns",
+    "small business invoice",
+    "best gpu for ryzen 7800x3d",
+    "print photos"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 9.94,
+    "how to read knit patterns": 0,
+    "small business invoice": 2.28,
+    "best gpu for ryzen 7800x3d": 0.02,
+    "print photos": 48.08
+   },
+   "requeued": [
+    "best gpu for ryzen 7800x3d"
+   ]
+  },
+  {
+   "at": 1789971147.027149,
+   "anchor": "steam page",
+   "batch": [
+    "best gpu for ryzen 7800x3d",
+    "ev charging",
+    "index funds",
+    "tax return irs"
+   ],
+   "ok": true,
+   "means": {
+    "steam page": 8.09,
+    "best gpu for ryzen 7800x3d": 0.02,
+    "ev charging": 53.02,
+    "index funds": 30.15,
+    "tax return irs": 25.87
+   },
+   "requeued": [
+    "best gpu for ryzen 7800x3d"
+   ]
+  },
+  {
+   "at": 1789971203.461681,
+   "anchor": "game assets",
+   "batch": [
+    "best gpu for ryzen 7800x3d",
+    "car tune up checklist",
+    "learning workflows",
+    "running plan"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 32.25,
+    "best gpu for ryzen 7800x3d": 0.13,
+    "car tune up checklist": 0,
+    "learning workflows": 4.66,
+    "running plan": 51.17
+   },
+   "requeued": [
+    "car tune up checklist",
+    "learning workflows"
+   ]
+  },
+  {
+   "at": 1789971286.410741,
+   "anchor": "game assets",
+   "batch": [
+    "learning workflows",
+    "car tune up checklist",
+    "healthcare therapy services",
+    "driving test"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 8.17,
+    "learning workflows": 1.21,
+    "car tune up checklist": 0,
+    "healthcare therapy services": 1.3,
+    "driving test": 74.28
+   },
+   "requeued": [
+    "learning workflows",
+    "healthcare therapy services"
+   ]
+  },
+  {
+   "at": 1789971342.9792585,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "healthcare therapy services",
+    "learning workflows",
+    "office microsoft word",
+    "coin value"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 14.25,
+    "healthcare therapy services": 2.06,
+    "learning workflows": 1.96,
+    "office microsoft word": 7.87,
+    "coin value": 60.87
+   },
+   "requeued": [
+    "healthcare therapy services",
+    "office microsoft word"
+   ]
+  },
+  {
+   "at": 1789971399.4413228,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "office microsoft word",
+    "healthcare therapy services",
+    "ev charger stuck",
+    "fitness planet plan"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 72.47,
+    "office microsoft word": 40.36,
+    "healthcare therapy services": 10.53,
+    "ev charger stuck": 0.09,
+    "fitness planet plan": 11.94
+   },
+   "requeued": [
+    "ev charger stuck"
+   ]
+  },
+  {
+   "at": 1789971468.9651315,
+   "anchor": "game assets",
+   "batch": [
+    "ev charger stuck",
+    "free language learning app duolingo",
+    "woodworking drill press",
+    "dog training collars"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 34.08,
+    "ev charger stuck": 0.04,
+    "free language learning app duolingo": 0.04,
+    "woodworking drill press": 0.17,
+    "dog training collars": 23.19
+   },
+   "requeued": [
+    "ev charger stuck",
+    "free language learning app duolingo",
+    "woodworking drill press"
+   ]
+  },
+  {
+   "at": 1789971525.3362942,
+   "anchor": "chess openings",
+   "batch": [
+    "woodworking drill press",
+    "free language learning app duolingo",
+    "ev charger stuck",
+    "candle making"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 34.21,
+    "woodworking drill press": 0.17,
+    "free language learning app duolingo": 0.04,
+    "ev charger stuck": 0.04,
+    "candle making": 58.79
+   },
+   "requeued": [
+    "woodworking drill press",
+    "free language learning app duolingo"
+   ]
+  },
+  {
+   "at": 1789971581.6949482,
+   "anchor": "game assets",
+   "batch": [
+    "free language learning app duolingo",
+    "woodworking drill press",
+    "baby sleeping bag",
+    "photography cameras"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "free language learning app duolingo": 0.04,
+    "woodworking drill press": 0.28,
+    "baby sleeping bag": 9.13,
+    "photography cameras": 27.13
+   }
+  },
+  {
+   "at": 1789971679.8064692,
+   "anchor": "chess openings",
+   "batch": [
+    "farm chickens",
+    "holiday christmas movie",
+    "car tuning",
+    "ukulele chords"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 22.15,
+    "farm chickens": 7.32,
+    "holiday christmas movie": 9.36,
+    "car tuning": 15.81,
+    "ukulele chords": 38.13
+   },
+   "requeued": [
+    "farm chickens"
+   ]
+  },
+  {
+   "at": 1789971736.195748,
+   "anchor": "chess openings",
+   "batch": [
+    "farm chickens",
+    "language learning translator",
+    "screen reader",
+    "book recommendations"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 2.74,
+    "farm chickens": 1,
+    "language learning translator": 0,
+    "screen reader": 2.79,
+    "book recommendations": 12.08
+   },
+   "requeued": [
+    "farm chickens",
+    "language learning translator",
+    "screen reader"
+   ]
+  },
+  {
+   "at": 1789971792.5311399,
+   "anchor": "game assets",
+   "batch": [
+    "screen reader",
+    "language learning translator",
+    "farm chickens",
+    "substitute teacher checklist"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.21,
+    "screen reader": 44.98,
+    "language learning translator": 0.34,
+    "farm chickens": 14.6,
+    "substitute teacher checklist": 0.06
+   },
+   "requeued": [
+    "language learning translator",
+    "substitute teacher checklist"
+   ]
+  },
+  {
+   "at": 1789971848.9924107,
+   "anchor": "screen reader",
+   "batch": [
+    "substitute teacher checklist",
+    "language learning translator",
+    "photo camera settings",
+    "crop rotation"
+   ],
+   "ok": true,
+   "means": {
+    "screen reader": 46.34,
+    "substitute teacher checklist": 0.02,
+    "language learning translator": 0.45,
+    "photo camera settings": 4.66,
+    "crop rotation": 22.19
+   },
+   "requeued": [
+    "substitute teacher checklist",
+    "photo camera settings"
+   ]
+  },
+  {
+   "at": 1789971905.5563848,
+   "anchor": "chess openings",
+   "batch": [
+    "photo camera settings",
+    "substitute teacher checklist",
+    "baby sleep",
+    "how to move abroad"
+   ],
+   "ok": true,
+   "means": {
+    "chess openings": 5.62,
+    "photo camera settings": 0.7,
+    "substitute teacher checklist": 0,
+    "baby sleep": 66.91,
+    "how to move abroad": 0.26
+   },
+   "requeued": [
+    "photo camera settings",
+    "how to move abroad"
+   ]
+  },
+  {
+   "at": 1789971961.963662,
+   "anchor": "screen reader",
+   "batch": [
+    "how to move abroad",
+    "photo camera settings",
+    "job description to resume match",
+    "hobby science telescope lab"
+   ],
+   "ok": true,
+   "means": {
+    "screen reader": 46.42,
+    "how to move abroad": 3.43,
+    "photo camera settings": 4.68,
+    "job description to resume match": 0.3,
+    "hobby science telescope lab": 0
+   },
+   "requeued": [
+    "how to move abroad",
+    "job description to resume match",
+    "hobby science telescope lab"
+   ]
+  },
+  {
+   "at": 1789972076.9484487,
+   "anchor": "screen reader",
+   "batch": [
+    "hobby science telescope lab",
+    "job description to resume match",
+    "how to move abroad",
+    "pull ups"
+   ],
+   "ok": true,
+   "means": {
+    "screen reader": 19.43,
+    "hobby science telescope lab": 0,
+    "job description to resume match": 0.17,
+    "how to move abroad": 1.42,
+    "pull ups": 76.77
+   },
+   "requeued": [
+    "job description to resume match"
+   ]
+  },
+  {
+   "at": 1789972133.4102814,
+   "anchor": "screen reader",
+   "batch": [
+    "job description to resume match",
+    "car value",
+    "drink cocktail names",
+    "jewelry making"
+   ],
+   "ok": true,
+   "means": {
+    "screen reader": 5.58,
+    "job description to resume match": 0,
+    "car value": 73.92,
+    "drink cocktail names": 0.04,
+    "jewelry making": 9.6
+   },
+   "requeued": [
+    "drink cocktail names"
+   ]
+  },
+  {
+   "at": 1789972189.8650482,
+   "anchor": "game assets",
+   "batch": [
+    "drink cocktail names",
+    "remote jobs",
+    "wellbeing meditation",
+    "credit score calculator for car"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 2.38,
+    "drink cocktail names": 0.02,
+    "remote jobs": 82.25,
+    "wellbeing meditation": 0,
+    "credit score calculator for car": 0
+   },
+   "requeued": [
+    "drink cocktail names",
+    "wellbeing meditation",
+    "credit score calculator for car"
+   ]
+  },
+  {
+   "at": 1789972246.233361,
+   "anchor": "game assets",
+   "batch": [
+    "credit score calculator for car",
+    "wellbeing meditation",
+    "drink cocktail names",
+    "smart tv kaise on kare"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "credit score calculator for car": 3.09,
+    "wellbeing meditation": 0.15,
+    "drink cocktail names": 0.96,
+    "smart tv kaise on kare": 0
+   },
+   "requeued": [
+    "credit score calculator for car",
+    "wellbeing meditation",
+    "smart tv kaise on kare"
+   ]
+  },
+  {
+   "at": 1789972302.535203,
+   "anchor": "game assets",
+   "batch": [
+    "smart tv kaise on kare",
+    "wellbeing meditation",
+    "credit score calculator for car",
+    "sous vide"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 8.77,
+    "smart tv kaise on kare": 0,
+    "wellbeing meditation": 0,
+    "credit score calculator for car": 0.68,
+    "sous vide": 41.79
+   }
+  },
+  {
+   "at": 1789972358.9689994,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "visa requirements",
+    "protein intake for muscle gain",
+    "photoshop lightroom",
+    "sewing machine stuck in reverse"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 7.64,
+    "visa requirements": 48.62,
+    "protein intake for muscle gain": 0.55,
+    "photoshop lightroom": 2.51,
+    "sewing machine stuck in reverse": 0
+   },
+   "requeued": [
+    "protein intake for muscle gain",
+    "photoshop lightroom",
+    "sewing machine stuck in reverse"
+   ]
   }
  ],
  "anchors": [
@@ -7092,9 +8138,75 @@
   "smart home": 1,
   "vehicle cdl requirements": 2,
   "cat litter": 1,
-  "wood stain remover": 2,
+  "wood stain remover": 3,
   "external hard drive best": 2,
   "study sat": 1,
-  "blog post": 1
+  "blog post": 1,
+  "train schedule change": 3,
+  "audio interface": 1,
+  "electricity bill plans": 2,
+  "solar panels": 1,
+  "cpu cooler": 2,
+  "study flashcards": 3,
+  "feature engineering": 1,
+  "travel itinerary": 1,
+  "concrete mix": 1,
+  "study com algebra": 2,
+  "workout plan for muscle gain": 3,
+  "renovation cost per square foot": 3,
+  "change database postgres": 3,
+  "watercolor flower craft": 2,
+  "chord progressions": 1,
+  "how to read knit patterns": 3,
+  "small business invoice": 3,
+  "microsoft word for free": 1,
+  "guitar pedals": 1,
+  "best gpu for ryzen 7800x3d": 3,
+  "print photos": 1,
+  "ev charging": 1,
+  "index funds": 1,
+  "tax return irs": 1,
+  "car tune up checklist": 2,
+  "learning workflows": 3,
+  "running plan": 1,
+  "healthcare therapy services": 3,
+  "driving test": 1,
+  "office microsoft word": 2,
+  "coin value": 1,
+  "ev charger stuck": 3,
+  "fitness planet plan": 1,
+  "free language learning app duolingo": 3,
+  "woodworking drill press": 3,
+  "dog training collars": 1,
+  "candle making": 1,
+  "baby sleeping bag": 1,
+  "photography cameras": 1,
+  "farm chickens": 3,
+  "holiday christmas movie": 1,
+  "car tuning": 1,
+  "ukulele chords": 1,
+  "language learning translator": 3,
+  "screen reader": 2,
+  "book recommendations": 1,
+  "substitute teacher checklist": 3,
+  "photo camera settings": 3,
+  "crop rotation": 1,
+  "baby sleep": 1,
+  "how to move abroad": 3,
+  "job description to resume match": 3,
+  "hobby science telescope lab": 2,
+  "pull ups": 1,
+  "car value": 1,
+  "drink cocktail names": 3,
+  "jewelry making": 1,
+  "remote jobs": 1,
+  "wellbeing meditation": 3,
+  "credit score calculator for car": 3,
+  "smart tv kaise on kare": 2,
+  "sous vide": 1,
+  "visa requirements": 1,
+  "protein intake for muscle gain": 1,
+  "photoshop lightroom": 1,
+  "sewing machine stuck in reverse": 1
  }
 }

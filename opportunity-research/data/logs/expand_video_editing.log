@@ -1,7 +1,13 @@
-{"seed": "premiere pro", "new_queries": 1660, "suggestions_seen": 2465}
-{"seed": "davinci resolve", "new_queries": 1647, "suggestions_seen": 2436}
-{"seed": "video editing capcut", "new_queries": 1031, "suggestions_seen": 1768}
-{"seed": "after effects", "new_queries": 1680, "suggestions_seen": 2474}
-{"seed": "export settings youtube", "new_queries": 684, "suggestions_seen": 1613}
-{"seed": "video editing obs", "new_queries": 504, "suggestions_seen": 1087}
-{"seed": "video editing subtitles", "new_queries": 591, "suggestions_seen": 1549}
+{"seed": "premiere pro", "skipped": "already expanded"}
+{"seed": "premiere pro export", "new_queries": 797, "suggestions_seen": 1883}
+{"seed": "davinci resolve", "skipped": "already expanded"}
+{"seed": "davinci resolve free", "new_queries": 742, "suggestions_seen": 1650}
+{"seed": "video editing capcut", "skipped": "already expanded"}
+{"seed": "final cut pro", "new_queries": 1268, "suggestions_seen": 2583}
+{"seed": "after effects", "skipped": "already expanded"}
+{"seed": "motion graphics", "new_queries": 1071, "suggestions_seen": 1883}
+{"seed": "export settings youtube", "skipped": "already expanded"}
+{"seed": "video editing h264", "new_queries": 566, "suggestions_seen": 1592}
+{"seed": "video editing obs", "skipped": "already expanded"}
+{"seed": "obs settings", "new_queries": 868, "suggestions_seen": 1475}
+{"seed": "video editing subtitles", "skipped": "already expanded"}

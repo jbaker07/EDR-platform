@@ -1,6 +1,12 @@
-{"seed": "cpu motherboard compatible", "new_queries": 399, "suggestions_seen": 1283}
-{"seed": "best gpu", "new_queries": 1146, "suggestions_seen": 1644}
-{"seed": "pc won't turn on", "new_queries": 778, "suggestions_seen": 1659}
-{"seed": "laptop", "new_queries": 2100, "suggestions_seen": 2843}
-{"seed": "monitor", "new_queries": 1987, "suggestions_seen": 2476}
-{"seed": "cpu cooler", "new_queries": 1292, "suggestions_seen": 1980}
+{"seed": "cpu motherboard compatible", "skipped": "already expanded"}
+{"seed": "ram compatibility", "new_queries": 559, "suggestions_seen": 1283}
+{"seed": "best gpu", "skipped": "already expanded"}
+{"seed": "best cpu", "new_queries": 1128, "suggestions_seen": 1748}
+{"seed": "pc won't turn on", "skipped": "already expanded"}
+{"seed": "no display", "new_queries": 1121, "suggestions_seen": 1640}
+{"seed": "laptop", "skipped": "already expanded"}
+{"seed": "laptop battery", "new_queries": 1309, "suggestions_seen": 2128}
+{"seed": "monitor", "skipped": "already expanded"}
+{"seed": "monitor 144hz", "new_queries": 748, "suggestions_seen": 1560}
+{"seed": "cpu cooler", "skipped": "already expanded"}
+{"seed": "pc build aio", "new_queries": 837, "suggestions_seen": 1458}

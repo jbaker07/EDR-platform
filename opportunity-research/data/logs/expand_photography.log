@@ -1,6 +1,9 @@
-{"seed": "photoshop lightroom", "new_queries": 760, "suggestions_seen": 1317}
-{"seed": "photography gimp", "new_queries": 663, "suggestions_seen": 1051}
-{"seed": "photography camera", "new_queries": 1121, "suggestions_seen": 1634}
-{"seed": "photography exposure", "new_queries": 656, "suggestions_seen": 1216}
-{"seed": "print photos", "new_queries": 1269, "suggestions_seen": 1628}
-{"seed": "photo backup", "new_queries": 987, "suggestions_seen": 1622}
+{"seed": "photoshop lightroom", "skipped": "already expanded"}
+{"seed": "photoshop", "new_queries": 1697, "suggestions_seen": 2341}
+{"seed": "photography gimp", "skipped": "already expanded"}
+{"seed": "photography darktable", "new_queries": 407, "suggestions_seen": 945}
+{"seed": "photography camera", "skipped": "already expanded"}
+{"seed": "photography lens", "new_queries": 1036, "suggestions_seen": 1496}
+{"seed": "photography exposure", "skipped": "already expanded"}
+{"seed": "photography iso", "new_queries": 551, "suggestions_seen": 1075}
+{"seed": "print photos", "skipped": "already expanded"}

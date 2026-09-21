@@ -1,7 +1,14 @@
-{"seed": "windows 11", "new_queries": 1996, "suggestions_seen": 2820}
-{"seed": "macos", "new_queries": 1948, "suggestions_seen": 2303}
-{"seed": "printer offline", "new_queries": 885, "suggestions_seen": 1453}
-{"seed": "wifi not working", "new_queries": 1317, "suggestions_seen": 2004}
-{"seed": "computer outlook", "new_queries": 828, "suggestions_seen": 1090}
-{"seed": "computer chrome", "new_queries": 931, "suggestions_seen": 1234}
-{"seed": "external hard drive", "new_queries": 1741, "suggestions_seen": 2544}
+{"seed": "windows 11", "skipped": "already expanded"}
+{"seed": "windows update", "new_queries": 1606, "suggestions_seen": 2143}
+{"seed": "macos", "skipped": "already expanded"}
+{"seed": "mac slow", "new_queries": 722, "suggestions_seen": 1382}
+{"seed": "printer offline", "skipped": "already expanded"}
+{"seed": "printer driver", "new_queries": 1117, "suggestions_seen": 1648}
+{"seed": "wifi not working", "skipped": "already expanded"}
+{"seed": "router settings", "new_queries": 901, "suggestions_seen": 1387}
+{"seed": "computer outlook", "skipped": "already expanded"}
+{"seed": "computer gmail", "new_queries": 694, "suggestions_seen": 946}
+{"seed": "computer chrome", "skipped": "already expanded"}
+{"seed": "computer firefox", "new_queries": 658, "suggestions_seen": 953}
+{"seed": "external hard drive", "skipped": "already expanded"}
+{"seed": "computer nas", "new_queries": 882, "suggestions_seen": 1215}

@@ -1,6 +1,1 @@
-{"seed": "blender", "new_queries": 1892, "suggestions_seen": 2519}
-{"seed": "fusion 360", "new_queries": 1467, "suggestions_seen": 2168}
-{"seed": "3d modeling zbrush", "new_queries": 523, "suggestions_seen": 1726}
-{"seed": "3d modeling cycles", "new_queries": 755, "suggestions_seen": 1502}
-{"seed": "3d modeling fbx", "new_queries": 550, "suggestions_seen": 1674}
-{"seed": "3d modeling houdini", "new_queries": 439, "suggestions_seen": 1777}
+{"seed": "blender", "skipped": "already expanded"}

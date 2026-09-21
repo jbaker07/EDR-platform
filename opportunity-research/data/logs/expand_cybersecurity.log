@@ -1,3 +1,10 @@
 {"seed": "password manager", "skipped": "already expanded"}
 {"seed": "security 2fa", "new_queries": 641, "suggestions_seen": 1093}
 {"seed": "security nmap", "skipped": "already expanded"}
+{"seed": "burp suite", "new_queries": 1054, "suggestions_seen": 1875}
+{"seed": "security owasp", "skipped": "already expanded"}
+{"seed": "sql injection", "new_queries": 643, "suggestions_seen": 1029}
+{"seed": "security gdpr", "skipped": "already expanded"}
+{"seed": "soc 2", "new_queries": 1114, "suggestions_seen": 1622}
+{"seed": "firewall rules", "skipped": "already expanded"}
+{"seed": "ssl certificate", "new_queries": 1201, "suggestions_seen": 1755}
