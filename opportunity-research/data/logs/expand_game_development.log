@@ -1,14 +1,14 @@
 {"seed": "unity", "skipped": "already expanded"}
 {"seed": "unity navmesh", "skipped": "already expanded"}
+{"seed": "unity animator", "skipped": "already expanded"}
 {"seed": "unreal engine", "skipped": "already expanded"}
 {"seed": "unreal engine blueprints", "skipped": "already expanded"}
+{"seed": "unreal nanite", "new_queries": 391, "suggestions_seen": 939}
 {"seed": "godot", "skipped": "already expanded"}
-{"seed": "godot gdscript", "new_queries": 467, "suggestions_seen": 1160}
+{"seed": "godot gdscript", "skipped": "already expanded"}
+{"seed": "godot export", "new_queries": 644, "suggestions_seen": 1270}
 {"seed": "game maker", "skipped": "already expanded"}
-{"seed": "roblox studio", "new_queries": 1497, "suggestions_seen": 2207}
+{"seed": "roblox studio", "skipped": "already expanded"}
+{"seed": "game dev love2d", "new_queries": 401, "suggestions_seen": 946}
 {"seed": "game asset", "skipped": "already expanded"}
-{"seed": "sprite sheet", "new_queries": 853, "suggestions_seen": 1617}
-{"seed": "steam page", "skipped": "already expanded"}
-{"seed": "game dev steamworks", "new_queries": 813, "suggestions_seen": 1465}
-{"seed": "game dev pathfinding", "skipped": "already expanded"}
-{"seed": "procedural generation", "new_queries": 599, "suggestions_seen": 1231}
+{"seed": "sprite sheet", "skipped": "already expanded"}

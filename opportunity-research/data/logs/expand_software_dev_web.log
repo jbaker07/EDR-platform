@@ -1,20 +1,14 @@
 {"seed": "javascript react", "skipped": "already expanded"}
 {"seed": "javascript next.js", "skipped": "already expanded"}
+{"seed": "javascript vue", "skipped": "already expanded"}
 {"seed": "python", "skipped": "already expanded"}
-{"seed": "python django", "new_queries": 826, "suggestions_seen": 1451}
+{"seed": "python django", "skipped": "already expanded"}
+{"seed": "python flask", "new_queries": 851, "suggestions_seen": 1464}
 {"seed": "java", "skipped": "already expanded"}
-{"seed": "spring boot", "new_queries": 1602, "suggestions_seen": 2178}
+{"seed": "spring boot", "skipped": "already expanded"}
+{"seed": "java kotlin", "new_queries": 516, "suggestions_seen": 1038}
 {"seed": "c#", "skipped": "already expanded"}
-{"seed": "c# .net", "new_queries": 867, "suggestions_seen": 1181}
+{"seed": "c# .net", "skipped": "already expanded"}
+{"seed": "c# asp.net", "new_queries": 740, "suggestions_seen": 1251}
 {"seed": "programming golang", "skipped": "already expanded"}
-{"seed": "programming rust", "new_queries": 608, "suggestions_seen": 1243}
-{"seed": "php", "skipped": "already expanded"}
-{"seed": "php laravel", "new_queries": 697, "suggestions_seen": 1548}
-{"seed": "database postgresql", "skipped": "already expanded"}
-{"seed": "database mysql", "new_queries": 1128, "suggestions_seen": 1591}
-{"seed": "rest api", "skipped": "already expanded"}
-{"seed": "programming graphql", "new_queries": 513, "suggestions_seen": 904}
-{"seed": "css", "skipped": "already expanded"}
-{"seed": "css tailwind", "new_queries": 977, "suggestions_seen": 1745}
-{"seed": "programming regex", "skipped": "already expanded"}
-{"seed": "programming json", "new_queries": 621, "suggestions_seen": 979}
+{"seed": "programming rust", "skipped": "already expanded"}

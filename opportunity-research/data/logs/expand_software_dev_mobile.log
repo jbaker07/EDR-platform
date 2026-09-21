@@ -1,8 +1,12 @@
 {"seed": "android studio", "skipped": "already expanded"}
 {"seed": "android app", "skipped": "already expanded"}
+{"seed": "jetpack compose", "skipped": "already expanded"}
 {"seed": "app development xcode", "skipped": "already expanded"}
-{"seed": "app development swift", "new_queries": 307, "suggestions_seen": 1673}
+{"seed": "app development swift", "skipped": "already expanded"}
+{"seed": "app development swiftui", "new_queries": 177, "suggestions_seen": 1576}
 {"seed": "app development flutter", "skipped": "already expanded"}
-{"seed": "react native", "new_queries": 1462, "suggestions_seen": 2243}
+{"seed": "react native", "skipped": "already expanded"}
+{"seed": "app development expo", "new_queries": 466, "suggestions_seen": 1329}
 {"seed": "app store review", "skipped": "already expanded"}
-{"seed": "play console", "new_queries": 1113, "suggestions_seen": 1648}
+{"seed": "play console", "skipped": "already expanded"}
+{"seed": "app signing", "new_queries": 723, "suggestions_seen": 1199}

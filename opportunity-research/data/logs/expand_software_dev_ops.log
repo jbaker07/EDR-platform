@@ -1,15 +1,14 @@
 {"seed": "docker", "skipped": "already expanded"}
 {"seed": "docker compose", "skipped": "already expanded"}
+{"seed": "docker kubernetes", "skipped": "already expanded"}
 {"seed": "aws lambda", "skipped": "already expanded"}
-{"seed": "devops s3", "new_queries": 612, "suggestions_seen": 871}
+{"seed": "devops s3", "skipped": "already expanded"}
+{"seed": "devops ec2", "new_queries": 516, "suggestions_seen": 786}
 {"seed": "devops azure", "skipped": "already expanded"}
-{"source_error": "bing", "probe": "identify google cloud", "error": "RemoteDisconnected: Remote end closed connection without response"}
-{"seed": "google cloud", "new_queries": 1509, "suggestions_seen": 2186}
+{"seed": "google cloud", "skipped": "already expanded"}
+{"seed": "devops cloudflare", "new_queries": 626, "suggestions_seen": 957}
 {"seed": "github actions", "skipped": "already expanded"}
-{"seed": "gitlab ci", "new_queries": 1115, "suggestions_seen": 1678}
+{"seed": "gitlab ci", "skipped": "already expanded"}
+{"seed": "devops jenkins", "new_queries": 381, "suggestions_seen": 852}
 {"seed": "linux", "skipped": "already expanded"}
-{"seed": "linux ubuntu", "new_queries": 1191, "suggestions_seen": 1750}
-{"seed": "git", "skipped": "already expanded"}
-{"seed": "git merge", "new_queries": 1032, "suggestions_seen": 1512}
-{"seed": "devops prometheus", "skipped": "already expanded"}
-{"seed": "devops grafana", "new_queries": 486, "suggestions_seen": 843}
+{"seed": "linux ubuntu", "skipped": "already expanded"}
