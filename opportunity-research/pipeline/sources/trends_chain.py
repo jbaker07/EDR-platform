@@ -62,6 +62,14 @@ class Chain:
             anchor = self.state["anchors"][0]
         anchor = self._pick_anchor(anchor)
         batch = self.state["pending"][:4]
+        # a batch made of retried (small) terms is compared against the lowest reliable anchor instead of the median
+        tries = self.state.get("tries", {})
+        if batch and all(tries.get(t, 0) >= 1 for t in batch):
+            low = [(t, v) for t, v in self.state["scale"].items()
+                   if v.get("anchor") is None or ((v.get("reads") or 0) >= 10 and (v.get("error_pct") or 0) <= 25)]
+            low = [(t, v) for t, v in low if v["value"] >= 3]
+            if low:
+                anchor = min(low, key=lambda kv: kv[1]["value"])[0]
         series = trends.interest_over_time([anchor] + batch, geo=self.geo)
         rec = {"at": time.time(), "anchor": anchor, "batch": batch, "ok": bool(series)}
         if not series:
@@ -87,14 +95,14 @@ class Chain:
             self.state["tries"][term] = tries
             if m == 0:
                 if tries < 2:
-                    self.state["pending"].append(term)     # one retry against a smaller anchor
+                    self.state["pending"].insert(0, term)  # one retry against a smaller anchor, soon
                     rec.setdefault("requeued", []).append(term)
                 else:
                     self.state["scale"][term] = {"value": 0.0, "anchor": anchor, "reads": 0, "anchor_reads": round(a_mean, 2),
                                                  "error_pct": 100.0, "below_scale": True}
                 continue
             if m < 8 and tries < 3:
-                self.state["pending"].append(term)          # too small here: retry with a smaller anchor
+                self.state["pending"].insert(0, term)       # too small here: retry with a smaller anchor, soon
                 rec.setdefault("requeued", []).append(term)
                 continue
             value = a_val * (m / a_mean)
