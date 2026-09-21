@@ -2881,45 +2881,265 @@
    "reads": 4.32,
    "anchor_reads": 45.21,
    "error_pct": 12.7
+  },
+  "small business invoices": {
+   "value": 0.567,
+   "anchor": "game assets",
+   "reads": 2.66,
+   "anchor_reads": 45.23,
+   "error_pct": 19.9
+  },
+  "poultry farm plan": {
+   "value": 0.012,
+   "anchor": "game assets",
+   "reads": 0.06,
+   "anchor_reads": 45.23,
+   "error_pct": 101.1
+  },
+  "motorcycle atv lift": {
+   "value": 0.0,
+   "anchor": "game assets",
+   "reads": 0,
+   "anchor_reads": 4.94,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "unity build support": {
+   "value": 0.074,
+   "anchor": "game assets",
+   "reads": 0.04,
+   "anchor_reads": 4.94,
+   "error_pct": 110.1
+  },
+  "apple watch series 10": {
+   "value": 18.986,
+   "anchor": "game assets",
+   "reads": 9.74,
+   "anchor_reads": 4.94,
+   "error_pct": 15.3
+  },
+  "interview questions": {
+   "value": 143.349,
+   "anchor": "game assets",
+   "reads": 73.51,
+   "anchor_reads": 4.94,
+   "error_pct": 10.8
+  },
+  "bike repair": {
+   "value": 20.083,
+   "anchor": "how to iphone mirror",
+   "reads": 31.43,
+   "anchor_reads": 15.91,
+   "error_pct": 4.7
+  },
+  "computer chromebook": {
+   "value": 8.969,
+   "anchor": "how to iphone mirror",
+   "reads": 14.04,
+   "anchor_reads": 15.91,
+   "error_pct": 6.7
+  },
+  "car modification basics": {
+   "value": 0.0,
+   "anchor": "how to iphone mirror",
+   "reads": 0,
+   "anchor_reads": 15.42,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "wire gauge": {
+   "value": 44.865,
+   "anchor": "how to iphone mirror",
+   "reads": 68.06,
+   "anchor_reads": 15.42,
+   "error_pct": 4.0
+  },
+  "vocal ranges": {
+   "value": 1.143,
+   "anchor": "how to iphone mirror",
+   "reads": 3.25,
+   "anchor_reads": 28.85,
+   "error_pct": 17.1
+  },
+  "skincare routine": {
+   "value": 19.134,
+   "anchor": "how to iphone mirror",
+   "reads": 54.32,
+   "anchor_reads": 28.85,
+   "error_pct": 2.7
+  },
+  "what is cmyk image": {
+   "value": 0.068,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.13,
+   "anchor_reads": 21.09,
+   "error_pct": 102.4
+  },
+  "rock climbing": {
+   "value": 42.22,
+   "anchor": "sourdough starter recipe",
+   "reads": 82.58,
+   "anchor_reads": 21.09,
+   "error_pct": 3.0
+  },
+  "aged care changes": {
+   "value": 0.053,
+   "anchor": "sourdough starter recipe",
+   "reads": 0.28,
+   "anchor_reads": 57.75,
+   "error_pct": 100.9
+  },
+  "fix windows xp boot": {
+   "value": 0.0,
+   "anchor": "sourdough starter recipe",
+   "reads": 0,
+   "anchor_reads": 57.75,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "notion for office": {
+   "value": 0.729,
+   "anchor": "sourdough starter recipe",
+   "reads": 3.91,
+   "anchor_reads": 57.75,
+   "error_pct": 13.7
+  },
+  "bird identification": {
+   "value": 2.399,
+   "anchor": "sourdough starter recipe",
+   "reads": 12.85,
+   "anchor_reads": 57.75,
+   "error_pct": 4.8
+  },
+  "graphic design plan": {
+   "value": 0.76,
+   "anchor": "sourdough starter recipe",
+   "reads": 2.15,
+   "anchor_reads": 30.53,
+   "error_pct": 24.9
+  },
+  "apple watch bands": {
+   "value": 20.868,
+   "anchor": "sourdough starter recipe",
+   "reads": 59.08,
+   "anchor_reads": 30.53,
+   "error_pct": 2.5
+  },
+  "off grid": {
+   "value": 32.819,
+   "anchor": "sourdough starter recipe",
+   "reads": 75.57,
+   "anchor_reads": 24.83,
+   "error_pct": 2.7
+  },
+  "ui designer jobs": {
+   "value": 0.421,
+   "anchor": "docker desktop",
+   "reads": 2.17,
+   "anchor_reads": 56.94,
+   "error_pct": 23.9
+  },
+  "job salary comparison": {
+   "value": 1.447,
+   "anchor": "docker desktop",
+   "reads": 7.45,
+   "anchor_reads": 56.94,
+   "error_pct": 7.6
+  },
+  "engineering fea": {
+   "value": 0.242,
+   "anchor": "docker desktop",
+   "reads": 0.49,
+   "anchor_reads": 22.45,
+   "error_pct": 102.2
+  },
+  "drug interactions": {
+   "value": 20.272,
+   "anchor": "docker desktop",
+   "reads": 41.17,
+   "anchor_reads": 22.45,
+   "error_pct": 3.4
+  },
+  "parking tickets": {
+   "value": 38.343,
+   "anchor": "docker desktop",
+   "reads": 77.87,
+   "anchor_reads": 22.45,
+   "error_pct": 2.9
+  },
+  "pull ups vs chin ups": {
+   "value": 0.426,
+   "anchor": "macos tahoe",
+   "reads": 1.28,
+   "anchor_reads": 34.74,
+   "error_pct": 40.4
+  },
+  "gpu for ai": {
+   "value": 14.244,
+   "anchor": "macos tahoe",
+   "reads": 42.89,
+   "anchor_reads": 34.74,
+   "error_pct": 2.6
+  },
+  "meal prep for weight loss": {
+   "value": 2.087,
+   "anchor": "unreal engine games",
+   "reads": 33,
+   "anchor_reads": 48.6,
+   "error_pct": 2.5
+  },
+  "baby sleep schedule 6 months": {
+   "value": 0.006,
+   "anchor": "unreal engine games",
+   "reads": 0.09,
+   "anchor_reads": 48.6,
+   "error_pct": 101.0
+  },
+  "graphic design fonts": {
+   "value": 0.32,
+   "anchor": "unreal engine games",
+   "reads": 5.06,
+   "anchor_reads": 48.6,
+   "error_pct": 10.9
+  },
+  "fix wood stain": {
+   "value": 0.568,
+   "anchor": "macos tahoe",
+   "reads": 0.77,
+   "anchor_reads": 15.72,
+   "error_pct": 67.8
+  },
+  "protein intake": {
+   "value": 33.295,
+   "anchor": "macos tahoe",
+   "reads": 45.36,
+   "anchor_reads": 15.72,
+   "error_pct": 4.3
+  },
+  "best editing app for subtitles": {
+   "value": 0.0,
+   "anchor": "unreal engine games",
+   "reads": 0,
+   "anchor_reads": 48.66,
+   "error_pct": 100.0,
+   "below_scale": true
+  },
+  "song identifier google": {
+   "value": 0.144,
+   "anchor": "unreal engine games",
+   "reads": 2.28,
+   "anchor_reads": 48.66,
+   "error_pct": 22.9
+  },
+  "craft watercolor": {
+   "value": 0.483,
+   "anchor": "unreal engine games",
+   "reads": 7.64,
+   "anchor_reads": 48.66,
+   "error_pct": 7.6
   }
  },
  "pending": [
-  "unity build support",
-  "small business invoices",
-  "poultry farm plan",
-  "motorcycle atv lift",
-  "apple watch series 10",
-  "interview questions",
-  "car modification basics",
-  "vocal ranges",
-  "bike repair",
-  "computer chromebook",
-  "wire gauge",
-  "what is cmyk image",
-  "aged care changes",
-  "skincare routine",
-  "rock climbing",
-  "notion for office",
-  "fix windows xp boot",
-  "graphic design plan",
-  "bird identification",
-  "apple watch bands",
-  "ui designer jobs",
-  "job salary comparison",
-  "engineering fea",
-  "off grid",
-  "pull ups vs chin ups",
-  "drug interactions",
-  "parking tickets",
-  "baby sleep schedule 6 months",
-  "gpu for ai",
-  "graphic design fonts",
-  "meal prep for weight loss",
-  "fix wood stain",
-  "song identifier google",
-  "protein intake",
-  "craft watercolor",
-  "best editing app for subtitles",
   "duolingo learn languages free",
   "green card",
   "ham radio deluxe",
@@ -8039,6 +8259,400 @@
     "small business invoices",
     "unity build support"
    ]
+  },
+  {
+   "at": 1789972967.7396743,
+   "anchor": "game assets",
+   "batch": [
+    "unity build support",
+    "small business invoices",
+    "poultry farm plan",
+    "motorcycle atv lift"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 45.23,
+    "unity build support": 1.68,
+    "small business invoices": 2.66,
+    "poultry farm plan": 0.06,
+    "motorcycle atv lift": 0.47
+   },
+   "requeued": [
+    "unity build support",
+    "motorcycle atv lift"
+   ]
+  },
+  {
+   "at": 1789973024.3665514,
+   "anchor": "game assets",
+   "batch": [
+    "motorcycle atv lift",
+    "unity build support",
+    "apple watch series 10",
+    "interview questions"
+   ],
+   "ok": true,
+   "means": {
+    "game assets": 4.94,
+    "motorcycle atv lift": 0,
+    "unity build support": 0.04,
+    "apple watch series 10": 9.74,
+    "interview questions": 73.51
+   }
+  },
+  {
+   "at": 1789973080.7360086,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "car modification basics",
+    "vocal ranges",
+    "bike repair",
+    "computer chromebook"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 15.91,
+    "car modification basics": 0,
+    "vocal ranges": 1.77,
+    "bike repair": 31.43,
+    "computer chromebook": 14.04
+   },
+   "requeued": [
+    "car modification basics",
+    "vocal ranges"
+   ]
+  },
+  {
+   "at": 1789973137.0885298,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "vocal ranges",
+    "car modification basics",
+    "wire gauge",
+    "what is cmyk image"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 15.42,
+    "vocal ranges": 1.74,
+    "car modification basics": 0,
+    "wire gauge": 68.06,
+    "what is cmyk image": 0.06
+   },
+   "requeued": [
+    "vocal ranges",
+    "what is cmyk image"
+   ]
+  },
+  {
+   "at": 1789973193.4125028,
+   "anchor": "how to iphone mirror",
+   "batch": [
+    "what is cmyk image",
+    "vocal ranges",
+    "aged care changes",
+    "skincare routine"
+   ],
+   "ok": true,
+   "means": {
+    "how to iphone mirror": 28.85,
+    "what is cmyk image": 0.13,
+    "vocal ranges": 3.25,
+    "aged care changes": 0.17,
+    "skincare routine": 54.32
+   },
+   "requeued": [
+    "what is cmyk image",
+    "aged care changes"
+   ]
+  },
+  {
+   "at": 1789973249.872207,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "aged care changes",
+    "what is cmyk image",
+    "rock climbing",
+    "notion for office"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 21.09,
+    "aged care changes": 0.15,
+    "what is cmyk image": 0.13,
+    "rock climbing": 82.58,
+    "notion for office": 1.36
+   },
+   "requeued": [
+    "aged care changes",
+    "notion for office"
+   ]
+  },
+  {
+   "at": 1789973319.1508393,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "notion for office",
+    "aged care changes",
+    "fix windows xp boot",
+    "graphic design plan"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.75,
+    "notion for office": 3.91,
+    "aged care changes": 0.28,
+    "fix windows xp boot": 0,
+    "graphic design plan": 4.23
+   },
+   "requeued": [
+    "notion for office",
+    "fix windows xp boot",
+    "graphic design plan"
+   ]
+  },
+  {
+   "at": 1789973375.7049038,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "graphic design plan",
+    "fix windows xp boot",
+    "notion for office",
+    "bird identification"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 57.75,
+    "graphic design plan": 4.26,
+    "fix windows xp boot": 0,
+    "notion for office": 3.91,
+    "bird identification": 12.85
+   },
+   "requeued": [
+    "graphic design plan"
+   ]
+  },
+  {
+   "at": 1789973432.0869663,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "graphic design plan",
+    "apple watch bands",
+    "ui designer jobs",
+    "job salary comparison"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 30.53,
+    "graphic design plan": 2.15,
+    "apple watch bands": 59.08,
+    "ui designer jobs": 1.11,
+    "job salary comparison": 4.08
+   },
+   "requeued": [
+    "ui designer jobs",
+    "job salary comparison"
+   ]
+  },
+  {
+   "at": 1789973488.5294807,
+   "anchor": "sourdough starter recipe",
+   "batch": [
+    "job salary comparison",
+    "ui designer jobs",
+    "engineering fea",
+    "off grid"
+   ],
+   "ok": true,
+   "means": {
+    "sourdough starter recipe": 24.83,
+    "job salary comparison": 3.28,
+    "ui designer jobs": 0.92,
+    "engineering fea": 0.49,
+    "off grid": 75.57
+   },
+   "requeued": [
+    "job salary comparison",
+    "ui designer jobs",
+    "engineering fea"
+   ]
+  },
+  {
+   "at": 1789973544.8565238,
+   "anchor": "docker desktop",
+   "batch": [
+    "engineering fea",
+    "ui designer jobs",
+    "job salary comparison",
+    "pull ups vs chin ups"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 56.94,
+    "engineering fea": 0.89,
+    "ui designer jobs": 2.17,
+    "job salary comparison": 7.45,
+    "pull ups vs chin ups": 2.17
+   },
+   "requeued": [
+    "engineering fea",
+    "pull ups vs chin ups"
+   ]
+  },
+  {
+   "at": 1789973601.2967079,
+   "anchor": "docker desktop",
+   "batch": [
+    "pull ups vs chin ups",
+    "engineering fea",
+    "drug interactions",
+    "parking tickets"
+   ],
+   "ok": true,
+   "means": {
+    "docker desktop": 22.45,
+    "pull ups vs chin ups": 0.92,
+    "engineering fea": 0.49,
+    "drug interactions": 41.17,
+    "parking tickets": 77.87
+   },
+   "requeued": [
+    "pull ups vs chin ups"
+   ]
+  },
+  {
+   "at": 1789973669.3489645,
+   "anchor": "macos tahoe",
+   "batch": [
+    "pull ups vs chin ups",
+    "baby sleep schedule 6 months",
+    "gpu for ai",
+    "graphic design fonts"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 34.74,
+    "pull ups vs chin ups": 1.28,
+    "baby sleep schedule 6 months": 0.02,
+    "gpu for ai": 42.89,
+    "graphic design fonts": 0.94
+   },
+   "requeued": [
+    "baby sleep schedule 6 months",
+    "graphic design fonts"
+   ]
+  },
+  {
+   "at": 1789973725.6972034,
+   "anchor": "macos tahoe",
+   "batch": [
+    "graphic design fonts",
+    "baby sleep schedule 6 months",
+    "meal prep for weight loss",
+    "fix wood stain"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "graphic design fonts": 1.17,
+    "baby sleep schedule 6 months": 0.02,
+    "meal prep for weight loss": 7.68,
+    "fix wood stain": 1.81
+   },
+   "requeued": [
+    "graphic design fonts",
+    "baby sleep schedule 6 months",
+    "meal prep for weight loss",
+    "fix wood stain"
+   ]
+  },
+  {
+   "at": 1789973782.0305762,
+   "anchor": "unreal engine games",
+   "batch": [
+    "fix wood stain",
+    "meal prep for weight loss",
+    "baby sleep schedule 6 months",
+    "graphic design fonts"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.6,
+    "fix wood stain": 7.85,
+    "meal prep for weight loss": 33,
+    "baby sleep schedule 6 months": 0.09,
+    "graphic design fonts": 5.06
+   },
+   "requeued": [
+    "fix wood stain"
+   ]
+  },
+  {
+   "at": 1789973838.4262884,
+   "anchor": "macos tahoe",
+   "batch": [
+    "fix wood stain",
+    "song identifier google",
+    "protein intake",
+    "craft watercolor"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 15.72,
+    "fix wood stain": 0.77,
+    "song identifier google": 0.13,
+    "protein intake": 45.36,
+    "craft watercolor": 0.74
+   },
+   "requeued": [
+    "song identifier google",
+    "craft watercolor"
+   ]
+  },
+  {
+   "at": 1789973894.8229105,
+   "anchor": "macos tahoe",
+   "batch": [
+    "craft watercolor",
+    "song identifier google",
+    "best editing app for subtitles",
+    "duolingo learn languages free"
+   ],
+   "ok": true,
+   "means": {
+    "macos tahoe": 42.04,
+    "craft watercolor": 1.7,
+    "song identifier google": 0.55,
+    "best editing app for subtitles": 0,
+    "duolingo learn languages free": 0
+   },
+   "requeued": [
+    "craft watercolor",
+    "song identifier google",
+    "best editing app for subtitles",
+    "duolingo learn languages free"
+   ]
+  },
+  {
+   "at": 1789973951.149567,
+   "anchor": "unreal engine games",
+   "batch": [
+    "duolingo learn languages free",
+    "best editing app for subtitles",
+    "song identifier google",
+    "craft watercolor"
+   ],
+   "ok": true,
+   "means": {
+    "unreal engine games": 48.66,
+    "duolingo learn languages free": 0.04,
+    "best editing app for subtitles": 0,
+    "song identifier google": 2.28,
+    "craft watercolor": 7.64
+   },
+   "requeued": [
+    "duolingo learn languages free"
+   ]
   }
  ],
  "anchors": [
@@ -8440,8 +9054,42 @@
   "crypto bitcoin": 1,
   "pilot license": 1,
   "trail hiking shoes": 1,
-  "small business invoices": 2,
-  "poultry farm plan": 2,
-  "unity build support": 1
+  "small business invoices": 3,
+  "poultry farm plan": 3,
+  "unity build support": 3,
+  "motorcycle atv lift": 2,
+  "apple watch series 10": 1,
+  "interview questions": 1,
+  "car modification basics": 2,
+  "vocal ranges": 3,
+  "bike repair": 1,
+  "computer chromebook": 1,
+  "wire gauge": 1,
+  "what is cmyk image": 3,
+  "aged care changes": 3,
+  "skincare routine": 1,
+  "rock climbing": 1,
+  "notion for office": 3,
+  "fix windows xp boot": 2,
+  "graphic design plan": 3,
+  "bird identification": 1,
+  "apple watch bands": 1,
+  "ui designer jobs": 3,
+  "job salary comparison": 3,
+  "engineering fea": 3,
+  "off grid": 1,
+  "pull ups vs chin ups": 3,
+  "drug interactions": 1,
+  "parking tickets": 1,
+  "baby sleep schedule 6 months": 3,
+  "gpu for ai": 1,
+  "graphic design fonts": 3,
+  "meal prep for weight loss": 2,
+  "fix wood stain": 3,
+  "song identifier google": 3,
+  "protein intake": 1,
+  "craft watercolor": 3,
+  "best editing app for subtitles": 2,
+  "duolingo learn languages free": 2
  }
 }

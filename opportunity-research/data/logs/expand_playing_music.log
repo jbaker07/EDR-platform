@@ -1,5 +1,10 @@
-{"seed": "guitar chords", "new_queries": 1345, "suggestions_seen": 1888}
-{"seed": "piano chords", "new_queries": 1154, "suggestions_seen": 1705}
-{"seed": "ukulele chords", "new_queries": 1097, "suggestions_seen": 1632}
-{"seed": "vocal range", "new_queries": 927, "suggestions_seen": 1529}
-{"seed": "guitar pedal", "new_queries": 1076, "suggestions_seen": 1705}
+{"seed": "guitar chords", "skipped": "already expanded"}
+{"seed": "guitar tabs", "new_queries": 1122, "suggestions_seen": 1670}
+{"seed": "piano chords", "skipped": "already expanded"}
+{"seed": "sheet music", "new_queries": 1432, "suggestions_seen": 1935}
+{"seed": "ukulele chords", "skipped": "already expanded"}
+{"seed": "music drums", "new_queries": 999, "suggestions_seen": 1406}
+{"seed": "vocal range", "skipped": "already expanded"}
+{"seed": "singing lessons", "new_queries": 902, "suggestions_seen": 1517}
+{"seed": "guitar pedal", "skipped": "already expanded"}
+{"seed": "music amp", "new_queries": 879, "suggestions_seen": 1197}

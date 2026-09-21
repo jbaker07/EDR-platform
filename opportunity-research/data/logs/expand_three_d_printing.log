@@ -7,3 +7,6 @@
 {"seed": "3d printer pla", "skipped": "already expanded"}
 {"seed": "3d printer petg", "new_queries": 430, "suggestions_seen": 1842}
 {"seed": "stl files", "skipped": "already expanded"}
+{"seed": "3d printer thingiverse", "new_queries": 401, "suggestions_seen": 1748}
+{"seed": "bed leveling", "skipped": "already expanded"}
+{"seed": "flow calibration", "new_queries": 554, "suggestions_seen": 1350}

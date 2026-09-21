@@ -5,3 +5,8 @@
 {"seed": "3d modeling zbrush", "skipped": "already expanded"}
 {"seed": "substance painter", "new_queries": 1073, "suggestions_seen": 1846}
 {"seed": "3d modeling cycles", "skipped": "already expanded"}
+{"seed": "3d modeling eevee", "new_queries": 546, "suggestions_seen": 1369}
+{"seed": "3d modeling fbx", "skipped": "already expanded"}
+{"seed": "3d modeling obj", "new_queries": 510, "suggestions_seen": 1583}
+{"seed": "3d modeling houdini", "skipped": "already expanded"}
+{"seed": "3d modeling particles", "new_queries": 534, "suggestions_seen": 1155}

@@ -21,9 +21,27 @@ result pages at scale.
 
 Seeds were revised after the pilot: every single-word seed carries its subdomain's
 qualifier ("3d printer stringing", not "stringing"), and depth-2 probes only follow
-queries that still share a token with the seed. The full run (`run_full.sh 4 --no-soup
---depth2 20`) started 2026-09-21 with four workers; `checkpoint.sh` exports the raw
-tables and commits them every three hours.
+queries that still share a token with the seed.
+
+**Execution facts (measured 2026-09-21).** The sandbox pauses between analyst turns
+(the filesystem persists, background processes die), so expansion only progresses while
+a turn is active. The run is therefore breadth-first: pass 1 expanded one seed per
+subdomain (307 seeds, finished 05:21Z, 346,793 raw queries), pass 2 and 3 add the second
+and third seed (`run_full.sh 4 --no-soup --depth2 20 --seeds-per-subdomain N`, resumable
+per seed). A transient network error killed one domain worker in pass 1; `expand._call`
+now logs a failed suggest call and continues.
+
+**Checkpoints.** The repository root ignores every `data/` directory, so the first
+"checkpoint" commits carried no data; `opportunity-research/.gitignore` re-includes
+`data/` and `pipeline/checkpoint.py` writes append-only deltas (rows newer than the last
+checkpoint, by `first_seen` / `observed_at`) to `data/exports/delta/`, which
+`checkpoint.sh` commits about every 30 minutes; `--full` also snapshots clusters at pass
+boundaries; `python -m pipeline.checkpoint restore` rebuilds an empty store.
+
+**Web search budget.** The WebSearch tool allows 200 calls per session (measured: the
+201st call is refused). Pass-1 fragmentation checks used the whole budget on 200 of 329
+planned queries; further checks need a new session with
+`CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION` raised, or a SERP provider.
 
 ### Free relative-demand method
 
@@ -171,6 +189,22 @@ value, and the count of distinct canonical keys. Variants are excluded from the 
 Keyword Planner already groups close variants; when two members share a canonical key
 only one contributes.
 
+### Candidate ranking on the free route (`pipeline/rank.py`)
+
+Every cluster carries the same measured columns and the ordering rule is printed in the
+output header; there is no composite score. `problem_members` counts members whose intent
+regex is a task intent; `commercial_nav` (download, price, login, ...) and plain
+informational members are excluded. `organic_problem_members` counts only task intents the
+engines volunteered on a bare probe (the seed itself, or a depth-2 re-probe of a query that
+is itself informational), because every seed receives the same 50 intent probes and echoes
+of those probes ("fix X" -> "fix X on windows") would otherwise inflate every cluster
+equally. Fragmentation columns come from `taxonomy/site_classes.yaml` (curated classes:
+community, editorial, aggregator, reference, vendor, tool, official, marketplace), then URL
+patterns, then `unclassified`, which is reported separately and never counted as
+fragmented. `tool` counts results from a tool site or whose title names a tool
+(calculator, generator, template, ...). `pipeline/frag_batch.py` picks two problem-intent
+queries per candidate cluster for the SERP check and skips queries already checked.
+
 ### Phase 6 fragmentation classification
 
 Each result row is classified by URL pattern into: reddit, stackexchange, forum,
@@ -208,6 +242,13 @@ the visible metrics, with reasoning written out per finalist.
 .venv/bin/python -m pipeline.cli serp --limit 50                       # Bing proxy SERPs on a sample
 .venv/bin/python -m pipeline.cli score --top 40                        # writes data/exports/clusters.json
 .venv/bin/python -m pipeline.cli stats
+./run_full.sh 4 --no-soup --depth2 20 --seeds-per-subdomain N   # breadth-first pass N, 4 workers, resumable per seed
+.venv/bin/python -m pipeline.cli chain --top 300 --steps 6 --cadence 50   # Trends relative-demand chain burst for cluster heads
+.venv/bin/python -m pipeline.rank pass1                          # candidate table with visible metrics -> data/exports/candidates_pass1.{md,json}
+.venv/bin/python -m pipeline.frag_batch pass1 6                  # SERP-check batches for the candidates -> data/exports/frag_batch_pass1/
+.venv/bin/python -m pipeline.sources.serp_import <file.json>     # ingest SERP rows (engine named per row)
+./checkpoint.sh [--full]                                         # delta export + commit; --full snapshots clusters too
+./health.sh                                                      # queries, per-source rate in the last 10 minutes, workers alive
 ```
 
 ## 5. What is deliberately not in this design

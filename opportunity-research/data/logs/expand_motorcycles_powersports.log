@@ -1,4 +1,8 @@
-{"seed": "motorcycle maintenance", "new_queries": 817, "suggestions_seen": 1586}
-{"seed": "bike repair", "new_queries": 1191, "suggestions_seen": 1773}
-{"seed": "motorcycle atv", "new_queries": 799, "suggestions_seen": 1171}
-{"seed": "rv", "new_queries": 1866, "suggestions_seen": 2308}
+{"seed": "motorcycle maintenance", "skipped": "already expanded"}
+{"seed": "motorcycle won't start", "new_queries": 599, "suggestions_seen": 1880}
+{"seed": "bike repair", "skipped": "already expanded"}
+{"seed": "bike size", "new_queries": 1061, "suggestions_seen": 1685}
+{"seed": "motorcycle atv", "skipped": "already expanded"}
+{"seed": "jet ski", "new_queries": 1560, "suggestions_seen": 2036}
+{"seed": "rv", "skipped": "already expanded"}
+{"seed": "camper van", "new_queries": 1571, "suggestions_seen": 1982}

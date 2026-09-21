@@ -1,7 +1,14 @@
 {"seed": "check engine light", "skipped": "already expanded"}
-{"seed": "oil change", "new_queries": 1643, "suggestions_seen": 2141}
-{"seed": "parts compatibility", "new_queries": 425, "suggestions_seen": 1108}
-{"seed": "car value", "new_queries": 1264, "suggestions_seen": 1724}
-{"seed": "ev charging", "new_queries": 1466, "suggestions_seen": 2102}
-{"seed": "car tuning", "new_queries": 965, "suggestions_seen": 1638}
-{"seed": "driving test", "new_queries": 1628, "suggestions_seen": 2141}
+{"seed": "obd2 code", "skipped": "already expanded"}
+{"seed": "oil change", "skipped": "already expanded"}
+{"seed": "brake pads", "new_queries": 1425, "suggestions_seen": 1910}
+{"seed": "parts compatibility", "skipped": "already expanded"}
+{"seed": "oem part number", "new_queries": 533, "suggestions_seen": 1613}
+{"seed": "car value", "skipped": "already expanded"}
+{"source_error": "bing", "probe": "used car template", "error": "RemoteDisconnected: Remote end closed connection without response"}
+{"seed": "used car", "new_queries": 1868, "suggestions_seen": 2385}
+{"seed": "ev charging", "skipped": "already expanded"}
+{"seed": "ev tesla", "new_queries": 938, "suggestions_seen": 1493}
+{"seed": "car tuning", "skipped": "already expanded"}
+{"seed": "ecu tune", "new_queries": 617, "suggestions_seen": 1471}
+{"seed": "driving test", "skipped": "already expanded"}
