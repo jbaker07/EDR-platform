@@ -1,0 +1,42 @@
+task_id: devworkbench_model_prep
+family: model preparation
+exact_task: |
+  A developer has a model (FBX/OBJ/glTF/GLB) from a store or an artist and must fix scale (cm vs m), orientation (Y-up vs
+  Z-up), pivot, applied transforms, inspect and reduce polygon/texture size, and export for the target engine without
+  breaking materials.
+actual_input: FBX/OBJ/GLB from Blender, Sketchfab, asset stores; mixed units and axes
+target_environment: Unity, Unreal, Godot, web (three.js)
+observed_queries:
+  count_in_store: "348 phrases matched the model-prep regex (discovery count)"
+  examples: ["fbx import unity scale", "blender export fbx unreal scale", "apply scale before export blender", "model pivot wrong unity", "glb file too big reduce", "decimate model for game"]
+current_best_free_route:
+  - tool: glTF Transform (CLI/library, MIT)
+    verified: "page fetched: inspect, draco/meshopt compression, dedup, weld, simplify, resample, texture resize and format conversion (WebP, KTX2), prune; needs Node LTS. Functional test: 'inspect' on a generated GLB ran via npx in 9 s"
+    covers: [inspect, optimize, compress, texture_resize, prune]
+    does_not_cover: [fbx input, scale/orientation fixes in a GUI, pivot editing]
+  - tool: Khronos glTF Validator (browser)
+    verified: "page fetched: validates glTF/GLB locally in the browser, no upload; CLI, NPM and VS Code variants; report truncates on too many issues"
+    covers: [spec_validation]
+    does_not_cover: [fixing, fbx]
+  - tool: gltf.report (browser)
+    verified: "page returned only a title (JavaScript app); functionality unverified here"
+  - tool: Blender (desktop, free)
+    verified: "not fetched; known route for apply-transforms, units, axis conversion and decimation (unverified in this project)"
+  - tool: Engine importers
+    verified: "Godot import docs fetched for images only; FBX/glTF importer scale options in Unity/Unreal/Godot not fetched (unverified)"
+  - tool: Tool-enabled assistant with code execution
+    verified: "functional test: exported a GLB with trimesh and ran glTF Transform inspect; scale/axis rewrite of a glTF is a short script (not run here)"
+    covers: [inspect, scripted_fixes_for_gltf]
+    does_not_cover: [fbx without a converter, visual inspection]
+relevant_paid_route: Simplygon/InstaLOD (LOD, paid); Substance/Marmoset for previews (paid)
+steps_today: open in Blender -> apply transforms, set units and axes -> decimate -> export FBX/glTF with the engine's settings -> import and check scale/materials
+setup_burden: moderate (Blender skills) or low for glTF-only CLI users
+correctness: unit and axis errors are visible on import (model 100x too big, lying down); material breakage is common and visible
+limitations_of_current_route: glTF has good free tooling; FBX prep is Blender-only; no free web tool that takes an FBX and returns an engine-ready file was verified (no search available to check)
+recurring_user_need: every imported model; high (inference)
+serving_cost: server-side conversion of large meshes costs CPU and bandwidth; client-side glTF is cheap
+maintenance_cost: moderate (formats and engine importers change)
+ai_substitution_test: |
+  A tool-enabled assistant can inspect, validate and script fixes for glTF in one turn; FBX needs a converter it may not
+  have. A web tool's advantage would be drag-and-drop FBX/glTF with a 3D preview and engine presets; whether such free
+  tools already exist could not be checked without a search source.

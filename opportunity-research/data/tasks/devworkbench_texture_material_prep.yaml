@@ -1,0 +1,46 @@
+task_id: devworkbench_texture_material_prep
+family: texture/material preparation
+exact_task: |
+  A game developer has a set of supplied texture maps (albedo, normal, roughness, metallic, AO, height) from an asset pack
+  or an artist and must identify which map is which, pack channels the way the target engine/shader expects (for example
+  ORM for Unreal, metallic-alpha-smoothness for Unity's Standard shader), convert the normal-map green-channel
+  convention (DirectX vs OpenGL), set sRGB/linear correctly, and preview the result before import.
+actual_input: PNG/TGA/JPG maps of mixed resolutions and naming; sometimes a photo or a height map only
+target_environment: Unity, Unreal, Godot (each with different packing and normal conventions)
+observed_queries:
+  count_in_store: "868 phrases matched the texture/material regex (discovery count); most are Substance Painter brand queries; the specific task phrasings are rarer (normal map inverted, channel packing) and targeted seeds were added on 2026-09-21 (see data/logs/expand_asset_pipeline.log)"
+  examples: ["normal map inverted green channel", "channel packing unity", "orm texture unreal", "height map to normal map", "srgb vs linear texture unity"]
+current_best_free_route:
+  - tool: NormalMap-Online (browser, free)
+    verified: "page fetched 2026-09-21: height map or four lit photos -> normal, displacement, AO, specular; invert R/G channels; PNG/JPG/TIFF export; runs in the browser, textures not uploaded"
+    covers: [height_to_normal, green_channel_invert, ao_from_height]
+    does_not_cover: [channel_packing_of_supplied_maps, engine_presets, srgb_linear_flagging]
+  - tool: Materialize (desktop, GPL)
+    verified: "page fetched: diffuse -> height, metallic, smoothness, normal, edge, occlusion; seamless tiling; save/load formats not detailed; no maintenance dates on page"
+    covers: [maps_from_photo, tiling]
+    does_not_cover: [engine_specific_packing_presets (unverified), browser_use]
+  - tool: Material Maker (desktop + web, open source)
+    verified: "page fetched: procedural node graphs, 200+ nodes, export compatible with Godot, Unity and Unreal; painting tool experimental"
+    covers: [procedural_material_authoring, export_presets_for_three_engines]
+    does_not_cover: [ingesting supplied maps and repacking them (not stated on page; unverified)]
+  - tool: Engine importers
+    verified: "Godot docs fetched: 'Normal Map Invert Y' import option converts DirectX-style maps; sRGB-friendly channel packing option; VRAM compression modes. Unity/Unreal importer docs not fetched here (Unity URL changed; recorded unverified)"
+    covers: [green_invert_at_import (Godot verified), compression]
+    does_not_cover: [packing multiple maps into one texture at import]
+  - tool: Tool-enabled assistant with code execution
+    verified: "functional test audit/functional/run_tests.py: merged three maps into an RGB pack and inverted the green channel of a normal map in one script run (0.01 s); verified by re-reading channel means"
+    covers: [channel_packing, green_invert, batch_rename]
+    does_not_cover: [visual preview, engine-specific correctness without the user stating the convention, sRGB handling unless specified]
+relevant_paid_route: Adobe Substance 3D Painter/Designer/Sampler (subscription); Quixel Mixer (free with Epic account, not fetched); ShaderMap (paid, not fetched)
+steps_today: identify maps by name (manual) -> convert/invert in NormalMap-Online or an image editor -> pack channels in an image editor or script -> import and set sRGB flags in the engine -> check in a lit preview
+setup_burden: low (browser tools) to moderate (image editor scripting, engine import settings)
+correctness: convention errors are silent (inverted normals look "wrong" only under light); packing errors are silent until a shader reads the wrong channel
+limitations_of_current_route: no single free tool ingests a supplied map set, detects conventions, packs per engine and previews; the pieces exist
+recurring_user_need: every imported asset pack; moderate frequency for hobbyists, daily for small teams (inference)
+serving_cost: client-side image processing is cheap (browser); server-side packing at scale costs bandwidth for large textures
+maintenance_cost: low (conventions change rarely; engine presets need updating per major release)
+ai_substitution_test: |
+  A tool-enabled assistant can pack channels and invert a green channel in one turn if told the target convention; it
+  cannot look at a lit preview, and it does not know which map is which without names or user statements. A web tool's
+  advantage would be fewer steps (drop maps -> pick engine -> download), a lit preview, and repeatability; not "AI cannot do this".
+verdict_evidence: see decision packet

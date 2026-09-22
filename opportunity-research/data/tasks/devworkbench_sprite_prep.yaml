@@ -1,0 +1,40 @@
+task_id: devworkbench_sprite_prep
+family: sprite preparation
+exact_task: |
+  A 2D developer has individual frames or an existing sprite sheet and needs to slice it into frames, align pivots and
+  timing, pack frames into an atlas, and export metadata the engine reads (Unity sprite metadata, Godot SpriteFrames,
+  Phaser/Pixi JSON).
+actual_input: PNG sheet (regular grid or irregular), or a folder of frames; sometimes an Aseprite export
+target_environment: Unity, Godot, Phaser/PixiJS, Unreal Paper2D
+observed_queries:
+  count_in_store: "524 phrases matched the sprite regex (discovery count)"
+  examples: ["sprite sheet maker online", "sprite sheet slice unity", "texture packer alternative free", "sprite pivot unity", "aseprite export unity"]
+current_best_free_route:
+  - tool: CodeAndWeb Free Sprite Sheet Packer (browser)
+    verified: "page fetched: packs drag-and-dropped images into one PNG plus data (JSON hash/array for Phaser and PixiJS, CSS, LESS); runs in the browser, nothing uploaded; no trimming, no multipack, no slicing of existing sheets"
+    covers: [pack_frames, phaser_pixi_json]
+    does_not_cover: [slice_existing_sheet, trimming, pivots, unity_godot_metadata]
+  - tool: TexturePacker (desktop, paid; free download offered, tiers not on page)
+    verified: "page fetched: 48+ engine formats incl. Unity, Godot, Unreal, Phaser; trimming, alias detection, multipack, pivot editor, 9-patch, animation preview, PNG optimisation, hardware compression; includes a sprite sheet splitter; GUI, CLI, Docker"
+    covers: [pack, slice, pivots, trimming, engine_metadata, cli]
+    does_not_cover: [free use beyond trial (unverified on page)]
+  - tool: Unity Sprite Editor (engine-native)
+    verified: "documentation URL changed; automatic and grid slicing with pivot options is known engine functionality but was not fetched here (unverified)"
+    covers: [slice_grid_or_auto, pivots]
+    does_not_cover: [packing for other engines, export of frame metadata outside Unity]
+  - tool: Tool-enabled assistant with code execution
+    verified: "functional test: grid-sliced a 4-frame sheet, trimmed bounding boxes, wrote JSON with pivots in 0.0 s; irregular sheets and engine-specific metadata not produced"
+    covers: [grid_slice, trim, generic_json]
+    does_not_cover: [visual pivot placement, engine-native metadata, irregular sheets without extra code]
+relevant_paid_route: TexturePacker licence; Aseprite (paid, exports sheets and JSON; not fetched)
+steps_today: slice in the engine or Aseprite -> set pivots by hand -> pack with a free packer or TexturePacker -> import and map metadata
+setup_burden: low for the browser packer; moderate for engine-native slicing per frame; low once TexturePacker is bought
+correctness: pivot and timing errors are visible in animation preview; packing correctness is deterministic
+limitations_of_current_route: the free browser tool only packs; slicing and pivots need the engine or a paid tool; Unity/Godot metadata export from a free web tool is the visible gap (unverified whether other free web slicers exist: no search engine available in this environment)
+recurring_user_need: every new character or effect; high for 2D projects (inference)
+serving_cost: client-side; cheap
+maintenance_cost: low to moderate (engine metadata formats change per release)
+ai_substitution_test: |
+  A tool-enabled assistant slices regular grids and writes generic JSON in one turn; it does not offer visual pivot
+  placement or animation preview, which are the parts a user checks by eye. A web tool's advantage would be an
+  interactive preview plus engine-native exports for free; the paid incumbent already does all of it.

@@ -1,0 +1,86 @@
+{
+ "stl_checks": {
+  "steps": [
+   "load",
+   "watertight/winding/volume",
+   "fix_normals + fill_holes",
+   "ray thickness"
+  ],
+  "seconds": 0.01,
+  "result": {
+   "file": "broken_box.stl",
+   "triangles": 11,
+   "watertight": false,
+   "winding_consistent": true,
+   "volume_mm3": null,
+   "bounds_mm": [
+    [
+     -10.0,
+     -10.0,
+     -10.0
+    ],
+    [
+     10.0,
+     10.0,
+     10.0
+    ]
+   ],
+   "euler_number": 11,
+   "after_repair_watertight": true,
+   "after_repair_winding_consistent": true,
+   "thin_plate_min_thickness_mm": 0.3,
+   "units_note": "STL carries no units; the file is assumed mm, the check reports bounds only",
+   "overhang_check": "not attempted (needs orientation and printer profile)"
+  },
+  "caveat": "fill_holes closes simple holes only; self-intersections and non-manifold edges need a proper repair engine; this is basic mesh repair, not universal printability"
+ },
+ "channel_packing": {
+  "steps": [
+   "load three maps",
+   "merge to RGB",
+   "save; split to verify",
+   "invert G for convention"
+  ],
+  "seconds": 0.01,
+  "result": {
+   "packed_channels_verified": [
+    127,
+    127,
+    200
+   ],
+   "green_inverted_mean": 155
+  },
+  "caveat": "assumes same resolution and linear (non-sRGB) data; sRGB handling and 16-bit maps need explicit conversion"
+ },
+ "sprite_slicing": {
+  "steps": [
+   "load sheet",
+   "grid crop",
+   "trim bbox",
+   "write JSON with pivots"
+  ],
+  "seconds": 0.0,
+  "result": {
+   "frames": 4,
+   "trimmed_bbox_frame0": [
+    12,
+    12,
+    52,
+    52
+   ]
+  },
+  "caveat": "grid slicing only; irregular sheets need connected-component detection; engine-specific formats (Unity .meta, Godot .tres) not produced"
+ },
+ "gltf_inspect": {
+  "steps": [
+   "export GLB",
+   "npx @gltf-transform/cli inspect"
+  ],
+  "seconds": 9.26,
+  "result": {
+   "ok": true,
+   "output_tail": " instances \u001b[39m\u001b[90m\u2502\u001b[39m\u001b[31m size\u00b9     \u001b[39m\u001b[90m\u2502\u001b[39m\n\u001b[90m\u251c\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u001b[39m\n\u001b[90m\u2502\u001b[39m 0 \u001b[90m\u2502\u001b[39m geometry_0 \u001b[90m\u2502\u001b[39m TRIANGLES \u001b[90m\u2502\u001b[39m 1              \u001b[90m\u2502\u001b[39m 12           \u001b[90m\u2502\u001b[39m 8        \u001b[90m\u2502\u001b[39m u32     \u001b[90m\u2502\u001b[39m POSITION:f32 \u001b[90m\u2502\u001b[39m 1         \u001b[90m\u2502\u001b[39m 240 Bytes \u001b[90m\u2502\u001b[39m\n\u001b[90m\u2514\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u001b[39m\u001b[90m\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u001b[39m\n\n\u2074 size estimates GPU memory required by a mesh, in isolation. If accessors are\n  shared by other mesh primitives, but the meshes themselves are not reused, then\n  the sum of all mesh sizes will overestimate the asset's total size. See \"dedup\".\n\n\n\n MATERIALS\n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNo materials found.\n\n\n TEXTURES\n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNo textures found.\n\n\n ANIMATIONS\n \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNo animations found.\n\nnpm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me\n"
+  },
+  "caveat": "requires Node and a network install of the CLI; the same report is what gltf.report shows in a browser"
+ }
+}

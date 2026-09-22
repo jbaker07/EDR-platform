@@ -230,6 +230,39 @@ domains:
     - game ai
     - physics engine
     qualifier: game dev
+  - id: asset_pipeline
+    qualifier: game asset
+    seeds:
+    - fbx import unity scale
+    - blender export fbx unreal scale
+    - fbx import godot
+    - gltf import unity
+    - gltf import godot
+    - mixamo retarget unity
+    - mixamo retarget godot
+    - retarget animation unreal
+    - root motion import unity
+    - texture pink unity
+    - texture black unreal import
+    - normal map inverted green channel
+    - channel packing unity
+    - orm texture unreal
+    - sprite sheet slice unity
+    - sprite sheet slice godot
+    - texture packer alternative free
+    - sprite pivot unity
+    - aseprite export unity
+    - model pivot wrong unity
+    - apply scale before export blender
+    - model import wrong rotation
+    - mesh import missing materials unity
+    - texture atlas generator free
+    - normal map generator online
+    - height map to normal map
+    - srgb vs linear texture unity
+    - gltf validator
+    - glb file too big reduce
+    - decimate model for game
   qualifier: game dev
 - id: gaming_pc
   title: PC gaming

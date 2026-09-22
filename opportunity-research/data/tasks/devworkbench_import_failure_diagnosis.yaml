@@ -1,0 +1,27 @@
+task_id: devworkbench_import_failure_diagnosis
+family: file or import failure diagnosis
+exact_task: |
+  A developer imports an asset and gets a broken result (pink/black textures, missing materials, invisible mesh, wrong
+  scale or rotation, importer error) and needs the cause and the fix, given the file and the engine version.
+actual_input: the asset file and the engine's error or symptom
+target_environment: Unity, Unreal, Godot
+observed_queries:
+  count_in_store: "20 phrases matched the import-failure regex in the original corpus: coverage demonstrably missing; targeted seeds added 2026-09-21 (texture pink unity, texture black unreal import, mesh import missing materials unity, model import wrong rotation)"
+  examples: ["texture pink unity", "model import wrong rotation"]
+current_best_free_route:
+  - tool: Engine documentation and forums
+    verified: "the Unity build-error cluster's fetched pages (competitor record c_07440867) show forum threads pinned to old versions; no import-diagnosis tool fetched"
+  - tool: Khronos glTF Validator
+    verified: "fetched: reports spec violations in the browser; does not explain engine-specific symptoms"
+  - tool: Tool-enabled assistant with the file
+    verified: "functional test: inspection of a GLB via glTF Transform in one turn; diagnosing a pink texture needs the shader/material context, not only the file"
+relevant_paid_route: none specific
+steps_today: search the symptom -> read threads -> guess at import settings -> retry
+setup_burden: low
+correctness: uncertain; symptom-to-cause mapping is many-to-one
+limitations_of_current_route: no reproducible input/output diagnosis tool verified; evidence thin
+recurring_user_need: per asset with problems; moderate
+serving_cost: file upload and analysis server-side; moderate
+maintenance_cost: high (engine versions)
+ai_substitution_test: with the file and the engine version, a tool-enabled assistant can validate the file and list likely causes; it cannot see the rendered result
+evidence_status: insufficient evidence; needs the targeted expansion results and competitor discovery with a search source

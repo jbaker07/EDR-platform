@@ -9,3 +9,5 @@ data/*.db-wal
 data/*.db-shm
 data/exports/raw_*.csv.gz
 !data/logs/*.log
+data/lineage/*.csv.gz
+data/recount.db

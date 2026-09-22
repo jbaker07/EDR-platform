@@ -16,18 +16,22 @@ from pipeline import store
 from pipeline.clean import topic_key
 
 INTENT = [
-    # commercial/navigational first: vendors and app stores already answer these, so they are not problem intents
-    ("commercial_nav", r"\b(download|downloads|price|prices|pricing|login|log in|sign in|sign up|coupon|discount|crack|apk|buy|for sale|deals?|subscription|premium|pro version|full version)\b"),
+    # rules v2 (2026-09-21 repair): the former commercial_nav bucket is split. Navigation to a known site is not a task;
+    # obtaining a usable resource (download, template, preset, example) and price discovery are tasks and are kept.
+    ("site_navigation", r"\b(login|log in|sign in|sign up|official site|official website|customer service|phone number|app store page)\b"),
+    ("resource", r"\b(download|downloads|template|templates|preset|presets|example|examples|sample|samples|printable|pdf|crack|apk)\b"),
+    ("purchase", r"\b(price|prices|pricing|buy|for sale|deals?|coupon|discount|cheapest|subscription|premium|pro version|full version)\b"),
     ("fix", r"\b(not working|won'?t|can'?t|doesn'?t|isn'?t|error|fix|stuck|broken|fail|crash|problem|issue|missing|freez|lag)\b"),
     ("how_to", r"^(how (to|do|can)|tutorial|guide|setup|set up|install|make|create|build)\b|\b(tutorial|how to)\b"),
     ("compare", r"\b(vs|versus|or|compared|comparison|difference between|better than)\b"),
     ("decide", r"\b(best|which|should i|recommend|top \d+|worth it)\b"),
     ("compatibility", r"\b(compatib|work with|works with|support(s|ed)? |fit|fits)\b"),
     ("alternative", r"\b(alternative|alternatives|instead of|free alternative|open source|similar to|like)\b"),
-    ("calculate", r"\b(calculator|how much|how many|cost|price|estimate|calculate|size|per)\b"),
-    ("generate", r"\b(generator|generate|random|template|maker|create a)\b"),
+    ("calculate", r"\b(calculator|how much|how many|cost|estimate|calculate|size|per)\b"),
+    # "maker's" (a brand possessive) is excluded: it produced 151 false generate labels in one bourbon cluster
+    ("generate", r"\b(generator|generate|random|maker(?!'s)|create a)\b"),
     ("convert", r"\b(convert|converter|to (pdf|mp4|mp3|png|jpg|svg|stl|obj|fbx|gltf)|export|import)\b"),
-    ("find", r"\b(where|find|list|database|download|near|source)\b"),
+    ("find", r"\b(where|find|list|database|near|source)\b"),
     ("identify", r"\b(what is (this|my)|identify|what kind|which kind|what type)\b"),
     ("optimize", r"\b(faster|slow|speed up|optimi[sz]e|performance|improve|cheaper|reduce)\b"),
     ("track", r"\b(changelog|changes|update|new version|patch notes|what'?s new|latest)\b"),

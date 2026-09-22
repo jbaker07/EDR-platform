@@ -1,0 +1,187 @@
+# Task registry (repair, 2026-09-21). A task is a user + an input/current state + a desired output + constraints.
+# Task ids are stable and independent of cluster ids. `assign` is the regex used to draw candidate member queries from the
+# store for review; `exclude` removes obvious other-meaning phrases. Assignment is a review aid, not a claim that every
+# matched query has this intent. Source clusters name the pass-1 cluster the task was split from.
+tasks:
+  # --- Unity: candidate 10 split ---
+  - id: unity_build_failure
+    source_clusters: [c_07440867]
+    user: Unity developer
+    input: a project that fails to build (player or cloud build), an error string or a silent failure, Unity version, target platform, package versions
+    output: the cause and a fix that makes the build succeed
+    constraints: exact version combination; may be silent (no error text)
+    assign: 'unity.*(build (error|fail|failed|failing|not working|stuck|crash|log)|(error|failed|failing).*build|build.*(error|fail|failing)|player build|build settings? (error|fail))'
+    exclude: '(building|city build|build a (house|city|scene|level|building)|tutorial.*build a|blueprint)'
+  - id: unity_scene_construction_learning
+    source_clusters: [c_07440867]
+    user: Unity beginner
+    input: an empty or partial scene, a desire to construct buildings/levels or learn the editor
+    output: a constructed scene or a learned technique
+    constraints: none beyond editor version
+    assign: 'unity.*(building|build a (house|city|scene|level|building)|city builder|tutorial|learn|beginner|get started)'
+    exclude: '(error|fail|not working|crash)'
+  # --- Rivals: candidate 3 split ---
+  - id: marvel_rivals_graphics_performance
+    source_clusters: [c_28504254]
+    user: Marvel Rivals player on PC or console
+    input: current graphics settings, hardware/platform, symptoms (low fps, stutter)
+    output: settings that raise fps/stability with acceptable visuals
+    constraints: platform, patch version
+    assign: '(marvel rivals|rivals.*(pc|steam|dlss|fsr|gpu|nvidia|amd|1080p|1440p|4k)).*(settings?|fps|graphics|performance|optimi|stutter|lag|dlss|fsr|resolution)|marvel rivals.*(fps|lag|stutter)'
+    exclude: '(roblox|sensitivity|dpi|keybind|controller settings|import|code)'
+  - id: marvel_rivals_input_preference
+    source_clusters: [c_28504254]
+    user: Marvel Rivals player
+    input: mouse/controller, DPI, current sensitivity, hero
+    output: sensitivity/keybinds/controller layout that suit the player
+    constraints: input device, hero
+    assign: '(marvel rivals|rivals).*(sensitivity|dpi|keybind|controller|aim|crosshair|mouse)'
+    exclude: '(roblox|ipad|phone|mobile)'
+  - id: roblox_rivals_settings
+    source_clusters: [c_28504254]
+    user: Roblox RIVALS player, often on mobile/console
+    input: device, current settings
+    output: recommended settings, sensitivity, and whether a settings code can be imported
+    constraints: device; Roblox client; "code" import box semantics unverified
+    assign: '(roblox.*rivals|rivals.*roblox|rivals.*(mobile|ipad|phone|xbox|ps5|code))'
+    exclude: '(marvel)'
+  - id: rivals_settings_ambiguous_head
+    source_clusters: [c_28504254]
+    user: unknown (head phrase names two games)
+    input: 'the phrase "best settings for rivals" and platform variants that do not name Marvel Rivals or Roblox RIVALS' 
+    output: cannot be assigned without result-page context; recorded as an ambiguity, not a task
+    constraints: 'platform words (ps5, xbox) do not disambiguate: both games ship on consoles'
+    assign: '\\brivals\\b.*(settings?|sens|fps)|(settings?|sens).*\\brivals\\b'
+    exclude: '(marvel|roblox)'
+  - id: game_settings_config_import
+    source_clusters: [c_28504254, c_73257790]
+    user: player of a game with a config/settings import feature
+    input: a settings code or config file from a source
+    output: the settings applied in-game
+    constraints: game must support import; version drift
+    assign: '(settings? (code|codes|import|export|file|config)|import settings|config file).*(rivals|rocket league)|(rivals|rocket league).*(settings? (code|codes|import|export|file|config)|import settings|config file)'
+    exclude: ''
+  - id: rocket_league_controller_not_working
+    source_clusters: [c_73257790]
+    user: Rocket League player
+    input: a controller that is not detected/working, launcher (Epic/Steam), platform, controller model
+    output: the controller working
+    constraints: launcher-specific, controller-specific
+    assign: 'rocket league.*controller.*(not working|not detected|not connecting|won.?t|fix|issue|problem)|controller.*(not working|not detected).*rocket league'
+    exclude: ''
+  - id: rocket_league_settings_by_platform
+    source_clusters: [c_73257790]
+    user: Rocket League player on a stated platform
+    input: platform, input device, current settings
+    output: camera/controller/video settings suited to the platform and input
+    constraints: platform, keyboard vs controller
+    assign: 'rocket league.*(settings?|camera|deadzone|sensitivity|fov)'
+    exclude: '(not working|not detected|fix|issue|problem)'
+  # --- Wood stain: candidate 14 split ---
+  - id: wood_stain_application
+    source_clusters: [c_51963424]
+    user: DIYer staining a door, deck or furniture
+    input: wood species, surface area, product, desired colour
+    output: quantity to buy, colour outcome on that species, coats, recoat/cure times
+    constraints: product-specific coverage and cure data; species affects colour
+    assign: '(how to stain|stain(ing)? (a |the )?(door|deck|fence|table|furniture|wood|cabinet|floor)|wood stain (calculator|coverage|colou?rs?|for )|deck stain (calculator|coverage)|how much (wood |deck )?stain)'
+    exclude: '(remove|remover|get out|strip|laundry|cloth|shirt|carpet)'
+  - id: wood_finish_removal
+    source_clusters: [c_51963424]
+    user: DIYer removing an old stain or finish from wood
+    input: existing finish type, wood surface, tools available
+    output: bare or re-stainable wood
+    constraints: chemical vs mechanical methods; species
+    assign: '((remove|removing|strip|stripping|get (rid|off)).*(wood stain|stain (from|off) wood|old stain|deck stain|finish (from|off) wood)|wood stain remover|stain remover for wood)'
+    exclude: '(cloth|shirt|carpet|laundry|fabric|couch)'
+  - id: oil_stain_removal_from_fabric
+    source_clusters: [c_51963424]
+    user: person with an oil/grease stain on clothing or fabric
+    input: fabric, stain age, products at hand
+    output: the stain removed
+    constraints: fabric type; not a wood task at all
+    assign: '((oil|grease).*(stain).*(cloth|shirt|jeans|fabric|laundry|couch|carpet|out of)|remove (oil|grease) stains?)'
+    exclude: '(wood|deck|door)'
+  # --- Modpack: candidate 2 split ---
+  - id: modpack_hardware_requirements_benchmark
+    source_clusters: [c_06057594]
+    user: player about to run a specific modpack
+    input: modpack name and version, current PC specs
+    output: measured RAM allocation, CPU target and expected performance for that pack
+    constraints: pack-specific; requires measurement
+    assign: '((modpack|mod pack|all the mods|atm ?\d|create.*modpack|rlcraft|skyfactory|ftb).*(ram|memory|requirements?|specs?|cpu|run(s)? on|fps|performance|lag)|(ram|memory|requirements?).*(modpack|mod pack|all the mods|atm ?\d|rlcraft|ftb))'
+    exclude: ''
+  - id: gaming_pc_choice_for_modded_games
+    source_clusters: [c_06057594]
+    user: buyer of a PC for modded games
+    input: budget, games/packs of interest
+    output: a PC or parts list that runs them well
+    constraints: budget, current prices
+    assign: '((best|good|budget|cheap|gaming) (pc|laptop|computer).*(mod|modded|modding|minecraft)|(pc|laptop|computer) for (modded|modding|mods))'
+    exclude: '(requirements|ram allocation)'
+  - id: mod_installation_per_game
+    source_clusters: [c_06057594]
+    user: player installing mods on a specific game and launcher
+    input: game, launcher/platform, mod source
+    output: mods installed and working
+    constraints: per-game, per-launcher steps; version compatibility
+    assign: '((how to|install|installing|add|adding|download) (pc |game )?mods? (on|to|for|in) |mod (manager|loader|installer)|(install|installing) mods)'
+    exclude: '(pirat|cracked|free download modded game)'
+  # --- STL: candidate 4 split ---
+  - id: stl_find_models
+    source_clusters: [c_38358966]
+    user: 3D-printer owner wanting a ready model
+    input: an object in mind; printer type
+    output: a downloadable printable file
+    constraints: licence, printability unknown
+    assign: '((free |best )?stl files? (for|download|website|sites?|library)|where to (find|get|download) stl|stl (download|repository|marketplace)|thingiverse|printables|cults3d|myminifactory)'
+    exclude: '(repair|fix|design|make|create|export|convert|slic)'
+  - id: stl_design_or_model
+    source_clusters: [c_38358966]
+    user: person who wants to make their own printable model
+    input: an idea or measurements; a CAD/mesh tool or none
+    output: a modelled object ready to export
+    constraints: tool choice, skill
+    assign: '((how to (make|create|design|model|draw)).*stl|(design|make|create|model).*(stl files?|for 3d print)|software (to|for) (make|create|design).*stl|cad.*stl)'
+    exclude: '(repair|fix|export settings|convert|slic|download)'
+  - id: stl_export_from_cad
+    source_clusters: [c_38358966]
+    user: CAD user exporting for printing
+    input: a model in a specific CAD program
+    output: a correctly exported STL/3MF (units, resolution, single body)
+    constraints: program-specific export settings
+    assign: '((export|save|convert).*(as |to )?(stl|3mf)|stl export|stl (settings|resolution|tolerance|units?)|(fusion|solidworks|blender|sketchup|tinkercad|freecad|onshape|inventor|rhino).*(stl))'
+    exclude: '(repair|fix|download free)'
+  - id: stl_mesh_repair
+    source_clusters: [c_38358966]
+    user: person whose STL fails to slice or print
+    input: an STL with defects (holes, non-manifold, flipped normals, self-intersections)
+    output: a repaired, watertight mesh
+    constraints: must not change geometry materially; repair tools vary
+    assign: '((repair|fix|fixing|repairing).*(stl|mesh|3d model|non.?manifold)|(stl|mesh).*(repair|fix|broken|corrupt|errors?|non.?manifold|holes?|watertight|manifold)|netfabb|meshmixer)'
+    exclude: ''
+  - id: print_settings_evaluation
+    source_clusters: [c_38358966]
+    user: 3D-printer owner preparing to print a given model
+    input: model, printer, material
+    output: orientation, supports, layer height, infill and speed that print it successfully
+    constraints: printer/material/model-specific
+    assign: '((print settings|slicer settings|orientation|supports?|infill|layer height).*(stl|model|3d print)|(stl|model).*(print settings|orientation|supports?|infill|layer height))'
+    exclude: ''
+  # --- collecting_antiques cluster audit ---
+  - id: makers_mark_identification_antiques
+    source_clusters: [c_33091379]
+    user: collector with a marked object (pottery, silver, glass, knife)
+    input: a maker's mark, hallmark or stamp on an object; photo
+    output: the maker, period, and value guidance
+    constraints: mark databases are fragmented by material
+    assign: "(maker'?s? marks? (identification|identify|lookup|database|list|guide|search)|identify (a )?maker'?s? mark|(pottery|silver|porcelain|china|glass|knife|jewelry|furniture) maker'?s? marks?)"
+    exclude: '(bourbon|whisky|whiskey|distillery|46|101|cask)'
+  - id: makers_mark_bourbon_brand
+    source_clusters: [c_33091379]
+    user: consumer interested in the Maker's Mark bourbon brand
+    input: brand interest
+    output: product information, prices, reviews, tours
+    constraints: brand-navigational and shopping; not a productizable task for this study
+    assign: "(maker'?s? mark.*(bourbon|whisky|whiskey|distillery|tour|46|101|cask|price|review|tasting|proof|cost)|(bourbon|whisky|whiskey|distillery).*maker'?s? mark)"
+    exclude: ''

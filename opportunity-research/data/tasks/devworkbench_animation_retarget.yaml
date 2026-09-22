@@ -1,0 +1,27 @@
+task_id: devworkbench_animation_retarget
+family: animation preparation / retargeting
+exact_task: |
+  A developer has animations for one rig (often Mixamo) and needs them on another rig or in a specific engine with root
+  motion, correct scale and bone naming.
+actual_input: FBX animations, a target character rig
+target_environment: Unity (Humanoid/Animation Rigging), Unreal (IK Retargeter), Godot (bone map)
+observed_queries:
+  count_in_store: "11 phrases matched the animation regex in the original corpus: coverage demonstrably missing; targeted seeds added 2026-09-21 (mixamo retarget unity/godot, retarget animation unreal, root motion import unity)"
+  examples: ["mixamo retarget unity", "root motion import unity"]
+current_best_free_route:
+  - tool: Engine-native retargeting (Unity Humanoid, Unreal IK Retargeter, Godot bone map)
+    verified: "not fetched in this project; documented engine features (unverified here)"
+  - tool: Mixamo (free with Adobe account; auto-rigging and animations)
+    verified: "not fetched (unverified)"
+  - tool: Blender + Rigify/Auto-Rig Pro (free/paid add-ons)
+    verified: "not fetched (unverified)"
+relevant_paid_route: Auto-Rig Pro (paid add-on); Cascadeur (freemium)
+steps_today: export from Mixamo with the right settings -> import to the engine -> configure the rig type -> retarget -> fix root motion and scale
+setup_burden: moderate to high
+correctness: visible (foot sliding, wrong scale) but hard to diagnose
+limitations_of_current_route: engine-native tools cover it; the difficulty is knowing the settings per source/target pair
+recurring_user_need: per character; moderate
+serving_cost: not applicable to a web tool (engine-side)
+maintenance_cost: high (engine releases change retargeting UIs)
+ai_substitution_test: an assistant can walk through settings; it cannot run the engine's retargeter
+evidence_status: insufficient evidence in the corpus (11 phrases) and no competitor pages fetched; evaluate only after the targeted expansion and a search source are available

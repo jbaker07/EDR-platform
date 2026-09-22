@@ -18,7 +18,7 @@ from pipeline.cluster import intent_of  # noqa: E402
 from pipeline.sources import serp  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-ORDER = ("clusters with >= 10 checked results first, by fragmented share desc, then tool hits asc, then organic problem members desc; "
+ORDER = ("clusters with >= 10 checked results first, by editorial-plus-community share desc, then tool hits asc, then organic problem members desc; "
          "unchecked clusters after, by organic problem members desc, corroboration desc")
 
 
@@ -37,7 +37,7 @@ def metrics(con, min_members: int = 15) -> list[dict]:
             continue
         m = json.loads(meta) if meta else {}
         ip = m.get("intent_probe")
-        if ip == "bare" or (ip == "depth2" and intent_of(probe) in ("informational", "commercial_nav")):
+        if ip == "bare" or (ip == "depth2" and intent_of(probe) in ("informational", "site_navigation")):
             organic.add(q)
     agg: dict[str, dict] = {}
     for cid, q, label, dom, conf, sub in rows:
@@ -49,7 +49,7 @@ def metrics(con, min_members: int = 15) -> list[dict]:
         c = corr.get(q, 0)
         if c >= 2:
             a["corroborated_2plus"] += 1
-        if it not in ("informational", "commercial_nav"):
+        if it not in ("informational", "site_navigation"):
             a["problem_members"] += 1
             org = q in organic
             a["organic_problem_members"] += org
@@ -90,18 +90,20 @@ def write(con, top: int = 100, min_members: int = 20, min_problem_share: float =
           f"Filter: members >= {min_members} and problem-intent share >= {min_problem_share}. Order: {ORDER}. "
           "No monthly search volume exists in this dataset; `trends` is the head term's relative interest on the chained "
           "Google Trends scale (root anchor = 100) with its rounding error, blank when not yet placed. `frag` is the "
-          "fragmented share (community + editorial + aggregator) of the web-search results for the cluster's checked queries, `tool` the "
+          "`ed+comm` is the editorial-plus-community share of the web-search results for the cluster's checked queries (result-source "
+          "diversity, measurement A: a description of the result set, not a failure rate), `domains` the distinct domains among them, `tool` the "
           "number of those results from a tool site or with a tool-naming title, `vendor` the product-vendor share, `uncl` the unclassified "
           "share, `n` the results checked (blank = not checked; the web-search tool is a US-only proxy, not Google). Cluster labels are lexical.\n",
-          "| # | head term | domain | members | problem (share) | organic | corr | intents | trends (±%) | frag | tool | vendor | uncl | n | problem-intent examples (organic first) |",
-          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+          "| # | head term | domain | members | problem (share) | organic | corr | intents | trends (±%) | ed+comm | domains | tool | vendor | uncl | n | problem-intent examples (organic first) |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for i, r in enumerate(rows, 1):
         tv = ""
         if r["trends_chain_value"] is not None:
             err = r["trends_error_pct"] or 0
             tv = f"{r['trends_chain_value']:.1f} (±{err})" if err < 50 else f"~{r['trends_chain_value']:.0f} (unreliable, ±{err})"
         f = r["fragmentation"]
-        fr = f"{f['fragmented_share']:.2f}" if f else ""
+        fr = f"{f['editorial_community_share']:.2f}" if f else ""
+        dd = str(f.get("distinct_domains", "")) if f else ""
         tool = str(f.get("tool_hits", "")) if f else ""
         vend = f"{f['vendor_share']:.2f}" if f else ""
         uncl = f"{f['unclassified_share']:.2f}" if f else ""
@@ -109,7 +111,7 @@ def write(con, top: int = 100, min_members: int = 20, min_problem_share: float =
         ints = ", ".join(f"{k}:{v}" for k, v in r["intents"].items())
         ex = "; ".join(q for q, _ in r["problem_examples"][:3])
         md.append(f"| {i} | {r['head_term'] or r['label']} | {r['domain']} | {r['members']} | {r['problem_members']} ({r['problem_share']}) | "
-                  f"{r['organic_problem_members']} | {r['corroborated_2plus']} | {ints} | {tv} | {fr} | {tool} | {vend} | {uncl} | {nres} | {ex} |")
+                  f"{r['organic_problem_members']} | {r['corroborated_2plus']} | {ints} | {tv} | {fr} | {dd} | {tool} | {vend} | {uncl} | {nres} | {ex} |")
     p = ROOT / "data" / "exports" / f"candidates_{tag}.md"
     p.write_text("\n".join(md) + "\n")
     return p

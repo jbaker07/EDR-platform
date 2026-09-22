@@ -21,7 +21,7 @@ def run(con, tag: str = "pass2") -> Path:
     matrix: dict[str, collections.Counter] = collections.defaultdict(collections.Counter)
     for q, dom in rows:
         matrix[dom or "?"][intent_of(q)] += 1
-    task = [i for i in INTENTS if i not in ("informational", "commercial_nav")]
+    task = [i for i in INTENTS if i not in ("informational", "site_navigation")]
     md = [f"# Intent by domain ({tag}; {len(rows)} kept queries in this store; counts are stored queries, not search volume)\n",
           "| domain | kept | task share | " + " | ".join(task) + " |", "|---|---|---|" + "---|" * len(task)]
     for dom, c in sorted(matrix.items(), key=lambda kv: -sum(kv[1].values())):

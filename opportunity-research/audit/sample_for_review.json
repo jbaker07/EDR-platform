@@ -1,0 +1,2002 @@
+[
+ {
+  "query": "how to use counter attack bear spray",
+  "domain": "gaming_titles",
+  "subdomain": "shooters",
+  "seed": "counter strike",
+  "auto_status": "kept",
+  "id": 1
+ },
+ {
+  "query": "job salary in australia",
+  "domain": "careers_jobs",
+  "subdomain": "salary_negotiation",
+  "seed": "job salary",
+  "auto_status": "kept",
+  "id": 2
+ },
+ {
+  "query": "fix design system manager",
+  "domain": "graphic_design",
+  "subdomain": "ui_ux",
+  "seed": "design system",
+  "auto_status": "kept",
+  "id": 3
+ },
+ {
+  "query": "macintosh tutorial",
+  "domain": "it_support",
+  "subdomain": "macos",
+  "seed": "macos",
+  "auto_status": "off_topic",
+  "id": 4
+ },
+ {
+  "query": "free duolingo alternatives reddit",
+  "domain": "language_learning",
+  "subdomain": "learning_apps",
+  "seed": "language learning duolingo",
+  "auto_status": "kept",
+  "id": 5
+ },
+ {
+  "query": "unreal nanite costumes",
+  "domain": "game_development",
+  "subdomain": "unreal",
+  "seed": "unreal nanite",
+  "auto_status": "kept",
+  "id": 6
+ },
+ {
+  "query": "find half marathon training plan",
+  "domain": "fitness_health",
+  "subdomain": "cardio_endurance",
+  "seed": "marathon training",
+  "auto_status": "kept",
+  "id": 7
+ },
+ {
+  "query": "why is device tablet screen not working",
+  "domain": "consumer_tech",
+  "subdomain": "ereaders_tablets",
+  "seed": "device tablet",
+  "auto_status": "kept",
+  "id": 8
+ },
+ {
+  "query": "identify git rebase master",
+  "domain": "software_dev_ops",
+  "subdomain": "git",
+  "seed": "git rebase",
+  "auto_status": "kept",
+  "id": 9
+ },
+ {
+  "query": "how much mortgage calculator uk 2023",
+  "domain": "personal_finance",
+  "subdomain": "credit_loans",
+  "seed": "mortgage calculator",
+  "auto_status": "news",
+  "id": 10
+ },
+ {
+  "query": "browser extension faster than chrome",
+  "domain": "it_support",
+  "subdomain": "browsers",
+  "seed": "browser extension",
+  "auto_status": "kept",
+  "id": 11
+ },
+ {
+  "query": "which fc 24 is the best",
+  "domain": "gaming_titles",
+  "subdomain": "sports_racing",
+  "seed": "fc 24",
+  "auto_status": "kept",
+  "id": 12
+ },
+ {
+  "query": "trail running vest",
+  "domain": "sports_outdoors",
+  "subdomain": "climbing_running_events",
+  "seed": "trail running",
+  "auto_status": "kept",
+  "id": 13
+ },
+ {
+  "query": "how to reference studies",
+  "domain": "education_study",
+  "subdomain": "writing_citation",
+  "seed": "study citation",
+  "auto_status": "variant",
+  "id": 14
+ },
+ {
+  "query": "study guide worksheet template pdf",
+  "domain": "education_study",
+  "subdomain": "teaching",
+  "seed": "study worksheet",
+  "auto_status": "kept",
+  "id": 15
+ },
+ {
+  "query": "smartsheet changelog",
+  "domain": "consumer_tech",
+  "subdomain": "smart_home",
+  "seed": "smart home",
+  "auto_status": "off_topic",
+  "id": 16
+ },
+ {
+  "query": "how to organize tambola online",
+  "domain": "parenting_family",
+  "subdomain": "household",
+  "seed": "parenting declutter",
+  "auto_status": "off_topic",
+  "id": 17
+ },
+ {
+  "query": "free outlook email program alternatives",
+  "domain": "it_support",
+  "subdomain": "email_office",
+  "seed": "computer outlook",
+  "auto_status": "kept",
+  "id": 18
+ },
+ {
+  "query": "things to do gifts for christmas",
+  "domain": "relationships_social",
+  "subdomain": "gifts",
+  "seed": "gift ideas",
+  "auto_status": "kept",
+  "id": 19
+ },
+ {
+  "query": "other term for checklist",
+  "domain": "shopping_products",
+  "subdomain": "identification",
+  "seed": "what is this",
+  "auto_status": "off_topic",
+  "id": 20
+ },
+ {
+  "query": "procedural generation in game design tarn adams",
+  "domain": "game_development",
+  "subdomain": "game_math_ai",
+  "seed": "procedural generation",
+  "auto_status": "kept",
+  "id": 21
+ },
+ {
+  "query": "home value calculator canada 2023",
+  "domain": "real_estate_housing",
+  "subdomain": "renovation_value",
+  "seed": "home value",
+  "auto_status": "news",
+  "id": 22
+ },
+ {
+  "query": "lithium battery fire proof box",
+  "domain": "electronics_makers",
+  "subdomain": "batteries_power",
+  "seed": "lithium battery",
+  "auto_status": "kept",
+  "id": 23
+ },
+ {
+  "query": "random bike size chart",
+  "domain": "motorcycles_powersports",
+  "subdomain": "bicycle",
+  "seed": "bike size",
+  "auto_status": "kept",
+  "id": 24
+ },
+ {
+  "query": "https://nba2k.com",
+  "domain": "gaming_titles",
+  "subdomain": "sports_racing",
+  "seed": "nba 2k",
+  "auto_status": "off_topic",
+  "id": 25
+ },
+ {
+  "query": "learn spanish quickly free",
+  "domain": "language_learning",
+  "subdomain": "learning_apps",
+  "seed": "learn spanish",
+  "auto_status": "kept",
+  "id": 26
+ },
+ {
+  "query": "skin care with retinol",
+  "domain": "fashion_beauty",
+  "subdomain": "skincare_hair",
+  "seed": "beauty retinol",
+  "auto_status": "variant",
+  "id": 27
+ },
+ {
+  "query": "dating online dating profile",
+  "domain": "relationships_social",
+  "subdomain": "dating_relationships",
+  "seed": "dating profile",
+  "auto_status": "celebrity",
+  "id": 28
+ },
+ {
+  "query": "how to learn physics easily",
+  "domain": "education_study",
+  "subdomain": "science",
+  "seed": "study physics",
+  "auto_status": "kept",
+  "id": 29
+ },
+ {
+  "query": "amana washer 5d error code",
+  "domain": "appliances",
+  "subdomain": "laundry",
+  "seed": "washer error code",
+  "auto_status": "variant",
+  "id": 30
+ },
+ {
+  "query": "sqlite database engine download",
+  "domain": "software_dev_web",
+  "subdomain": "databases",
+  "seed": "database sqlite",
+  "auto_status": "kept",
+  "id": 31
+ },
+ {
+  "query": "convert blender meshes to font",
+  "domain": "three_d_animation",
+  "subdomain": "blender",
+  "seed": "blender",
+  "auto_status": "kept",
+  "id": 32
+ },
+ {
+  "query": "tiktok business manager login problem",
+  "domain": "small_business",
+  "subdomain": "social_media",
+  "seed": "small business tiktok",
+  "auto_status": "navigational",
+  "id": 33
+ },
+ {
+  "query": "icd 10 code example",
+  "domain": "healthcare_professional",
+  "subdomain": "medical_coding_admin",
+  "seed": "icd 10 code",
+  "auto_status": "kept",
+  "id": 34
+ },
+ {
+  "query": "mortgage calculator affordable",
+  "domain": "personal_finance",
+  "subdomain": "credit_loans",
+  "seed": "mortgage calculator",
+  "auto_status": "kept",
+  "id": 35
+ },
+ {
+  "query": "the world as a person tarot",
+  "domain": "spirituality_wellbeing",
+  "subdomain": "spiritual",
+  "seed": "wellbeing tarot",
+  "auto_status": "kept",
+  "id": 36
+ },
+ {
+  "query": "macos compatibility guide by mac model",
+  "domain": "it_support",
+  "subdomain": "macos",
+  "seed": "macos",
+  "auto_status": "kept",
+  "id": 37
+ },
+ {
+  "query": "perfume sprayer not working",
+  "domain": "crafts_sewing",
+  "subdomain": "candles_soap",
+  "seed": "fragrance oil",
+  "auto_status": "off_topic",
+  "id": 38
+ },
+ {
+  "query": "pdf office free",
+  "domain": "productivity_office",
+  "subdomain": "documents",
+  "seed": "office software pdf",
+  "auto_status": "variant",
+  "id": 39
+ },
+ {
+  "query": "free novel writing templates",
+  "domain": "writing_publishing",
+  "subdomain": "fiction",
+  "seed": "novel writing",
+  "auto_status": "kept",
+  "id": 40
+ },
+ {
+  "query": "social security error rate",
+  "domain": "legal_government",
+  "subdomain": "government_services",
+  "seed": "social security",
+  "auto_status": "kept",
+  "id": 41
+ },
+ {
+  "query": "the best cheap flight hacks and secrets",
+  "domain": "travel",
+  "subdomain": "flights_points",
+  "seed": "cheap flights",
+  "auto_status": "kept",
+  "id": 42
+ },
+ {
+  "query": "how to differentiate student learning",
+  "domain": "education_study",
+  "subdomain": "math",
+  "seed": "study derivative",
+  "auto_status": "off_topic",
+  "id": 43
+ },
+ {
+  "query": "boat trailer guide ons with lights",
+  "domain": "vehicles_other",
+  "subdomain": "boating",
+  "seed": "boat trailer",
+  "auto_status": "kept",
+  "id": 44
+ },
+ {
+  "query": "programming golang new versions",
+  "domain": "software_dev_web",
+  "subdomain": "go_rust_cpp",
+  "seed": "programming golang",
+  "auto_status": "kept",
+  "id": 45
+ },
+ {
+  "query": "gut problem solution",
+  "domain": "software_dev_ops",
+  "subdomain": "git",
+  "seed": "git",
+  "auto_status": "off_topic",
+  "id": 46
+ },
+ {
+  "query": "best copywriting examples 2025",
+  "domain": "writing_publishing",
+  "subdomain": "copywriting",
+  "seed": "copywriting",
+  "auto_status": "news",
+  "id": 47
+ },
+ {
+  "query": "what bluetooth headphones connect to xbox",
+  "domain": "consumer_tech",
+  "subdomain": "audio_gear",
+  "seed": "bluetooth headphones",
+  "auto_status": "variant",
+  "id": 48
+ },
+ {
+  "query": "best off grid generator for whole house",
+  "domain": "energy_sustainability",
+  "subdomain": "off_grid",
+  "seed": "off grid",
+  "auto_status": "kept",
+  "id": 49
+ },
+ {
+  "query": "how many inches in a board foot",
+  "domain": "diy_woodworking",
+  "subdomain": "plans_calcs",
+  "seed": "board feet",
+  "auto_status": "kept",
+  "id": 50
+ },
+ {
+  "query": "dating profile picture guide",
+  "domain": "relationships_social",
+  "subdomain": "dating_relationships",
+  "seed": "dating profile",
+  "auto_status": "celebrity",
+  "id": 51
+ },
+ {
+  "query": "manual yamaha 703 remote control",
+  "domain": "software_dev_web",
+  "subdomain": "regex_formats",
+  "seed": "programming yaml",
+  "auto_status": "off_topic",
+  "id": 52
+ },
+ {
+  "query": "how to modify games on pc",
+  "domain": "gaming_pc",
+  "subdomain": "game_mods",
+  "seed": "pc gaming mods",
+  "auto_status": "kept",
+  "id": 53
+ },
+ {
+  "query": "passport renewal near me post office",
+  "domain": "travel",
+  "subdomain": "visas_admin",
+  "seed": "passport renewal",
+  "auto_status": "navigational",
+  "id": 54
+ },
+ {
+  "query": "what photoshop version do i have",
+  "domain": "photography",
+  "subdomain": "lightroom_photoshop",
+  "seed": "photoshop",
+  "auto_status": "kept",
+  "id": 55
+ },
+ {
+  "query": "health insurance cost per year",
+  "domain": "personal_finance",
+  "subdomain": "insurance_admin",
+  "seed": "health insurance",
+  "auto_status": "kept",
+  "id": 56
+ },
+ {
+  "query": "soccer drills to improve ball control and dribbling",
+  "domain": "sports_outdoors",
+  "subdomain": "team_sports",
+  "seed": "soccer drills",
+  "auto_status": "kept",
+  "id": 57
+ },
+ {
+  "query": "medic alert log in",
+  "domain": "accessibility_assistive",
+  "subdomain": "senior_tech",
+  "seed": "medical alert",
+  "auto_status": "navigational",
+  "id": 58
+ },
+ {
+  "query": "react native platzi",
+  "domain": "software_dev_mobile",
+  "subdomain": "cross_platform",
+  "seed": "react native",
+  "auto_status": "kept",
+  "id": 59
+ },
+ {
+  "query": "priority partners pharmacy formulary",
+  "domain": "fitness_health",
+  "subdomain": "medical_symptoms",
+  "seed": "health medication",
+  "auto_status": "off_topic",
+  "id": 60
+ },
+ {
+  "query": "dog training collars for puppies",
+  "domain": "pets",
+  "subdomain": "dogs",
+  "seed": "dog training",
+  "auto_status": "kept",
+  "id": 61
+ },
+ {
+  "query": "kitchen interior design ideas 2026",
+  "domain": "real_estate_housing",
+  "subdomain": "renovation_value",
+  "seed": "kitchen remodel",
+  "auto_status": "news",
+  "id": 62
+ },
+ {
+  "query": "best price airline flights",
+  "domain": "travel",
+  "subdomain": "flights_points",
+  "seed": "award flights",
+  "auto_status": "variant",
+  "id": 63
+ },
+ {
+  "query": "ev charging townsville",
+  "domain": "automotive",
+  "subdomain": "ev_hybrid",
+  "seed": "ev charging",
+  "auto_status": "kept",
+  "id": 64
+ },
+ {
+  "query": "best ebook audio reader",
+  "domain": "reading_media",
+  "subdomain": "podcasts_audiobooks",
+  "seed": "book audible",
+  "auto_status": "off_topic",
+  "id": 65
+ },
+ {
+  "query": "how to best cook oyster blade steak",
+  "domain": "pc_building",
+  "subdomain": "components",
+  "seed": "best cpu",
+  "auto_status": "kept",
+  "id": 66
+ },
+ {
+  "query": "how react native new architecture works",
+  "domain": "software_dev_mobile",
+  "subdomain": "cross_platform",
+  "seed": "react native",
+  "auto_status": "kept",
+  "id": 67
+ },
+ {
+  "query": "fix app store not working",
+  "domain": "software_dev_mobile",
+  "subdomain": "app_store_ops",
+  "seed": "app store review",
+  "auto_status": "navigational",
+  "id": 68
+ },
+ {
+  "query": "cat behavior list",
+  "domain": "pets",
+  "subdomain": "cats",
+  "seed": "cat behavior",
+  "auto_status": "variant",
+  "id": 69
+ },
+ {
+  "query": "air fryer won't get hot",
+  "domain": "appliances",
+  "subdomain": "small_appliances",
+  "seed": "air fryer",
+  "auto_status": "kept",
+  "id": 70
+ },
+ {
+  "query": "how much does after effects cost in pakistan",
+  "domain": "video_editing",
+  "subdomain": "after_effects_motion",
+  "seed": "after effects",
+  "auto_status": "kept",
+  "id": 71
+ },
+ {
+  "query": "google.sheets update history",
+  "domain": "productivity_office",
+  "subdomain": "google_workspace",
+  "seed": "google sheets",
+  "auto_status": "off_topic",
+  "id": 72
+ },
+ {
+  "query": "gamemaker check if array is empty",
+  "domain": "game_development",
+  "subdomain": "other_engines",
+  "seed": "game maker",
+  "auto_status": "off_topic",
+  "id": 73
+ },
+ {
+  "query": "samsung s24 ultra upcoming",
+  "domain": "consumer_tech",
+  "subdomain": "smartphones",
+  "seed": "samsung galaxy",
+  "auto_status": "kept",
+  "id": 74
+ },
+ {
+  "query": "circuit breaker change over",
+  "domain": "home_repair",
+  "subdomain": "electrical",
+  "seed": "circuit breaker",
+  "auto_status": "kept",
+  "id": 75
+ },
+ {
+  "query": "how many toilets needed for 100 people",
+  "domain": "home_repair",
+  "subdomain": "plumbing",
+  "seed": "toilet running",
+  "auto_status": "kept",
+  "id": 76
+ },
+ {
+  "query": "computer chrome alternatives",
+  "domain": "it_support",
+  "subdomain": "browsers",
+  "seed": "computer chrome",
+  "auto_status": "kept",
+  "id": 77
+ },
+ {
+  "query": "which printer driver to install",
+  "domain": "it_support",
+  "subdomain": "printers_drivers",
+  "seed": "printer driver",
+  "auto_status": "variant",
+  "id": 78
+ },
+ {
+  "query": "nars foundation shades in order",
+  "domain": "fashion_beauty",
+  "subdomain": "makeup_nails",
+  "seed": "foundation shade",
+  "auto_status": "kept",
+  "id": 79
+ },
+ {
+  "query": "small business invoice requirements",
+  "domain": "small_business",
+  "subdomain": "accounting",
+  "seed": "small business invoice",
+  "auto_status": "kept",
+  "id": 80
+ },
+ {
+  "query": "what is the problem in sudan malayalam",
+  "domain": "shopping_products",
+  "subdomain": "identification",
+  "seed": "what is this",
+  "auto_status": "off_topic",
+  "id": 81
+ },
+ {
+  "query": "kids calculator games",
+  "domain": "parenting_family",
+  "subdomain": "kids_activities",
+  "seed": "kids activities",
+  "auto_status": "kept",
+  "id": 82
+ },
+ {
+  "query": "termite prevention treatment near me reviews",
+  "domain": "home_repair",
+  "subdomain": "pests_mold",
+  "seed": "home repair termites",
+  "auto_status": "navigational",
+  "id": 83
+ },
+ {
+  "query": "music making and mixing software",
+  "domain": "audio_music_production",
+  "subdomain": "mixing_mastering",
+  "seed": "music production mixing",
+  "auto_status": "kept",
+  "id": 84
+ },
+ {
+  "query": "how to passport renewal online nepal",
+  "domain": "travel",
+  "subdomain": "visas_admin",
+  "seed": "passport renewal",
+  "auto_status": "kept",
+  "id": 85
+ },
+ {
+  "query": "which story writing",
+  "domain": "writing_publishing",
+  "subdomain": "fiction",
+  "seed": "novel writing",
+  "auto_status": "variant",
+  "id": 86
+ },
+ {
+  "query": "boat trailer description",
+  "domain": "vehicles_other",
+  "subdomain": "boating",
+  "seed": "boat trailer",
+  "auto_status": "kept",
+  "id": 87
+ },
+ {
+  "query": "nvme ssd price in bd 2026",
+  "domain": "pc_building",
+  "subdomain": "components",
+  "seed": "ssd nvme",
+  "auto_status": "news",
+  "id": 88
+ },
+ {
+  "query": "devops jenkins orange county",
+  "domain": "software_dev_ops",
+  "subdomain": "ci_cd",
+  "seed": "devops jenkins",
+  "auto_status": "kept",
+  "id": 89
+ },
+ {
+  "query": "windows xp sound effects download",
+  "domain": "retro_computing_emulation",
+  "subdomain": "legacy_software",
+  "seed": "windows xp",
+  "auto_status": "kept",
+  "id": 90
+ },
+ {
+  "query": "best build settings fortnite nintendo switch",
+  "domain": "gaming_pc",
+  "subdomain": "settings",
+  "seed": "best settings",
+  "auto_status": "kept",
+  "id": 91
+ },
+ {
+  "query": "cricut classes near me",
+  "domain": "crafts_sewing",
+  "subdomain": "paper_crafts",
+  "seed": "craft cricut",
+  "auto_status": "navigational",
+  "id": 92
+ },
+ {
+  "query": "ielts english language test",
+  "domain": "language_learning",
+  "subdomain": "tests",
+  "seed": "language learning ielts",
+  "auto_status": "kept",
+  "id": 93
+ },
+ {
+  "query": "oven repair near me within 1 mi",
+  "domain": "appliances",
+  "subdomain": "kitchen_appliances",
+  "seed": "appliance oven",
+  "auto_status": "navigational",
+  "id": 94
+ },
+ {
+  "query": "pc build bios won't open",
+  "domain": "pc_building",
+  "subdomain": "assembly_troubleshoot",
+  "seed": "pc build bios",
+  "auto_status": "kept",
+  "id": 95
+ },
+ {
+  "query": "meraki firewall rules best practices",
+  "domain": "cybersecurity",
+  "subdomain": "hardening",
+  "seed": "firewall rules",
+  "auto_status": "kept",
+  "id": 96
+ },
+ {
+  "query": "identify a song by the lyrics",
+  "domain": "reading_media",
+  "subdomain": "music_listening",
+  "seed": "song identify",
+  "auto_status": "non_productizable",
+  "id": 97
+ },
+ {
+  "query": "outdoor triathlon race",
+  "domain": "sports_outdoors",
+  "subdomain": "climbing_running_events",
+  "seed": "outdoor triathlon",
+  "auto_status": "kept",
+  "id": 98
+ },
+ {
+  "query": "table saw review",
+  "domain": "diy_woodworking",
+  "subdomain": "woodworking",
+  "seed": "table saw",
+  "auto_status": "kept",
+  "id": 99
+ },
+ {
+  "query": "godot guide 2025",
+  "domain": "game_development",
+  "subdomain": "godot",
+  "seed": "godot",
+  "auto_status": "news",
+  "id": 100
+ },
+ {
+  "query": "ui ux graphic designer jobs",
+  "domain": "graphic_design",
+  "subdomain": "ui_ux",
+  "seed": "graphic design ux",
+  "auto_status": "kept",
+  "id": 101
+ },
+ {
+  "query": "how to patch damaged drywall",
+  "domain": "home_repair",
+  "subdomain": "walls_floors",
+  "seed": "drywall repair",
+  "auto_status": "kept",
+  "id": 102
+ },
+ {
+  "query": "swiss beauty makeup fixer purple",
+  "domain": "fashion_beauty",
+  "subdomain": "makeup_nails",
+  "seed": "beauty makeup",
+  "auto_status": "kept",
+  "id": 103
+ },
+ {
+  "query": "no one to run with",
+  "domain": "fitness_health",
+  "subdomain": "cardio_endurance",
+  "seed": "running plan",
+  "auto_status": "off_topic",
+  "id": 104
+ },
+ {
+  "query": "apple tree disease identification pictures",
+  "domain": "gardening",
+  "subdomain": "trees_shrubs",
+  "seed": "tree disease",
+  "auto_status": "kept",
+  "id": 105
+ },
+ {
+  "query": "app store review times for new app",
+  "domain": "software_dev_mobile",
+  "subdomain": "app_store_ops",
+  "seed": "app store review",
+  "auto_status": "navigational",
+  "id": 106
+ },
+ {
+  "query": "cryptocurrency bitcoin price today",
+  "domain": "personal_finance",
+  "subdomain": "crypto",
+  "seed": "crypto bitcoin",
+  "auto_status": "news",
+  "id": 107
+ },
+ {
+  "query": "fragrance free sunscreen for oily skin",
+  "domain": "crafts_sewing",
+  "subdomain": "candles_soap",
+  "seed": "fragrance oil",
+  "auto_status": "kept",
+  "id": 108
+ },
+ {
+  "query": "best macos browser 2025 reddit",
+  "domain": "it_support",
+  "subdomain": "macos",
+  "seed": "macos",
+  "auto_status": "news",
+  "id": 109
+ },
+ {
+  "query": "how much do shein product reviewers make",
+  "domain": "shopping_products",
+  "subdomain": "reviews_comparison",
+  "seed": "product review",
+  "auto_status": "kept",
+  "id": 110
+ },
+ {
+  "query": "pc gaming mods generators",
+  "domain": "gaming_pc",
+  "subdomain": "game_mods",
+  "seed": "pc gaming mods",
+  "auto_status": "kept",
+  "id": 111
+ },
+ {
+  "query": "netch leather crafting guide",
+  "domain": "crafts_sewing",
+  "subdomain": "jewelry_leather",
+  "seed": "leather craft",
+  "auto_status": "kept",
+  "id": 112
+ },
+ {
+  "query": "procedural generation definition",
+  "domain": "game_development",
+  "subdomain": "game_math_ai",
+  "seed": "procedural generation",
+  "auto_status": "kept",
+  "id": 113
+ },
+ {
+  "query": "how long has stripe been around",
+  "domain": "small_business",
+  "subdomain": "payments_pricing",
+  "seed": "small business stripe",
+  "auto_status": "kept",
+  "id": 114
+ },
+ {
+  "query": "gradle build android command",
+  "domain": "software_dev_mobile",
+  "subdomain": "android_dev",
+  "seed": "gradle android",
+  "auto_status": "kept",
+  "id": 115
+ },
+ {
+  "query": "word how to change dictionary language",
+  "domain": "language_learning",
+  "subdomain": "translation",
+  "seed": "language learning dictionary",
+  "auto_status": "kept",
+  "id": 116
+ },
+ {
+  "query": "what helps with running",
+  "domain": "sports_outdoors",
+  "subdomain": "climbing_running_events",
+  "seed": "trail running",
+  "auto_status": "kept",
+  "id": 117
+ },
+ {
+  "query": "internal working of jetpack compose",
+  "domain": "software_dev_mobile",
+  "subdomain": "android_dev",
+  "seed": "jetpack compose",
+  "auto_status": "kept",
+  "id": 118
+ },
+ {
+  "query": "els pet cat litter box troubleshooting",
+  "domain": "pets",
+  "subdomain": "cats",
+  "seed": "cat litter",
+  "auto_status": "kept",
+  "id": 119
+ },
+ {
+  "query": "thank you note messages",
+  "domain": "relationships_social",
+  "subdomain": "etiquette_messages",
+  "seed": "thank you note",
+  "auto_status": "kept",
+  "id": 120
+ },
+ {
+  "query": "how to repair leaking chimney roof flashing",
+  "domain": "home_repair",
+  "subdomain": "roof_exterior",
+  "seed": "roof leak",
+  "auto_status": "kept",
+  "id": 121
+ },
+ {
+  "query": "why did my car stop working",
+  "domain": "automotive",
+  "subdomain": "buying_selling",
+  "seed": "used car",
+  "auto_status": "kept",
+  "id": 122
+ },
+ {
+  "query": "bread baking for beginners",
+  "domain": "cooking_baking",
+  "subdomain": "baking",
+  "seed": "baking bread",
+  "auto_status": "variant",
+  "id": 123
+ },
+ {
+  "query": "how many free states were there in 1860",
+  "domain": "audio_music_production",
+  "subdomain": "plugins",
+  "seed": "free vst",
+  "auto_status": "kept",
+  "id": 124
+ },
+ {
+  "query": "how to activate dlss",
+  "domain": "gaming_pc",
+  "subdomain": "settings",
+  "seed": "pc gaming dlss",
+  "auto_status": "kept",
+  "id": 125
+ },
+ {
+  "query": "milestone study essay template 2025",
+  "domain": "education_study",
+  "subdomain": "writing_citation",
+  "seed": "study essay",
+  "auto_status": "news",
+  "id": 126
+ },
+ {
+  "query": "free linux vpn",
+  "domain": "software_dev_ops",
+  "subdomain": "linux_admin",
+  "seed": "linux",
+  "auto_status": "kept",
+  "id": 127
+ },
+ {
+  "query": "mold removal and drywall repair near me",
+  "domain": "home_repair",
+  "subdomain": "pests_mold",
+  "seed": "home repair mold",
+  "auto_status": "navigational",
+  "id": 128
+ },
+ {
+  "query": "planet lyrics meaning",
+  "domain": "reading_media",
+  "subdomain": "music_listening",
+  "seed": "lyrics meaning",
+  "auto_status": "non_productizable",
+  "id": 129
+ },
+ {
+  "query": "does small business paypal work with ebay",
+  "domain": "small_business",
+  "subdomain": "payments_pricing",
+  "seed": "small business paypal",
+  "auto_status": "variant",
+  "id": 130
+ },
+ {
+  "query": "leathercrafters journal magazine",
+  "domain": "crafts_sewing",
+  "subdomain": "jewelry_leather",
+  "seed": "leather craft",
+  "auto_status": "off_topic",
+  "id": 131
+ },
+ {
+  "query": "how do i phone spain from uk",
+  "domain": "software_dev_web",
+  "subdomain": "python_dev",
+  "seed": "python",
+  "auto_status": "off_topic",
+  "id": 132
+ },
+ {
+  "query": "new pair of skis",
+  "domain": "sports_outdoors",
+  "subdomain": "water_snow",
+  "seed": "outdoor skiing",
+  "auto_status": "kept",
+  "id": 133
+ },
+ {
+  "query": "visa requirements chinese",
+  "domain": "travel",
+  "subdomain": "visas_admin",
+  "seed": "visa requirements",
+  "auto_status": "kept",
+  "id": 134
+ },
+ {
+  "query": "does database postgresql work with java",
+  "domain": "software_dev_web",
+  "subdomain": "databases",
+  "seed": "database postgresql",
+  "auto_status": "kept",
+  "id": 135
+ },
+ {
+  "query": "home value vs net worth",
+  "domain": "real_estate_housing",
+  "subdomain": "renovation_value",
+  "seed": "home value",
+  "auto_status": "celebrity",
+  "id": 136
+ },
+ {
+  "query": "amazon capsule wardrobe canada cost",
+  "domain": "fashion_beauty",
+  "subdomain": "clothing_style",
+  "seed": "capsule wardrobe",
+  "auto_status": "kept",
+  "id": 137
+ },
+ {
+  "query": "mouse cable repair near me",
+  "domain": "home_repair",
+  "subdomain": "pests_mold",
+  "seed": "home repair mice",
+  "auto_status": "navigational",
+  "id": 138
+ },
+ {
+  "query": "difference between load bearing wall and non load bearing wall",
+  "domain": "engineering_professional",
+  "subdomain": "civil_construction",
+  "seed": "load bearing",
+  "auto_status": "kept",
+  "id": 139
+ },
+ {
+  "query": "dog training classes near me petsmart",
+  "domain": "pets",
+  "subdomain": "dogs",
+  "seed": "dog training",
+  "auto_status": "navigational",
+  "id": 140
+ },
+ {
+  "query": "what version of terraria is on pc",
+  "domain": "gaming_titles",
+  "subdomain": "survival_crafting",
+  "seed": "game terraria",
+  "auto_status": "kept",
+  "id": 141
+ },
+ {
+  "query": "interview questions after interview",
+  "domain": "careers_jobs",
+  "subdomain": "interviews",
+  "seed": "interview questions",
+  "auto_status": "kept",
+  "id": 142
+ },
+ {
+  "query": "best solar panels 2026 ireland",
+  "domain": "energy_sustainability",
+  "subdomain": "solar_home",
+  "seed": "solar panels",
+  "auto_status": "news",
+  "id": 143
+ },
+ {
+  "query": "motorcycle repair course near me",
+  "domain": "motorcycles_powersports",
+  "subdomain": "motorcycle",
+  "seed": "motorcycle maintenance",
+  "auto_status": "navigational",
+  "id": 144
+ },
+ {
+  "query": "running plan vs iep",
+  "domain": "fitness_health",
+  "subdomain": "cardio_endurance",
+  "seed": "running plan",
+  "auto_status": "kept",
+  "id": 145
+ },
+ {
+  "query": "radio plays compared to podcasts",
+  "domain": "audio_music_production",
+  "subdomain": "podcasting",
+  "seed": "music production podcast",
+  "auto_status": "kept",
+  "id": 146
+ },
+ {
+  "query": "solar panels system",
+  "domain": "energy_sustainability",
+  "subdomain": "solar_home",
+  "seed": "solar panels",
+  "auto_status": "kept",
+  "id": 147
+ },
+ {
+  "query": "string template literals",
+  "domain": "three_d_printing",
+  "subdomain": "troubleshooting",
+  "seed": "stringing",
+  "auto_status": "off_topic",
+  "id": 148
+ },
+ {
+  "query": "smart home platform matter",
+  "domain": "consumer_tech",
+  "subdomain": "smart_home",
+  "seed": "smart home",
+  "auto_status": "kept",
+  "id": 149
+ },
+ {
+  "query": "daw ableton live 10 crack reddit",
+  "domain": "audio_music_production",
+  "subdomain": "daws",
+  "seed": "daw ableton",
+  "auto_status": "kept",
+  "id": 150
+ },
+ {
+  "query": "where do they have karaoke near me",
+  "domain": "playing_music",
+  "subdomain": "singing",
+  "seed": "music karaoke",
+  "auto_status": "navigational",
+  "id": 151
+ },
+ {
+  "query": "what is this finance etf investing",
+  "domain": "personal_finance",
+  "subdomain": "investing",
+  "seed": "finance etf",
+  "auto_status": "variant",
+  "id": 152
+ },
+ {
+  "query": "bambu lab h2s",
+  "domain": "three_d_printing",
+  "subdomain": "printers",
+  "seed": "bambu lab",
+  "auto_status": "kept",
+  "id": 153
+ },
+ {
+  "query": "what is counter strike age rating",
+  "domain": "gaming_titles",
+  "subdomain": "shooters",
+  "seed": "counter strike",
+  "auto_status": "celebrity",
+  "id": 154
+ },
+ {
+  "query": "google business profile suspension guidelines",
+  "domain": "small_business",
+  "subdomain": "marketing_seo",
+  "seed": "google business profile",
+  "auto_status": "kept",
+  "id": 155
+ },
+ {
+  "query": "how to gift for girlfriend",
+  "domain": "relationships_social",
+  "subdomain": "gifts",
+  "seed": "gift ideas",
+  "auto_status": "celebrity",
+  "id": 156
+ },
+ {
+  "query": "how is a mutual fund taxed",
+  "domain": "personal_finance",
+  "subdomain": "taxes",
+  "seed": "tax deduction",
+  "auto_status": "kept",
+  "id": 157
+ },
+ {
+  "query": "elden ring build 2026",
+  "domain": "gaming_titles",
+  "subdomain": "rpg_builds",
+  "seed": "elden ring build",
+  "auto_status": "news",
+  "id": 158
+ },
+ {
+  "query": "smart home alexa for beginners",
+  "domain": "consumer_tech",
+  "subdomain": "smart_home",
+  "seed": "smart home alexa",
+  "auto_status": "kept",
+  "id": 159
+ },
+ {
+  "query": "generate office software asanas",
+  "domain": "productivity_office",
+  "subdomain": "pm_tools",
+  "seed": "office software asana",
+  "auto_status": "kept",
+  "id": 160
+ },
+ {
+  "query": "what table saw should i get",
+  "domain": "diy_woodworking",
+  "subdomain": "woodworking",
+  "seed": "table saw",
+  "auto_status": "variant",
+  "id": 161
+ },
+ {
+  "query": "dispute charge starbucks",
+  "domain": "legal_government",
+  "subdomain": "consumer_rights",
+  "seed": "dispute charge",
+  "auto_status": "kept",
+  "id": 162
+ },
+ {
+  "query": "open source c++ programs",
+  "domain": "software_dev_web",
+  "subdomain": "go_rust_cpp",
+  "seed": "programming c++",
+  "auto_status": "kept",
+  "id": 163
+ },
+ {
+  "query": "song meaning in hindi",
+  "domain": "reading_media",
+  "subdomain": "music_listening",
+  "seed": "lyrics meaning",
+  "auto_status": "non_productizable",
+  "id": 164
+ },
+ {
+  "query": "freshwater fish tank screensaver",
+  "domain": "pets",
+  "subdomain": "aquarium_reptiles",
+  "seed": "fish tank",
+  "auto_status": "kept",
+  "id": 165
+ },
+ {
+  "query": "cast iron alternative pan",
+  "domain": "cooking_baking",
+  "subdomain": "techniques",
+  "seed": "cast iron",
+  "auto_status": "kept",
+  "id": 166
+ },
+ {
+  "query": "hellboy reading order 2025",
+  "domain": "reading_media",
+  "subdomain": "books",
+  "seed": "reading order",
+  "auto_status": "news",
+  "id": 167
+ },
+ {
+  "query": "healthcare nclex update today",
+  "domain": "healthcare_professional",
+  "subdomain": "nursing",
+  "seed": "healthcare nclex",
+  "auto_status": "news",
+  "id": 168
+ },
+ {
+  "query": "marriage toast to couple meme",
+  "domain": "relationships_social",
+  "subdomain": "etiquette_messages",
+  "seed": "relationship toast",
+  "auto_status": "kept",
+  "id": 169
+ },
+ {
+  "query": "what is the cheaper alternative to ozempic",
+  "domain": "shopping_products",
+  "subdomain": "identification",
+  "seed": "what is this",
+  "auto_status": "off_topic",
+  "id": 170
+ },
+ {
+  "query": "what does updates mean",
+  "domain": "shopping_products",
+  "subdomain": "identification",
+  "seed": "what is this",
+  "auto_status": "off_topic",
+  "id": 171
+ },
+ {
+  "query": "how much does a certified cost",
+  "domain": "careers_jobs",
+  "subdomain": "certifications",
+  "seed": "job certification",
+  "auto_status": "off_topic",
+  "id": 172
+ },
+ {
+  "query": "best gpu for ai learning",
+  "domain": "data_ai",
+  "subdomain": "gpu_hardware",
+  "seed": "gpu for ai",
+  "auto_status": "kept",
+  "id": 173
+ },
+ {
+  "query": "washing machine convert to dryer",
+  "domain": "appliances",
+  "subdomain": "laundry",
+  "seed": "washing machine",
+  "auto_status": "kept",
+  "id": 174
+ },
+ {
+  "query": "protective life insurance change of beneficiary form",
+  "domain": "personal_finance",
+  "subdomain": "insurance_admin",
+  "seed": "life insurance",
+  "auto_status": "kept",
+  "id": 175
+ },
+ {
+  "query": "siding calculator home depot",
+  "domain": "home_repair",
+  "subdomain": "roof_exterior",
+  "seed": "home repair siding",
+  "auto_status": "kept",
+  "id": 176
+ },
+ {
+  "query": "meal prep for weight loss near me",
+  "domain": "cooking_baking",
+  "subdomain": "meal_planning",
+  "seed": "meal prep",
+  "auto_status": "navigational",
+  "id": 177
+ },
+ {
+  "query": "tune ecu compatibility",
+  "domain": "automotive",
+  "subdomain": "mods_tuning",
+  "seed": "ecu tune",
+  "auto_status": "kept",
+  "id": 178
+ },
+ {
+  "query": "size chart for kids shoes by age",
+  "domain": "shopping_products",
+  "subdomain": "sizing_fit",
+  "seed": "size chart",
+  "auto_status": "celebrity",
+  "id": 179
+ },
+ {
+  "query": "blue screen of death meme",
+  "domain": "it_support",
+  "subdomain": "windows",
+  "seed": "blue screen",
+  "auto_status": "celebrity",
+  "id": 180
+ },
+ {
+  "query": "4g+mqtt",
+  "domain": "electronics_makers",
+  "subdomain": "home_automation_diy",
+  "seed": "electronics mqtt",
+  "auto_status": "off_topic",
+  "id": 181
+ },
+ {
+  "query": "sous vide prime roast",
+  "domain": "cooking_baking",
+  "subdomain": "techniques",
+  "seed": "sous vide",
+  "auto_status": "kept",
+  "id": 182
+ },
+ {
+  "query": "does music amp work with amp",
+  "domain": "playing_music",
+  "subdomain": "gear_repair",
+  "seed": "music amp",
+  "auto_status": "variant",
+  "id": 183
+ },
+ {
+  "query": "git rebase concept",
+  "domain": "software_dev_ops",
+  "subdomain": "git",
+  "seed": "git rebase",
+  "auto_status": "kept",
+  "id": 184
+ },
+ {
+  "query": "laptop battery replacement brisbane",
+  "domain": "pc_building",
+  "subdomain": "laptops",
+  "seed": "laptop battery",
+  "auto_status": "kept",
+  "id": 185
+ },
+ {
+  "query": "how many antiques are there",
+  "domain": "collecting_antiques",
+  "subdomain": "antiques_art",
+  "seed": "antique value",
+  "auto_status": "off_topic",
+  "id": 186
+ },
+ {
+  "query": "how to farm chickens stardew",
+  "domain": "agriculture_farming",
+  "subdomain": "livestock",
+  "seed": "farm chickens",
+  "auto_status": "kept",
+  "id": 187
+ },
+ {
+  "query": "lawn sprinkler systems near me",
+  "domain": "gardening",
+  "subdomain": "hardscape_irrigation",
+  "seed": "garden sprinkler",
+  "auto_status": "navigational",
+  "id": 188
+ },
+ {
+  "query": "check engine light and trac off",
+  "domain": "automotive",
+  "subdomain": "diagnostics",
+  "seed": "check engine light",
+  "auto_status": "kept",
+  "id": 189
+ },
+ {
+  "query": "hydrangea for sale near me",
+  "domain": "gardening",
+  "subdomain": "trees_shrubs",
+  "seed": "garden hydrangea",
+  "auto_status": "navigational",
+  "id": 190
+ },
+ {
+  "query": "vs code latest download",
+  "domain": "software_dev_web",
+  "subdomain": "javascript_frameworks",
+  "seed": "javascript svelte",
+  "auto_status": "off_topic",
+  "id": 191
+ },
+ {
+  "query": "sheet music free download app",
+  "domain": "playing_music",
+  "subdomain": "piano",
+  "seed": "sheet music",
+  "auto_status": "kept",
+  "id": 192
+ },
+ {
+  "query": "music lists",
+  "domain": "playing_music",
+  "subdomain": "gear_repair",
+  "seed": "music strings",
+  "auto_status": "kept",
+  "id": 193
+ },
+ {
+  "query": "indoor seed starting guide",
+  "domain": "gardening",
+  "subdomain": "vegetables",
+  "seed": "seed starting",
+  "auto_status": "kept",
+  "id": 194
+ },
+ {
+  "query": "what do you offer",
+  "domain": "collecting_antiques",
+  "subdomain": "antiques_art",
+  "seed": "antique value",
+  "auto_status": "off_topic",
+  "id": 195
+ },
+ {
+  "query": "open source pdf programs",
+  "domain": "productivity_office",
+  "subdomain": "documents",
+  "seed": "office software pdf",
+  "auto_status": "kept",
+  "id": 196
+ },
+ {
+  "query": "blender modifiers guide",
+  "domain": "three_d_animation",
+  "subdomain": "blender",
+  "seed": "blender modifier",
+  "auto_status": "kept",
+  "id": 197
+ },
+ {
+  "query": "free shipping supplies near me",
+  "domain": "logistics_operations",
+  "subdomain": "supply_chain",
+  "seed": "shipping supplier",
+  "auto_status": "navigational",
+  "id": 198
+ },
+ {
+  "query": "cura 3d printer",
+  "domain": "three_d_printing",
+  "subdomain": "slicing",
+  "seed": "3d printer cura",
+  "auto_status": "variant",
+  "id": 199
+ },
+ {
+  "query": "shipping rates templates shopify",
+  "domain": "logistics_operations",
+  "subdomain": "shipping",
+  "seed": "shipping rates",
+  "auto_status": "kept",
+  "id": 200
+ },
+ {
+  "query": "how to create a dating profile on facebook",
+  "domain": "relationships_social",
+  "subdomain": "dating_relationships",
+  "seed": "dating profile",
+  "auto_status": "celebrity",
+  "id": 201
+ },
+ {
+  "query": "espresso machine wont grind",
+  "domain": "appliances",
+  "subdomain": "small_appliances",
+  "seed": "espresso machine",
+  "auto_status": "kept",
+  "id": 202
+ },
+ {
+  "query": "the benefits of audiobooks",
+  "domain": "reading_media",
+  "subdomain": "podcasts_audiobooks",
+  "seed": "audiobook",
+  "auto_status": "kept",
+  "id": 203
+ },
+ {
+  "query": "best tent alternatives",
+  "domain": "sports_outdoors",
+  "subdomain": "hiking_camping",
+  "seed": "hiking tent",
+  "auto_status": "kept",
+  "id": 204
+ },
+ {
+  "query": "how much for xpel stealth wrap",
+  "domain": "retro_computing_emulation",
+  "subdomain": "legacy_software",
+  "seed": "windows xp",
+  "auto_status": "off_topic",
+  "id": 205
+ },
+ {
+  "query": "instructions for planting a seed",
+  "domain": "gardening",
+  "subdomain": "vegetables",
+  "seed": "seed starting",
+  "auto_status": "kept",
+  "id": 206
+ },
+ {
+  "query": "create stl files online",
+  "domain": "three_d_printing",
+  "subdomain": "models",
+  "seed": "stl files",
+  "auto_status": "kept",
+  "id": 207
+ },
+ {
+  "query": "to do liste homeassistant",
+  "domain": "consumer_tech",
+  "subdomain": "smart_home",
+  "seed": "home assistant",
+  "auto_status": "off_topic",
+  "id": 208
+ },
+ {
+  "query": "laptop battery dealers in nehru place",
+  "domain": "pc_building",
+  "subdomain": "laptops",
+  "seed": "laptop battery",
+  "auto_status": "kept",
+  "id": 209
+ },
+ {
+  "query": "generate custom minecraft seed",
+  "domain": "gaming_titles",
+  "subdomain": "minecraft",
+  "seed": "minecraft seed",
+  "auto_status": "kept",
+  "id": 210
+ },
+ {
+  "query": "vintage vs antique age",
+  "domain": "collecting_antiques",
+  "subdomain": "antiques_art",
+  "seed": "antique vintage",
+  "auto_status": "celebrity",
+  "id": 211
+ },
+ {
+  "query": "why are vintage watches so cheap",
+  "domain": "collecting_antiques",
+  "subdomain": "vinyl_books_watches",
+  "seed": "vintage watch",
+  "auto_status": "kept",
+  "id": 212
+ },
+ {
+  "query": "congestion charge on weekends",
+  "domain": "transport_commuting",
+  "subdomain": "parking_tolls",
+  "seed": "congestion charge",
+  "auto_status": "kept",
+  "id": 213
+ },
+ {
+  "query": "how to study for history essay",
+  "domain": "education_study",
+  "subdomain": "writing_citation",
+  "seed": "study essay",
+  "auto_status": "variant",
+  "id": 214
+ },
+ {
+  "query": "christmas holiday packages 2026",
+  "domain": "events_seasonal",
+  "subdomain": "holidays",
+  "seed": "holiday christmas",
+  "auto_status": "news",
+  "id": 215
+ },
+ {
+  "query": "fixed life insurance definition",
+  "domain": "personal_finance",
+  "subdomain": "insurance_admin",
+  "seed": "life insurance",
+  "auto_status": "kept",
+  "id": 216
+ },
+ {
+  "query": "music amphitheater near me",
+  "domain": "playing_music",
+  "subdomain": "gear_repair",
+  "seed": "music amp",
+  "auto_status": "navigational",
+  "id": 217
+ },
+ {
+  "query": "how to use wheat wax strips",
+  "domain": "cooking_baking",
+  "subdomain": "diets_nutrition",
+  "seed": "gluten free",
+  "auto_status": "off_topic",
+  "id": 218
+ },
+ {
+  "query": "how to set up business llc",
+  "domain": "small_business",
+  "subdomain": "formation_legal",
+  "seed": "small business llc",
+  "auto_status": "variant",
+  "id": 219
+ },
+ {
+  "query": "how blue screen error occurs",
+  "domain": "it_support",
+  "subdomain": "windows",
+  "seed": "blue screen",
+  "auto_status": "kept",
+  "id": 220
+ },
+ {
+  "query": "which dude perfect guy are you",
+  "domain": "parenting_family",
+  "subdomain": "pregnancy",
+  "seed": "due date",
+  "auto_status": "off_topic",
+  "id": 221
+ },
+ {
+  "query": "github why not use github actions",
+  "domain": "software_dev_ops",
+  "subdomain": "ci_cd",
+  "seed": "github actions",
+  "auto_status": "variant",
+  "id": 222
+ },
+ {
+  "query": "how to compare cost of living",
+  "domain": "travel",
+  "subdomain": "expat_moving",
+  "seed": "cost of living",
+  "auto_status": "kept",
+  "id": 223
+ },
+ {
+  "query": "free excel spreadsheet",
+  "domain": "productivity_office",
+  "subdomain": "excel",
+  "seed": "excel",
+  "auto_status": "kept",
+  "id": 224
+ },
+ {
+  "query": "google sheets formula to calculate age in years and months",
+  "domain": "data_ai",
+  "subdomain": "data_analysis",
+  "seed": "google sheets formula",
+  "auto_status": "celebrity",
+  "id": 225
+ },
+ {
+  "query": "best sat study tools",
+  "domain": "education_study",
+  "subdomain": "exams",
+  "seed": "study sat",
+  "auto_status": "kept",
+  "id": 226
+ },
+ {
+  "query": "best user friendly sewing machine",
+  "domain": "crafts_sewing",
+  "subdomain": "sewing",
+  "seed": "sewing machine",
+  "auto_status": "kept",
+  "id": 227
+ },
+ {
+  "query": "convert cups to grams for baking ingredients",
+  "domain": "cooking_baking",
+  "subdomain": "substitutions_conversion",
+  "seed": "cups to grams",
+  "auto_status": "kept",
+  "id": 228
+ },
+ {
+  "query": "how much does a small lego set cost",
+  "domain": "collecting_antiques",
+  "subdomain": "trading_cards_toys",
+  "seed": "lego set value",
+  "auto_status": "kept",
+  "id": 229
+ },
+ {
+  "query": "how important is dedicated video ram",
+  "domain": "data_ai",
+  "subdomain": "gpu_hardware",
+  "seed": "machine learning vram",
+  "auto_status": "off_topic",
+  "id": 230
+ },
+ {
+  "query": "how to use apollo graphql",
+  "domain": "software_dev_web",
+  "subdomain": "apis_auth",
+  "seed": "programming graphql",
+  "auto_status": "kept",
+  "id": 231
+ },
+ {
+  "query": "learn english grammar pdf",
+  "domain": "language_learning",
+  "subdomain": "grammar_usage",
+  "seed": "language learning grammar",
+  "auto_status": "variant",
+  "id": 232
+ },
+ {
+  "query": "blog for beginner",
+  "domain": "writing_publishing",
+  "subdomain": "nonfiction_blogging",
+  "seed": "blog post",
+  "auto_status": "kept",
+  "id": 233
+ },
+ {
+  "query": "home assistant basic",
+  "domain": "consumer_tech",
+  "subdomain": "smart_home",
+  "seed": "home assistant",
+  "auto_status": "kept",
+  "id": 234
+ },
+ {
+  "query": "best piercing services for fashion",
+  "domain": "local_services",
+  "subdomain": "personal_services",
+  "seed": "local service piercing",
+  "auto_status": "kept",
+  "id": 235
+ },
+ {
+  "query": "what wedding planning do i have",
+  "domain": "relationships_social",
+  "subdomain": "weddings_events",
+  "seed": "wedding planning",
+  "auto_status": "kept",
+  "id": 236
+ },
+ {
+  "query": "free pull ups near me",
+  "domain": "fitness_health",
+  "subdomain": "bodyweight_calisthenics",
+  "seed": "pull ups",
+  "auto_status": "navigational",
+  "id": 237
+ },
+ {
+  "query": "lyrics meaning faster than light",
+  "domain": "reading_media",
+  "subdomain": "music_listening",
+  "seed": "lyrics meaning",
+  "auto_status": "non_productizable",
+  "id": 238
+ },
+ {
+  "query": "logo design tunkhannock pa",
+  "domain": "graphic_design",
+  "subdomain": "branding",
+  "seed": "logo design",
+  "auto_status": "kept",
+  "id": 239
+ },
+ {
+  "query": "craft drawing alternatives",
+  "domain": "crafts_sewing",
+  "subdomain": "painting_drawing",
+  "seed": "craft drawing",
+  "auto_status": "kept",
+  "id": 240
+ },
+ {
+  "query": "how to use ai for book writing",
+  "domain": "writing_publishing",
+  "subdomain": "fiction",
+  "seed": "novel writing",
+  "auto_status": "kept",
+  "id": 241
+ },
+ {
+  "query": "canva design login with google",
+  "domain": "graphic_design",
+  "subdomain": "tools",
+  "seed": "design app canva",
+  "auto_status": "navigational",
+  "id": 242
+ },
+ {
+  "query": "break free lyrics meaning",
+  "domain": "reading_media",
+  "subdomain": "music_listening",
+  "seed": "lyrics meaning",
+  "auto_status": "non_productizable",
+  "id": 243
+ },
+ {
+  "query": "solar panel ki list kaise nikale",
+  "domain": "energy_sustainability",
+  "subdomain": "solar_home",
+  "seed": "solar panels",
+  "auto_status": "kept",
+  "id": 244
+ },
+ {
+  "query": "what logic pro should i buy 2018",
+  "domain": "audio_music_production",
+  "subdomain": "daws",
+  "seed": "logic pro",
+  "auto_status": "news",
+  "id": 245
+ },
+ {
+  "query": "free language learning websites without subscription",
+  "domain": "language_learning",
+  "subdomain": "translation",
+  "seed": "language learning meaning",
+  "auto_status": "kept",
+  "id": 246
+ },
+ {
+  "query": "timco multi fix screw sizes",
+  "domain": "diy_woodworking",
+  "subdomain": "fasteners_hardware",
+  "seed": "screw size",
+  "auto_status": "kept",
+  "id": 247
+ },
+ {
+  "query": "medical database diagnosis",
+  "domain": "accessibility_assistive",
+  "subdomain": "senior_tech",
+  "seed": "medical alert",
+  "auto_status": "kept",
+  "id": 248
+ },
+ {
+  "query": "photography needs",
+  "domain": "photography",
+  "subdomain": "alternatives_free",
+  "seed": "photography gimp",
+  "auto_status": "kept",
+  "id": 249
+ },
+ {
+  "query": "cost of renovation per square foot",
+  "domain": "real_estate_housing",
+  "subdomain": "renovation_value",
+  "seed": "renovation cost",
+  "auto_status": "variant",
+  "id": 250
+ }
+]

@@ -95,11 +95,13 @@ def youtube_results(q: str) -> dict:
 
 
 def mix(results: list[dict]) -> dict:
-    """Fragmentation view of one or more SERPs: class shares, dominant site, and the counts the ranking shows.
+    """Result-source diversity for one or more result pages (measurement A in the repair brief).
 
-    fragmented_share = community + editorial + aggregator results (answers that must be pieced together).
-    tool_hits = results from a curated tool site or whose title names a tool (calculator, generator, ...).
-    vendor_share / official_share = the answer is owned by the product vendor or an official source.
+    editorial_community_share = community + editorial + aggregator results: the share of pages that are discussion or
+    articles rather than a product, vendor or official page. It is a description of the result set, not a failure rate:
+    an article can complete a task and a product page can leave it incomplete. Task-completion friction (B) and
+    competitive availability (C) are recorded separately, per task, in the feature matrix and the decision packet.
+    tool_hits = results from a curated tool site or whose title names a tool (calculator, generator, ...): a lead, not a verdict.
     """
     if not results:
         return {}
@@ -112,7 +114,9 @@ def mix(results: list[dict]) -> dict:
         if r["category"] == "tool" or (r.get("title") and TOOL_TITLE.search(r["title"])):
             tool_hits += 1
     n = len(results)
-    frag = sum(v for k, v in cats.items() if k in ("community", "editorial", "aggregator"))
-    return {"n": n, "categories": cats, "dominant_site": max(sites, key=sites.get), "dominant_share": round(max(sites.values()) / n, 2),
-            "fragmented_share": round(frag / n, 2), "tool_hits": tool_hits, "vendor_share": round(cats.get("vendor", 0) / n, 2),
+    ec = sum(v for k, v in cats.items() if k in ("community", "editorial", "aggregator"))
+    return {"n": n, "categories": cats, "distinct_domains": len(sites), "dominant_site": max(sites, key=sites.get),
+            "dominant_share": round(max(sites.values()) / n, 2),
+            "editorial_community_share": round(ec / n, 2), "fragmented_share": round(ec / n, 2),  # legacy alias
+            "tool_hits": tool_hits, "vendor_share": round(cats.get("vendor", 0) / n, 2),
             "official_share": round(cats.get("official", 0) / n, 2), "unclassified_share": round(cats.get(FALLBACK, 0) / n, 2)}

@@ -31,6 +31,11 @@ def export(full=False):
     written = {}
     for table, col in TS_COL.items():
         last = st["last"].get(table, "")
+        # overlap the window by 15 minutes: a worker can commit a row whose timestamp predates the previous marker
+        # (the recount found 301 such queries); duplicates are harmless because restore uses INSERT OR IGNORE
+        if last:
+            from datetime import datetime as _dt, timedelta as _td
+            last = (_dt.fromisoformat(last) - _td(minutes=15)).isoformat(timespec="seconds")
         cur = con.execute(f"SELECT * FROM {table} WHERE {col} > ? AND {col} <= ? ORDER BY {col}", (last, marker))
         rows = cur.fetchall()
         if not rows:
