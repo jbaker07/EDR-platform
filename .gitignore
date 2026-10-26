@@ -9,6 +9,9 @@
 *.env
 !*.env.example
 !.env.example
+# Never commit private keys. Point EDR_SIGNING_KEY_PATH at a key outside the repo.
+*.pem
+*.key
 
 # ── Node ────────────────────────────────────────────────────
 node_modules/

@@ -5,8 +5,15 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from cryptography.hazmat.backends import default_backend
 import os
+from typing import Optional
 
-def load_private_key(path: str):
+# The signing key lives outside the repo. Point this variable at a PEM file.
+SIGNING_KEY_ENV = "EDR_SIGNING_KEY_PATH"
+
+def load_private_key(path: Optional[str] = None):
+    path = path or os.environ.get(SIGNING_KEY_ENV)
+    if not path:
+        raise RuntimeError(f"Set {SIGNING_KEY_ENV} to the path of your PEM private key.")
     with open(path, "rb") as f:
         return serialization.load_pem_private_key(f.read(), password=None, backend=default_backend())
 
@@ -17,7 +24,7 @@ def sign_data(data: bytes, private_key) -> bytes:
         hashes.SHA256()
     )
 
-def generate_signed_intel_pack(data_dict: dict, private_key_path: str, output_path: str):
+def generate_signed_intel_pack(data_dict: dict, private_key_path: Optional[str], output_path: str):
     private_key = load_private_key(private_key_path)
     payload = {
         "timestamp": datetime.utcnow().isoformat(),

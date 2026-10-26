@@ -113,9 +113,13 @@ fn log_with_signature(log_data: &str) -> io::Result<()> {
     use openssl::pkey::PKey;
     use openssl::sign::Signer;
 
-    // Make signing truly optional via feature; provide your own key if you enable it
-    let private_key = include_bytes!("../../keys/private_key.pem");
-    let pkey = PKey::private_key_from_pem(private_key).unwrap();
+    // Signing is optional via feature. The key is read at runtime from
+    // EDR_SIGNING_KEY_PATH and is never compiled into the binary or committed.
+    let key_path = std::env::var("EDR_SIGNING_KEY_PATH").map_err(|_| {
+        io::Error::new(io::ErrorKind::NotFound, "EDR_SIGNING_KEY_PATH is not set")
+    })?;
+    let private_key = fs::read(&key_path)?;
+    let pkey = PKey::private_key_from_pem(&private_key).unwrap();
     let mut signer = Signer::new(MessageDigest::sha256(), &pkey).unwrap();
     signer.update(log_data.as_bytes()).unwrap();
     let signature = signer.sign_to_vec().unwrap();
