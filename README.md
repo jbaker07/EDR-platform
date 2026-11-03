@@ -2,8 +2,8 @@
 
 A prototype Endpoint Detection & Response (EDR) platform: a FastAPI backend that
 ingests telemetry, runs rule-based detection, scores events with a small scikit-learn
-model, and exposes trust/forensics/IOC APIs. A React dashboard and a Go/eBPF agent
-live alongside it.
+model, and exposes trust/forensics/IOC APIs. A React dashboard and a Linux agent
+(Rust user space built on aya, with C eBPF programs) live alongside it.
 
 > **Status: prototype.** The core API boots and serves real predictions. Several
 > advanced subsystems (GNN trust scoring, LLM summarisation, SHAP explainability)
@@ -19,7 +19,7 @@ live alongside it.
 | `backend/gnn_pipeline/`, `backend/app/routes/gnn_router.py` | GNN trust scoring (torch / torch_geometric) | Experimental, not wired in |
 | `backend/llm_pipeline/` | Mistral-7B + LoRA summary/hunt endpoints | Experimental, inert without weights |
 | `dashboard/` | React/Vite front-end | Prototype |
-| `edr-agent/` | Go + eBPF telemetry agent | Prototype (separate toolchain) |
+| `edr-agent/` | Rust (aya) + C eBPF telemetry agent | Prototype (separate toolchain) |
 
 ## What genuinely works
 
