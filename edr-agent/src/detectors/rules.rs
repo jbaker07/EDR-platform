@@ -5,7 +5,7 @@ use serde::Deserialize;
 use serde_json::{Value, json};
 
 use crate::telemetry::Telemetry;          // expects: category/event/exe/cmdline/cwd/pid/ppid/uid/tags/attrs
-use super::{Detector, Finding};           // your Detector trait + Finding type
+use super::{Detector, Finding};           // Detector trait + Finding type
 
 /// JSON schema (subset) this module accepts in detection_rules.json:
 /// {

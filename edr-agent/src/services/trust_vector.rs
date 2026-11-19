@@ -764,7 +764,7 @@ pub fn update_trust_vector(
 ) -> TrustVector {
     with_endpoint_tv(endpoint_id, |tv| {
         if let Some(ts) = now_s {
-            // default half-life 1 hour; adjust by env in your caller if needed
+            // default half-life 1 hour (callers may adjust via env)
             tv.apply_decay_auto(ts, 3600.0);
         }
         for (name, maybe_penalty) in dims {

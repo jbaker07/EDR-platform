@@ -42,7 +42,3 @@ impl TrustDigestEngine {
         self.last_updated.remove(session_id);
     }
 }
-pub fn process_digest_file(path: &str) {
-    println!("Processing digest file at: {}", path);
-    // TODO: actual logic here
-}

@@ -1,6 +1,7 @@
 // src/ebpf_bridge.rs
 #![allow(dead_code)]
 
+use forensic_hooks::pb_adapter::clock::mono_ns_to_unix_secs;
 use forensic_hooks::telemetry::TelemetryRecord;
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::utils::strnorm::{cbytes_to_string_lossy, sanitize_tag_value};
@@ -100,6 +101,7 @@ pub struct EdREvent {
 }
 
 // ---- ABI guard: compile-time check that the struct size matches the C side (376 bytes) ----
+// The mirrors for the other BPF structs and their guards are in abi.rs.
 const _: [(); 376] = [(); core::mem::size_of::<EdREvent>()];
 
 fn cstr_trunc(bytes: &[u8]) -> String {
@@ -226,6 +228,17 @@ fn read_proc_cwd(pid: i32) -> String {
         .unwrap_or_default()
 }
 
+/// Fill binary_path from /proc/<pid>/exe when the frame did not carry one.
+/// Best effort: a process that already exited has no /proc entry.
+pub(crate) fn populate_proc_exe(record: &mut TelemetryRecord) {
+    if record.pid <= 0 || !record.binary_path.is_empty() {
+        return;
+    }
+    if let Ok(p) = fs::read_link(format!("/proc/{}/exe", record.pid)) {
+        record.binary_path = p.to_string_lossy().into_owned();
+    }
+}
+
 pub(crate) fn populate_proc_fields(record: &mut TelemetryRecord) {
     if record.pid <= 0 {
         return;
@@ -253,8 +266,9 @@ pub fn edr_event_to_output(e: &EdREvent) -> TelemetryOutput {
 
     // common
     data.insert("ts_ns".into(), e.ts.to_string()); // raw ktime_ns (lossless)
-                                                   // also provide seconds to make downstream life easier
-    data.insert("timestamp".into(), (e.ts / 1_000_000_000).to_string());
+    // Unix seconds. e.ts is bpf_ktime_get_ns(), time since boot, so dividing it alone
+    // gave dates in 1970.
+    data.insert("timestamp".into(), mono_ns_to_unix_secs(e.ts).to_string());
 
     data.insert("tgid".into(), e.tgid.to_string());
     data.insert("ppid".into(), e.ppid.to_string());
@@ -316,7 +330,7 @@ pub fn edr_event_to_output(e: &EdREvent) -> TelemetryOutput {
 }
 
 // Convenience for callers who want a TelemetryRecord directly.
-// IMPORTANT: convert kernel ns → seconds for our TelemetryRecord timestamp.
+// The record timestamp is Unix seconds, the same clock every other decoder uses.
 pub fn edr_event_to_record(e: &EdREvent) -> TelemetryRecord {
     let p1 = cstr_trunc(&e.path);
     let cmd = cstr_trunc(&e.comm);
@@ -335,8 +349,8 @@ pub fn edr_event_to_record(e: &EdREvent) -> TelemetryRecord {
     }
 
     let mut record = TelemetryRecord {
-        // Use seconds to match downstream expectations (Chrono conversion assumes secs).
-        timestamp: e.ts / 1_000_000_000,
+        // Unix seconds to match downstream expectations (Chrono conversion assumes secs).
+        timestamp: mono_ns_to_unix_secs(e.ts),
         pid: e.tgid as i32,
         ppid: e.ppid as i32,
         uid: e.uid,

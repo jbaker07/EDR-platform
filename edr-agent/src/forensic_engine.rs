@@ -95,7 +95,7 @@ pub fn run_forensics_cycle(pid: u32) {
            }
        }, 60);
   
-       // File Watcher — event-driven
+       // File Watcher: event-driven
        thread::spawn({
            let hostname = hostname.clone();
            let rx = start_file_watch(vec![PathBuf::from("/tmp"), PathBuf::from("/etc")]);

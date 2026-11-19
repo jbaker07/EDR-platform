@@ -11,7 +11,7 @@
 - id: wx_memfd_exec
   when:
     sensor: wx
-    evidence: contains: [memfd, exec]
+    evidence: { contains: [memfd, exec] }
   action:
     severity: critical
     tags: [evasion,memfd]

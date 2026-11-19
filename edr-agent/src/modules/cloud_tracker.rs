@@ -27,7 +27,7 @@ fn now() -> u64 {
         .as_secs()
 }
 
-/// ✅ Simulated scan of cloud access telemetry
+/// Simulated scan of cloud access telemetry
 pub fn get_cloud_sessions() -> Vec<CloudSession> {
     vec![
         CloudSession {
@@ -63,7 +63,7 @@ pub fn get_cloud_sessions() -> Vec<CloudSession> {
     ]
 }
 
-/// 🔁 Sends enriched sessions to Trust Engine, GNN, and Relay
+/// Sends enriched sessions to Trust Engine, GNN, and Relay
 pub fn handle_cloud_sessions() {
     let sessions = get_cloud_sessions();
     let hostname = hostname::get().unwrap_or_default().to_string_lossy().to_string();
@@ -98,6 +98,6 @@ push_to_gnn_vector_log(features);
 }
 
 pub fn cloud_telemetry() -> Vec<String> {
-    // your implementation
+    // stub: returns a fixed event
     vec!["cloud telemetry event".into()]
 }

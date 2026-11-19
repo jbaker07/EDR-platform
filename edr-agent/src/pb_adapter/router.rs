@@ -5,9 +5,16 @@ use serde_json::{Map, Number, Value};
 use crate::telemetry_types::TelemetryOutput;
 use crate::utils::time::now_ts;
 
+use super::clock;
 use super::fact::AdapterFact;
 
 pub fn to_adapter_facts(rec: &TelemetryOutput) -> Vec<AdapterFact> {
+    to_adapter_facts_at(rec, now_ts())
+}
+
+/// Same as to_adapter_facts with the time to use when the output carries no stamp.
+/// Tests pass their own clock here.
+pub fn to_adapter_facts_at(rec: &TelemetryOutput, now: u64) -> Vec<AdapterFact> {
     if rec.category.is_empty() && rec.signal.is_empty() {
         return Vec::new();
     }
@@ -36,7 +43,7 @@ pub fn to_adapter_facts(rec: &TelemetryOutput) -> Vec<AdapterFact> {
         .unwrap_or_else(|| rec.signal.clone());
 
     let tags = collect_tags(rec, &meta);
-    let ts = extract_ts(&meta);
+    let ts = extract_ts(&meta, now);
 
     let proc_key = derive_proc_key(&meta);
     let socket_key = derive_socket_key(&meta);
@@ -61,10 +68,30 @@ pub fn to_adapter_facts(rec: &TelemetryOutput) -> Vec<AdapterFact> {
     vec![fact]
 }
 
+// Keys that hold names, never numbers. A file called 007 must stay "007", not 7.
+const TEXT_KEYS: &[&str] = &[
+    "path",
+    "path2",
+    "comm",
+    "binary_path",
+    "command_line",
+    "cwd",
+    "filename",
+    "exe",
+    "cmd",
+    "exec_filename",
+    "exec_argv",
+];
+
 fn materialize_meta(data: &HashMap<String, String>) -> Map<String, Value> {
     let mut out = Map::new();
     for (k, v) in data {
-        out.insert(k.clone(), to_json_value(v));
+        let val = if TEXT_KEYS.contains(&k.as_str()) {
+            Value::String(v.clone())
+        } else {
+            to_json_value(v)
+        };
+        out.insert(k.clone(), val);
     }
     out
 }
@@ -194,37 +221,31 @@ fn collect_tags(rec: &TelemetryOutput, meta: &Map<String, Value>) -> Vec<String>
     out
 }
 
-fn extract_ts(meta: &Map<String, Value>) -> i64 {
-    let candidates: [(&str, i64); 6] = [
-        ("ts", 1),
-        ("timestamp", 1),
-        ("time", 1),
-        ("ts_ms", 1_000),
-        ("ts_us", 1_000_000),
-        ("ts_ns", 1_000_000_000),
-    ];
-
-    for (key, scale) in candidates {
-        if let Some(v) = meta.get(key) {
-            if let Some(raw) = value_as_i64(v) {
-                return match scale {
-                    1 => raw,
-                    1_000 => raw / 1_000,
-                    1_000_000 => raw / 1_000_000,
-                    1_000_000_000 => raw / 1_000_000_000,
-                    _ => raw,
-                };
-            }
+/// Event time in Unix seconds. The kernel stamp (ts_ns, CLOCK_MONOTONIC from the BPF
+/// programs) is preferred and converted with the boot offset in clock.rs. Other stamps
+/// are read by unit. With no stamp the event is given the time it reached the adapter.
+fn extract_ts(meta: &Map<String, Value>, now: u64) -> i64 {
+    let get = |k: &str| {
+        meta.get(k)
+            .and_then(value_as_i64)
+            .filter(|v| *v > 0)
+            .map(|v| v as u64)
+    };
+    if let Some(ns) = get("ts_ns") {
+        return clock::ns_to_unix_secs(ns) as i64;
+    }
+    for key in ["ts", "timestamp", "time", "ts_sec"] {
+        if let Some(v) = get(key) {
+            return clock::any_to_unix_secs(v) as i64;
         }
     }
-
-    if let Some(v) = meta.get("ts_sec") {
-        if let Some(raw) = value_as_i64(v) {
-            return raw;
-        }
+    if let Some(ms) = get("ts_ms") {
+        return clock::any_to_unix_secs(ms / 1_000) as i64;
     }
-
-    now_ts() as i64
+    if let Some(us) = get("ts_us") {
+        return clock::any_to_unix_secs(us / 1_000_000) as i64;
+    }
+    now as i64
 }
 
 fn derive_proc_key(meta: &Map<String, Value>) -> Option<String> {
@@ -355,4 +376,39 @@ fn value_as_string(v: &Value) -> Option<String> {
 
 fn number_from_f64(f: f64) -> Number {
     Number::from_f64(f).unwrap_or_else(|| Number::from(0))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn ts_of(pairs: &[(&str, &str)]) -> i64 {
+        let data: HashMap<String, String> = pairs
+            .iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect();
+        extract_ts(&materialize_meta(&data), 1_800_000_000)
+    }
+
+    #[test]
+    fn every_stamp_becomes_unix_seconds() {
+        let t: u64 = 1_800_000_000 - 50;
+        let mono = clock::unix_secs_to_mono_ns(t);
+        // Kernel stamp since boot, as the BPF decoders write it.
+        assert_eq!(ts_of(&[("ts_ns", &mono.to_string())]), t as i64);
+        // ts_ns wins over a seconds field that was divided from the same boot clock.
+        let boot_secs = (mono / 1_000_000_000).to_string();
+        assert_eq!(ts_of(&[("ts_ns", &mono.to_string()), ("timestamp", &boot_secs)]), t as i64);
+        // Boot seconds alone are shifted, not read as 1970. Whole seconds since boot
+        // lose the fraction of the offset, so this one is within a second.
+        assert!((ts_of(&[("timestamp", &boot_secs)]) - t as i64).abs() <= 1);
+        // Unix ns, s and ms.
+        assert_eq!(ts_of(&[("ts_ns", &(t * 1_000_000_000).to_string())]), t as i64);
+        assert_eq!(ts_of(&[("timestamp", &t.to_string())]), t as i64);
+        assert_eq!(ts_of(&[("ts", &(t * 1000).to_string())]), t as i64);
+        assert_eq!(ts_of(&[("ts_ms", &(t * 1000).to_string())]), t as i64);
+        // No stamp: the time the event reached the adapter.
+        assert_eq!(ts_of(&[("path", "/x")]), 1_800_000_000);
+        assert_eq!(ts_of(&[("ts_ns", "0")]), 1_800_000_000);
+    }
 }

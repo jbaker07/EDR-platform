@@ -46,7 +46,7 @@ pub fn start_forensic_sweep_controller() {
     });
 }
 
-/// Optional predictive trigger — hook in GNN trust fluctuations, anomalies, etc.
+/// Optional predictive trigger (GNN trust fluctuations, anomalies, etc.).
 fn should_predictive_sweep() -> bool {
     // Placeholder: add hooks for volatile trust scores, alert thresholds, etc.
     false

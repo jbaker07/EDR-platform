@@ -15,7 +15,6 @@
 #![cfg(target_os = "linux")]
 
 use std::collections::{HashMap, VecDeque};
-use std::net::{Ipv4Addr, Ipv6Addr};
 use std::path::Path;
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
@@ -30,30 +29,10 @@ use forensic_hooks::modules::replay_writer::store_replay_event;
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::telemetry_writer::{write_telemetry_record, TelemetryWriter}; // for resolve_bpf()
 
-#[repr(C)]
-#[derive(Clone, Copy)]
-struct NetEvt {
-    pid: u32,
-    kind: u32,   // 1 connect, 2 tx, 3 rx
-    family: u16, // AF_*
-    dport: u16,  // BE
-    is_v6: u8,
-    daddr_v4: u32, // network byte order
-    daddr_v6: [u8; 16],
-    bytes: i64,
-}
-
-fn ntohs(x: u16) -> u16 {
-    u16::from_be(x)
-}
-
-fn ip_to_string(is_v6: u8, v4: u32, v6: [u8; 16]) -> String {
-    if is_v6 != 0 {
-        Ipv6Addr::from(v6).to_string()
-    } else {
-        Ipv4Addr::from(v4).to_string()
-    }
-}
+// The struct net_evt mirror lives in abi.rs so this reader and ebpf_ingest share one
+// layout. The old local copy built IPv4 addresses with Ipv4Addr::from(u32) on a value
+// that was still in network order, which printed them backwards (1.0.0.127).
+use crate::ebpf::abi::{self, NetEvt};
 
 /* ------------------- env helpers ------------------- */
 
@@ -212,29 +191,12 @@ pub fn start_net_flow_reader(_writer: Arc<Mutex<TelemetryWriter>>) {
             let handler: Arc<dyn Fn(&[u8]) + Send + Sync> = Arc::new(move |data: &[u8]| {
                 crate::metrics::events_in().fetch_add(1, std::sync::atomic::Ordering::Relaxed);
 
-                if data.len() < std::mem::size_of::<NetEvt>() {
+                let Some(ev) = abi::from_ring_frame::<NetEvt>(data) else {
                     return;
-                }
-                let mut ev = NetEvt {
-                    pid: 0,
-                    kind: 0,
-                    family: 0,
-                    dport: 0,
-                    is_v6: 0,
-                    daddr_v4: 0,
-                    daddr_v6: [0; 16],
-                    bytes: 0,
                 };
-                unsafe {
-                    std::ptr::copy_nonoverlapping(
-                        data.as_ptr(),
-                        &mut ev as *mut _ as *mut u8,
-                        std::mem::size_of::<NetEvt>(),
-                    );
-                }
 
-                let ip = ip_to_string(ev.is_v6, ev.daddr_v4, ev.daddr_v6);
-                let port = ntohs(ev.dport);
+                let ip = ev.dst_ip().to_string();
+                let port = ev.dst_port();
 
                 match ev.kind {
                     1 => {

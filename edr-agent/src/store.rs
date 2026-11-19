@@ -4,7 +4,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use anyhow::{Context, Result};
 use rusqlite::{params, Connection};
 
-/// Trait so you can swap backends later (e.g., LMDB).
+/// Trait so backends can be swapped later (e.g., LMDB).
 pub trait EventStore {
     fn put_event(&self, event_json: &str) -> Result<i64>;
     fn put_alert(&self, alert_json: &str) -> Result<i64>;
@@ -15,7 +15,7 @@ pub trait EventStore {
     fn mark_cold_start(&self) -> Result<()>;
 }
 
-/// Default store = SQLite (enable `lmdb` feature if you add LMDB later)
+/// Default store = SQLite (an `lmdb` feature is reserved for a future LMDB backend)
 pub type DefaultStore = SqliteStore;
 
 pub struct SqliteStore {
@@ -136,7 +136,7 @@ impl EventStore for SqliteStore {
 
 #[cfg(feature = "lmdb")]
 pub mod lmdb_backend {
-    // Optional LMDB backend scaffold (fill in if/when you enable).
+    // Optional LMDB backend scaffold (empty, not implemented).
     // Keep it behind a feature to avoid pulling LMDB into default builds.
     // use heed / lmdb-rs here.
 }

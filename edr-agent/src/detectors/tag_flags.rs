@@ -42,7 +42,7 @@ impl Detector for TagFlagsDetector {
         "tag_flags"
     }
 
-    // NormalizedAlert is the event type the Detector trait expects in your codebase
+    // NormalizedAlert is the event type the Detector trait expects
     fn score(&self, e: &NormalizedAlert, _features: &[f64]) -> Vec<Finding> {
         let attrs = &e.attributes;
         let mut out = Vec::new();

@@ -1,6 +1,6 @@
 // src/pcb.rs
 //! PCB collector + literal /proc snapshots (Linux).
-//! Pure collection only — NO scoring/tagging.
+//! Pure collection only, NO scoring/tagging.
 //!
 //! Structured usage:
 //!   let snaps = crate::pcb::collect_for_records(&records);

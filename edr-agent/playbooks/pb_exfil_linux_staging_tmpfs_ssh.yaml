@@ -1,6 +1,6 @@
 id: pb_exfil_linux_staging_tmpfs_ssh
 version: 0.2
-name: Exfiltration: Sensitive Reads → Tmpfs Archive → SSH to New Peer (Linux)
+name: "Exfiltration: Sensitive Reads → Tmpfs Archive → SSH to New Peer (Linux)"
 severity: high
 description: Cross-vector correlation of sensitive file access, archive staging in tmpfs, and outbound transfer to a novel peer.
 window_sec: 1800

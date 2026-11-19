@@ -8,7 +8,7 @@ use crate::session_trust_curve::SessionTrustCurve;
 
 use lazy_static::lazy_static;
 
-/// ✅ Static list of sensitive tags that always trigger replay
+/// Static list of sensitive tags that always trigger replay
 fn sensitive_tags_set() -> HashSet<&'static str> {
     [
         "privilege_escalation",
@@ -25,14 +25,14 @@ fn sensitive_tags_set() -> HashSet<&'static str> {
     .collect()
 }
 
-/// ✅ Returns true if trust score is low or tags indicate high-risk behavior
+/// Returns true if trust score is low or tags indicate high-risk behavior
 pub fn should_trigger_replay(trust_score: f64, tags: &[String]) -> bool {
     let sensitive_tags = sensitive_tags_set();
     let tag_match = tags.iter().any(|t| sensitive_tags.contains(t.as_str()));
     trust_score < 30.0 || tag_match
 }
 
-/// ✅ If a trigger condition is met, initiates secure vault export for later forensic replay
+/// If a trigger condition is met, initiates secure vault export for later forensic replay
 pub fn handle_replay_trigger(
     session_id: &str,
     trust_score: f64,
@@ -55,7 +55,7 @@ lazy_static::lazy_static! {
         Arc::new(Mutex::new(HashMap::new()));
 }
 
-/// ✅ Tracks trust decay over time and checks for replay escalation
+/// Tracks trust decay over time and checks for replay escalation
 pub fn update_session_trust(session_id: &str, new_trust: f64, role: &str) -> bool {
     let mut map = SESSION_CURVES.lock().unwrap();
 
@@ -75,7 +75,7 @@ pub fn update_session_trust(session_id: &str, new_trust: f64, role: &str) -> boo
 
     false
 }
-/// ✅ Central dispatcher to check if replay should be triggered based on trust and behavior
+/// Central dispatcher to check if replay should be triggered based on trust and behavior
 pub fn trigger_replay_if_needed(
     session_id: &str,
     trust_score: f64,

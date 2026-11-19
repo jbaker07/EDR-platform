@@ -19,7 +19,7 @@ struct {
     __uint(max_entries, 1 << 20);
 } events SEC(".maps");
 
-/* Optional control map you already had */
+/* Optional control map */
 struct {
     __uint(type, BPF_MAP_TYPE_ARRAY);
     __uint(max_entries, 1);

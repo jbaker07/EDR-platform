@@ -319,7 +319,6 @@ pub fn start_cron_ebpf_watch(writer: Arc<Mutex<TelemetryWriter>>) {
                                         };
 
                                         if let Ok(mut w) = writer.lock() {
-                                            // keep your existing TelemetryWriter API usage
                                             w.append(record);
                                         }
 

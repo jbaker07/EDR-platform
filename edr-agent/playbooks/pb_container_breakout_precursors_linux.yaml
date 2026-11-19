@@ -13,7 +13,7 @@ required:
     slot_ttl_sec: 420
     fact: Exec
     where:
-      - {field: exe, op: in, value: [/usr/bin/nsenter, /usr/bin/unshare, /usr/bin/chroot, /usr/bin/mount]}
+      - {field: exe, op: in, value: [/usr/bin/nsenter, /usr/bin/unshare, /usr/bin/chroot, /usr/sbin/chroot, /usr/bin/mount]}
       - {field: cmd, op: regex, value: '(--mount|--uts|--ipc|--net|--pid|--user|/host|/proc/1/ns)'}
     derive_tags: ["T1611"]    # Escape to Host
 

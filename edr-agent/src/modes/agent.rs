@@ -40,7 +40,7 @@ impl Agent {
             move || loop {
                 if check_for_mode_escalation() {
                     println!("🔁 Escalating to Forensic Mode");
-                    // In real usage, you'd notify main.rs to restart agent in forensic mode
+                    // Not implemented: main.rs is not notified to restart in forensic mode
                 }
                 thread::sleep(Duration::from_secs(30));
             }
@@ -52,7 +52,7 @@ impl Agent {
         forensic::start_forensic_engine();
 
         thread::spawn(|| loop {
-            let telemetry_batch = forensic::gather_all_forensic_telemetry(); // You must implement this
+            let telemetry_batch = forensic::gather_all_forensic_telemetry(); // not defined anywhere yet
             submit_batch_telemetry(telemetry_batch); // Send to backend or replay buffer
             thread::sleep(Duration::from_secs(60));
         });

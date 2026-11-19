@@ -63,7 +63,7 @@ pub fn store_replay_event<T: Serialize>(event: T) -> std::io::Result<()> {
     }
     // --------------------------------------------------
 
-    // Compute previous hash from the current file (safe—still locked)
+    // Compute previous hash from the current file (safe, still locked)
     let previous_hash = compute_last_hash(REPLAY_LOG_PATH)?;
 
     // Serialize the event cleanly
@@ -181,8 +181,8 @@ fn compute_hash(payload: &str) -> String {
 /// Fetch the most recent `hash` from the JSONL file, or "GENESIS".
 ///
 /// Note: We keep this simple since files are rotated at 10MB.
-/// If you want to optimize further, implement a reverse reader to
-/// scan from the end instead of loading the whole file.
+/// A reverse reader could optimize this by
+/// scanning from the end instead of loading the whole file.
 fn compute_last_hash(path: &str) -> std::io::Result<String> {
     let p = Path::new(path);
     if !p.exists() {

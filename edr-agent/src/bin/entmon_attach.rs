@@ -1,22 +1,20 @@
-// TOP OF FILE
 use anyhow::{anyhow, Context, Result};
 use aya::{
     maps::{perf::AsyncPerfEventArray, Array},
     programs::TracePoint,
     util::online_cpus,
-    Ebpf, // <- replace Bpf with Ebpf
+    Ebpf,
 };
 
-// where you loaded the object file
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut bpf =
         Ebpf::load_file("src/ebpf/entropy_exec_monitor.bpf.o").context("load ebpf obj")?;
 
-    // getting a program by name returns Option; don't use `?` on Option
+    // program_mut returns Option, so map None to an error
     let prog: &mut TracePoint = bpf
         .program_mut("on_sys_enter")
         .ok_or_else(|| anyhow!("program 'on_sys_enter' not found"))?
-        .try_into()?; // keep your .load()/.attach() sequence below
+        .try_into()?;
 
     // same for maps:
     let mut sysnrs: Array<_, u64> = Array::try_from(
@@ -30,7 +28,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .ok_or_else(|| anyhow!("map 'events' not found"))?,
     )?;
 
-    // online_cpus doesn't implement anyhow::Context because of its error type; map it
+    // online_cpus returns a (message, io::Error) tuple, so map it into anyhow
     let cpus = online_cpus().map_err(|(m, e)| anyhow!("online_cpus failed: {m}: {e}"))?;
     Ok(())
 }

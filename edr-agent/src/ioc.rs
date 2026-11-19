@@ -544,7 +544,7 @@ pub fn load_all(dir: impl AsRef<Path>) -> Result<IocStore> {
         }
     }
 
-    // de-duplicate identical (kind,value) — keep highest confidence and union tags
+    // de-duplicate identical (kind,value): keep highest confidence and union tags
     let mut uniq = Vec::<IocItem>::new();
     let mut seen = HashMap::<(IocKind, String), usize>::new();
     for mut it in items {

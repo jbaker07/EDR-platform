@@ -242,12 +242,12 @@ pub fn trust_from_risk(risk: f32) -> f32 {
 }
 
 /// Assign a **risk** score to a TelemetryRecord (0–100).
-/// Previously this function set a "trust score" into `risk_score` (inverted) — fixed.
+/// Earlier versions stored an inverted "trust score" in `risk_score`, now fixed.
 pub fn assign_trust_score(record: &mut TelemetryRecord) {
     // Heuristic risk builder (start at 0 = safe)
     let mut risk: f32 = 0.0;
 
-    // Simple indicators — tune as needed
+    // Simple indicators with hand-picked weights
     if record.binary_path.contains("/tmp") {
         risk += 40.0;
     }
@@ -263,7 +263,7 @@ pub fn assign_trust_score(record: &mut TelemetryRecord) {
     record.risk_score = Some(risk as u32);
 }
 
-/// Emit a TrustEvent (stdout here; plug into your bus where needed).
+/// Emit a TrustEvent (printed to stdout, no message bus).
 pub fn submit_trust_event(event: TrustEvent) {
     // Ensure consistency even if constructed externally
     let mut ev = event.clone();

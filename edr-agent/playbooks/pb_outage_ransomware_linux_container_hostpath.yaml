@@ -1,6 +1,6 @@
 id: pb_outage_ransomware_linux_container_hostpath
 version: 0.3
-name: Ransomware (Linux): Container HostPath/Volume Encryption
+name: "Ransomware (Linux): Container HostPath/Volume Encryption"
 severity: high
 description: Detects encryption from within containers against mounted host volumes (hostPath, bind).
 window_sec: 3600
@@ -12,7 +12,7 @@ required:
     slot_ttl_sec: 1200
     fact: Exec
     where:
-      - { field: exe, op: regex, value: "^(kubectl|crictl|ctr|nerdctl|docker)$" }
+      - { field: exe, op: regex, value: "^(?:.*/)?(kubectl|crictl|ctr|nerdctl|docker)$" }
       - { field: cmd, op: regex, value: "(exec|run|start|cp)\\b" }
     derive_tags: [ "T1611" ]  # Abuse: containerization/escape (proxy for context)
 
@@ -21,7 +21,7 @@ required:
     fact: FileIO
     where:
       - { field: op, op: in, value: [write, rename] }
-      - { field: topdir, op: regex, value: "(/var/lib/docker/volumes/|/var/lib/kubelet/pods/|/srv|/mnt|/data|/host/)" }
+      - { field: path, op: regex, value: "(/var/lib/docker/volumes/|/var/lib/kubelet/pods/|/srv|/mnt|/data|/host/)" }
       - { field: __agg.kind, op: eq, value: file_burst }
       - { field: __agg.files, op: gte, value: 500 }
       - { field: __agg.window_sec, op: lte, value: 1200 }

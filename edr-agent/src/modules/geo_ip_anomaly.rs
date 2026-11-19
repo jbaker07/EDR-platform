@@ -20,7 +20,7 @@ use crate::utils::time::now_ts;
 
 lazy_static! {
     static ref GEO_ANOMALY_FOUND: AtomicBool = AtomicBool::new(false);
-    // (user, geo, timestamp) – reserved if you later want rolling analytics
+    // (user, geo, timestamp), reserved for rolling analytics
     static ref GEO_LOGS: Mutex<Vec<(String, String, u64)>> = Mutex::new(Vec::new());
 }
 
@@ -55,7 +55,7 @@ lazy_static! {
 }
 
 fn is_vpn_or_anonymized(ip: &IpAddr) -> bool {
-    // Very light heuristic; keep as-is unless you wire to a provider
+    // Very light heuristic, not backed by an IP reputation provider
     let suspicious_ranges = [
         "185.", "45.129", "172.67", "104.244", // common CDN/VPN-ish blocks
         "198.18", "192.42", // benchmarking / Tor exits
@@ -146,7 +146,7 @@ pub fn detect_geo_anomaly(
 
             let multiplier = get_role_multiplier(&login.user);
             risk_score *= multiplier;
-            // Convert to "higher is more trusted" score as your code suggests
+            // Convert to a "higher is more trusted" score
             let bounded_score = (100.0 - risk_score).clamp(0.0, 100.0);
 
             let trust_event = TrustEvent {

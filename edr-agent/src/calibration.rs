@@ -4,7 +4,7 @@
 //! - Computes median, MAD, and empirical CDF rank (p-emp)
 //! - Persists to JSON so calibration travels with the host
 //!
-//! Use: see main.rs wiring—observe() then calibrate().
+//! Usage: call observe() then calibrate() (see main.rs).
 
 use std::collections::{HashMap, VecDeque};
 use std::fs;

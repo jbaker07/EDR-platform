@@ -1,8 +1,8 @@
 id: pb_outage_ransomware_linux_exfil_then_encrypt
 version: 0.3
-name: Ransomware (Linux): Exfiltration then Encryption
+name: "Ransomware (Linux): Exfiltration then Encryption"
 severity: high
-description: Detects data theft preceding encryption (double extortion): cloud exfil + later file burst.
+description: "Detects data theft preceding encryption (double extortion): cloud exfil + later file burst."
 window_sec: 21600      # 6h to catch exfil well before encryption
 cooldown_sec: 7200
 context_keys: [host, user]

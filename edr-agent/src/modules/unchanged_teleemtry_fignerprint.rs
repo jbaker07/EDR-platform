@@ -1,7 +1,7 @@
 use sha2::{Digest, Sha256};
 use walkdir::WalkDir;
 use mime_guess::from_path;
-use users::get_user_by_uid;
+use uzers::get_user_by_uid;
 use std::os::fd::AsRawFd;
 use nix::sys::uio::pread;
 use libc::iovec; // replaces `IoVec`
@@ -496,7 +496,7 @@ pub fn crawl_jobs() -> Vec<FingerprintEntry> {
 
 
 fn get_uid_for_user(username: &str) -> u32 {
-    use users::get_user_by_name;
+    use uzers::get_user_by_name;
     get_user_by_name(username).map(|u| u.uid()).unwrap_or(0)
 }
 

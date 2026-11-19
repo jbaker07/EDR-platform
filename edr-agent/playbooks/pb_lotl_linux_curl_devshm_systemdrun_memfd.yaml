@@ -1,6 +1,6 @@
 id: pb_lotl_linux_curl_devshm_systemdrun_memfd
 version: 0.2
-name: LotL: curl→/dev/shm→systemd-run (transient)→memfd (Linux)
+name: "LotL: curl→/dev/shm→systemd-run (transient)→memfd (Linux)"
 severity: high
 description: Living-off-the-land chain using native tools to fetch, stage in tmpfs, launch transient systemd unit, then in-memory execute.
 window_sec: 1200

@@ -1,6 +1,6 @@
 id: pb_lateral_linux_ssh_portforward_pivot
 version: 0.2
-name: Lateral Pivot: SSH Port Forward + Internal Fan‑Out (Linux)
+name: "Lateral Pivot: SSH Port Forward + Internal Fan‑Out (Linux)"
 severity: high
 description: Correlates inbound SSH access with local port forwarding and rapid connections to new internal hosts.
 window_sec: 1800

@@ -37,7 +37,7 @@ enum edr_evt_type {
     
     /* file fs */
     EVT_OPEN            = 10,   // openat/openat2 (exit carries ret fd)
-    EVT_RENAME          = 11,   // renameat2
+    EVT_RENAME          = 11,   // rename, renameat, renameat2
     EVT_UNLINK          = 14,   // unlinkat
     EVT_CHMOD_CHOWN     = 15,   // chmod/chown
     EVT_SETXATTR        = 16,   // setxattr family
@@ -181,7 +181,7 @@ struct edr_event {
 
     __u32 flags;       // O_* / PROT_* / PR_* / CLONE_* / etc.
     __u32 aux_u32;     // misc (e.g., bpf cmd)
-    __u64 aux_u64;     // misc (e.g., len) — keeps 8B alignment
+    __u64 aux_u64;     // misc (e.g., len), keeps 8B alignment
 
     /* networking */
     __u8  fam;         // AF_*

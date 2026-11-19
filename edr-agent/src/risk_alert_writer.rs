@@ -29,7 +29,7 @@ pub fn emit_risk_alert(
         summary: summary.to_string(),
     };
 
-    // You could send this alert to a remote server or local queue here.
+    // Printed to stdout only, not sent to a remote server or queue.
     println!("🚨 RISK ALERT: {:?}", alert);
     alert
 }

@@ -28,7 +28,7 @@ pub struct GraphNode {
     /// 0..1 (1 = fully trusted). We compute risk proxy as (1 - trust_score).
     pub trust_score: f32,
 
-    // optional/handy metadata (kept to match your UI/other code expectations)
+    // optional metadata (kept to match what the UI and other code expect)
     pub uid: Option<u32>,
     pub pid: Option<u32>,
     pub ppid: Option<u32>,
@@ -106,7 +106,7 @@ impl IncidentsMgr {
         self.items.get(id).cloned()
     }
 
-    /// Ingest a single alert JSON (as produced by your Evaluator).
+    /// Ingest a single alert JSON (as produced by the Evaluator).
     /// Returns the updated incident JSON (for SSE fanout) if successful.
     pub fn ingest_alert_json(&mut self, alert: &Value) -> Option<Value> {
         // Basic fields

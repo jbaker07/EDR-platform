@@ -140,10 +140,8 @@ pub fn parse_proc_maps_for_addr(pid: i32, addr: u64) -> Option<FingerprintEntry>
         if addr >= region_start && addr < region_end {
             let size = region_end.saturating_sub(region_start);
             let exec_capable = perms.contains('x');
-            let trusted_uid: u32 = 0; // Unknown here; fill if you have a lookup
+            let trusted_uid: u32 = 0; // Not looked up here, 0 is a default and not the owner uid
 
-            // If you later map and read memory, replace this placeholder.
-            let entropy_val = 0.0_f64;
             let category = if exec_capable { "executable" } else { "data" }.to_string();
 
             return Some(MemoryRegion {
@@ -165,7 +163,7 @@ pub fn parse_proc_maps_for_addr(pid: i32, addr: u64) -> Option<FingerprintEntry>
                 // optional numeric details
                 offset: Some(offset),
                 size: Some(size),
-                entropy: Some(entropy_val),
+                entropy: None,
                 exec_capable: Some(exec_capable),
             });
         }

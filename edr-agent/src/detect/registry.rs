@@ -158,7 +158,7 @@ impl IntegrationsRegistry {
 // DetectorRegistry (rules / anomaly / ML detectors registry) used by pipeline.rs
 // -----------------------------------------------------------------------------
 use crate::detect::rules::RulesDetector;
-use crate::detect::{Detector, Finding, NormalizedEvent}; // 👈 use the alias exported by detect::mod
+use crate::detect::{Detector, Finding, NormalizedEvent}; // alias exported by detect::mod
 pub struct DetectorRegistry {
     detectors: Vec<Box<dyn Detector>>,
 }

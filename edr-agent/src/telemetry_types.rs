@@ -27,7 +27,7 @@ pub struct ContainerExecEvent {
     pub container_type: String,
 }
 
-/// Memory anomalies — kept backward compatible (both `IpcAbuse` and `IPCAbuse`
+/// Memory anomalies, kept backward compatible (both `IpcAbuse` and `IPCAbuse`
 /// are present so existing call sites compile). Serde uses snake_case so JSON is
 /// stable regardless of Rust casing.
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]

@@ -7,11 +7,13 @@
       "description": "Potential SysV-style persistence via init.d",
       "severity": 0.9,
       "enabled": true,
-      "match": {
-        "category": "file",
-        "signal": "file_access",
-        "file_path_regex": "^/etc/init\\.d/.*"
-      }
+      "all": [
+        { "field": "path", "op": "regex", "value": "^/etc/init\\.d/.*" }
+      ],
+      "any": [
+        { "field": "tags.file_access", "op": "eq", "value": "true" },
+        { "field": "tags.file_open", "op": "eq", "value": "true" }
+      ]
     },
     {
       "id": "R002",
@@ -19,11 +21,13 @@
       "description": "Shell script activity in /tmp may indicate staging",
       "severity": 0.6,
       "enabled": true,
-      "match": {
-        "category": "file",
-        "signal": "file_access",
-        "file_path_regex": "^/tmp/.*\\.sh$"
-      }
+      "all": [
+        { "field": "path", "op": "regex", "value": "^/tmp/.*\\.sh$" }
+      ],
+      "any": [
+        { "field": "tags.file_access", "op": "eq", "value": "true" },
+        { "field": "tags.file_open", "op": "eq", "value": "true" }
+      ]
     },
     {
       "id": "R003",
@@ -31,11 +35,13 @@
       "description": "Reading another process environment can leak secrets/keys",
       "severity": 0.6,
       "enabled": true,
-      "match": {
-        "category": "file",
-        "signal": "file_access",
-        "file_path_regex": "^/proc/[0-9]+/environ$"
-      }
+      "all": [
+        { "field": "path", "op": "regex", "value": "^/proc/[0-9]+/environ$" }
+      ],
+      "any": [
+        { "field": "tags.file_access", "op": "eq", "value": "true" },
+        { "field": "tags.file_open", "op": "eq", "value": "true" }
+      ]
     },
     {
       "id": "R004",
@@ -43,11 +49,254 @@
       "description": "Access to rolling calibration file (informational)",
       "severity": 0.2,
       "enabled": true,
-      "match": {
-        "category": "file",
-        "signal": "file_access",
-        "file_path": "state/calibration/rolling_calibration.json"
-      }
+      "all": [
+        { "field": "path", "op": "eq", "value": "state/calibration/rolling_calibration.json" }
+      ],
+      "any": [
+        { "field": "tags.file_access", "op": "eq", "value": "true" },
+        { "field": "tags.file_open", "op": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "proc_powershell_encoded",
+      "name": "PowerShell with EncodedCommand",
+      "severity": 0.9,
+      "mitre": ["T1059.001"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "regex", "value": "(?i)(powershell|powershell\\.exe|pwsh|pwsh\\.exe)$" },
+        { "field": "cmdline", "op": "regex", "value": "(?i)-enc" }
+      ]
+    },
+    {
+      "id": "proc_shell_curlpipe",
+      "name": "Shell download & pipe to interpreter",
+      "severity": 0.85,
+      "mitre": ["T1059", "T1105"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "regex", "value": "(bash|sh|zsh|fish)$" }
+      ],
+      "any": [
+        { "field": "cmdline", "op": "regex", "value": "curl\\s+[^|]+\\|\\s*(sh|bash)" },
+        { "field": "cmdline", "op": "regex", "value": "wget\\s+[^|]+\\|\\s*(sh|bash)" }
+      ]
+    },
+    {
+      "id": "proc_exec_from_tmp",
+      "name": "Execution from temp or memory FS",
+      "severity": 0.7,
+      "mitre": ["T1204", "T1036"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" }
+      ],
+      "any": [
+        { "field": "exe", "op": "startswith", "value": "/tmp/" },
+        { "field": "exe", "op": "startswith", "value": "/var/tmp/" },
+        { "field": "exe", "op": "startswith", "value": "/dev/shm/" },
+        { "field": "exe", "op": "startswith", "value": "/private/tmp/" }
+      ],
+      "none": [
+        { "field": "exe", "op": "contains", "value": "/snap/" },
+        { "field": "exe", "op": "contains", "value": "/conda/" }
+      ]
+    },
+    {
+      "id": "linux_cron_persist_write",
+      "name": "Write to cron directories",
+      "severity": 0.65,
+      "mitre": ["T1053.003", "T1547.001"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "file" },
+        { "field": "event", "op": "eq", "value": "write" }
+      ],
+      "any": [
+        { "field": "path", "op": "startswith", "value": "/etc/cron" },
+        { "field": "path", "op": "contains", "value": "/cron.d/" },
+        { "field": "path", "op": "contains", "value": "crontab" }
+      ]
+    },
+    {
+      "id": "linux_systemd_user_persist",
+      "name": "systemd user service persistence",
+      "severity": 0.7,
+      "mitre": ["T1543.002", "T1547"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "file" },
+        { "field": "event", "op": "eq", "value": "write" }
+      ],
+      "any": [
+        { "field": "path", "op": "contains", "value": "/.config/systemd/user/" },
+        { "field": "path", "op": "startswith", "value": "/etc/systemd/system/" }
+      ]
+    },
+    {
+      "id": "credential_artifacts_sshkeys",
+      "name": "SSH keys modified",
+      "severity": 0.6,
+      "mitre": ["T1098", "T1552.004"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "file" },
+        { "field": "event", "op": "eq", "value": "write" }
+      ],
+      "any": [
+        { "field": "path", "op": "endswith", "value": "authorized_keys" },
+        { "field": "path", "op": "endswith", "value": "id_rsa" },
+        { "field": "path", "op": "endswith", "value": "id_ed25519" }
+      ]
+    },
+    {
+      "id": "susp_python_inline_b64",
+      "name": "Python inline base64 exec",
+      "severity": 0.75,
+      "mitre": ["T1059.006", "T1027"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "regex", "value": "(python|python3)$" }
+      ],
+      "any": [
+        { "field": "cmdline", "op": "regex", "value": "base64\\.(b64decode|standard_b64decode)\\(" },
+        { "field": "cmdline", "op": "regex", "value": "exec\\([^)]+\\)" }
+      ]
+    },
+    {
+      "id": "sudo_noninteractive_pass",
+      "name": "sudo with -S (password on stdin)",
+      "severity": 0.55,
+      "mitre": ["T1548.003"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "endswith", "value": "sudo" },
+        { "field": "cmdline", "op": "contains", "value": " -S " }
+      ]
+    },
+    {
+      "id": "pkexec_spawn",
+      "name": "pkexec execution",
+      "severity": 0.65,
+      "mitre": ["T1548.003"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "endswith", "value": "pkexec" }
+      ]
+    },
+    {
+      "id": "net_beacon_tag_escalation",
+      "name": "Beacon cadence anomaly (tag)",
+      "severity": 0.6,
+      "mitre": ["T1071", "T1105"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "network" },
+        { "field": "tags.cadence", "op": "eq", "value": "true" },
+        { "field": "tags.anomaly", "op": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "entropy_blob_write",
+      "name": "High-entropy blob written",
+      "severity": 0.7,
+      "mitre": ["T1027"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "file" },
+        { "field": "event", "op": "eq", "value": "write" }
+      ],
+      "any": [
+        { "field": "tags.high_entropy_blob", "op": "eq", "value": "true" },
+        { "field": "tags.packed_payload", "op": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "mahala_outlier_escalation",
+      "name": "Mahalanobis outlier (batch)",
+      "severity": 0.5,
+      "mitre": ["T1036"],
+      "all": [
+        { "field": "tags.mahalanobis_outlier", "op": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "elliptic_outlier_escalation",
+      "name": "EllipticEnvelope outlier (env)",
+      "severity": 0.5,
+      "mitre": ["T1036"],
+      "all": [
+        { "field": "tags.elliptic_outlier", "op": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "krim_graph_alert_escalation",
+      "name": "KRIM-lite graph alert",
+      "severity": 0.65,
+      "mitre": ["T1482", "T1087"],
+      "all": [
+        { "field": "tags.krim_alert", "op": "eq", "value": "true" }
+      ]
+    },
+    {
+      "id": "office_spawns_shell",
+      "name": "Office/Document app spawns shell",
+      "severity": 0.8,
+      "mitre": ["T1204", "T1059"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "regex", "value": "(?i)(winword|excel|powerpnt|acrord32|libreoffice)" }
+      ],
+      "any": [
+        { "field": "cmdline", "op": "regex", "value": "(?i)(cmd\\.exe|powershell|pwsh|wscript|cscript|bash|sh)" },
+        { "field": "exe", "op": "regex", "value": "(?i)(cmd\\.exe|powershell|pwsh|wscript|cscript|bash|sh)$" }
+      ]
+    },
+    {
+      "id": "suspicious_tools_collection",
+      "name": "Suspicious tools invoked",
+      "severity": 0.6,
+      "mitre": ["T1036", "T1059"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" }
+      ],
+      "any": [
+        { "field": "exe", "op": "regex", "value": "(?i)(ncat|nc\\s|socat|chisel|iodine|rclone|pspy|linpeas|winpeas)" },
+        { "field": "cmdline", "op": "regex", "value": "(?i)(ncat|socat|rclone|chisel|linpeas|pspy)" }
+      ],
+      "none": [
+        { "field": "cmdline", "op": "contains", "value": "--help" }
+      ]
+    },
+    {
+      "id": "script_interpreter_from_user_dir",
+      "name": "Interpreter launched from user home",
+      "severity": 0.55,
+      "mitre": ["T1059"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "process" },
+        { "field": "event", "op": "eq", "value": "exec" },
+        { "field": "exe", "op": "startswith", "value": "/home/" }
+      ],
+      "any": [
+        { "field": "exe", "op": "regex", "value": "(/python(3)?$|/perl$|/node$|/ruby$|/php$)" },
+        { "field": "cmdline", "op": "regex", "value": "\\b(-e|--eval|--execute)\\b" }
+      ]
+    },
+    {
+      "id": "windows_run_keys_modify",
+      "name": "Windows Run key modification (if present)",
+      "severity": 0.7,
+      "mitre": ["T1547.001"],
+      "all": [
+        { "field": "category", "op": "eq", "value": "file" }
+      ],
+      "any": [
+        { "field": "path", "op": "regex", "value": "(?i)\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run" },
+        { "field": "path", "op": "regex", "value": "(?i)\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\RunOnce" }
+      ]
     }
   ]
 }

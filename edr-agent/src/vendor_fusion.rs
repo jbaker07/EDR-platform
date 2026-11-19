@@ -1,6 +1,6 @@
 // src/vendor_fusion.rs
 // Helpers for turning external vendor alerts into playbook slot fulfillment.
-// This acts as a small adapter layer — it doesn't parse every product schema;
+// This acts as a small adapter layer. It doesn't parse every product schema,
 // callers should map the vendor payload into (product, alert_type, host, ts).
 
 use crate::pb_engine::PlaybookEngine;

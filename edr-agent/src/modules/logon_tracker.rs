@@ -303,15 +303,15 @@ pub fn scan_logon_activity() -> Vec<TelemetryOutput> {
         raw_score: Some(0.0),
     });
 
-    let mut placeholder = HashMap::new();
-    placeholder.insert("event_type".into(), "logon_tracker".into());
-    placeholder.insert("timestamp".into(), timestamp.to_string());
-    placeholder.insert("status".into(), "no_logon_activity_detected".into());
+    let mut data = HashMap::new();
+    data.insert("event_type".into(), "logon_tracker".into());
+    data.insert("timestamp".into(), timestamp.to_string());
+    data.insert("status".into(), "no_logon_activity_detected".into());
 
     vec![TelemetryOutput {
         category: "auth".into(),
         signal: "no_logon_activity_detected".into(),
         confidence: 0.0,
-        data: placeholder,
+        data,
     }]
 }

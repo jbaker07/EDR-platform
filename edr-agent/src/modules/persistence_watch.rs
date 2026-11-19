@@ -12,7 +12,7 @@ use std::sync::{Mutex, RwLock};
 
 use glob::glob;
 use sha2::{Digest, Sha256};
-use users::get_user_by_uid;
+use uzers::get_user_by_uid;
 
 use serde_json::json;
 

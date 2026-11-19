@@ -1,6 +1,6 @@
 id: pb_outage_ransomware_linux_intermit_encrypt
 version: 0.3
-name: Ransomware (Linux): Intermittent/Partial Encryption
+name: "Ransomware (Linux): Intermittent/Partial Encryption"
 severity: high
 description: Detects partial-block encryption patterns (many short writes+rename) that evade naive entropy/I/O thresholds.
 window_sec: 1800

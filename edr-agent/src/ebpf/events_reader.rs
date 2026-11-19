@@ -50,7 +50,7 @@ fn canonical_and_fallback_paths(map_name: &str) -> [String; 2] {
     ]
 }
 
-fn bpf_fd_for_path(path: &str) -> Result<std::os::fd::OwnedFd, String> {
+pub(crate) fn bpf_fd_for_path(path: &str) -> Result<std::os::fd::OwnedFd, String> {
     use libbpf_rs::libbpf_sys as sys;
     use std::ffi::CString;
     use std::os::fd::FromRawFd;
@@ -169,7 +169,7 @@ pub fn choose_single_ringbuf_name(obj: &libbpf_rs::Object) -> Option<String> {
     None
 }
 
-/// Ringbuf path with **no attaches** (use if your BPF programs are attached elsewhere).
+/// Ringbuf path with **no attaches** (for BPF programs attached elsewhere).
 pub fn start_ringbuf_reader_simple(
     obj_path: &str,
     on_evt: impl Fn(&[u8]) + Send + 'static,
@@ -212,7 +212,7 @@ pub fn start_ringbuf_reader_simple(
     Ok(())
 }
 
-/// Ringbuf path where **you** attach programs via the provided closure.
+/// Ringbuf path where the caller attaches programs via the provided closure.
 pub fn start_ringbuf_reader_with_attach(
     obj_path: &str,
     attach: impl Fn(&mut libbpf_rs::Object) -> Result<(), String>,
@@ -507,7 +507,7 @@ pub fn start_perf_reader_from_pinname(
 /* -------------------- convenience: start all pinned readers -------------------- */
 
 /// Start all four pinned readers using the provided pin prefix.
-/// You can either pass *per-map* callbacks, or use `start_all_pinned_readers_demux` below.
+/// Takes *per-map* callbacks. For one demuxed callback, use `start_all_pinned_readers_demux` below.
 pub fn start_all_pinned_readers(
     pin_prefix: &str,
     on_edr_sys: impl Fn(&[u8]) + Send + 'static,
@@ -551,7 +551,7 @@ pub fn start_all_pinned_readers(
     Ok(())
 }
 
-/// Same as above, but gives you a single demuxed callback with a `Source` tag.
+/// Same as above, but with a single demuxed callback that receives a `Source` tag.
 pub fn start_all_pinned_readers_demux(
     pin_prefix: &str,
     on: impl Fn(Source, &[u8]) + Send + Sync + 'static + Clone,

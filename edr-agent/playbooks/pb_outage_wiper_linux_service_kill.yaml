@@ -18,7 +18,7 @@ required:
     slot_ttl_sec: 900
     fact: Exec
     where:
-      - {field: exe, op: regex, value: "^(?:/usr/bin/)?(shred|dd|wipefs|blkdiscard)$"}
+      - {field: exe, op: regex, value: "^(?:/usr/s?bin/)?(shred|dd|wipefs|blkdiscard)$"}
       - {field: cmd, op: contains, value: "/dev/"}
     derive_tags: ["T1561.001"]   # Disk Wipe
 

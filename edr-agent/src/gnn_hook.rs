@@ -187,7 +187,7 @@ pub fn build_gnn_scoring_input(
     }
 }
 
-/// Minimal send helper if you don’t have a subgraph handy.
+/// Minimal send helper for callers without a subgraph.
 pub fn send_to_gnn_daemon(trust_vector: TrustVector, _tags: Vec<String>) {
     let input = GnnScoringInput {
         nodes: Vec::new(),

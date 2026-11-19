@@ -1,4 +1,4 @@
-// dll_injection_monitor.c — ringbuf output
+// dll_injection_monitor.c: ringbuf output
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>

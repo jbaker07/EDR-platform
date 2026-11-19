@@ -316,7 +316,7 @@ pub fn score_sequences(
                 meta.insert("drop".into(), format!("{:.2}", drop));
                 meta.insert("score".into(), format!("{:.2}", score));
 
-                // Assemble event compatible with your TrustEvent struct
+                // Assemble the TrustEvent
                 let ts_u64 = Utc::now().timestamp() as u64;
                 let ev = TrustEvent {
                     timestamp: ts_u64,

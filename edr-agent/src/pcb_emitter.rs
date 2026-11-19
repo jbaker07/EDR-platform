@@ -2,9 +2,9 @@
 //! PCB (Process Control Block) snapshot emitter.
 //!
 //! Gathers per-PID snapshot stats (threads, RSS, FD count, context switches) for
-//! PIDs referenced by the current Episode's graph. This is a *collector*—it computes
-//! robust stats but returns an empty Vec to avoid assuming your FeatureObservation ctor.
-//! Wire these metrics into your unified scorer later.
+//! PIDs referenced by the current Episode's graph. This is a collector: it computes
+//! the stats but returns an empty Vec because they are not yet mapped to
+//! FeatureObservation.
 //!
 //! Linux-only; fails soft on permission/vanished-process errors.
 
@@ -58,21 +58,8 @@ impl FeatureEmitter for PcbEmitter {
 
             let stats = probe_pcb_snapshot(&pids, self.tiny_sleep_ms);
 
-            // TODO: map `stats` into your FeatureObservation type when you're ready.
-            // Example (pseudo; depends on your struct):
-            // vec![
-            //   fo("pcb.total_pids", stats.total_pids as f64, "pcb"),
-            //   fo("pcb.alive_sampled", stats.alive_sampled as f64, "pcb"),
-            //   fo("pcb.max_threads", stats.max_threads as f64, "pcb"),
-            //   fo("pcb.p95_threads", stats.p95_threads as f64, "pcb"),
-            //   fo("pcb.max_fd", stats.max_fd as f64, "pcb"),
-            //   fo("pcb.p95_fd", stats.p95_fd as f64, "pcb"),
-            //   fo("pcb.max_rss_kb", stats.max_rss_kb as f64, "pcb"),
-            //   fo("pcb.p95_rss_kb", stats.p95_rss_kb as f64, "pcb"),
-            //   fo("pcb.max_ctx_switches", stats.max_ctx_switches as f64, "pcb"),
-            //   fo("pcb.p95_ctx_switches", stats.p95_ctx_switches as f64, "pcb"),
-            // ]
-            let _ = stats; // keep compile-safe until you wire FeatureObservation here
+            // TODO: `stats` is not yet mapped to FeatureObservation, so this emitter returns no features.
+            let _ = stats;
             Vec::new()
         }
         #[cfg(not(target_os = "linux"))]

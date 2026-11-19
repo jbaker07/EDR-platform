@@ -7,7 +7,7 @@ use crate::score_reason::ScoreReason;
 /// Sends telemetry map to GNN inference server and receives a score (0.0–1.0)
 /// Returns both score and optional `ScoreReason` for explainability.
 pub fn get_gnn_score(input: &HashMap<String, String>) -> (f64, Option<ScoreReason>) {
-    let gnn_host = "127.0.0.1:6060"; // Match your local or deployment setup
+    let gnn_host = "127.0.0.1:6060"; // hard-coded local GNN daemon address
 
     match TcpStream::connect(gnn_host) {
         Ok(mut stream) => {

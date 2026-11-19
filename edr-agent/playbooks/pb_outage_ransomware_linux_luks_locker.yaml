@@ -1,6 +1,6 @@
 id: pb_outage_ransomware_linux_luks_locker
 version: 0.3
-name: Ransomware (Linux): LUKS/Disk Locker Attempt
+name: "Ransomware (Linux): LUKS/Disk Locker Attempt"
 severity: high
 description: Detects attempts to lock or re-encrypt Linux volumes (LUKS/DM) and boot-chain changes that persist encryption across reboot.
 window_sec: 7200
@@ -12,7 +12,7 @@ required:
     slot_ttl_sec: 1800
     fact: Exec
     where:
-      - { field: exe, op: regex, value: "^(?:/usr/(?:local/)?bin/)?(cryptsetup|dmsetup|blkid|lsblk)$" }
+      - { field: exe, op: regex, value: "^(?:/usr/(?:local/)?s?bin/)?(cryptsetup|dmsetup|blkid|lsblk)$" }
       - { field: cmd, op: regex, value: "(luksFormat|reencrypt|open|close|luksAddKey|table|status)" }
     derive_tags: [ "T1486" ]
 

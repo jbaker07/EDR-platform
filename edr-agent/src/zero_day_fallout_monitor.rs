@@ -3,7 +3,7 @@ use crate::telemetry::{get_loaded_modules, get_kernel_anomalies, check_unlinked_
 use std::thread;
 use std::time::Duration;
 
-/// Arbitrary kernel PID to check module load status — in production, consider fetching this dynamically.
+/// Arbitrary kernel PID used to check module load status (hard-coded, not looked up).
 const KERNEL_PID: i32 = 0;
 
 /// Launches the zero-day fallout detection loop every 5 minutes.
@@ -13,7 +13,7 @@ pub fn start_zero_day_fallout_monitor() {
         detect_unlinked_binary_exec();
         detect_syscall_surface_shift();
 
-        thread::sleep(Duration::from_secs(300)); // ⏱️ Every 5 minutes
+        thread::sleep(Duration::from_secs(300)); // every 5 minutes
     });
 }
 

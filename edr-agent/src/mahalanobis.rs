@@ -288,7 +288,7 @@ impl Mahala {
             .and_then(|st| serde_json::to_string_pretty(st).ok())
     }
 
-    /// Clear a context (e.g., if you rotate roles or trust that the baseline drifted).
+    /// Clear a context (e.g., after a role rotation or a known baseline drift).
     pub fn reset_context(&mut self, context: &str) {
         self.map.remove(context);
     }
@@ -426,7 +426,7 @@ impl Mahala {
     // Optional helpers
     // -----------------------------------------------------------------------------------------
 
-    /// Local chi-square quantile approximation (optional; you can prefer the one in elliptic_envelope).
+    /// Local chi-square quantile approximation (elliptic_envelope has an alternative).
     /// Returns q such that P[ChiSq(df) <= q] ≈ p. Valid for df >= 1, 0<p<1.
     pub fn chi_square_quantile_approx_local(df: usize, p: f64) -> f64 {
         // Wilson–Hilferty / Beasley-Springer-Moro style approximation on normal quantile

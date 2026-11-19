@@ -338,7 +338,7 @@ pub fn scan_dll_injection_activity() -> Vec<TelemetryOutput> {
     DLL_INJECTION_ONCE.call_once(|| {
         if !DLL_INJECTION_STARTED.load(Ordering::Acquire) {
             let _ = thread::spawn(|| {
-                // Direct call—no Tokio runtime needed
+                // Direct call, no Tokio runtime needed
                 start_ebpf_dll_injection_watch();
                 // The thread above will set DLL_INJECTION_STARTED once attach succeeds
                 println!("✅ dll_injection_monitor launch requested.");

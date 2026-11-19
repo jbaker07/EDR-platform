@@ -4,7 +4,7 @@ use parking_lot::Mutex;
 use std::collections::{HashMap, VecDeque};
 use crate::ingest::KernelEvent;
 
-// Replace these with your real types.
+// Placeholder types for this module.
 #[derive(Debug, Clone)]
 pub struct Event {
     pub ts_ns: u64,
@@ -136,7 +136,7 @@ impl Normalizer {
         self.buf.push_back(ev);
     }
 
-    /// Call this on your 30s flush to hand the Episode to scoring (TrustVector/Mahalanobis/Envelope/KRIM-lite).
+    /// Called on the 30s flush to hand the Episode to scoring (TrustVector/Mahalanobis/Envelope/KRIM-lite).
     pub fn flush_batch(&mut self) -> Episode {
         let events: Vec<Event> = self.buf.drain(..).collect();
         let edges = std::mem::take(&mut self.edges);

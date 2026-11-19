@@ -4,46 +4,38 @@ use std::sync::Arc;
 use tokio::sync::mpsc::Receiver;
 
 use crate::metrics;
-use crate::pb_introspect;
 use crate::pb_wiring;
-use crate::utils::time::now_ts;
 
 use super::fact::AdapterFact;
 use super::with_engine;
 
+/// Feed every adapter fact to the engine as it arrives. A completed playbook goes to
+/// pb_wiring::publish, which logs it, shows it under /playbooks/hits and queues it for
+/// the batch loop to turn into an incident.
 pub async fn run_adapter(mut rx: Receiver<AdapterFact>, _metrics: Arc<metrics::Metrics>) {
     while let Some(fact) = rx.recv().await {
         metrics::facts_in().fetch_add(1, Ordering::Relaxed);
 
-        let Some(record) = super::to_pb_record(&fact) else {
-            log::warn!(
-                "pb_adapter: failed to map fact kind={} detector={}",
-                fact.kind,
-                fact.detector
-            );
+        let facts = pb_wiring::map_adapter_fact(&fact);
+        if facts.is_empty() {
+            continue;
+        }
+        let Some(engine) = with_engine() else {
+            log::warn!("pb_adapter: engine handle not initialized");
             continue;
         };
-
-        if let Some(engine) = with_engine() {
-            match engine.lock() {
-                Ok(mut eng) => {
-                    let mut records = Vec::with_capacity(1);
-                    records.push(record);
-                    let now = now_ts();
-                    let out = pb_wiring::ingest_batch(&mut *eng, &records, now);
-                    for pending in out.pending {
-                        pb_introspect::add_or_update_pending(pending);
-                    }
-                    for hit in out.hits {
-                        pb_introspect::push_hit(hit);
-                    }
-                }
-                Err(err) => {
-                    log::warn!("pb_adapter: engine lock poisoned: {err}");
-                }
+        let hits = match engine.lock() {
+            Ok(mut eng) => facts
+                .into_iter()
+                .flat_map(|f| eng.ingest_fact(f))
+                .collect::<Vec<_>>(),
+            Err(err) => {
+                log::warn!("pb_adapter: engine lock poisoned: {err}");
+                continue;
             }
-        } else {
-            log::warn!("pb_adapter: engine handle not initialized");
+        };
+        for hit in hits {
+            pb_wiring::publish(hit);
         }
     }
 }

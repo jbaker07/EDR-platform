@@ -20,7 +20,7 @@
 #define AF_INET6 10
 #endif
 
-/* Event types (keep or override via -D if you already defined them elsewhere) */
+/* Event types (override via -D if already defined elsewhere) */
 #ifndef EVT_PROC_EXEC_TP
 #define EVT_PROC_EXEC_TP  1001
 #endif
@@ -31,22 +31,32 @@
 #define EVT_PROC_EXIT     1003
 #endif
 
-/* Unified event layout used by your probes */
-struct edr_event {
+/* Bytes of argv copied at exec. The rest is cut, argv_total says how long it was. */
+#define PROC_LC_ARGV_CAP 256
+
+/* The frame this file writes to the shared ring, 576 bytes.
+ * The first 312 bytes are the older layout, unchanged, so the decoder still reads
+ * frames from an object built before argv was added. New fields go at the end. */
+struct proc_lc_event {
     __u64 ts;            // monotonic ns
     __u32 type;          // EVT_*
-    __s32 syscall_id;    // if from sys_enter/exit; 0 for TPs
+    __s32 syscall_id;    // always 0, part of the magic the decoder checks
     __u32 tgid;          // process id
-    __u32 ppid;          // parent id (optional if known)
+    __u32 ppid;          // real_parent->tgid
     __u32 uid;           // uid at emit time
-    __s32 fd;            // file/socket fd if relevant else -1
-    __s32 ret;           // syscall/derived return (e.g., child pid for fork)
-    __u32 aux_u32;       // misc small field (e.g., exit_code)
+    __s32 fd;            // always -1, part of the magic
+    __s32 ret;           // always 0
+    __u32 aux_u32;       // exit: task->exit_code
     char  comm[16];      // task comm
-    char  path[256];     // best-effort path/argv/comm as text
+    char  path[256];     // exec: filename the tracepoint reports, else empty
+    __u32 argv_len;      // exec: bytes copied into argv
+    __u32 argv_total;    // exec: arg_end - arg_start, the full argv length
+    char  argv[PROC_LC_ARGV_CAP]; // exec: NUL-separated arguments
 };
 
-/* Per-object ringbuf map for events (ok to define in each .bpf.c) */
+_Static_assert(sizeof(struct proc_lc_event) == 576, "struct proc_lc_event must be 576 bytes");
+
+/* Same map name as raw_syscalls_catcher, so edr_attach_any points it at the shared ring */
 struct {
     __uint(type, BPF_MAP_TYPE_RINGBUF);
     __uint(max_entries, 1 << 24); // 16MB
@@ -59,16 +69,20 @@ static __always_inline __maybe_unused __u32 edr_tgid(void) {
 static __always_inline __maybe_unused __u32 edr_uid(void) {
     return (__u32)(bpf_get_current_uid_gid() & 0xffffffff);
 }
-static __always_inline __maybe_unused int edr_emit(struct edr_event *ev) {
-    return bpf_ringbuf_output(&edr_events_rb, ev, sizeof(*ev), 0);
-}
 
 #endif /* EDR_EVENTS_H */
 
 /* ===================== proc_lifecycle programs ===================== */
 
-static __always_inline void fill_common(struct edr_event *ev, __u32 type)
+/* The frame is too big for the 512-byte BPF stack, so it is built in ring memory.
+ * Ring memory is not zeroed and the string copies stop at the NUL, so clear it first. */
+static __always_inline struct proc_lc_event *lc_reserve(__u32 type)
 {
+    struct proc_lc_event *ev = bpf_ringbuf_reserve(&edr_events_rb, sizeof(*ev), 0);
+    if (!ev)
+        return 0; // ring full, the event is dropped
+    __builtin_memset(ev, 0, sizeof(*ev));
+
     ev->ts         = bpf_ktime_get_ns();
     ev->type       = type;
     ev->syscall_id = 0;
@@ -80,45 +94,71 @@ static __always_inline void fill_common(struct edr_event *ev, __u32 type)
 
     struct task_struct *t = (void *)bpf_get_current_task();
     ev->ppid = BPF_CORE_READ(t, real_parent, tgid);
-
-    __builtin_memset(ev->path, 0, sizeof(ev->path));
     bpf_get_current_comm(&ev->comm, sizeof(ev->comm));
+    return ev;
 }
 
 /* sched_process_fork */
 SEC("tracepoint/sched/sched_process_fork")
 int tp_sched_process_fork(void *ctx)
 {
-    struct edr_event ev = {};
-    fill_common(&ev, EVT_PROC_FORK);
-    return edr_emit(&ev);
+    struct proc_lc_event *ev = lc_reserve(EVT_PROC_FORK);
+    if (!ev)
+        return 0;
+    bpf_ringbuf_submit(ev, 0);
+    return 0;
 }
 
-/* sched_process_exec */
+/* sched_process_exec
+ * A short-lived process can exit before user space reads /proc/<pid>, so the filename
+ * and the start of argv are copied here, while the process still exists. */
 SEC("tracepoint/sched/sched_process_exec")
-int tp_sched_process_exec(void *ctx)
+int tp_sched_process_exec(struct trace_event_raw_sched_process_exec *ctx)
 {
-    struct edr_event ev = {};
-    fill_common(&ev, EVT_PROC_EXEC_TP);
+    struct proc_lc_event *ev = lc_reserve(EVT_PROC_EXEC_TP);
+    if (!ev)
+        return 0;
 
-    /* Mirror comm into path for readability */
-    __builtin_memcpy(ev.path, ev.comm, sizeof(ev.comm));
+    /* filename is a __data_loc string: the low 16 bits are its offset in the record */
+    unsigned int off = ctx->__data_loc_filename & 0xFFFF;
+    bpf_probe_read_kernel_str(ev->path, sizeof(ev->path), (void *)ctx + off);
 
-    return edr_emit(&ev);
+    /* argv of the new image. exec copied it to the new stack just before this
+     * tracepoint fires, so the pages are present. */
+    struct task_struct *t = (void *)bpf_get_current_task();
+    unsigned long start = BPF_CORE_READ(t, mm, arg_start);
+    unsigned long end   = BPF_CORE_READ(t, mm, arg_end);
+    if (start && end > start) {
+        /* n stays 64-bit and barrier_var follows the clamp, the same fix as in
+         * dns_tunnel_monitor.bpf.c. Otherwise clang can pass an unclamped copy of n
+         * to the helper and the verifier rejects the size. */
+        __u64 n = end - start;
+        ev->argv_total = (__u32)n;
+        if (n > PROC_LC_ARGV_CAP)
+            n = PROC_LC_ARGV_CAP;
+        barrier_var(n);
+        if (bpf_probe_read_user(ev->argv, n, (void *)start) == 0)
+            ev->argv_len = (__u32)n;
+    }
+
+    bpf_ringbuf_submit(ev, 0);
+    return 0;
 }
 
 /* sched_process_exit */
 SEC("tracepoint/sched/sched_process_exit")
 int tp_sched_process_exit(void *ctx)
 {
-    struct edr_event ev = {};
-    fill_common(&ev, EVT_PROC_EXIT);
+    struct proc_lc_event *ev = lc_reserve(EVT_PROC_EXIT);
+    if (!ev)
+        return 0;
 
     struct task_struct *t = (void *)bpf_get_current_task();
     int exit_code = BPF_CORE_READ(t, exit_code);
-    ev.aux_u32 = (__u32)exit_code;
+    ev->aux_u32 = (__u32)exit_code;
 
-    return edr_emit(&ev);
+    bpf_ringbuf_submit(ev, 0);
+    return 0;
 }
 
 char LICENSE[] SEC("license") = "Dual BSD/GPL";

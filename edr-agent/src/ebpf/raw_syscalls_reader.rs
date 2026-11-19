@@ -18,7 +18,7 @@ mod linux {
     use crate::telemetry_writer::TelemetryWriter;
     use crate::telemetry::TelemetryRecord;
 
-    // Keep this layout in sync with your BPF event struct.
+    // Keep this layout in sync with the BPF event struct.
     // Typical sys_enter payload: pid, uid, syscall_id, ts_ns, args[6]
     #[repr(C)]
     #[derive(Clone, Copy, Debug)]
@@ -70,7 +70,7 @@ mod linux {
     pub fn spawn(writer: Arc<Mutex<TelemetryWriter>>) -> anyhow::Result<std::thread::JoinHandle<()>> {
         set_memlock_rlimit_unlimited();
 
-        // Adjust the path if you keep the .o elsewhere.
+        // Path to the compiled BPF object, relative to the crate root.
         let obj = include_bytes_aligned!(concat!(env!("CARGO_MANIFEST_DIR"),
             "/src/ebpf/raw_syscalls_catcher.bpf.o"));
 
@@ -85,7 +85,7 @@ mod linux {
             tp.attach("raw_syscalls", "sys_enter")?;
         }
 
-        // Attach sys_exit if you emit it from BPF (optional)
+        // Attach sys_exit only if the object defines raw_sys_exit (optional)
         if let Some(prog) = bpf.program_mut("raw_sys_exit") {
             let tp: &mut TracePoint = prog.try_into()?;
             tp.load()?;

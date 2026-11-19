@@ -21,34 +21,13 @@ use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::telemetry_writer::{self, TelemetryWriter};
 use log::{error, info};
 
-#[repr(C)]
-#[derive(Clone, Copy)]
-struct FileAccessEvent {
-    pid: u32,
-    uid: u32,
-    comm: [u8; 64],
-    filename: [u8; 256],
-}
+// The struct file_access_event_t mirror lives in abi.rs, shared with ebpf_ingest.
+use crate::ebpf::abi::{self, FileAccessEvent};
 
 fn parse_and_emit(buf: &[u8]) -> bool {
-    use std::ptr::copy_nonoverlapping;
-    if buf.len() < std::mem::size_of::<FileAccessEvent>() {
+    let Some(e) = abi::from_perf_sample::<FileAccessEvent>(buf) else {
         return false;
-    }
-
-    let mut e = FileAccessEvent {
-        pid: 0,
-        uid: 0,
-        comm: [0; 64],
-        filename: [0; 256],
     };
-    unsafe {
-        copy_nonoverlapping(
-            buf.as_ptr(),
-            &mut e as *mut _ as *mut u8,
-            std::mem::size_of::<FileAccessEvent>(),
-        );
-    }
 
     let comm = cbytes_to_string_lossy(&e.comm);
     let path = cbytes_to_string_lossy(&e.filename);
@@ -91,7 +70,7 @@ fn parse_and_emit(buf: &[u8]) -> bool {
     true
 }
 
-/// Attach the BPF programs (Aya path) — called by the PERF reader.
+/// Attach the BPF programs (Aya path). Called by the PERF reader.
 fn attach(bpf: &mut Bpf) -> Result<(), String> {
     // Try full name, then common truncation for kernels that shorten symbols
     let prog_name = if bpf.program("trace_file_access").is_some() {

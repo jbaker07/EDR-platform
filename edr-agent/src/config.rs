@@ -6,7 +6,7 @@ use std::{
 };
 
 /// ----------------------------
-/// Signed policy (you already use this)
+/// Signed policy
 /// ----------------------------
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RawPolicy {

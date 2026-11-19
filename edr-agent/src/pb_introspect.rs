@@ -1,6 +1,6 @@
 // src/pb_introspect.rs
 // Introspection layer for Playbook pending/hits + metrics + SSE broadcast fanout.
-// This does NOT implement matching logic; your pb_engine / main should call the
+// This does NOT implement matching logic. pb_engine / main call the
 // helpers here (push_hit / add_or_update_pending / remove_pending / set_sse_sender).
 
 use serde::{Deserialize, Serialize};

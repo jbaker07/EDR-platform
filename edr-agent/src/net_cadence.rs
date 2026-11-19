@@ -1,8 +1,8 @@
 //! Network cadence feature emitter
 //!
 //! Summarizes novelty/changes in network indicators from the episode graph
-//! (e.g., ASN changes, JA3 novelty). Metrics are prepped for conversion into
-//! FeatureObservation—see TODO.
+//! (e.g., ASN changes, JA3 novelty). Metrics are computed but not yet converted
+//! to FeatureObservation.
 
 use std::collections::HashSet;
 
@@ -97,18 +97,7 @@ impl FeatureEmitter for NetCadenceEmitter {
         let (nodes, _edges) = ep.to_graph();
         let stats = self.analyze_nodes(&nodes);
 
-        // TODO: Convert `stats` into FeatureObservation(s).
-        //
-        // Example (pseudocode; adjust to your struct API):
-        //
-        // let mut out = Vec::new();
-        // out.push(FeatureObservation::new("netcad.total_hits", stats.total_hits as f64));
-        // out.push(FeatureObservation::new("netcad.unique_tags", stats.unique_net_tags_count as f64));
-        // out.push(FeatureObservation::new("netcad.nodes_with_net_cadence", stats.nodes_with_net_cadence as f64));
-        // out.push(FeatureObservation::new("netcad.max_trust_drop", stats.max_trust_drop as f64));
-        // return out;
-        //
-        // Keep it compile-proof for now:
+        // TODO: `stats` is not yet mapped to FeatureObservation, so this emitter returns no features.
         let _ = stats;
         Vec::new()
     }

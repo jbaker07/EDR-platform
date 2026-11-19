@@ -71,7 +71,7 @@ fn main() -> Result<()> {
         .context("attach raw_syscalls/sys_enter")?;
     info!("attached raw_syscalls/sys_enter");
 
-    // Optional: if your kernel code checks numeric filters, keep these; harmless otherwise.
+    // Optional: needed only if the kernel program checks numeric filters, harmless otherwise.
     let mut sysnrs: Array<_, u64> = Array::try_from(
         bpf.map_mut("sysnrs")
             .ok_or_else(|| anyhow!("map 'sysnrs' not found"))?,

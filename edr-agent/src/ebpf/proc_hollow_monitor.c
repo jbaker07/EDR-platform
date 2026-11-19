@@ -23,7 +23,7 @@ struct {
     __uint(max_entries, 1 << 20);   // 1 MiB
 } events SEC(".maps");
 
-// Tracepoint for execve — monitor for process hollowing patterns
+// Tracepoint for execve: monitor for process hollowing patterns
 SEC("tracepoint/syscalls/sys_enter_execve")
 int trace_execve_hollowing(struct trace_event_raw_sys_enter *ctx)
 {

@@ -157,6 +157,6 @@ EMIT_EXIT_BYTES(sendmsg,  2)
 EMIT_EXIT_BYTES(recvfrom, 3)
 EMIT_EXIT_BYTES(recvmsg,  3)
 
-// Fallbacks (optional) — comment out if too noisy
+// Fallbacks (optional): comment out if too noisy
 // EMIT_EXIT_BYTES(write, 2)
 // EMIT_EXIT_BYTES(read,  3)

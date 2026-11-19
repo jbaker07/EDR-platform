@@ -24,12 +24,12 @@ struct PersistedTrustCache {
     entries: HashMap<String, TrustState>,
 }
 
-/// ✅ Background initialization log
+/// Background initialization log
 pub fn start_trust_state_writer() {
     println!("✅ Trust state writer started.");
 }
 
-/// ✅ Per-endpoint trust persistence (used in real-time scoring)
+/// Per-endpoint trust persistence (used in real-time scoring)
 pub fn persist_trust_state(endpoint_id: &str, score: f64) -> std::io::Result<()> {
     create_dir_all(TRUST_STATE_PATH)?;
 
@@ -52,13 +52,13 @@ pub fn persist_trust_state(endpoint_id: &str, score: f64) -> std::io::Result<()>
 
     println!("[📝 Trust Writer] Wrote trust score for {}", endpoint_id);
 
-    // ✅ Push to GNN as a time-series trust update
+    // Push to GNN as a time-series trust update
     push_gnn_event(endpoint_id, score, "trust_tick");
 
     Ok(())
 }
 
-/// ✅ Forensic snapshot tied to specific event or reason
+/// Forensic snapshot tied to specific event or reason
 pub fn write_trust_state_snapshot(
     endpoint_id: &str,
     trust_state: &TrustState,
@@ -95,7 +95,7 @@ pub fn write_trust_state_snapshot(
     Ok(())
 }
 
-/// ✅ Batch persistence for full trust cache snapshots (used in background thread)
+/// Batch persistence for full trust cache snapshots (used in background thread)
 pub fn persist_trust_snapshot(cache: &HashMap<String, TrustState>) -> std::io::Result<()> {
     create_dir_all(TRUST_STATE_PATH)?;
 
@@ -121,7 +121,7 @@ pub fn persist_trust_snapshot(cache: &HashMap<String, TrustState>) -> std::io::R
     Ok(())
 }
 
-/// ✅ Background task for periodic persistence every 5 minutes
+/// Background task for periodic persistence every 5 minutes
 pub fn start_periodic_writer(mut manager: TrustDecayManager) {
     thread::spawn(move || loop {
         let snapshot = manager.export_trust_state();
@@ -132,7 +132,7 @@ pub fn start_periodic_writer(mut manager: TrustDecayManager) {
     });
 }
 
-/// ✅ Load latest trust cache snapshot on startup
+/// Load latest trust cache snapshot on startup
 pub fn load_latest_trust_state() -> Option<HashMap<String, TrustState>> {
     let dir = PathBuf::from(TRUST_STATE_PATH);
     if let Ok(entries) = read_dir(&dir) {
@@ -153,7 +153,7 @@ pub fn load_latest_trust_state() -> Option<HashMap<String, TrustState>> {
     None
 }
 
-/// ✅ Load trust state from a flat JSON file (fallback)
+/// Load trust state from a flat JSON file (fallback)
 pub fn load_trust_state(path: &str) -> HashMap<String, TrustState> {
     let file = File::open(path);
     match file {

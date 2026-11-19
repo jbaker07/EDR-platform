@@ -33,5 +33,5 @@ pub struct GraphNode {
 pub struct GraphEdge {
     pub source: String,
     pub target: String,
-    // Space for additional attributes if you need later (weight, label, ts, …)
+    // Room for more attributes later (weight, label, ts, ...)
 }

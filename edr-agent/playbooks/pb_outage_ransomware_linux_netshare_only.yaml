@@ -1,6 +1,6 @@
 id: pb_outage_ransomware_linux_netshare_only
 version: 0.3
-name: Ransomware (Linux): Network-Share Encryption (SMB/NFS)
+name: "Ransomware (Linux): Network-Share Encryption (SMB/NFS)"
 severity: high
 description: Detects encryption focused on mounted network shares without heavy local churn.
 window_sec: 2400
@@ -48,7 +48,7 @@ forbidden:
     slot_ttl_sec: 1800
     fact: Exec
     where:
-      - { field: exe, op: regex, value: "^(rsync|cp|tar)$" }
+      - { field: exe, op: regex, value: "^(?:.*/)?(rsync|cp|tar)$" }
       - { field: cmd, op: regex, value: "--(archive|backup|preserve)" }
 
 links:

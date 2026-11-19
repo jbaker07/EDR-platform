@@ -1,6 +1,6 @@
 // src/ingest.rs
 // Kernel-event ingest: map compact kernel events -> Event, window into Episodes,
-// run feature emitters, and emit signals back into your existing scoring path.
+// run feature emitters, and emit signals back into the existing scoring path.
 
 use std::collections::{HashMap, VecDeque};
 use std::sync::OnceLock;
@@ -164,7 +164,7 @@ fn flush_window(host: &str, window: &mut Window) {
     ep.context_id = Some("default".into());
     ep.role = Some("default".into());
     for e in window.events.drain(..) {
-        // (Optional) add pid/uid linkage once your Event carries it
+        // (Optional) add pid/uid linkage once Event carries it
         ep.push(e);
     }
     window.started = Instant::now();
@@ -186,7 +186,7 @@ fn run_feature_emitters(ep: &Episode) {
     let _ = store.flush();
 
     for f in feats.into_iter().filter(|f| f.z.abs() > 2.5) {
-        // 1) tag via your existing helper (feeds trust engine)
+        // 1) tag via the existing helper (feeds trust engine)
         push_feature_as_signal(&f);
 
         // 2) also write a TelemetryOutput-ish record for logs/GNN/replay
@@ -206,7 +206,7 @@ fn run_feature_emitters(ep: &Episode) {
 
 fn run_krim_on_episode(ep: &Episode) {
     // Build a lightweight graph from Episode events → nodes/edges for KRIM-lite.
-    // If your graph types differ, adjust this adapter in one place.
+    // Graph type changes only need this one adapter updated.
     use crate::graph_builder::{GraphEdge, GraphNode};
 
     let mut nodes: Vec<GraphNode> = Vec::new();

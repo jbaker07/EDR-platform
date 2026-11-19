@@ -76,7 +76,7 @@ impl EllipticEnvelope {
     }
 }
 
-// — helpers —
+// ---- helpers ----
 fn mean_vec(sub: &Vec<&Vec<f64>>, d: usize) -> DVector<f64> {
     let m = sub.len().max(1) as f64;
     let mut acc = vec![0.0f64; d];

@@ -7,7 +7,7 @@ use crate::score_reason::ScoreReason;
 /// Sends telemetry to SHAP explainer and returns a float score (0.0–1.0)
 /// Fallback includes basic reason tagging
 pub fn get_shap_score(input: &HashMap<String, String>) -> f64 {
-    let shap_host = "127.0.0.1:5050"; // change to match your setup
+    let shap_host = "127.0.0.1:5050"; // hard-coded local SHAP server address
 
     match TcpStream::connect(shap_host) {
         Ok(mut stream) => {

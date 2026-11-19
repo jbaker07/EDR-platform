@@ -286,7 +286,7 @@ pub fn get_logged_in_users() -> Vec<UserSession> {
 
                 let features = generate_feature_vector(
                     if suspicious_tty { 0.3 } else { 0.1 }, // cpu-ish
-                    session_age,                            // mem placeholder
+                    session_age,                            // session age fills the mem slot
                     2.0,                                    // risk-ish
                 );
                 data.insert("features".into(), format!("{:?}", features));

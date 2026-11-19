@@ -13,7 +13,7 @@ struct logon_event {
     char  comm[64];
 };
 
-/* Ring buffer named "events" so your loader can reuse /sys/fs/bpf/edr/edr_events_rb */
+/* Ring buffer named "events" so the loader can reuse /sys/fs/bpf/edr/edr_events_rb */
 struct {
     __uint(type, BPF_MAP_TYPE_RINGBUF);
     __uint(max_entries, 1 << 20); // 1 MiB if not reusing the shared rb

@@ -106,7 +106,7 @@ fn compute_sha256(path: &Path) -> Option<String> {
 use mime_guess::MimeGuess;
 
 /* ------------- fingerprint fallbacks (safe defaults) --------------
-   If you already have richer helpers, replace these with:
+   Richer helpers that could replace these:
    use crate::forensic::utils::{load_fingerprints_from_disk, is_known_good};
    use crate::forensic::utils::{load_fingerprints, is_known_good_fingerprint};
 */

@@ -1,5 +1,5 @@
 // src/decision.rs
-// Phase 3 Decision Engine — consensus, cooldown/dedupe, allow/suppress, correlation
+// Phase 3 Decision Engine: consensus, cooldown/dedupe, allow/suppress, correlation
 // Deps: anyhow = "1", serde = { version = "1", features = ["derive"] }, serde_json = "1", regex = "1"
 
 use regex::Regex;
@@ -27,7 +27,7 @@ pub struct Signal {
     pub detector: DetectorKind,
     /// 0.0..=1.0
     pub score: f32,
-    /// Unix seconds; if you ingest ms, normalize before calling
+    /// Unix seconds (convert milliseconds before calling)
     pub ts: u64,
     /// Helpful context for correlation/dedupe/allow-suppress
     #[serde(default)]

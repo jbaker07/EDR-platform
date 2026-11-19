@@ -42,12 +42,8 @@ struct RiskFlags {
     uid_is_root: bool,
     cpu_hot: bool,
     mem_hot: bool,
-    unsigned_exec: bool,
-    lotl_exec: bool,
-    parent_mismatch: bool,
     from_tmp_or_devshm: bool,
     suspicious_name: bool,
-    injection_hint: bool,
 }
 
 fn read_proc_exe(pid: i32) -> String {
@@ -100,10 +96,6 @@ fn compute_risk_flags(
     name: &str,
     cpu_pct: f32,
     mem_kb: u64,
-    unsigned_exec: bool,
-    lotl_exec: bool,
-    parent_mismatch: bool,
-    injection_hint: bool,
 ) -> (RiskFlags, String, String, String) {
     let exe = read_proc_exe(pid);
     let cmd = read_proc_cmdline(pid);
@@ -134,12 +126,8 @@ fn compute_risk_flags(
         uid_is_root,
         cpu_hot,
         mem_hot,
-        unsigned_exec,
-        lotl_exec,
-        parent_mismatch,
         from_tmp_or_devshm,
         suspicious_name,
-        injection_hint,
     };
 
     (rf, exe, cmd, cwd)
@@ -164,12 +152,8 @@ fn should_emit_snapshot(pid: i32) -> bool {
 }
 
 fn is_risky(flags: &RiskFlags) -> bool {
-    flags.unsigned_exec
-        || flags.injection_hint
-        || flags.parent_mismatch
-        || flags.exe_deleted
+    flags.exe_deleted
         || flags.from_tmp_or_devshm
-        || flags.lotl_exec
         || flags.suspicious_name
         || flags.cpu_hot
         || flags.mem_hot
@@ -285,11 +269,6 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
     let mut outputs = Vec::new();
 
     for proc in processes {
-        let detect_unsigned = false; // TODO: wire unsigned_exec signal
-        let detect_lotl = false; // TODO: wire lotl_exec detection
-        let detect_parent_mismatch = false; // TODO: ingest parent mismatch flag
-        let detect_injection = false; // TODO: integrate process_injection output
-
         let uid_num = proc
             .user
             .as_ref()
@@ -303,10 +282,6 @@ pub fn scan_processes() -> Vec<TelemetryOutput> {
             &proc.name,
             proc.cpu_usage,
             proc.memory_usage_kb,
-            detect_unsigned,
-            detect_lotl,
-            detect_parent_mismatch,
-            detect_injection,
         );
 
         if allowed_to_skip(&risk_flags) {

@@ -184,7 +184,7 @@ pub async fn start_ebpf_mem_scan() -> Result<()> {
                                         "exec_capable".into(),
                                         (*exec_capable).unwrap_or(false).to_string(),
                                     );
-                                    // trusted_uid is a plain u32 in your fingerprint struct
+                                    // trusted_uid is a plain u32 in the fingerprint struct
                                     data.insert("trusted_uid".into(), (*trusted_uid).to_string());
                                     data.insert("category".into(), category.clone());
                                 } else {

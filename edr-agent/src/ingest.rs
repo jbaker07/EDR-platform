@@ -2,7 +2,7 @@
 // Compact kernel-event ingest: map eBPF reader outputs -> Event,
 // window them into Episodes, run feature emitters + KRIM, emit tagged signals.
 
-// Gate this whole pipeline until you're ready to wire in the supporting modules.
+// This pipeline is gated off until the supporting modules are wired in.
 // Enable with: `--features gnn`
 #![cfg(feature = "gnn")]
 
@@ -159,7 +159,7 @@ fn emit_signal(category: &str, signal: &str, mut data: HashMap<String, String>, 
     store_replay_event(data);
 }
 
-// Window state per host (you can shard by endpoint id if desired)
+// Window state per host (could be sharded by endpoint id)
 struct Window {
     started: Instant,
     events: Vec<Event>,
@@ -272,7 +272,6 @@ fn flush_window(host: &str, window: &mut Window) {
         #[allow(unused)]
         {
             // These field reads will be dead-code-eliminated by the compiler if not used.
-            // If your FeatureObservation exposes only `name`/`value`, this still compiles.
             m.insert("key".into(), f.name.clone());
             m.insert("value".into(), f.value.clone());
         }

@@ -1,7 +1,7 @@
 use crate::telemetry::Telemetry;
 
 /// Extract a fixed-order numeric feature vector from a single Telemetry event.
-/// Keep this stable so your anomaly models line up dimensionally.
+/// Keep this stable so the anomaly models line up dimensionally.
 ///
 /// Current layout (len = 6):
 ///   0: pid (or 0)

@@ -522,7 +522,7 @@ pub fn push_memory_telemetry(
         writeln!(file, "{}", serialized)?;
     }
 
-    // Best-effort mirror into structured dir—don’t fail the call if this errors.
+    // Best-effort mirror into structured dir. Errors here do not fail the call.
     if let Err(e) = (|| -> std::io::Result<()> {
         create_dir_all(DEFAULT_DIR)?;
         let path = Path::new(DEFAULT_DIR).join("memory_anomalies.jsonl");

@@ -6,7 +6,7 @@ pub mod config;
 pub mod decision;
 pub mod detect;
 pub mod detectors;
-pub mod ecs_sink; // main.rs referenced this name     // only if you plan to call it
+pub mod ecs_sink;
 pub mod elastic_bulk;
 pub mod elliptic_envelope;
 pub mod episode;

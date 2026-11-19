@@ -76,7 +76,7 @@ impl SessionTrustCurve {
         }
     }
 
-    /// ✅ NEW: Determines whether escalation should be triggered
+    /// Determines whether escalation should be triggered
     pub fn escalation_triggered(&self) -> bool {
         self.current_score() < 30.0
     }

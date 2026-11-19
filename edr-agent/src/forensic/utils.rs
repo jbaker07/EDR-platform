@@ -1,8 +1,8 @@
 use futures::io as futures_io;
-use futures_util::io as futures_util_io; // Alias this too
+use futures_util::io as futures_util_io;
 use std::fs;
-use std::io::{self, BufRead, BufReader}; // Use this as your standard `io`
-use tokio::io as tokio_io; // Alias `tokio::io` if needed // Also alias this to avoid collision
+use std::io::{self, BufRead, BufReader}; // standard `io`
+use tokio::io as tokio_io; // aliased to avoid a name collision with std::io
 
 /// Pulls dmesg or journalctl output
 pub fn get_kernel_logs() -> Result<String, std::io::Error> {
@@ -20,10 +20,9 @@ pub fn check_protected_mem_access() -> bool {
     }
 }
 
-/// Scans syscall patterns for unexpected behaviors (e.g., missing audit context, ghost PIDs)
+/// Intended to scan syscall patterns for unexpected behaviors (e.g., missing audit context, ghost PIDs)
 pub fn detect_syscall_anomalies() -> bool {
-    // You may want to parse `/proc/sys/kernel/printk` or syscall logs here
-    // Placeholder logic for now:
+    // Not implemented: always returns false.
     false
 }
 

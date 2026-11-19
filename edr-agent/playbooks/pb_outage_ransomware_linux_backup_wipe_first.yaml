@@ -1,6 +1,6 @@
 id: pb_outage_ransomware_linux_backup_wipe_first
 version: 0.3
-name: Ransomware (Linux): Backup/Snapshot Destruction then Encryption
+name: "Ransomware (Linux): Backup/Snapshot Destruction then Encryption"
 severity: high
 description: Detects targeted snapshot/backup removal sequences followed by an encryption burst.
 window_sec: 5400

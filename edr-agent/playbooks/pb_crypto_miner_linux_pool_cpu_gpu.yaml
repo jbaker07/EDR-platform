@@ -1,6 +1,6 @@
 id: pb_crypto_miner_linux_pool_cpu_gpu
 version: 0.3
-name: Cryptominer (Linux): Pool + CPU/GPU Hijack
+name: "Cryptominer (Linux): Pool + CPU/GPU Hijack"
 severity: high
 description: >
   Detects host-based cryptomining by correlating miner binaries, Stratum/pool comms,
@@ -14,7 +14,7 @@ required:
     fact: Exec
     where:
       - { field: exe, op: regex, value: "(/usr/bin/)?(xmrig|xmr-stak|nanominer|lolminer|nbminer|bminer|trex|ethminer|minerd|cpuminer|cgminer|sgminer|xmrig-nvidia|xmrig-amd)$" }
-      - { field: cmd, op: regex, value: "(--url|--algo|-o\s+stratum\+tcp|stratum\+ssl|pool)" }
+      - { field: cmd, op: regex, value: '(--url|--algo|-o\s+stratum\+tcp|stratum\+ssl|pool)' }
     derive_tags: [ "T1496", "T1059" ]  # Resource Hijacking, Command/Scripting
 
   - slot_id: pool_comms
@@ -23,7 +23,7 @@ required:
     where:
       - { field: proto, op: in, value: [tcp] }
       - { field: dst_port, op: in, value: [3333, 4444, 5555, 7777, 14444, 3334, 1688] }  # common pools
-      - { field: sni_host, op: regex, value: "(pool|mine|stratum)\." }
+      - { field: sni_host, op: regex, value: '(pool|mine|stratum)\.' }
       - { field: __agg.kind, op: eq, value: "longlived_flow" }
       - { field: __agg.duration_sec, op: gte, value: 300 }
     derive_tags: [ "T1496", "T1071" ]  # Application Layer Protocol
@@ -52,14 +52,14 @@ optional:
     fact: FileIO
     where:
       - { field: op, op: in, value: [write, rename, create] }
-      - { field: path, op: regex, value: "(/etc/|~/.config/|/var/tmp/).*(miner.*\.json|config\.json|pools\.txt|wallet|\.cfg)$" }
+      - { field: path, op: regex, value: '(/etc/|~/.config/|/var/tmp/).*(miner.*\.json|config\.json|pools\.txt|wallet|\.cfg)$' }
     derive_tags: [ "T1036" ]  # Masquerading (common with miners)
 
   - slot_id: persistence
     slot_ttl_sec: 1200
     fact: Exec
     where:
-      - { field: cmd, op: regex, value: "(systemctl\s+enable|crontab\s+-e|echo\s+.+\s+>\s+/etc/cron\.d/)" }
+      - { field: cmd, op: regex, value: '(systemctl\s+enable|crontab\s+-e|echo\s+.+\s+>\s+/etc/cron\.d/)' }
     derive_tags: [ "T1053", "T1543.002" ]  # Scheduled Task, Systemd Service
 
 forbidden:

@@ -110,7 +110,7 @@ pub struct NormalizedEvent {
 }
 
 impl NormalizedEvent {
-    /// Lossy converter: build a NormalizedEvent from your Telemetry record.
+    /// Lossy converter: build a NormalizedEvent from a Telemetry record.
     /// We use serde_json to be resilient to small struct shape changes.
     pub fn from_telemetry(t: &crate::telemetry::Telemetry) -> Self {
         let v = serde_json::to_value(t).unwrap_or(Value::Null);

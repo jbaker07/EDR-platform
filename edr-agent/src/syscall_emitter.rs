@@ -7,7 +7,7 @@
 //!   - how many nodes had syscall tags
 //!   - simple 2-hop sequences: execve -> {ptrace|bpf|mprotect|mmap} , socket -> connect
 //!
-//! Returns an empty Vec until your FeatureObservation ctor is finalized.
+//! Returns an empty Vec because the counters are not yet mapped to FeatureObservation.
 //! Use `emit_with_graph` to feed the tag-carrying graph built in main.rs.
 
 use std::collections::{HashMap, HashSet};
@@ -46,7 +46,7 @@ impl SyscallEmitter {
         ]
     }
 
-    /// Preferred path for your setup: feed the tag-carrying graph from main.rs.
+    /// Takes the tag-carrying graph built in main.rs directly.
     pub fn emit_with_graph(
         &self,
         nodes: &[GraphNode],
@@ -134,7 +134,7 @@ impl SyscallEmitter {
             }
         }
 
-        // ---- 3) TODO: map to FeatureObservation ----------------
+        // ---- 3) TODO: counters are not yet mapped to FeatureObservation ----
         let _ = (
             total_syscall_tags,
             unique_syscalls,

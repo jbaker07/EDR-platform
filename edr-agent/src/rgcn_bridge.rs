@@ -265,7 +265,7 @@ pub fn start_rgcn_bridge(cfg: Config) {
                 st.stats.last_infer_ms = elapsed;
                 st.stats.last_ok_ts = now_ts();
                 st.stats.last_err = None;
-                // Optional: set model name if your sidecar provides it via /healthz elsewhere.
+                // Not done: set model name if the sidecar provides it via /healthz.
             }
 
             // 5) Annotate the live graph file so SSE/UI can consume rgcn_score

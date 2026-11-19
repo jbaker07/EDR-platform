@@ -116,7 +116,7 @@ fn is_memory_only(path: &Path) -> bool {
 }
 
 /// Attach every program found in the object by section name where possible.
-/// Falls back to your specific `trace_execve_entropy` → `syscalls/sys_enter_execve`.
+/// Falls back to attaching `trace_execve_entropy` to `syscalls/sys_enter_execve`.
 fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
     let mut attached_any = false;
 
@@ -199,7 +199,7 @@ pub fn start_encrypted_payload_monitor() {
             )) {
                 Ok(b) => b,
                 Err(e) => {
-                    // try legacy relative path (your original)
+                    // try the legacy relative path
                     match Bpf::load(include_bytes_aligned!(
                         "../../src/ebpf/encrypted_payload_monitor.bpf.o"
                     )) {
@@ -368,7 +368,7 @@ pub fn start_encrypted_payload_monitor() {
     });
 }
 
-/// Filesystem sweep (passive) — unchanged logic, with a safety cap on file size.
+/// Filesystem sweep (passive), with a safety cap on file size.
 pub fn detect_encrypted_payloads() -> Vec<HashMap<String, String>> {
     let mut records = Vec::new();
 

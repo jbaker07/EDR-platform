@@ -22,8 +22,8 @@ use std::{
     os::unix::fs::PermissionsExt,
     path::{Path, PathBuf},
 };
-use users::get_user_by_uid;
-use users::os::unix::UserExt;
+use uzers::get_user_by_uid;
+use uzers::os::unix::UserExt;
 use walkdir::WalkDir;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -570,7 +570,7 @@ pub fn crawl_jobs() -> Vec<FingerprintEntry> {
 }
 
 fn get_uid_for_user(username: &str) -> u32 {
-    use users::get_user_by_name;
+    use uzers::get_user_by_name;
     get_user_by_name(username).map(|u| u.uid()).unwrap_or(0)
 }
 
@@ -1198,12 +1198,12 @@ pub fn crawl_known_cron_shells() -> Vec<FingerprintEntry> {
             Err(_) => false,
         };
 
-        let uid = match users::get_user_by_name(&user) {
+        let uid = match uzers::get_user_by_name(&user) {
             Some(u) => u.uid(),
             None => 0,
         };
 
-        let home_dir = users::get_user_by_name(&user)
+        let home_dir = uzers::get_user_by_name(&user)
             .and_then(|u| u.home_dir().to_str().map(|s| s.to_string()));
 
         entries.push(FingerprintEntry::CronShell {

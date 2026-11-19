@@ -79,7 +79,7 @@ pub fn bpf_drops_add(n: u64) {
     metrics::bpf_drops_total().fetch_add(n, Ordering::Relaxed);
 }
 
-// ---------- your pipeline / telemetry ----------
+// ---------- pipeline / telemetry ----------
 use forensic_hooks::baselines::BaselineStore;
 use forensic_hooks::calibration::RollingCalibrator;
 use forensic_hooks::elliptic_envelope::EllipticEnvelope;
@@ -151,7 +151,7 @@ mod file_access_reader;
 #[path = "ebpf/net_flow_reader.rs"]
 mod net_flow_reader;
 
-// === use your existing graph module at src/graph.rs ===
+// === graph module at src/graph.rs ===
 mod graph;
 use crate::graph::{spawn_writer, GraphState};
 use forensic_hooks::metrics::{self, Metrics};
@@ -174,13 +174,13 @@ fn graph_state() -> Arc<RwLock<GraphState>> {
         .clone()
 }
 
-// —— global calibrator ——
+// ---- global calibrator ----
 static CALIBRATOR: OnceLock<Mutex<RollingCalibrator>> = OnceLock::new();
 fn calibrator() -> &'static Mutex<RollingCalibrator> {
     CALIBRATOR.get_or_init(|| Mutex::new(RollingCalibrator::default()))
 }
 
-// —— global detectors state ——
+// ---- global detectors state ----
 static MAHALA_ENGINE: OnceLock<Mutex<Mahala>> = OnceLock::new();
 static ENV_BASELINE: OnceLock<Mutex<VecDeque<Vec<f64>>>> = OnceLock::new();
 static ENV_MODEL: OnceLock<Mutex<Option<EllipticEnvelope>>> = OnceLock::new();
@@ -196,9 +196,7 @@ fn env_model() -> &'static Mutex<Option<EllipticEnvelope>> {
     ENV_MODEL.get_or_init(|| Mutex::new(None))
 }
 
-// —— Playbook Engine singleton ——
-// —— Playbook Engine singleton ——
-// —— Playbook Engine singleton ——
+// ---- Playbook Engine singleton ----
 static PB_ENGINE: OnceLock<Arc<Mutex<PlaybookEngine>>> = OnceLock::new();
 fn pb_engine() -> Arc<Mutex<PlaybookEngine>> {
     PB_ENGINE
@@ -752,7 +750,7 @@ async fn ontology_validate() -> impl IntoResponse {
     }))
 }
 
-// —— DecisionEngine singleton ——
+// ---- DecisionEngine singleton ----
 static DECISION_ENGINE: OnceLock<Mutex<DecisionEngine>> = OnceLock::new();
 fn decision_engine() -> &'static Mutex<DecisionEngine> {
     DECISION_ENGINE.get_or_init(|| {
@@ -1104,9 +1102,7 @@ async fn incidents_recent(Query(q): Query<RecentIncidentsQuery>) -> Json<Value> 
     Json(json!({ "items": items }))
 }
 
-// current graph JSON (from file)
-// current graph JSON (from file) — enriched with ontology fields
-// current graph JSON (from file) — synthesize edges if missing, then annotate with R-GCN
+// current graph JSON (from file): synthesize edges if missing, then annotate with R-GCN
 async fn graph_live() -> impl axum::response::IntoResponse {
     use axum::Json;
     use serde_json::Value;
@@ -1830,7 +1826,7 @@ fn try_convert_output(output: TelemetryOutput) -> Result<TelemetryRecord, String
 // ----------- RELAXED acceptance filter -----------
 
 fn filter_records(records: &mut Vec<TelemetryRecord>) {
-    // TEMP: very permissive accept—keep if we have any signal at all
+    // TEMP: very permissive accept, keep if we have any signal at all
     records.retain(|r| {
         let has_proc = !r.binary_path.is_empty() || !r.command_line.is_empty();
         let has_id = r.pid != 0 || r.ppid != 0 || r.uid != 0;
@@ -1873,6 +1869,20 @@ fn dedup_records(records: &mut Vec<TelemetryRecord>) {
 }
 
 fn categorize_record(rec: &TelemetryRecord) -> (String, String) {
+    // Decoder tags first. The file and network decoders also fill binary_path,
+    // and populate_proc_fields fills command_line for any live pid, so the
+    // path check below would label those records process/exec.
+    let tag = |t: &str| rec.tags.iter().any(|x| x == t);
+    let tag_prefix = |p: &str| rec.tags.iter().any(|x| x.starts_with(p));
+    if tag("file_access") || tag("file_open") {
+        return ("file".into(), "open".into());
+    }
+    if tag_prefix("file_") || (tag("file") && tag("write")) {
+        return ("file".into(), "write".into());
+    }
+    if tag("tcp_state") || tag_prefix("net_") || tag_prefix("network::") {
+        return ("network".into(), "connect".into());
+    }
     if !rec.binary_path.is_empty() || !rec.command_line.is_empty() {
         return ("process".into(), "exec".into());
     }
@@ -2019,7 +2029,7 @@ fn build_graph_from_records(records: &[TelemetryRecord]) -> (Vec<GraphNode>, Vec
     (nodes, edges)
 }
 
-// —— anomaly taggers ——
+// ---- anomaly taggers ----
 fn tag_batch_outliers_with_mahala_and_envelope(
     records: &mut [TelemetryRecord],
     ep: &Episode,
@@ -2113,7 +2123,7 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
     }
 }
 
-// —— fanout hub ——
+// ---- fanout hub ----
 fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryData) {
     println!(
         "📣 [{}] score={:.2} escalated={} reasons={:?} batch_recs={}",
@@ -2479,7 +2489,7 @@ async fn main() -> Result<()> {
         );
     }
 
-    // ---- initialize live graph writer using your graph.rs ----
+    // ---- initialize live graph writer (graph.rs) ----
     let gs = graph_state();
     let _graph_task = spawn_writer(gs.clone(), PathBuf::from("json_files/graph_live.json"));
 
@@ -2862,6 +2872,12 @@ async fn main() -> Result<()> {
                 let acc = metrics::events_accepted().load(Ordering::Relaxed);
                 let drops = metrics::bpf_drops_total().load(Ordering::Relaxed);
                 let missed = in_.saturating_sub(acc);
+                // The agent's own frames that reached user space (raw sensor, file_access).
+                let (self_raw, self_file) = crate::ebpf::ebpf_ingest::self_frames_dropped();
+                // exec frames whose process was gone from /proc: filled from the kernel
+                // copy, or left without exe and argv.
+                let exec_kcopy = forensic_hooks::pb_adapter::exec_from_kernel_copy_total();
+                let exec_lost = forensic_hooks::pb_adapter::exec_unresolved_total();
 
                 let drop_rate = if in_ > 0 {
                     100.0 * missed as f64 / in_ as f64
@@ -2870,8 +2886,8 @@ async fn main() -> Result<()> {
                 };
 
                 eprintln!(
-                    "[metrics] events_in={} accepted={} missed={} perf_drops={} drop_rate={:.2}%",
-                    in_, acc, missed, drops, drop_rate
+                    "[metrics] events_in={} accepted={} missed={} perf_drops={} drop_rate={:.2}% self_raw={} self_file={} exec_kernel_copy={} exec_unresolved={}",
+                    in_, acc, missed, drops, drop_rate, self_raw, self_file, exec_kcopy, exec_lost
                 );
 
                 std::thread::sleep(Duration::from_secs(5));
@@ -2885,7 +2901,18 @@ async fn main() -> Result<()> {
                 "Pinned-reader mode: {use_pins} (EDR_PIN_PREFIX={pin_prefix:?}) | Legacy realtime: {legacy}"
             );
 
+            // Raw hex copy of every frame, next to the decoded record. Off by default because
+            // it doubled every event in kv_telemetry.jsonl. EDR_DEBUG_RAW_EVENTS=1 turns it on.
             fn emit_debug_raw(src_name: &str, bytes: &[u8]) {
+                static RAW_ON: OnceLock<bool> = OnceLock::new();
+                let on = *RAW_ON.get_or_init(|| {
+                    std::env::var("EDR_DEBUG_RAW_EVENTS")
+                        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+                        .unwrap_or(false)
+                });
+                if !on {
+                    return;
+                }
                 let mut m = std::collections::HashMap::new();
                 m.insert("category".into(), "debug".into());
                 m.insert("signal".into(), "debug::raw_event".into());
@@ -2931,6 +2958,9 @@ async fn main() -> Result<()> {
             };
 
             if use_pins {
+                // Self filter and default allowlist for raw_syscalls_catcher, before any
+                // reader starts.
+                crate::ebpf::raw_config::configure(&pin_prefix);
                 events_reader::start_all_pinned_readers_demux(&pin_prefix, demux)?;
                 if legacy {
                     log::warn!(
@@ -3053,19 +3083,9 @@ async fn main() -> Result<()> {
                             Err(e) => eprintln!("⚠️ ioc::tag_records error: {e}"),
                         }
 
-                        // Playbook Engine ingest
-                        {
-                            let now = now_ts();
-                            if let Ok(mut eng) = pb_engine().lock() {
-                                let out = pb_wiring::ingest_batch(&mut *eng, &records, now);
-                                for p in out.pending {
-                                    pb_introspect::add_or_update_pending(p);
-                                }
-                                for h in out.hits {
-                                    pb_introspect::push_hit(h);
-                                }
-                            }
-                        }
+                        // Playbook facts do not come from these records. Each decoder already
+                        // sent its full data map to pb_adapter, which feeds the engine. See the
+                        // playbook block below the record loop.
 
                         // DecisionEngine (from tags)
                         feed_decider_from_record_tags(&records, &at, &it);
@@ -3231,6 +3251,41 @@ async fn main() -> Result<()> {
                         }
                     }
 
+                    // Playbooks: time moves on even when no event arrives. tick drops slot
+                    // hits and counted events that aged out, so a chain that started long ago
+                    // cannot complete late. Playbooks that completed since the last pass
+                    // become incidents and are kept in logs/playbook_hits.jsonl.
+                    {
+                        let now = now_ts();
+                        if let Ok(mut eng) = pb_engine().lock() {
+                            eng.tick(now);
+                        }
+                        let done = pb_wiring::take_completed();
+                        if !done.is_empty() {
+                            let _ = std::fs::create_dir_all("logs");
+                            let mut log = std::fs::OpenOptions::new()
+                                .create(true)
+                                .append(true)
+                                .open("logs/playbook_hits.jsonl")
+                                .ok();
+                            for hit in &done {
+                                let alert = pb_wiring::hit_alert_json(hit);
+                                if let Some(f) = log.as_mut() {
+                                    use std::io::Write;
+                                    let _ = writeln!(f, "{alert}");
+                                }
+                                if let Some(inc) = incidents().lock().unwrap().ingest_alert_json(&alert) {
+                                    eprintln!(
+                                        "incident {} from playbook {}",
+                                        inc.get("id").and_then(|x| x.as_str()).unwrap_or("-"),
+                                        hit.playbook_id
+                                    );
+                                    let _ = it.send(inc.to_string());
+                                }
+                            }
+                        }
+                    }
+
                     // Persist batch
                     if let Ok(locked) = w.clone().lock() {
                         locked.append_batch(records);
@@ -3250,4 +3305,44 @@ async fn main() -> Result<()> {
     eprintln!("🛑 received Ctrl-C, shutting down…");
     let _ = shutdown_tx.send(());
     Ok(())
+}
+
+// Every decoder stamps TelemetryRecord.timestamp in Unix seconds, so a playbook window
+// can mix sensors. The kernel stamp is time since boot and is converted, not divided.
+#[cfg(test)]
+mod timestamp_tests {
+    use crate::ebpf::abi::{self, test_bytes::*, SharedFrame};
+    use crate::ebpf::ebpf_bridge::{edr_event_to_output, edr_event_to_record};
+    use crate::ebpf::ebpf_ingest::{decode_proc_lifecycle, decode_wx};
+    use forensic_hooks::pb_adapter::clock;
+
+    const T: u64 = 1_800_000_000;
+
+    #[test]
+    fn raw_syscall_records_use_unix_seconds() {
+        let mut b = vec![0u8; 376];
+        put_u64(&mut b, 0, clock::unix_secs_to_mono_ns(T) + 400_000_000); // ts
+        put_u32(&mut b, 8, 14); // EVT_UNLINK
+        let e = abi::from_ring_frame::<crate::ebpf::ebpf_bridge::EdREvent>(&b).unwrap();
+        // tgid 0, so no /proc lookup runs.
+        assert_eq!(edr_event_to_record(&e).timestamp, T);
+        assert_eq!(edr_event_to_output(&e).data["timestamp"], T.to_string());
+    }
+
+    #[test]
+    fn wx_and_proc_records_use_the_kernel_stamp() {
+        let ns = clock::unix_secs_to_mono_ns(T);
+        let d = decode_wx(&wx(555, 2, ns, 0, 0, 0, 8192), T + 3).unwrap();
+        assert_eq!(d.record.timestamp, T, "kernel stamp, not decode time");
+        // A frame with no stamp keeps the decode time.
+        let d = decode_wx(&wx(555, 2, 0, 0, 0, 0, 8192), T + 3).unwrap();
+        assert_eq!(d.record.timestamp, T + 3);
+
+        let mut b = proc_lc(1001, 1234, 1000, 0, "sh", 0);
+        put_u64(&mut b, 0, ns + 2_000_000_000);
+        let SharedFrame::ProcLifecycle(p) = abi::classify_shared_frame(&b) else {
+            panic!("not a proc_lifecycle frame");
+        };
+        assert_eq!(decode_proc_lifecycle(&p, T + 9).unwrap().record.timestamp, T + 2);
+    }
 }

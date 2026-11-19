@@ -38,6 +38,11 @@
 #ifndef __NR_renameat2
 #define __NR_renameat2 276
 #endif
+/* glibc rename() and renameat2(..., 0) both enter renameat on arm64 */
+#ifndef __NR_renameat
+#define __NR_renameat 38
+#endif
+/* plain rename is not native on arm64; intentionally not defined (x86_64 has it as 82) */
 #ifndef __NR_unlinkat
 #define __NR_unlinkat 35
 #endif
@@ -156,13 +161,29 @@
 #define __NR_delete_module 106
 #endif
 
-/* uid/caps — leave undefined if unsure; guards below will skip blocks if absent */
+/* uid/caps: leave undefined if unsure, the guards below skip blocks if absent */
 /* #ifndef __NR_capset
 #define __NR_capset 90
 #endif */
 #ifndef __NR_setuid
 #define __NR_setuid 146
 #endif
+
+/* -------- the agent's own tgids (filled by user space at startup) -------- */
+/* The agent opens and writes its log files for every record. With openat and write in
+ * the allowlist those calls come back as events, and each one makes more records. The
+ * check runs before any ring space or pending entry is taken. */
+struct {
+__uint(type, BPF_MAP_TYPE_HASH);
+__uint(max_entries, 64);
+__type(key, __u32);   // tgid
+__type(value, __u8);  // 1 = skip
+} edr_self_tgid SEC(".maps");
+
+static __always_inline bool edr_is_self(__u32 tgid)
+{
+return bpf_map_lookup_elem(&edr_self_tgid, &tgid) != 0;
+}
 
 /* -------- pending stash for dup* (oldfd across enter→exit) -------- */
 struct {
@@ -200,6 +221,7 @@ if (!edr_allowed(id)) return 0;
 
 __u64 pid_tgid = bpf_get_current_pid_tgid();
 __u32 tgid = (__u32)(pid_tgid >> 32);
+if (edr_is_self(tgid)) return 0;
 
 switch (id) {
 /* ---- PROCESS / MEMORY ---- */
@@ -280,14 +302,33 @@ edr_copy_user_str(po.path, pathname, sizeof(po.path));
 bpf_map_update_elem(&edr_pending_open, &pid_tgid, &po, BPF_ANY);
 break;
 }
+/* renameat and renameat2 share the argument layout (olddfd, old, newdfd, new) */
 #if defined(__NR_renameat2)
-case __NR_renameat2: {
+case __NR_renameat2:
+#endif
+#if defined(__NR_renameat)
+case __NR_renameat:
+#endif
+{
 struct edr_event *e = ev_reserve_zero();
 if (!e) break;
 ev_fill_common(e, EVT_RENAME, id, tgid);
 e->fd = -1;
 const char *oldp = (const char *)ctx->args[1];
 const char *newp = (const char *)ctx->args[3];
+edr_copy_user_str(e->path,  oldp, sizeof(e->path));
+edr_copy_user_str(e->path2, newp, sizeof(e->path2));
+bpf_ringbuf_submit(e, 0);
+break;
+}
+#if defined(__NR_rename)
+case __NR_rename: {
+struct edr_event *e = ev_reserve_zero();
+if (!e) break;
+ev_fill_common(e, EVT_RENAME, id, tgid);
+e->fd = -1;
+const char *oldp = (const char *)ctx->args[0];
+const char *newp = (const char *)ctx->args[1];
 edr_copy_user_str(e->path,  oldp, sizeof(e->path));
 edr_copy_user_str(e->path2, newp, sizeof(e->path2));
 bpf_ringbuf_submit(e, 0);
@@ -705,6 +746,7 @@ if (!edr_allowed(id)) return 0;
 
 __u64 pid_tgid = bpf_get_current_pid_tgid();
 __u32 tgid = (__u32)(pid_tgid >> 32);
+if (edr_is_self(tgid)) return 0;
 __s64 ret = ctx->ret;
 
 switch (id) {

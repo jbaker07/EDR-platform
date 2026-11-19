@@ -7,7 +7,7 @@ pub mod registry;
 pub mod rules;
 pub mod types;
 
-// 👇 Unify: detectors work on NormalizedAlert via this alias
+// Detectors work on NormalizedAlert through this alias
 pub type NormalizedEvent = crate::detect::types::NormalizedAlert;
 
 #[derive(Debug, Clone, Serialize)]

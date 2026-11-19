@@ -1,4 +1,4 @@
-// syscall_tracer.bpf.c — CO-RE tracepoint hooks for high-signal syscalls.
+// syscall_tracer.bpf.c: CO-RE tracepoint hooks for high-signal syscalls.
 // Emits compact ringbuf events: { pid, syscall_id }.
 //
 // Build: clang -O2 -g -target bpf -D__TARGET_ARCH_arm64 \
@@ -68,13 +68,13 @@ TP_ENTER_SYSCALL(capset)
 // Network initiation (beacon / C2)
 TP_ENTER_SYSCALL(connect)
 
-// Optional file system touchpoints (uncomment if you want file-change context here too)
+// Optional file system touchpoints (uncomment for file-change context)
 // TP_ENTER_SYSCALL(open)
 // TP_ENTER_SYSCALL(openat)
 // TP_ENTER_SYSCALL(unlink)
 // TP_ENTER_SYSCALL(rename)
 
-// You can add more as needed:
+// More candidates:
 // TP_ENTER_SYSCALL(prctl)
 // TP_ENTER_SYSCALL(ptrace)
 // TP_ENTER_SYSCALL(bpf)

@@ -3,7 +3,7 @@ use std::path::Path;
 use anyhow::Result;
 
 use forensic_hooks::pipeline::{Evaluator, Thresholds};
-use forensic_hooks::telemetry::Telemetry; // same type your main.rs uses
+use forensic_hooks::telemetry::Telemetry; // same type main.rs uses
 
 fn mk_process(exe: &str, cmd: &str) -> Telemetry {
     let mut t = Telemetry::default();
@@ -27,7 +27,7 @@ fn mk_dns(qname_len: u64) -> Telemetry {
     let mut t = Telemetry::default();
     t.category = "network".into();
     t.event = "connect".into();
-    // both string and numeric mirror, in case your rules use either
+    // both string and numeric mirror, in case the rules use either
     t.attrs.insert("qname_len".into(), serde_json::json!(qname_len.to_string()));
     t.attrs.insert("qname_len__num".into(), serde_json::json!(qname_len));
     t
@@ -58,7 +58,7 @@ fn main() -> Result<()> {
     }
     eval.registry.add(Box::new(forensic_hooks::detectors::tag_flags::TagFlagsDetector));
 
-    // (optional) true anomaly detectors if you’ve got model files on disk
+    // (optional) true anomaly detectors, if model files exist on disk
     let mp = Path::new("models/mahal.json");
     if mp.exists() {
         if let Ok(det) = forensic_hooks::detectors::mahalanobis::MahalDetector::from_file(mp) {
@@ -78,7 +78,7 @@ fn main() -> Result<()> {
         }
     }
 
-    // write to the same file your agent uses
+    // write to the same file the agent uses
     eval.set_output(Path::new("logs/alerts.jsonl"))?;
 
     // ===== synth cases =====
@@ -102,7 +102,7 @@ fn main() -> Result<()> {
     let t5 = mk_tagged("mahalanobis_outlier");
     let _ = eval.evaluate(&t5)?;
 
-    // 6) Benign process (should not alert unless you enabled benign audit)
+    // 6) Benign process (should not alert unless benign audit is enabled)
     let t6 = mk_process("/usr/bin/ls", "ls -la /tmp");
     let _ = eval.evaluate(&t6)?;
 

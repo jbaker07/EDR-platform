@@ -18,7 +18,7 @@ use crate::trust_hook::{
 use crate::utils::time::now_ts;
 use entropy::shannon_entropy;
 use sha2::{Digest, Sha256};
-use users::get_user_by_uid;
+use uzers::get_user_by_uid;
 
 /// Whitelisted safe script names (system-owned jobs or known benign scripts)
 const WHITELIST: &[&str] = &[

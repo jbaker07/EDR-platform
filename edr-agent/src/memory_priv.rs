@@ -1,8 +1,8 @@
 //! Memory/Privilege feature emitter
 //!
 //! Scans the episode-derived process graph to summarize indicators of memory
-//! abuse and privilege changes. Metrics are computed but not converted to
-//! FeatureObservation to avoid guessing your struct ctor—see the TODO below.
+//! abuse and privilege changes. Metrics are computed but not yet converted to
+//! FeatureObservation.
 
 use std::collections::HashSet;
 
@@ -106,19 +106,7 @@ impl FeatureEmitter for MemoryPrivEmitter {
         let (nodes, _edges) = ep.to_graph();
         let stats = self.analyze_nodes(&nodes);
 
-        // TODO: Map `stats` to your FeatureObservation(s).
-        //
-        // Example (pseudocode; adjust to your struct API):
-        //
-        // let mut out = Vec::new();
-        // out.push(FeatureObservation::new("mempriv.privileged_proc_count", stats.privileged_proc_count as f64));
-        // out.push(FeatureObservation::new("mempriv.risky_tag_hits", stats.risky_tag_hits as f64));
-        // out.push(FeatureObservation::new("mempriv.unique_risky_tags", stats.unique_risky_tags_count as f64));
-        // out.push(FeatureObservation::new("mempriv.anchor_hits", stats.anchor_hits as f64));
-        // out.push(FeatureObservation::new("mempriv.max_trust_drop", stats.max_trust_drop as f64));
-        // return out;
-        //
-        // To keep compilation robust without assuming constructors:
+        // TODO: `stats` is not yet mapped to FeatureObservation, so this emitter returns no features.
         let _ = stats;
         Vec::new()
     }

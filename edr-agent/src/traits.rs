@@ -3,7 +3,7 @@
 //! that can be z-scored, tagged, and shipped to the scoring pipeline.
 //!
 //! Goals:
-//! - Keep your existing numeric `value: f64` (no breaking change).
+//! - Keep the existing numeric `value: f64` (no breaking change).
 //! - Add metadata (ts, unit, confidence, desc, tags) for richer sinks and UIs.
 //! - Provide small builder helpers so emitters stay terse and readable.
 
