@@ -1,0 +1,12 @@
+[package]
+name = "ipc_live"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Live check for src/modules/suspicious_ipc.rs. It links the agent library so
+# the test runs the same code the agent runs.
+[dependencies]
+anyhow = "1"
+env_logger = "0.11"
+forensic_hooks = { path = "../.." }

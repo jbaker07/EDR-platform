@@ -33,9 +33,7 @@ use crate::modules::mem_scan::scan_memory_health;
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::mem_scan::{start_ebpf_mem_scan, start_ebpf_proc_hollow_scan};
 use crate::modules::mfa_bypass::{scan_mfa_bypass_activity, start_mfa_bypass_monitor};
-use crate::modules::net_watch::{
-    log_open_connections, scan_network_anomalies, start_network_monitor,
-};
+use crate::modules::net_watch::{log_open_connections, scan_network_anomalies};
 use crate::modules::password_spray::scan_password_sprays;
 use crate::modules::persistence_watch::{scan_persistence_activity, start_persistence_watch};
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
@@ -48,7 +46,7 @@ use crate::modules::process_monitor::{gather_processes, scan_processes};
 use crate::modules::replay_writer::store_replay_event;
 use crate::modules::script_monitor::{scan_script_monitor, start_script_monitor};
 use crate::modules::signal_integrity_mapper::{scan_signal_integrity, start_integrity_monitor};
-use crate::modules::suspicious_ipc::scan_ipc_passive;
+use crate::modules::suspicious_ipc::scan_ipc_activity;
 #[cfg(all(target_os = "linux", feature = "ebpf"))]
 use crate::modules::suspicious_ipc::start_ebpf_ipc_abuse_watch;
 use crate::modules::usb_monitor::{scan_usb_state, start_usb_monitor};
@@ -61,7 +59,6 @@ use crate::utils::time::now_ts;
 
 use crate::pb_adapter;
 
-// 👇 keep this exactly where your type actually lives
 use crate::traits::FeatureObservation;
 
 // ======================= Data Types =======================
@@ -217,7 +214,6 @@ pub fn start_realtime_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
     start_file_hash_monitor(writer.clone());
     start_usb_monitor();
     start_script_monitor();
-    start_network_monitor();
     start_integrity_monitor();
     start_mfa_bypass_monitor();
     start_logon_tracker(Arc::clone(&writer));
@@ -271,7 +267,7 @@ pub fn run_sideeffect_monitors_and_collect() -> Vec<TelemetryOutput> {
     results.extend(scan_injection_fallback());
     results.extend(scan_signal_integrity());
     results.extend(scan_script_monitor());
-    results.extend(scan_ipc_passive());
+    results.extend(scan_ipc_activity());
     results.extend(scan_usb_state());
     results.extend(scan_user_sessions());
 
@@ -337,7 +333,7 @@ pub fn get_current_telemetry_snapshot(writer: Arc<Mutex<TelemetryWriter>>) -> Ve
 
         let mapped = output_to_map(&output);
 
-        // Optional noisy debug — searchable in `strings` and visible at runtime
+        // Optional noisy debug, searchable in `strings` and visible at runtime
         if should_log_raw() {
             if let Ok(js) = serde_json::to_string(&mapped) {
                 println!("🟡 Raw Telemetry: {}", js);

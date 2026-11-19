@@ -1,0 +1,10 @@
+[package]
+name = "dns_live"
+version = "0.1.0"
+edition = "2021"
+
+# Live kernel test for the DNS tunnel monitor. src/main.rs compiles the agent's
+# own src/modules/dns_tunnel.rs, so the loader, parser and scorer under test
+# are the exact code the agent runs. Same libbpf-rs line as the agent.
+[dependencies]
+libbpf-rs = "0.21"

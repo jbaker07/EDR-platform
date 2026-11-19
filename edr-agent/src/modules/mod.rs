@@ -3,6 +3,7 @@ pub mod auth_monitor;
 //pub mod cloud_tracker;
 pub mod container_monitor;
 pub mod dll_injection_monitor;
+pub mod dns_tunnel;
 pub mod encrypted_payload_detector;
 pub mod entropy_exec_monitor;
 pub mod file_hash_watcher;
