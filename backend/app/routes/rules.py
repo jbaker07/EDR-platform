@@ -1,12 +1,19 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import List, Dict, Any
+from typing import List
 import json
+import logging
 from pathlib import Path
 
+from app.rules.safe_expr import RuleError, compile_rule, evaluate
+
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 RULES_FILE = Path("logs/rules.json")
+
+# The only process fields a rule may read.
+RULE_FIELDS = ("cpu_usage", "memory", "cmd", "name")
 
 class Process(BaseModel):
     pid: int
@@ -27,17 +34,30 @@ def evaluate_rules(data: HostTelemetry):
         raise HTTPException(status_code=500, detail="Rules file not found")
 
     rules = json.loads(RULES_FILE.read_text())
+
+    # Check every rule once, before any telemetry touches it. Rules are never
+    # passed to eval(): safe_expr parses them and allows only plain
+    # comparisons on the fields above. A rule that breaks the allowlist is
+    # logged and skipped instead of running.
+    compiled = []
+    for rule in rules:
+        try:
+            compiled.append((rule, compile_rule(rule["rule"], RULE_FIELDS)))
+        except (RuleError, KeyError, TypeError) as e:
+            logger.warning("Rule rejected: %r (%s)", rule.get("rule") if isinstance(rule, dict) else rule, e)
+
     alerts = []
 
     for proc in data.processes:
-        for rule in rules:
+        values = {
+            "cpu_usage": proc.cpu_usage,
+            "memory": proc.memory,
+            "cmd": proc.cmd,
+            "name": proc.name,
+        }
+        for rule, tree in compiled:
             try:
-                if eval(rule["rule"], {}, {
-                    "cpu_usage": proc.cpu_usage,
-                    "memory": proc.memory,
-                    "cmd": proc.cmd,
-                    "name": proc.name
-                }):
+                if evaluate(tree, values):
                     alerts.append({
                         "hostname": data.hostname,
                         "timestamp": data.timestamp,
@@ -46,7 +66,7 @@ def evaluate_rules(data: HostTelemetry):
                         "rule": rule["description"],
                         "severity": rule["severity"]
                     })
-            except Exception as e:
-                print(f"❌ Rule failed: {rule['rule']} — {e}")
+            except (RuleError, KeyError) as e:
+                logger.warning("Rule failed: %r (%s)", rule["rule"], e)
 
     return {"alerts": alerts}
