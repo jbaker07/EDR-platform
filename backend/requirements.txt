@@ -10,7 +10,7 @@ asyncpg==0.29.0           # only needed for a Postgres DATABASE_URL
 redis==5.0.1
 
 # ── Config ──────────────────────────────────────────────────
-python-dotenv==1.0.1
+python-dotenv==1.2.2
 
 # ── ML / scoring (required for the /api/predict + /api/score path) ──
 scikit-learn>=1.1         # MLP classifier (was missing)
