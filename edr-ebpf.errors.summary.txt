@@ -1,3 +1,0 @@
-      3  = -1 EINVAL
-      1  = -1 EBADF
-      1  = -1 EACCES

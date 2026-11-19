@@ -1,8 +1,0 @@
-   Compiling thiserror v1.0.69
-   Compiling core-error v0.0.0
-   Compiling thiserror-impl v1.0.69
-3 |     maps::perf::PerfEventArray,
-94 | fn attach_all_programs(bpf: &mut Bpf) -> anyhow::Result<()> {
-312 | use aya::{Bpf, util::online_cpus, maps::perf::PerfEventArray, programs::TracePoint};
-116 | fn attach_programs_or_fallback(bpf: &mut Bpf) -> anyhow::Result<()> {
-61 | fn attach_tracepoint(bpf: &mut Bpf, prog_key: &str, cat: &str, ev: &str) -> Result<(), String> {

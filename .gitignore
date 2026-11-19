@@ -81,3 +81,72 @@ backend/app/logs/*.json
 # ── Docker / OpenSearch data ────────────────────────────────
 **/data/
 **/opensearch-data/
+
+# ── Build and error logs, run output (repo hygiene, 2026-11-19) ──
+*.err
+*.out
+*errors.txt
+/edr-agent/cargo_errors
+/edr-agent/cargo-check.txt
+/edr-agent/cargo-runner.txt
+warn_tail.txt
+/edr-agent/run_output.txt
+/edr-agent/out/
+/edr-ebpf.errors.summary.txt
+
+# ── Compiled objects, kernel module build output ────────────
+*.o
+*.ko
+# Exception: these three objects are embedded with include_bytes_aligned! by
+# src/modules/{persistence_watch,privilege_monitor,usb_monitor}.rs, so a clone needs them.
+!/edr-agent/src/ebpf/persistence_watch_ebpf.o
+!/edr-agent/src/ebpf/privilege_monitor_ebpf.o
+!/edr-agent/src/ebpf/usb_monitor_ebpf.o
+.*.cmd
+Module.symvers
+modules.order
+/edr-agent/src/ebpf/*.mod
+/edr-agent/_bpf_build
+
+# ── Userspace helper binaries built from src/ebpf/*.c ───────
+/edr-agent/src/ebpf/rb_dump
+/edr-agent/src/ebpf/rb_pretty
+/edr-agent/src/ebpf/set_allow
+/edr-agent/src/ebpf/edr_attach_any
+/edr-agent/src/ebpf/edr_read_rbs
+/edr-agent/src/ebpf/attach_tp_sys_enter
+/edr-agent/src/ebpf/attach_wx_exec
+
+# ── Backups ─────────────────────────────────────────────────
+*.bak
+*.bak.*
+
+# ── Tree listings, bpftool and telemetry dumps ──────────────
+/all-files.txt
+/rs_files.txt
+/*_structure.txt
+/edr-bpf.*.txt
+/map_prog_src*.csv
+/small_telemetry.csv
+/agent_telemetry_template.json
+edr-digest-*.txt
+abi_btf_env_*.txt
+entropy_syscall_means.txt
+entropy_top_paths.txt
+event_mix.txt
+mean_conf.txt
+filehash_*.tsv
+filehash_top_*.txt
+/edr-agent/src/ebpf/tmp_known_good.json
+/edr-agent/src/ebpf/_rb_audit/
+/edr-agent/src/ebpf/_nondot/
+
+# ── Empty junk from shell redirect typos ────────────────────
+*,
+/edr-agent/src/ebpf/ts_ns
+/edr-agent/src/ebpf/size
+/.tables
+/testfile.txt
+
+# TypeScript incremental build info
+*.tsbuildinfo
