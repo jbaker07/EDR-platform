@@ -3,7 +3,7 @@ import networkx as nx
 
 router = APIRouter()
 
-@router.get("/api/gnn/replay")
+@router.get("/gnn/replay")
 def get_replay_path(event_id: str):
     G = nx.read_gpickle("backend/gnn_pipeline/data/processed/telemetry_graph.gpickle")
 

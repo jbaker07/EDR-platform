@@ -1,6 +1,6 @@
 // src/main.tsx
 
-// ✅ Import the Chart.js date-fns adapter before any ChartJS.register calls
+// Import the Chart.js date-fns adapter before any ChartJS.register calls
 import 'chartjs-adapter-date-fns';
 
 import { StrictMode } from 'react';

@@ -20,7 +20,7 @@ for event in events:
         "endpoint_id": event.get("endpoint_id", ""),
         "os_type": event.get("os_type", ""),
         "pid": event.get("pid", -1),
-        "ppid": event.get("ppid", -1),  # ✅ Fixed reference from `proc` to `event`
+        "ppid": event.get("ppid", -1),
         "process_name": event.get("process_name", ""),
         "cmd": event.get("cmd", ""),
         "cpu_percent": event.get("cpu_percent", 0.0),

@@ -15,7 +15,7 @@ FIELDS = [
     "process_name", "cmd", "cpu_percent", "memory", "label"
 ]
 
-# Use your real hostname and platform
+# Use this machine's real hostname and platform
 HOSTNAME = platform.node()
 OS_TYPE = platform.system().lower()
 

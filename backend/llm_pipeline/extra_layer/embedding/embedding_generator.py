@@ -12,15 +12,15 @@ def generate_embeddings(df: pd.DataFrame, n_components: int = 10):
     print("🔎 Preprocessing for PCA...")
     features = df.drop(columns=['Filename'], errors='ignore')
 
-    # ✅ Impute missing values with column means
+    # Impute missing values with column means
     imputer = SimpleImputer(strategy="mean")
     features_imputed = imputer.fit_transform(features)
 
-    # ✅ Normalize data
+    # Normalize data
     scaler = StandardScaler()
     features_scaled = scaler.fit_transform(features_imputed)
 
-    # ✅ PCA embedding
+    # PCA embedding
     pca = PCA(n_components=n_components)
     embeddings = pca.fit_transform(features_scaled)
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import EndpointModal from './EndpointModal'; // ✅ Import Modal Component
+import EndpointModal from './EndpointModal';
 
 interface Endpoint {
   id: string;
@@ -10,27 +10,17 @@ interface Endpoint {
   riskLevel: 'low' | 'medium' | 'high';
 }
 
-const fallbackEndpoints: Endpoint[] = [
-  { id: '1', hostname: 'host-a', ip: '192.168.0.12', status: 'online', riskLevel: 'low' },
-  { id: '2', hostname: 'host-b', ip: '192.168.0.15', status: 'online', riskLevel: 'high' },
-  { id: '3', hostname: 'host-c', ip: '192.168.0.23', status: 'offline', riskLevel: 'medium' },
-];
-
 const EndpointGrid: React.FC = () => {
-  const [endpoints, setEndpoints] = useState<Endpoint[]>(fallbackEndpoints);
-  const [selected, setSelected] = useState<Endpoint | null>(null); // ✅ Modal state
-
-  // Toggle below to false if backend route isn't ready yet
-  const USE_BACKEND = false;
+  const [endpoints, setEndpoints] = useState<Endpoint[]>([]);
+  const [selected, setSelected] = useState<Endpoint | null>(null); // Modal state
 
   useEffect(() => {
-    if (USE_BACKEND) {
-      axios.get('http://localhost:8000/telemetry/agents').then(res => {
-        setEndpoints(res.data);
-      }).catch(() => {
-        setEndpoints(fallbackEndpoints);
-      });
-    }
+    // GET /api/telemetry/agents in backend/app/routes/telemetry_router.py builds
+    // this list from stored telemetry. It replaced three hard-coded fallback
+    // hosts. The collector sends no IP address, so the grid says so.
+    axios.get('/api/telemetry/agents')
+      .then(res => setEndpoints(res.data.map((ep: Omit<Endpoint, 'ip'>) => ({ ...ep, ip: 'not collected' }))))
+      .catch(err => console.error('Failed to load endpoints:', err));
   }, []);
 
   return (
@@ -44,7 +34,7 @@ const EndpointGrid: React.FC = () => {
             endpoints.map((ep) => (
               <div
                 key={ep.id}
-                onClick={() => setSelected(ep)} // ✅ Open modal on click
+                onClick={() => setSelected(ep)} // Open modal on click
                 className="bg-gray-50 p-4 rounded-lg border shadow hover:shadow-lg transition cursor-pointer"
               >
                 <div className="flex justify-between items-center mb-2">
@@ -78,7 +68,7 @@ const EndpointGrid: React.FC = () => {
         </div>
       </div>
 
-      {/* ✅ Modal Rendering */}
+      {/* Modal Rendering */}
       {selected && <EndpointModal endpoint={selected} onClose={() => setSelected(null)} />}
     </>
   );

@@ -37,7 +37,7 @@ from graph_output.replay_sync_validator import validate_and_sync_replay
 
 import networkx as nx
 
-# === EXPERIMENTAL GNN node-scoring path (guarded — NOT on the live trust path) ===
+# === EXPERIMENTAL GNN node-scoring path (guarded, NOT on the live trust path) ===
 # This block depends on modules that are not present in the repo (gnn_hook,
 # trust_hook), on a `.gpickle` graph file that is not shipped, and on
 # nx.read_gpickle() which was REMOVED in networkx 3.0. None of it is used by
@@ -74,7 +74,7 @@ def process_node(node_id: str, telemetry_data: dict):
     trust_output = evaluate_trust_payload(telemetry_data)
     return {"gnn_summary": gnn_summary, "trust_output": trust_output}
 
-# === (Your existing logic continues here) ===
+# === Main trust engine logic ===
 
 import time
 
@@ -112,7 +112,7 @@ semantic_tags = match_semantic_tags()
 threat_patterns = match_threat_patterns()
 unknown_profiles = match_unknown_risk_profiles()
 
-# ——— CONFIGURATION ———
+# === CONFIGURATION ===
 RULE_FILE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "expanded_rules_combined.json")
 rule_parser = TrustRuleParser(RULE_FILE_PATH)
 
@@ -184,7 +184,7 @@ except Exception as _e:
         "anchor_definitions.json unavailable (%s); using empty anchor set.", _e
     )
     anchor_definitions = {}
-anchor_engine = anchor_definitions  # You may later wrap this in a class if needed
+anchor_engine = anchor_definitions  # plain dict, could be wrapped in a class later
 
 # NOTE: a block of import-time "Simulated event" demo/scratch code lived here.
 # It ran the tagging/detection/decay pipeline against a hardcoded fake event at
@@ -258,7 +258,9 @@ def score_minimal(event: Dict[str, Any]) -> Tuple[float, List[str]]:
                 fired.append(bucket)
                 break
 
-    abuse_cfg = rules.get("resource_abuse", {})
+    # resource_abuse is [] in expanded_rules_combined.json, and [].get() raised.
+    abuse_cfg = rules.get("resource_abuse")
+    abuse_cfg = abuse_cfg if isinstance(abuse_cfg, dict) else {}
     if cpu > abuse_cfg.get("cpu_threshold", float("inf")):
         score += RESOURCE_ABUSE_WEIGHTS["cpu"]
         fired.append("cpu_threshold")
@@ -303,21 +305,25 @@ def calculate_trust_score(hostname: str, window_seconds: int = 3600) -> Dict[str
         fired_buckets.extend(buckets)
 
     trust -= decay_sum * RISK_WEIGHT_MULTIPLIER
-    gnn_score = score_graph(event)
+    # score_graph() takes a {"nodes", "edges"} graph, and passing the event list
+    # crashed. No graph is built from host telemetry yet, so the GNN term is 0.
+    gnn_score = 0.0
     trust -= gnn_score * GNN_WEIGHT
 
-    session = get_db_session()
+    session = next(get_db_session())
     agent = session.query(Agent).filter_by(hostname=hostname).first()
+    if not event and agent is None:
+        return None  # no telemetry and no registration: unknown host
     if agent:
-        if not agent.attested:
+        if not agent.attestation_passed:
             trust -= ATTESTATION_PENALTY
         if not agent.binary_hash:
             trust -= MISSING_HASH_PENALTY
 
     trust = max(0.0, min(trust, MAX_TRUST))
     escalate = trust < FORENSIC_TRIGGER or gnn_score > GNN_TRIGGER
-    tags = match_semantic_tags(event)
-    patterns = match_threat_patterns(event)
+    # The "tags" and "threat_patterns" keys were dropped. match_semantic_tags() and
+    # match_threat_patterns() only load the catalogs and take no event argument.
 
     return {
         "final_trust_score": trust,
@@ -326,8 +332,6 @@ def calculate_trust_score(hostname: str, window_seconds: int = 3600) -> Dict[str
         "adjusted_gnn_weight": gnn_score * GNN_WEIGHT,
         "mode_escalated": escalate,
         "replay_required": escalate,
-        "tags": tags,
-        "threat_patterns": patterns
     }
 
 # === Production Enhancements Added ===

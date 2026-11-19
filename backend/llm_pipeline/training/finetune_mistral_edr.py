@@ -5,7 +5,7 @@ import torch
 
 model_id = "mistralai/Mistral-7B-Instruct-v0.1"
 tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
-tokenizer.pad_token = tokenizer.eos_token  # ✅ ADD THIS LINE
+tokenizer.pad_token = tokenizer.eos_token
 
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
@@ -24,7 +24,7 @@ lora_config = LoraConfig(
 )
 
 model = get_peft_model(model, lora_config)
-model = model.to("cpu")  # ✅ Force CPU
+model = model.to("cpu")
 
 
 dataset = load_dataset("json", data_files="llm_pipeline/data/red_alerts.jsonl")
@@ -33,7 +33,7 @@ dataset = load_dataset("json", data_files="llm_pipeline/data/red_alerts.jsonl")
 def preprocess(example):
     prompt = f"""### Instruction:\n{example['instruction']}\n\n### Input:\n{example['input']}\n\n### Response:\n{example['output']}"""
     encoding = tokenizer(prompt, truncation=True, padding="max_length", max_length=1024)
-    encoding["labels"] = encoding["input_ids"].copy()  # ✅ Set labels
+    encoding["labels"] = encoding["input_ids"].copy()
     return encoding
 
 
@@ -47,7 +47,7 @@ training_args = TrainingArguments(
     learning_rate=2e-4,
     warmup_steps=50,
     fp16=False,
-    no_cuda=True,  # ✅ Force CPU training
+    no_cuda=True,  # Force CPU training
     logging_steps=10,
     save_strategy="epoch",
     report_to="none"

@@ -8,10 +8,11 @@ router = APIRouter()
 
 @router.get("/host/{hostname}")
 def get_trust_score(hostname: str):
-    score = calculate_trust_score(hostname)
-    if score is None:
+    result = calculate_trust_score(hostname)
+    if result is None:
         raise HTTPException(status_code=404, detail="Host not found")
-    return {"hostname": hostname, "trust_score": score}
+    # trust_score is the number. The full breakdown goes under details.
+    return {"hostname": hostname, "trust_score": result["final_trust_score"], "details": result}
 
 @router.get("/dashboard-collector")
 def dashboard_trust_view():
@@ -30,7 +31,7 @@ def dashboard_trust_view():
             continue
         last_seen[host] = max(last_seen[host], ts)
         if host not in trust_map:
-            trust_map[host] = calculate_trust_score(host)
+            trust_map[host] = calculate_trust_score(host)["final_trust_score"]
 
     scores = list(trust_map.values())
     avg_trust = round(sum(scores) / len(scores), 2) if scores else 0

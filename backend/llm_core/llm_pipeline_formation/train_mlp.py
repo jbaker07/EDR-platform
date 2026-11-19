@@ -35,6 +35,6 @@ print(classification_report(y_test, y_pred))
 
 import joblib
 
-# Assuming your model is named `mlp`
-joblib.dump(mlp, "backend/backend_2/llm_pipeline_2/models/mlp_model.pkl")
+# Save the classifier trained above (clf). This line used to dump an undefined name, mlp.
+joblib.dump(clf, "backend/backend_2/llm_pipeline_2/models/mlp_model.pkl")
 

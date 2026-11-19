@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from llm_pipeline.handlers.llm_handler import get_summary, get_hunt_query
 
-router = APIRouter(prefix="/api/llm")
+router = APIRouter(prefix="/llm")
 
 class PromptRequest(BaseModel):
     prompt: str

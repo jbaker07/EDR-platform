@@ -1,4 +1,4 @@
-/* app.js — hardened + with health + incidents + playbooks (safe if elements missing) */
+/* app.js: hardened + with health + incidents + playbooks (safe if elements missing) */
 
 (() => {
   "use strict";
@@ -44,7 +44,7 @@
   const pbHitsEl    = document.getElementById('pb-hits');
   const pbPendingEl = document.getElementById('pb-pending');
 
-  // Incidents (DecisionEngine rollups) — optional UI
+  // Incidents (DecisionEngine rollups), optional UI
   const incWrap     = document.getElementById('incidents');
   const incListEl   = document.getElementById('incList');
 
@@ -827,8 +827,8 @@
 
 // ===================== Integration Filters & OpenSearch helpers =====================
 (function () {
-  // Point this to your OpenSearch or to your backend proxy (recommended in browsers).
-  // If you expose a proxy like /api/os/*, set OS_BASE = "" and call fetch("/api/os/_search", ...).
+  // OpenSearch base URL, or a backend proxy (recommended in browsers).
+  // With a proxy like /api/os/*, set OS_BASE = "" and call fetch("/api/os/_search", ...).
   const OS_BASE = "http://127.0.0.1:9200";
   const INDEX   = "events-all-*"; // single, normalized stream (deduped, no overlap)
 
@@ -872,7 +872,7 @@
     return res.json();
   }
 
-  // Optional: tiny demo queries you can call from existing code
+  // Optional: tiny demo queries for existing code to call
   async function searchRecentSample(limit = 25) {
     const body = {
       size: limit,
@@ -897,12 +897,12 @@
   }
 
   async function refreshHookIfPresent() {
-    // If your existing app exposes a global refresh, call it so the new filters apply.
+    // If the page exposes a global refresh, call it so the new filters apply.
     // Otherwise, we don't do anything intrusive here.
     try {
       if (typeof window.refreshData === "function") {
         setStatus("updating…");
-        await window.refreshData(); // your page’s existing fetch/render
+        await window.refreshData(); // the page's existing fetch/render
         setStatus(`updated ${new Date().toLocaleTimeString()}`);
       }
     } catch (e) {
@@ -939,7 +939,7 @@
     getIndexPattern: () => INDEX,
     getSelectedSources: selectedSources,
     getSelectedMinutes: selectedMinutes,
-    buildMustFilters,          // -> use inside your existing OpenSearch queries
+    buildMustFilters,          // -> use inside existing OpenSearch queries
     osSearch,                  // -> optional direct search helper
     searchRecentSample,        // -> optional demo
     topAlertNames,             // -> optional demo

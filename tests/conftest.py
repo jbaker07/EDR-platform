@@ -3,7 +3,7 @@
 Responsibilities:
   * Put ``backend/`` on sys.path so ``import main`` works exactly like the
     canonical ``cd backend && uvicorn main:app`` launch.
-  * Guarantee the DEMO model exists before any test imports ``main`` — on a
+  * Guarantee the DEMO model exists before any test imports ``main``. On a
     fresh clone the committed model is already present, but if it was deleted
     (or .gitignore'd away in some environment) we regenerate it on the fly so
     the suite is self-sufficient.

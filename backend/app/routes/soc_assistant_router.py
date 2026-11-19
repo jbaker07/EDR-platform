@@ -6,7 +6,7 @@ from app.services.gnn_explainer import get_gnn_trace
 
 router = APIRouter()
 
-@router.get("/api/assistant/explain")
+@router.get("/assistant/explain")
 def soc_assistant_explain(event_id: str):
     event = memory_manager.get_event_details(event_id)
     if not event:

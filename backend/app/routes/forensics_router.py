@@ -3,7 +3,7 @@ from datetime import datetime
 
 router = APIRouter()
 
-@router.post("/api/forensics/run")
+@router.post("/forensics/run")
 async def trigger_forensic_sweep(request: Request):
     body = await request.json()
     reason = body.get("reason", "manual")

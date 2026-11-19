@@ -4,11 +4,11 @@
     "name": "High CPU usage",
     "description": "Detects high CPU usage processes",
     "severity": "high",
-    "target_os": ["windows", "linux"],
+    "target_os": ["windows", "linux", "darwin"],
     "logic": "AND",
     "conditions": [
       {
-        "field": "cpu_usage",
+        "field": "cpu_percent",
         "operator": ">",
         "value": 80
       }
@@ -21,11 +21,11 @@
     "name": "Dangerous Command Execution",
     "description": "Detects execution of dangerous 'rm -rf' command",
     "severity": "critical",
-    "target_os": ["linux"],
+    "target_os": ["linux", "darwin"],
     "logic": "OR",
     "conditions": [
       {
-        "field": "command",
+        "field": "cmd",
         "operator": "contains",
         "value": "rm -rf"
       }

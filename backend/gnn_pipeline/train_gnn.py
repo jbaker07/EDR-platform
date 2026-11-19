@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 from torch_geometric.data import Data
-from gnn_pipeline.model import GNNModel  # Ensure this matches your model definition
+from gnn_pipeline.model import GNNModel
 
 # --- 1. Load and preprocess the dataset ---
 df = pd.read_csv("data/merged_scored_labeled.csv")
@@ -44,7 +44,7 @@ X_test = torch.tensor(X_test, dtype=torch.float32)
 y_test = torch.tensor(y_test, dtype=torch.long)
 
 # --- 3. Create the Graph Data Object ---
-# Assume a simple fully connected graph for now (you can replace this with your actual edge creation logic)
+# Fully connected graph for now, a placeholder for real edge creation logic
 edges = []
 for i in range(len(X_train)):
     for j in range(i + 1, len(X_train)):

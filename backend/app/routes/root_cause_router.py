@@ -4,7 +4,7 @@ from app.services.gnn_explainer import get_gnn_trace
 
 router = APIRouter()
 
-@router.get("/api/explain/root_cause")
+@router.get("/explain/root_cause")
 def get_root_cause(event_id: str):
     event = memory_manager.get_event_details(event_id)
     if not event:

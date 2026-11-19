@@ -9,7 +9,7 @@ router = APIRouter()
 # Simulated action store for MVP purposes
 response_log = {}
 
-@router.post("/api/response/action")
+@router.post("/response/action")
 def respond_to_alert(alert_id: str, action: str = "isolate"):
     # 1. Get event/alert
     event = memory_manager.get_event_details(alert_id)

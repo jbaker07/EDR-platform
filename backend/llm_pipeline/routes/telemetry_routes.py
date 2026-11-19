@@ -27,7 +27,7 @@ class Telemetry(BaseModel):
     timestamp: int
     processes: List[ProcessInfo]
 
-# ✅ RECEIVE telemetry data (POST to /api/telemetry)
+# RECEIVE telemetry data (POST to /api/telemetry)
 @router.post("/telemetry")
 async def receive_telemetry(data: Telemetry):
     try:
@@ -52,14 +52,14 @@ async def receive_telemetry(data: Telemetry):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# ✅ GET full telemetry (GET /api/telemetry/all)
+# GET full telemetry (GET /api/telemetry/all)
 @router.get("/telemetry/all")
 def get_all_telemetry():
     if TELEMETRY_FILE.exists():
         return json.loads(TELEMETRY_FILE.read_text())
     return {"error": "No telemetry found"}
 
-# ✅ GET telemetry timeline (GET /api/telemetry/timeline)
+# GET telemetry timeline (GET /api/telemetry/timeline)
 @router.get("/telemetry/timeline")
 def get_timeline():
     if TELEMETRY_FILE.exists():

@@ -1,6 +1,5 @@
 import React from 'react';
-import type { Alert } from '@/types/Alert'; // ✅ absolute path using alias if configured
- // ✅ adjust path to wherever your Alert interface is defined
+import type { Alert } from '@/types/Alert'; // absolute path via the @ alias
 
 interface AlertModalProps {
   alert: Alert;

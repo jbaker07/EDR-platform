@@ -1,7 +1,7 @@
 # backend/app/services/gnn_trust.py
 import networkx as nx
 
-# Load GNN graph once (you may want to move this to an init function if memory is a concern)
+# Load the GNN graph once at import (could move to an init function if memory is a concern)
 G = nx.read_gpickle("backend/gnn_pipeline/data/processed/telemetry_graph.gpickle")
 
 def compute_gnn_trust_score(hostname: str) -> float:

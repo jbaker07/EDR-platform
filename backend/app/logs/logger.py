@@ -1,8 +1,8 @@
 """Shared application loggers.
 
 This module was referenced by the rules and correlation engines
-(``from app.logs.logger import rules_logger``) but was never committed —
-the over-broad ``logs/`` .gitignore rule swallowed the whole package, which
+(``from app.logs.logger import rules_logger``) but was never committed.
+The over-broad ``logs/`` .gitignore rule swallowed the whole package, which
 broke the app at import time. It is restored here as a thin, dependency-free
 wrapper around the stdlib ``logging`` module.
 """

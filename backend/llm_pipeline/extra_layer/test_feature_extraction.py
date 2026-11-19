@@ -11,7 +11,7 @@ if __name__ == "__main__":
         for proc in alert["processes"]:
             text = f"{proc['name']} {proc['cmd']}"
         ...
-        # run your full pipeline: clean_text -> extract_features -> vectorize_text_bow/tfidf -> embed
+        # full pipeline: clean_text -> extract_features -> vectorize_text_bow/tfidf -> embed
 
     cleaned = clean_text(text)
     print("Original:", text)

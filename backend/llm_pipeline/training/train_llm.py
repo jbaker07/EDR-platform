@@ -60,7 +60,7 @@ training_args = TrainingArguments(
     save_strategy="epoch",
     logging_dir="./logs",
     logging_steps=50,
-    report_to="none",  # disable wandb/huggingface logging unless you want it
+    report_to="none",  # no wandb/huggingface logging
 )
 
 # Custom Trainer

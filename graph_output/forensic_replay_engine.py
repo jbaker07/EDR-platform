@@ -34,7 +34,7 @@ class ForensicReplayEngine:
             return []
 
     def replay_to_gnn(self, snapshot):
-        # Placeholder — this would integrate with your actual GNN preprocessor
+        # Placeholder for the real GNN preprocessor integration
         return {
             "status": "replayed",
             "nodes": len(snapshot.get("nodes", [])),

@@ -1,5 +1,5 @@
 import sys
-sys.path.append("backend")  # Let Python find your trust engine
+sys.path.append("backend")  # makes the trust engine under backend/ importable
 
 from app.services.trust_engine_final import risk_score_minimal
 

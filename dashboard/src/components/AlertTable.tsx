@@ -34,7 +34,7 @@ const AlertTable: React.FC<AlertTableProps> = ({ alerts: externalAlerts = [], on
       const data = await res.json();
 
       const normalized: ProcessInfo[] = (data.processes as any[])
-      .filter(p => p.pid !== 0 && (p.cpu_percent > 0 || p.memory > 0))  // 💥 Skip empty/default
+      .filter(p => p.pid !== 0 && (p.cpu_percent > 0 || p.memory > 0))  // Skip empty/default
       .map(p => ({
       pid:        p.pid,
       name:       p.process_name,
@@ -216,7 +216,7 @@ const AlertTable: React.FC<AlertTableProps> = ({ alerts: externalAlerts = [], on
                       className={`${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'} cursor-pointer`}
                       onClick={() => {
                         setSelectedProcess(proc);
-                        if (onRowClick) onRowClick(procWithHost); // 👈 send full metadata
+                        if (onRowClick) onRowClick(procWithHost); // send full metadata
                       }}
                     >
                       <td className="px-4 py-2">{alert.hostname}</td>

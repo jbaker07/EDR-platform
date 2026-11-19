@@ -2,8 +2,8 @@
 
 # Make the repo root importable so sibling top-level packages (replay_engine,
 # ontology, ...) resolve regardless of the launch CWD. The canonical run is
-# `cd backend && uvicorn main:app`, which puts backend/ — but not its parent —
-# on sys.path; these packages live one level up.
+# `cd backend && uvicorn main:app`, which puts backend/ (but not its parent)
+# on sys.path. These packages live one level up.
 import os
 import sys
 
@@ -21,7 +21,9 @@ import joblib
 
 # Init
 from app.services.db import init_db
-from app.rules.rules_engine import reload_rules, apply_rules, loaded_rules
+# get_loaded_rules, not loaded_rules: a from-import copies the list object once,
+# and reload_rules() later rebinds the module name to a new list.
+from app.rules.rules_engine import reload_rules, apply_rules, get_loaded_rules
 
 # Routers
 from app.routes.score import router as score_router
@@ -32,7 +34,6 @@ from app.routes.rules import router as rules_router
 from app.routes.rules_router import router as advanced_rules_router
 from app.routes.feedback import router as feedback_router
 from app.routes.gamification import router as gamification_router
-from app.routes.iocs import router as iocs_router
 from app.routes.telemetry_router import router as telemetry_router
 from llm_pipeline.routes.llm_routes import router as llm_router
 from app.routes.multi_correlation_router import router as multi_correlation_router
@@ -48,7 +49,11 @@ from app.routes.root_cause_router import router as root_cause_router
 from app.routes.action_router import router as action_router
 from app.routes.gnn_replay_router import router as replay_router
 from app.routes.gnn_archive_router import router as gnn_archive_router
-# NOTE: app.routes.gnn_router is EXCLUDED on purpose — it is experimental and
+from app.routes.soc_assistant_router import router as soc_assistant_router
+from app.routes.explain_router import router as explain_event_router
+# app.routes.iocs is not included: its GET /iocs shadowed the GET /api/iocs below
+# and read a CWD-relative file, while POST /api/iocs writes backend/logs/iocs.json.
+# NOTE: app.routes.gnn_router is EXCLUDED on purpose. It is experimental and
 # non-functional: it requires torch + torch_geometric (heavy, optional) plus
 # unshipped per-wave .pt weights, and referenced symbols that don't exist
 # (GCN / adjust_trust_from_gnn). See that file's header for details.
@@ -86,7 +91,6 @@ routers = [
     rules_router,
     feedback_router,
     gamification_router,
-    iocs_router,
     telemetry_router,
     advanced_rules_router,
     llm_router,
@@ -103,9 +107,13 @@ routers = [
     global_trust_router,
     replay_router,
     gnn_archive_router,
+    soc_assistant_router,
+    explain_event_router,
     # gnn_router intentionally excluded (experimental; see import note above).
 ]
 
+# The /api prefix is added here only. Router paths are relative ("/telemetry",
+# not "/api/telemetry"), or the route ends up at /api/api/....
 for r in routers:
     app.include_router(r, prefix="/api")
 
@@ -139,7 +147,7 @@ if not ALERT_LOG_FILE.exists():
 @app.post("/api/analyze")
 async def analyze_telemetry(request: Request):
     data = await request.json()
-    alerts = apply_rules(data, loaded_rules)
+    alerts = apply_rules(data, get_loaded_rules(), os_type=data.get("os_type", "linux"))
     if alerts:
         existing = json.loads(ALERT_LOG_FILE.read_text())
         existing.extend(alerts)
@@ -174,7 +182,7 @@ def add_ioc(ioc: Dict):
 # Loads a small DEMO classifier so /api/predict returns a real prediction
 # out-of-the-box on a fresh clone. The model is a scikit-learn Pipeline
 # (StandardScaler + LogisticRegression) trained on a TRANSPARENT SYNTHETIC
-# dataset by backend/ml/train.py — it is NOT a real-incident detector. See
+# dataset by backend/ml/train.py. It is NOT a real-incident detector. See
 # that file's header for the honesty notice + the feature contract.
 #
 # Feature contract: the client sends {"features": [cpu_percent, memory, pid]}
@@ -233,7 +241,7 @@ async def predict(request: PredictionRequest):
         label = "malicious" if int(prediction[0]) == 1 else "benign"
         result = {"prediction": label, "label": label}
         # Surface a probability when the estimator exposes one (LogisticRegression
-        # does), so callers can see confidence — best-effort, never fatal.
+        # does), so callers can see confidence. Best-effort, never fatal.
         try:
             proba = predict_model.predict_proba([request.features])[0]
             result["confidence"] = round(float(max(proba)), 4)

@@ -17,7 +17,12 @@ engine = create_engine(
 
 def init_db():
     from app.models.telemetry import TelemetryEvent  # required to register table
+    from app.models.alert import Alert  # required to register table
+    from app.models.agent import Base as AgentBase
     SQLModel.metadata.create_all(engine)
+    # Agent uses a plain SQLAlchemy Base, not SQLModel, so its table needs its own
+    # create_all. Without it /api/agent and the trust lookup fail with "no such table".
+    AgentBase.metadata.create_all(engine)
 
 def get_db_session():
     with Session(engine) as session:

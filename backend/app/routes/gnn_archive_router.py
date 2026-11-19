@@ -9,7 +9,7 @@ from gnn_pipeline.utils.graph_archiver import (
 
 router = APIRouter()
 
-@router.post("/api/gnn/archive")
+@router.post("/gnn/archive")
 def archive_graph(incident_id: str):
     try:
         with open("backend/gnn_pipeline/data/processed/telemetry_graph.gpickle", "rb") as f:
@@ -21,7 +21,7 @@ def archive_graph(incident_id: str):
     return {"status": "archived", "path": path}
 
 
-@router.get("/api/gnn/archive/list")
+@router.get("/gnn/archive/list")
 def list_archives():
     try:
         files = list_archived_snapshots()
@@ -30,7 +30,7 @@ def list_archives():
         return {"error": f"Failed to list archives: {str(e)}"}
 
 
-@router.get("/api/gnn/archive/load")
+@router.get("/gnn/archive/load")
 def load_archive(filename: str):
     try:
         G = load_archived_snapshot(filename)

@@ -5,7 +5,7 @@ import TelemetryTimeline from '@/components/TelemetryTimeline';
 import RiskSummaryPanel from '@/components/RiskSummaryPanel';
 import AgentRegistryPanel from '@/components/AgentRegistryPanel';
 import TrustPanel from '@/components/TrustPanel';
-import ExplainPanel from '@/components/ExplainPanel';  // ✅ Updated to use directly
+import ExplainPanel from '@/components/ExplainPanel';
 import GlobalRiskHeatmap from '@/components/GlobalRiskHeatmap';
 import ArchivedReplayViewer from '@/components/ArchivedReplayViewer';
 
@@ -14,6 +14,9 @@ import { Alert } from '@/types/Alert';
 export default function DashboardPage() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [selectedAlert, setSelectedAlert] = useState<any | null>(null);
+  // Host of the newest telemetry row. "dashboard-collector" is only the label
+  // /api/telemetry/all puts on its response, not a host with a trust score.
+  const [trustHost, setTrustHost] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLive = async () => {
@@ -35,6 +38,8 @@ export default function DashboardPage() {
         hostname: data.hostname
       }));
       setAlerts([{ hostname: data.hostname, timestamp: data.timestamp, processes: procs }]);
+      const newest = data.processes[data.processes.length - 1];
+      if (newest?.hostname) setTrustHost(newest.hostname);
     };
 
     fetchLive();
@@ -45,7 +50,7 @@ export default function DashboardPage() {
   return (
     <div className="p-6 space-y-6">
       <RiskSummaryPanel alerts={alerts} />
-      <TrustPanel hostname="dashboard-collector" />
+      {trustHost && <TrustPanel hostname={trustHost} />}
       <GlobalRiskHeatmap />
       <TelemetryTimeline alerts={alerts} />
       <ArchivedReplayViewer />
@@ -53,7 +58,7 @@ export default function DashboardPage() {
       <h2 className="text-xl font-semibold">Live Alerts</h2>
       <AlertTable alerts={alerts} onRowClick={setSelectedAlert} />
 
-      {/* ✅ Inline ExplainPanel for selected alert */}
+      {/* Inline ExplainPanel for selected alert */}
       <ExplainPanel
         selectedAlert={selectedAlert}
         features={[selectedAlert?.cpu_usage || 0, selectedAlert?.memory || 0]}

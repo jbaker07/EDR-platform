@@ -44,7 +44,7 @@ MODEL_PATHS = {
     "wave7": "backend/gnn_pipeline/models/gnn_model_wave7.pt",
     "wave8": "backend/gnn_pipeline/models/gnn_model_wave8.pt",
     "wave9": "backend/gnn_pipeline/models/gnn_model_wave9.pt",
-    "wave10": "backend/gnn_pipeline/models/gnn_model_wave10.pt" #✅ Add this
+    "wave10": "backend/gnn_pipeline/models/gnn_model_wave10.pt"
 }
 
 
@@ -66,7 +66,7 @@ def predict_telemetry(data: TelemetryInput, version: str = Query("wave2")):
 
     try:
         # === Step 1: Try to get real parent node from memory ===
-        parent_embedding = memory_manager.get_last_embedding(data.pid)  # You store this per `pid`
+        parent_embedding = memory_manager.get_last_embedding(data.pid)  # stored per `pid`
 
         if parent_embedding:
             parent_node = parent_embedding

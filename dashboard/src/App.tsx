@@ -13,7 +13,7 @@ import IsolationPage from './pages/IsolationPage';
 import ExplainPage from './pages/ExplainPage';
 import IntelPage from './pages/IntelPage';
 import FeedbackPage from './pages/FeedbackPage';
-import GamificationPage from './pages/GamificationPage'; // ✅ New
+import GamificationPage from './pages/GamificationPage';
 import ExplainTimelinePage from '@/pages/ExplainPage';
 
 export default function App() {

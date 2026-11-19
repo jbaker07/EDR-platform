@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from datetime import datetime, timezone
+from fastapi import APIRouter, HTTPException
 from app.services.db import get_db_session
 from app.models.alert import Alert
 
@@ -14,7 +15,7 @@ def get_alert_by_id(alert_id: int):
     db = next(get_db_session())
     alert = db.query(Alert).filter(Alert.id == alert_id).first()
     if not alert:
-        return {"error": "Alert not found"}
+        raise HTTPException(status_code=404, detail="Alert not found")
     return {
         "id": alert.id,
         "hostname": alert.hostname,
@@ -23,5 +24,6 @@ def get_alert_by_id(alert_id: int):
         "rule_name": alert.rule_name,
         "description": alert.description,
         "severity": alert.severity,
-        "timestamp": alert.timestamp.isoformat(),
+        # Alert.timestamp is a float of epoch seconds, so .isoformat() on it raised.
+        "timestamp": datetime.fromtimestamp(alert.timestamp, tz=timezone.utc).isoformat(),
     }

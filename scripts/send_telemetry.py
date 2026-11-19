@@ -23,7 +23,7 @@ def collect_and_send():
 
     payload = {
         "hostname": socket.gethostname(),
-        "os_type": "darwin",  # Or "linux" depending on your platform
+        "os_type": "darwin",  # or "linux", depending on the host platform
         "processes": processes
     }
 

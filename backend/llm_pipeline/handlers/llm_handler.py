@@ -70,7 +70,7 @@ def get_hunt_query(threat_name: str) -> str:
     hunt_query = tokenizer.decode(outputs[0], skip_special_tokens=True)
     return hunt_query
 
-# === TOKENIZER LOADING (Optional if you need prompt encoding) ===
+# === TOKENIZER LOADING (optional, only needed for prompt encoding) ===
 if _LLM_DEPS_AVAILABLE:
     try:
         tokenizer = AutoTokenizer.from_pretrained(

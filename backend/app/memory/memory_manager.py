@@ -14,7 +14,12 @@ class MemoryManager:
         self._flags = set()         # hostnames flagged for forensic mode
         self._isolation = set()     # hostnames flagged for isolation (future use)
 
-    def save_telemetry(self, hostname: str, event: dict):
+    def save_telemetry(self, hostname: str, event: dict) -> list:
+        """Store one event, run the loaded rules on it once, store any alerts.
+
+        Returns the alerts so the caller can report them without running the
+        rules a second time.
+        """
         endpoint_id = event.get("endpoint_id", hostname)
 
         tel = TelemetryEvent(
@@ -52,6 +57,7 @@ class MemoryManager:
 
         if alerts:
             db.commit()
+        return alerts
 
     def get_all_recent_events(self, window_seconds: int = 900):
         cutoff = time.time() - window_seconds
@@ -70,7 +76,8 @@ class MemoryManager:
         results = db.execute(stmt).scalars().all()
         return [r.dict(exclude={"id", "created_at"}) for r in results]
 
-    def get_event_details(event_id: str) -> dict:
+    def get_event_details(self, event_id: str) -> dict:
+        # memory_store is never filled, so this returns None for every id today.
         return memory_store.get(event_id)
 
     # === GNN & Trust Support ===

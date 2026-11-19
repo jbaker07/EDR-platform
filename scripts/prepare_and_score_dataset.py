@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 import importlib
 
-# --- Setup project path to import your trust engine ---
+# --- Setup project path to import the trust engine ---
 SCRIPT_DIR = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, '..'))
 BACKEND_PATH = os.path.join(PROJECT_ROOT, 'backend')

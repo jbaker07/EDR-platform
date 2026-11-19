@@ -10,7 +10,10 @@ import math
 # process CWD (previously hardcoded as a CWD-relative path, which broke
 # import when the app was started from backend/).
 RULES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "default_rules.json")
-loaded_rules = []  
+# reload_rules() rebinds this name, so a "from rules_engine import loaded_rules"
+# copy goes stale. Read it through get_loaded_rules().
+loaded_rules = []
+
 # Operator functions
 def evaluate_condition(field_value, operator_type, expected_value):
     try:
