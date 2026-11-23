@@ -3,6 +3,8 @@ const pino = require('pino');
 const { getBus, shapeAndValidate } = require('./publish');
 
 const PORT = Number(process.env.PUBLISH_PORT || process.env.PORT || 8787);
+// Loopback by default. The service has no authentication, so it must not face a network.
+const HOST = process.env.PUBLISH_HOST || '127.0.0.1';
 
 const logger = pino({ name: 'edr-publish-service' });
 const app = express();
@@ -86,6 +88,6 @@ app.post('/api/incidents/canonical', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  logger.info({ port: PORT }, 'publish service listening');
+app.listen(PORT, HOST, () => {
+  logger.info({ host: HOST, port: PORT }, 'publish service listening');
 });
