@@ -3,8 +3,6 @@ use std::fs::{self, File};
 use std::io::Read;
 use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::path::{Path, PathBuf};
-use std::thread;
-use std::time::Duration;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::logger::log;
@@ -30,24 +28,6 @@ const WHITELIST: &[&str] = &[
 
 /// Extensions considered suspicious if found in /tmp
 const SCRIPT_EXTS: &[&str] = &["sh", "py", "pl", "rb", "ps1", "js", "bash"];
-
-/// Background real-time monitor for suspicious script drops.
-pub fn start_script_monitor() {
-    thread::spawn(|| loop {
-        let results = scan_script_monitor();
-
-        if results.is_empty() {
-            log("📜 [ScriptMonitor] No suspicious scripts found in this cycle.");
-        } else {
-            log(&format!(
-                "⚠️ [ScriptMonitor] {} suspicious script events detected.",
-                results.len()
-            ));
-        }
-
-        thread::sleep(Duration::from_secs(40));
-    });
-}
 
 /// Static wrapper to invoke batch scanning logic
 pub fn scan_script_monitor() -> Vec<TelemetryOutput> {

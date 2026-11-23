@@ -1,8 +1,6 @@
 // src/detect/mod.rs
 use serde::Serialize;
 
-pub mod controller;
-pub mod okta;
 pub mod registry;
 pub mod rules;
 pub mod types;

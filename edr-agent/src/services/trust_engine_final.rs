@@ -370,8 +370,8 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
     let role_map = load_role_profile_map("json_files/role_risk_profile_map.json");
     let adjusted_trust = evaluate_role_thresholds(&telemetry.endpoint_role, trust_score, &role_map);
 
-    // 10) Persist state & export to GNN
-    persist_trust_state(&telemetry.endpoint_id, adjusted_trust);
+    // 10) Persist state & export to GNN (best effort: a failed state write does not stop scoring)
+    let _ = persist_trust_state(&telemetry.endpoint_id, adjusted_trust);
     export_trust_vector_to_gnn(
         &telemetry.endpoint_id,
         &telemetry.endpoint_role,

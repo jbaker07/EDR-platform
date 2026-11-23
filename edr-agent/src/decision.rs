@@ -260,7 +260,7 @@ impl AllowSuppressList {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-struct IncidentKey {
+pub struct IncidentKey {
     exe: String,
     user: String,
     host: String,

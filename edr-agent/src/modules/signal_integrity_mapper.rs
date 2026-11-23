@@ -3,12 +3,6 @@ use std::fs::{self, File};
 use std::io::Read;
 use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::path::Path;
-use std::sync::{
-    atomic::{AtomicBool, Ordering},
-    OnceLock,
-};
-use std::thread;
-use std::time::Duration;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
 use crate::logger::log;
@@ -16,9 +10,7 @@ use crate::modules::replay_writer::store_replay_event;
 use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprints_from_disk};
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::write_telemetry_record;
-use crate::trust_hook::{
-    generate_feature_vector, generate_trust_payload, submit_trust_event, TrustEvent,
-};
+use crate::trust_hook::{generate_trust_payload, submit_trust_event, TrustEvent};
 use crate::utils::time::now_ts;
 use entropy::shannon_entropy;
 use sha2::{Digest, Sha256};
@@ -33,78 +25,6 @@ const WHITELIST: &[&str] = &[
 
 /// Extensions considered suspicious if found in /tmp
 const SCRIPT_EXTS: &[&str] = &["sh", "py", "pl", "rb", "ps1", "js", "bash"];
-
-pub static SCAN_SCRIPT_MONITOR: OnceLock<AtomicBool> = OnceLock::new();
-
-pub fn start_integrity_monitor() {
-    SCAN_SCRIPT_MONITOR.get_or_init(|| AtomicBool::new(true));
-
-    thread::spawn(|| loop {
-        if let Ok(entries) = fs::read_dir("/tmp") {
-            for entry in entries.flatten() {
-                let path = entry.path();
-                // Realtime: higher risk threshold
-                if let Some((mut meta_map, uid)) = collect_script_metadata(&path, 15.0) {
-                    // add trust/feature context for SOC
-                    let cpu = 0.5_f64;
-                    let mem = 90_000_u64;
-                    let risk = 15.0_f64;
-                    let ts = now_ts();
-
-                    let trust = generate_trust_payload("script_monitor", cpu, mem, risk);
-                    let features = generate_feature_vector(cpu, mem, risk);
-
-                    meta_map.insert("features".into(), format!("{:?}", features));
-                    meta_map.insert("timestamp".into(), ts.to_string());
-                    meta_map.insert(
-                        "soc_note".into(),
-                        "Script drop in /tmp detected by signal integrity monitor".into(),
-                    );
-                    meta_map.insert("gnn_escalate".into(), "true".into());
-
-                    write_telemetry_record(meta_map.clone());
-                    push_to_gnn_vector_log(meta_map.clone());
-                    store_replay_event(meta_map.clone());
-
-                    let trust_event = TrustEvent {
-                        timestamp: ts,
-                        pid: 0,
-                        ppid: 0,
-                        uid,
-                        binary_path: path.display().to_string(),
-                        command_line: format!("drop_script {}", path.display()),
-                        cwd: "/tmp".into(),
-                        anomaly_type: "script_drop".into(),
-                        component: "signal_integrity_monitor".into(),
-                        metadata: meta_map.clone(),
-                        risk_score: risk as f32,
-                        source_module: "signal_integrity_monitor".into(),
-                        decay_context: Some("script_entropy_drop".into()),
-                        module: Some("signal_integrity_monitor".into()),
-                        signal: Some("tmp_script_drop".into()),
-                        signal_type: Some("script".into()),
-                        score: Some(risk as f32),
-                        raw_score: meta_map.get("entropy").and_then(|e| e.parse::<f32>().ok()),
-                        tags: Some(vec!["script_drop".into(), "signal_integrity".into()]),
-                        description: Some(format!("Suspicious script drop at {:?}", path)),
-                    };
-
-                    submit_trust_event(trust_event);
-
-                    log(&format!(
-                        "[📜 Script Monitor] Suspicious script in /tmp → {:?} | Entropy: {} | Trust: {} | Time: {}",
-                        path,
-                        meta_map.get("entropy").cloned().unwrap_or_else(|| "?".into()),
-                        trust.get("trust_score").unwrap_or(&"N/A".to_string()),
-                        ts
-                    ));
-                }
-            }
-        }
-
-        thread::sleep(Duration::from_secs(40));
-    });
-}
 
 pub fn scan_signal_integrity() -> Vec<TelemetryOutput> {
     let mut outputs = Vec::new();

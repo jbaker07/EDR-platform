@@ -1,56 +1,23 @@
 use std::collections::{HashMap, HashSet};
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use chrono::{DateTime, TimeZone, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
-use std::borrow::Cow;
 
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::modules::auth_monitor::{scan_auth_activity, start_auth_monitor};
-use crate::modules::container_monitor::scan_container_activity;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::container_monitor::start_ebpf_container_exec_monitor;
-use crate::modules::dll_injection_monitor::scan_dll_injection_activity;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::dll_injection_monitor::start_ebpf_dll_injection_watch;
-use crate::modules::encrypted_payload_detector::scan_encrypted_payload_activity;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::encrypted_payload_detector::start_encrypted_payload_monitor;
-use crate::modules::entropy_exec_monitor::start_entropy_exec_monitor;
-use crate::modules::file_hash_watcher::{scan_file_hash_activity, start_file_hash_monitor};
-use crate::modules::file_tamper_monitor::scan_file_tamper_activity;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::file_tamper_monitor::start_ebpf_file_tamper_watch;
-use crate::modules::geo_ip_anomaly::scan_geo_ip_activity;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::job_sched_monitor::start_ebpf_kernel_fallout_watch;
-use crate::modules::job_sched_monitor::{scan_job_sched_activity, start_job_sched_monitors};
-use crate::modules::logon_tracker::{scan_logon_activity, start_logon_tracker};
-use crate::modules::mem_scan::scan_memory_health;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::mem_scan::{start_ebpf_mem_scan, start_ebpf_proc_hollow_scan};
-use crate::modules::mfa_bypass::{scan_mfa_bypass_activity, start_mfa_bypass_monitor};
 use crate::modules::net_watch::{log_open_connections, scan_network_anomalies};
 use crate::modules::password_spray::scan_password_sprays;
-use crate::modules::persistence_watch::{scan_persistence_activity, start_persistence_watch};
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::privilege_monitor::spawn_cred_dump_monitor;
-use crate::modules::privilege_monitor::{scan_privilege_activity, start_privilege_monitor};
-use crate::modules::process_injection::{scan_injection_fallback, start_process_injection_monitor};
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::process_monitor::start_ipc_abuse_monitor;
+use crate::modules::persistence_watch::scan_persistence_activity;
+use crate::modules::privilege_monitor::scan_privilege_activity;
 use crate::modules::process_monitor::{gather_processes, scan_processes};
 use crate::modules::replay_writer::store_replay_event;
-use crate::modules::script_monitor::{scan_script_monitor, start_script_monitor};
-use crate::modules::signal_integrity_mapper::{scan_signal_integrity, start_integrity_monitor};
+use crate::modules::script_monitor::scan_script_monitor;
+use crate::modules::signal_integrity_mapper::scan_signal_integrity;
 use crate::modules::suspicious_ipc::scan_ipc_activity;
-#[cfg(all(target_os = "linux", feature = "ebpf"))]
-use crate::modules::suspicious_ipc::start_ebpf_ipc_abuse_watch;
-use crate::modules::usb_monitor::{scan_usb_state, start_usb_monitor};
-use crate::modules::user_tracker::{get_logged_in_users, scan_user_sessions};
+use crate::modules::usb_monitor::scan_usb_state;
+use crate::modules::user_tracker::scan_user_sessions;
 
 use crate::services::trust_engine_final::{evaluate_and_dispatch_trust_score, TelemetryData};
 use crate::telemetry_types::TelemetryOutput;
@@ -77,64 +44,6 @@ pub struct TelemetryRecord {
     pub risk_score: Option<u32>,
 }
 
-#[derive(Debug, Clone)]
-pub struct MemorySnapshot {
-    pub id: String,
-    pub path: String,
-    pub hash: String,
-    pub risk_score: u32,
-    pub reason: String,
-    pub timestamp: SystemTime,
-    pub behavior_deviation: Option<bool>,
-    pub cpu_usage: Option<f64>,
-    pub memory_usage: Option<f64>,
-    pub pid: u32,
-}
-impl Default for MemorySnapshot {
-    fn default() -> Self {
-        MemorySnapshot {
-            id: String::new(),
-            path: String::new(),
-            hash: String::new(),
-            risk_score: 0,
-            reason: String::new(),
-            timestamp: SystemTime::now(),
-            behavior_deviation: None,
-            cpu_usage: None,
-            memory_usage: None,
-            pid: 0,
-        }
-    }
-}
-impl MemorySnapshot {
-    pub fn into_hashmap(self) -> HashMap<String, String> {
-        let mut map = HashMap::new();
-        map.insert("id".into(), self.id);
-        map.insert("path".into(), self.path);
-        map.insert("hash".into(), self.hash);
-        map.insert("risk_score".into(), self.risk_score.to_string());
-        map.insert("reason".into(), self.reason);
-        map.insert(
-            "timestamp".into(),
-            self.timestamp
-                .duration_since(UNIX_EPOCH)
-                .map(|d| d.as_secs().to_string())
-                .unwrap_or_else(|_| "0".into()),
-        );
-        map.insert("pid".into(), self.pid.to_string());
-        if let Some(cpu) = self.cpu_usage {
-            map.insert("cpu_usage".into(), format!("{:.2}", cpu));
-        }
-        if let Some(mem) = self.memory_usage {
-            map.insert("memory_usage".into(), format!("{:.2}", mem));
-        }
-        if let Some(behavior) = self.behavior_deviation {
-            map.insert("behavior_deviation".into(), behavior.to_string());
-        }
-        map
-    }
-}
-
 // ======================= Utilities =======================
 
 #[inline]
@@ -143,12 +52,6 @@ pub fn get_current_timestamp() -> u64 {
         .duration_since(UNIX_EPOCH)
         .unwrap()
         .as_secs()
-}
-
-pub static MEMORY_ANOMALY_DETECTED: AtomicBool = AtomicBool::new(false);
-#[inline]
-pub fn mark_memory_anomaly_detected() {
-    MEMORY_ANOMALY_DETECTED.store(true, Ordering::Relaxed);
 }
 
 #[inline]
@@ -207,41 +110,6 @@ fn persist_side_effect_kv(map: &HashMap<String, String>) {
     }
 }
 
-// ======================= Realtime Monitors =======================
-
-pub fn start_realtime_monitors(writer: Arc<Mutex<TelemetryWriter>>) {
-    // user-space monitors (OS-agnostic)
-    start_file_hash_monitor(writer.clone());
-    start_usb_monitor();
-    start_script_monitor();
-    start_integrity_monitor();
-    start_mfa_bypass_monitor();
-    start_logon_tracker(Arc::clone(&writer));
-    start_persistence_watch();
-    start_auth_monitor();
-    start_entropy_exec_monitor();
-    start_job_sched_monitors(writer.clone());
-
-    // eBPF-dependent monitors
-    #[cfg(all(target_os = "linux", feature = "ebpf"))]
-    {
-        start_ebpf_file_tamper_watch();
-        start_ebpf_dll_injection_watch();
-        start_ebpf_container_exec_monitor();
-        start_encrypted_payload_monitor();
-        spawn_cred_dump_monitor();
-        start_ipc_abuse_monitor();
-        start_ebpf_ipc_abuse_watch();
-        let _ = start_ebpf_kernel_fallout_watch();
-        let _ = start_ebpf_mem_scan();
-        let _ = start_ebpf_proc_hollow_scan();
-        let _ = start_privilege_monitor();
-        let _ = start_process_injection_monitor();
-    }
-
-    // NOTE: ingest to GNN is side-effect only via write_telemetry_record/push_to_gnn_vector_log.
-}
-
 // ======================= Passive Sweep =======================
 
 pub fn run_sideeffect_monitors_and_collect() -> Vec<TelemetryOutput> {
@@ -250,24 +118,14 @@ pub fn run_sideeffect_monitors_and_collect() -> Vec<TelemetryOutput> {
     // quick process sampling so passive rules have context (no-op return value)
     let _ = scan_processes();
 
-    results.extend(scan_auth_activity());
-    results.extend(scan_container_activity());
-    results.extend(scan_dll_injection_activity());
-    results.extend(scan_encrypted_payload_activity());
-    results.extend(scan_file_hash_activity());
-    results.extend(scan_file_tamper_activity());
-    results.extend(scan_geo_ip_activity());
-    results.extend(scan_job_sched_activity());
-    results.extend(scan_logon_activity());
-    results.extend(scan_memory_health());
     results.extend(scan_network_anomalies());
     results.extend(scan_password_sprays());
     results.extend(scan_persistence_activity());
     results.extend(scan_privilege_activity());
-    results.extend(scan_injection_fallback());
     results.extend(scan_signal_integrity());
     results.extend(scan_script_monitor());
     results.extend(scan_ipc_activity());
+    results.extend(crate::guard::take_guard_outputs());
     results.extend(scan_usb_state());
     results.extend(scan_user_sessions());
 
@@ -294,31 +152,6 @@ pub fn get_current_snapshot() -> Vec<TelemetryRecord> {
             risk_score: None,
         })
         .collect()
-}
-
-/// Optional helper if main wants pcb-style lines directly.
-pub fn record_to_pcb_map(rec: &TelemetryRecord) -> HashMap<String, String> {
-    let mut m = HashMap::new();
-    m.insert("timestamp".into(), rec.timestamp.to_string());
-    m.insert("pid".into(), rec.pid.to_string());
-    m.insert("ppid".into(), rec.ppid.to_string());
-    m.insert("uid".into(), rec.uid.to_string());
-    if !rec.binary_path.is_empty() {
-        m.insert("binary_path".into(), rec.binary_path.clone());
-    }
-    if !rec.command_line.is_empty() {
-        m.insert("command_line".into(), rec.command_line.clone());
-    }
-    if !rec.cwd.is_empty() {
-        m.insert("cwd".into(), rec.cwd.clone());
-    }
-    if let Some(r) = rec.risk_score {
-        m.insert("risk_score".into(), r.to_string());
-    }
-    if !rec.tags.is_empty() {
-        m.insert("tags".into(), rec.tags.join(","));
-    }
-    m
 }
 
 pub fn get_current_telemetry_snapshot(writer: Arc<Mutex<TelemetryWriter>>) -> Vec<TelemetryRecord> {
@@ -439,52 +272,6 @@ pub fn push_feature_as_signal(f: &FeatureObservation) {
     push_to_gnn_vector_log(mapped);
 }
 
-// ======================= Ingest-side helper =======================
-
-pub fn push_edr_event_record(
-    _rec: TelemetryRecord,
-    _writer: &Arc<Mutex<TelemetryWriter>>,
-    out: &crate::telemetry_types::TelemetryOutput,
-) {
-    pb_adapter::emit_adapter_facts(out);
-
-    let mapped = out.data.clone();
-    persist_side_effect_kv(&mapped);
-    crate::gnn_hook::push_to_gnn_vector_log(mapped);
-}
-
-// ======================= User Sessions =======================
-
-pub fn log_user_sessions() {
-    let sessions = get_logged_in_users();
-    for session in sessions {
-        let mut data = HashMap::new();
-        data.insert("user".into(), session.username);
-        data.insert("terminal".into(), session.terminal);
-        data.insert("host".into(), session.host);
-        data.insert("login_time".into(), session.login_time);
-        data.insert("timestamp".into(), now_ts().to_string());
-
-        let output = TelemetryOutput {
-            category: "user_session".into(),
-            signal: "active_login".into(),
-            confidence: 0.9,
-            data,
-        };
-
-        pb_adapter::emit_adapter_facts(&output);
-
-        let mapped = output_to_map(&output);
-        if should_log_raw() {
-            if let Ok(js) = serde_json::to_string(&mapped) {
-                println!("🟡 Raw Telemetry: {}", js);
-            }
-        }
-        persist_side_effect_kv(&mapped);
-        push_to_gnn_vector_log(mapped);
-    }
-}
-
 // --- Entropy helpers ---
 
 /// Byte-oriented Shannon entropy in bits per byte.
@@ -595,56 +382,6 @@ impl From<TelemetryRecord> for Telemetry {
             tags: tagmap,
             attrs,
         }
-    }
-}
-
-pub fn normalized_from_output(output: &crate::telemetry_types::TelemetryOutput) -> Telemetry {
-    let ts = output
-        .data
-        .get("timestamp")
-        .and_then(|s| s.parse::<u64>().ok())
-        .map(ts_u64_to_dt)
-        .unwrap_or_else(Utc::now);
-
-    let mut attrs: Map<String, Value> = Map::new();
-    for (k, v) in output.data.iter() {
-        attrs.insert(k.clone(), Value::String(v.clone()));
-        if let Ok(n) = v.parse::<f64>() {
-            attrs.insert(format!("{k}__num"), Value::from(n));
-        }
-    }
-
-    let pid = output.data.get("pid").and_then(|s| s.parse::<i32>().ok());
-    let ppid = output.data.get("ppid").and_then(|s| s.parse::<i32>().ok());
-    let uid = output.data.get("uid").and_then(|s| s.parse::<u32>().ok());
-    let exe = output
-        .data
-        .get("binary_path")
-        .cloned()
-        .or_else(|| output.data.get("exe").cloned());
-    let cmd = output
-        .data
-        .get("command_line")
-        .cloned()
-        .or_else(|| output.data.get("cmdline").cloned());
-    let cwd = output.data.get("cwd").cloned();
-
-    let mut tags = std::collections::HashMap::new();
-    tags.insert(output.signal.clone(), "true".to_string());
-    tags.insert("signal".to_string(), output.signal.clone());
-
-    Telemetry {
-        ts,
-        category: output.category.clone(),
-        event: output.signal.clone(),
-        pid,
-        ppid,
-        uid,
-        exe,
-        cmdline: cmd,
-        cwd,
-        tags,
-        attrs,
     }
 }
 

@@ -5,12 +5,11 @@
 #include <unistd.h>
 #include <bpf/bpf.h>
 
-/* edr_attach_any pins maps under /sys/fs/bpf/edr, attach_tp_sys_enter under .../maps.
+/* edr_attach_any pins maps under /sys/fs/bpf/edr.
  * The agent fills a default set itself when it finds the map empty. */
 int main(int argc, char **argv){
     if (argc < 2){ fprintf(stderr, "usage: %s NR [NR...]\n", argv[0]); return 1; }
     int fd = bpf_obj_get("/sys/fs/bpf/edr/edr_allow_syscalls");
-    if (fd < 0) fd = bpf_obj_get("/sys/fs/bpf/edr/maps/edr_allow_syscalls");
     if (fd < 0){ perror("bpf_obj_get"); return 2; }
     uint32_t one = 1;
     for (int i=1;i<argc;i++){

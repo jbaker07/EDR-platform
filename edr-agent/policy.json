@@ -8,7 +8,5 @@
     "logging": {
       "level": "info"
     }
-  },
-  "signature": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
-  "pubkey": "cafebabecafebabecafebabecafebabecafebabecafebabecafebabecafebabe"
+  }
 }

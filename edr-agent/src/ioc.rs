@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::{HashMap, HashSet};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Mutex, OnceLock};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -184,7 +184,7 @@ pub fn tag_records(records: &mut [TelemetryRecord]) -> Result<Vec<Hit>> {
 
         // 3) Check against configured items
         let now = now_sec();
-        'item_loop: for it in &st.items {
+        for it in &st.items {
             if let Some(until) = it.until {
                 if now > until {
                     continue;
@@ -547,7 +547,7 @@ pub fn load_all(dir: impl AsRef<Path>) -> Result<IocStore> {
     // de-duplicate identical (kind,value): keep highest confidence and union tags
     let mut uniq = Vec::<IocItem>::new();
     let mut seen = HashMap::<(IocKind, String), usize>::new();
-    for mut it in items {
+    for it in items {
         let key = (it.kind.clone(), it.value.clone());
         if let Some(idx) = seen.get(&key).cloned() {
             let exist = &mut uniq[idx];

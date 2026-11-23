@@ -82,18 +82,11 @@ fn put_u32_u8(fd: i32, key: u32, val: u8) -> Result<(), String> {
     Ok(())
 }
 
-/// A pinned map under the prefix, at <prefix>/<name> (edr_attach_any) or
-/// <prefix>/maps/<name> (attach_tp_sys_enter).
+/// A pinned map under the prefix, at <prefix>/<name> where edr_attach_any pins it.
 fn open_pinned(pin_prefix: &str, name: &str) -> Result<(String, OwnedFd), String> {
-    let base = pin_prefix.trim_end_matches('/');
-    let mut last = String::new();
-    for path in [format!("{base}/{name}"), format!("{base}/maps/{name}")] {
-        match super::events_reader::bpf_fd_for_path(&path) {
-            Ok(fd) => return Ok((path, fd)),
-            Err(e) => last = e,
-        }
-    }
-    Err(last)
+    let path = format!("{}/{name}", pin_prefix.trim_end_matches('/'));
+    let fd = super::events_reader::bpf_fd_for_path(&path)?;
+    Ok((path, fd))
 }
 
 fn map_is_empty(fd: i32) -> bool {

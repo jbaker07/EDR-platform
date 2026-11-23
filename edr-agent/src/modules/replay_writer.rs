@@ -1,4 +1,4 @@
-use std::fs::{create_dir_all, metadata, rename, OpenOptions};
+use std::fs::{create_dir_all, rename, OpenOptions};
 use std::io::Write;
 use std::path::Path;
 
@@ -9,17 +9,10 @@ use fs2::FileExt; // advisory file locks on *nix
 
 use sha2::{Digest, Sha256};
 
-use crate::services::ontology_mapper::SemanticTagInfo;
 use crate::utils::time::now_ts;
 
 /// Where we keep the append-only replay chain (rotated at MAX_LOG_SIZE_BYTES).
 const REPLAY_LOG_PATH: &str = "/var/log/edr/replay_archive.jsonl";
-
-/// Per-session richer artifacts (human/debug).
-const REPLAY_DIR: &str = "/var/log/edr/replays";
-
-/// Small scratch queue for bursts or sidecar shipper.
-const TMP_QUEUE_PATH: &str = "/tmp/replay_queue.log";
 
 /// 10 MB per file before we rotate with a timestamp suffix.
 const MAX_LOG_SIZE_BYTES: u64 = 10 * 1024 * 1024; // 10 MB
@@ -94,80 +87,11 @@ pub fn store_replay_event<T: Serialize>(event: T) -> std::io::Result<()> {
     Ok(())
 }
 
-/// Write structured replay session file (human-readable / append-only).
-pub fn queue_replay(
-    session_id: &str,
-    process_id: u32,
-    trust_score: f64,
-    reason: &str,
-    enriched_tags: Vec<SemanticTagInfo>,
-) {
-    if let Err(e) = create_dir_all(REPLAY_DIR) {
-        eprintln!("❌ Failed to create replay dir '{}': {}", REPLAY_DIR, e);
-        return;
-    }
-
-    let timestamp = Utc::now().to_rfc3339();
-    let path = format!("{}/{}.replay.json", REPLAY_DIR, session_id);
-
-    let tag_info: Vec<_> = enriched_tags
-        .iter()
-        .map(|t| format!("{} [{}] - {}", t.tag, t.category, t.description))
-        .collect();
-
-    let payload = serde_json::json!({
-        "session_id": session_id,
-        "timestamp": timestamp,
-        "trust_score": trust_score,
-        "process_id": process_id,
-        "reason": reason,
-        "ontology_context": tag_info,
-    });
-
-    match OpenOptions::new().create(true).append(true).open(&path) {
-        Ok(mut f) => {
-            if let Err(e) = writeln!(f, "{}", payload) {
-                eprintln!("❌ Error writing replay payload: {}", e);
-            } else {
-                let _ = f.sync_all();
-            }
-        }
-        Err(e) => eprintln!("❌ Error opening replay file '{}': {}", path, e),
-    }
-}
-
-/// Queue a minimal replay log line to a temp file (for a sidecar shipper).
-pub fn send_to_replay_queue(data: &str) -> anyhow::Result<()> {
-    if let Some(parent) = Path::new(TMP_QUEUE_PATH).parent() {
-        create_dir_all(parent)?;
-    }
-
-    let mut file = OpenOptions::new()
-        .create(true)
-        .append(true)
-        .open(TMP_QUEUE_PATH)?;
-
-    file.lock_exclusive()?;
-    writeln!(file, "{}", data)?;
-    file.sync_all()?;
-    file.unlock()?;
-    Ok(())
-}
-
 /// Rotate `path` by renaming to `<path>.<YYYYMMDDHHMMSS>`.
 fn rotate_now(path: &str) -> std::io::Result<()> {
     let ts = Utc::now().format("%Y%m%d%H%M%S");
     let backup = format!("{}.{}", path, ts);
     rename(path, backup)?;
-    Ok(())
-}
-
-/// Legacy check: rotate by metadata length (kept for completeness).
-#[allow(dead_code)]
-fn rotate_if_needed(path: &str) -> std::io::Result<()> {
-    if metadata(path).map(|m| m.len()).unwrap_or(0) > MAX_LOG_SIZE_BYTES {
-        rotate_now(path)?;
-    }
     Ok(())
 }
 

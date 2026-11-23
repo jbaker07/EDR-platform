@@ -10,10 +10,6 @@ name = "forensic_hooks"
 path = "src/lib.rs"
 
 [[bin]]
-name = "entmon_attach"
-path = "src/bin/entmon_attach.rs"
-
-[[bin]]
 name = "forensic_hooks"
 path = "src/main.rs"
 
@@ -33,20 +29,17 @@ with-ebpf-load = []
 axum = "0.7"
 tower-http = { version = "0.5", features = ["cors", "fs", "set-header"] }
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "signal", "time"] }
-futures = "0.3"
 futures-util = "0.3.31"
 hyper = "1"
 
 # --- serde / json ---
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1"
-uuid = { version = "1", features = ["v4", "serde"] }
 
 # --- logging ---
 log = "0.4.27"
 env_logger = "0.11"
 parking_lot = "0.12"
-tokio-stream = { version = "0.1", features = ["sync"] }
 serde_yaml = "0.9"
 
 # --- time / utils ---
@@ -57,12 +50,9 @@ bytes = "1.6"
 rand = "0.8"
 walkdir = "2"
 lazy_static = "1.4"
-flume = "0.11"
 # --- crypto / hashing ---
-hmac = "0.12"
 sha1 = "0.10"
 sha2 = "0.10"
-sha3 = "0.10"
 openssl = "0.10"
 
 # --- file/sys/comp ---
@@ -79,7 +69,6 @@ nix = { version = "0.30.1", features = ["uio", "process"] }
 # --- math / stats / geom ---
 nalgebra = { version = "0.32", default-features = false, features = ["std"] }
 num-traits = "0.2.19"
-geo = "0.30.0"
 
 # --- misc ---
 anyhow = "1.0"
@@ -87,16 +76,12 @@ hex = "0.4"
 glob = "0.3.2"
 entropy = "0.4"
 reqwest = { version = "0.12", features = ["blocking", "json", "rustls-tls"] }
-bincode = { version = "2.0.1", features = ["derive"] }
 tracing = "0.1.41"
-tdigest = "0.2.3"
 
 # eBPF stacks (Linux only)
 [target.'cfg(target_os = "linux")'.dependencies]
 aya = { version = "0.13.1", features = ["async_tokio"] }
-aya-log = "0.2.1"
 libbpf-rs = "0.21"
-netlink-sys = "0.6"
 
 [profile.release]
 lto = "thin"

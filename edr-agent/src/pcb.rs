@@ -241,7 +241,7 @@ fn dump_one_pid(
     fs::create_dir_all(&snap_dir).ok();
 
     // small helper: copy/cap text file if present
-    let mut copy = |rel: &str, cap: usize| -> std::io::Result<()> {
+    let copy = |rel: &str, cap: usize| -> std::io::Result<()> {
         let src = format!("{proc_root}/{rel}");
         let dst = snap_dir.join(rel.replace('/', "_"));
         if let Some(parent) = dst.parent() {
@@ -333,7 +333,7 @@ fn read_link_string(p: impl AsRef<Path>) -> Option<String> {
 }
 
 fn read_capped_to_string(path: &str, cap: usize) -> Option<String> {
-    let mut f = fs::File::open(path).ok()?;
+    let f = fs::File::open(path).ok()?;
     let mut buf = String::with_capacity(cap.min(64 * 1024));
     let mut handle = f.take(cap as u64);
     handle.read_to_string(&mut buf).ok()?;

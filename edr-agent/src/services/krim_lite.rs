@@ -17,7 +17,7 @@ use crate::trust_hook::TrustEvent;
 // ---------- Config / weights ----------
 
 #[derive(Debug, Clone, Copy)]
-struct Weights {
+pub struct Weights {
     w_anchor: f32,
     w_risky: f32,
     w_drop: f32,

@@ -1,6 +1,8 @@
 /* app.js — hardened + with health + incidents + playbooks (safe if elements missing) */
+/* Every API call goes through edrAuth (auth.js), which adds the bearer token.
+   Nothing runs until the sign-in field has a token the agent accepts. */
 
-(() => {
+window.edrAuth.ready.then(() => {
   "use strict";
 
   // ---------- DOM ----------
@@ -160,31 +162,28 @@
   activateTab('dash');
 
   // ---------- SSE Alerts ----------
-  const es = new EventSource('/alerts');
-  es.onmessage = (ev) => {
+  edrAuth.stream('/alerts', (data) => {
     try {
-      const a = JSON.parse(ev.data);
+      const a = JSON.parse(data);
       alerts.push(a);
       if (alerts.length > MAX_ALERTS) alerts.splice(0, alerts.length - MAX_ALERTS);
       setText(statAlerts, `alerts: ${alerts.length}`);
       renderTable();
       pushTimelinePoint(a);
     } catch { /* ignore */ }
-  };
-  es.onerror = () => { /* browser auto-retries SSE */ };
+  });
 
   // ---------- Incidents SSE (DecisionEngine rollups) ----------
   if (incListEl) {
-    const esInc = new EventSource('/incidents/stream');
-    esInc.onmessage = (ev) => {
+    edrAuth.stream('/incidents/stream', (data) => {
       try {
-        const it = JSON.parse(ev.data);
+        const it = JSON.parse(data);
         if (it && it.id) {
           incidents.set(it.id, it);
           renderIncidents();
         }
       } catch {}
-    };
+    });
   }
 
   function renderIncidents() {
@@ -227,7 +226,7 @@
   // ---------- Metrics poll ----------
   async function pollMetrics() {
     try {
-      const r = await fetch('/metrics');
+      const r = await edrAuth.fetch('/metrics');
       if (!r.ok) return;
       const m = await r.json();
       eventsIn = m.events_in || 0;
@@ -340,7 +339,7 @@
 
   async function openExplain(id) {
     try {
-      const r = await fetch(`/alerts/${encodeURIComponent(id)}/explain`);
+      const r = await edrAuth.fetch(`/alerts/${encodeURIComponent(id)}/explain`);
       if (!r.ok) return;
       const ex = await r.json();
       renderExplain(ex);
@@ -433,7 +432,7 @@
   // ---------- Integrations ----------
   async function loadCatalog() {
     try {
-      const r = await fetch('/integrations/catalog');
+      const r = await edrAuth.fetch('/integrations/catalog');
       if (!r.ok) return;
       const cat = await r.json();
       catalog.vendors = Array.isArray(cat?.vendors) ? cat.vendors : (Array.isArray(cat?.items) ? cat.items : []);
@@ -476,7 +475,7 @@
       creds[f] = elv ? (elv.value || '') : '';
     }
     try {
-      await fetch('/integrations', {
+      await edrAuth.fetch('/integrations', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ id, kind: id, name: v?.name || id, creds })
@@ -488,7 +487,7 @@
 
   async function loadIntegrations() {
     try {
-      const r = await fetch('/integrations');
+      const r = await edrAuth.fetch('/integrations');
       if (!r.ok) return;
       const data = await r.json();
 
@@ -543,7 +542,7 @@
 
       for (const b of tilesGrid.querySelectorAll('.btnDel')) {
         b.onclick = async () => {
-          try { await fetch(`/integrations/${encodeURIComponent(b.dataset.id)}`, { method: 'DELETE' }); } catch {}
+          try { await edrAuth.fetch(`/integrations/${encodeURIComponent(b.dataset.id)}`, { method: 'DELETE' }); } catch {}
           loadIntegrations();
         };
       }
@@ -552,7 +551,7 @@
         b.onclick = async () => {
           const id = b.dataset.id;
           try {
-            const r = await fetch(`/graph/${encodeURIComponent(id)}?window_sec=900`);
+            const r = await edrAuth.fetch(`/graph/${encodeURIComponent(id)}?window_sec=900`);
             if (!r.ok) return;
             const g = await r.json();
             const rgEl = document.getElementById(`rg_${id}`);
@@ -612,8 +611,8 @@
   async function loadPlaybooksSnapshots() {
     try {
       const [hitsR, pendR] = await Promise.all([
-        fetch('/playbooks/hits'),
-        fetch('/playbooks/pending')
+        edrAuth.fetch('/playbooks/hits'),
+        edrAuth.fetch('/playbooks/pending')
       ]);
       if (hitsR.ok) {
         const hits = await hitsR.json();
@@ -635,17 +634,15 @@
   (function mountPlaybooksSSE() {
     if (!pbFeedEl && !pbHitsEl && !pbPendingEl) return; // nothing to render
     try {
-      const esPB = new EventSource('/playbooks/stream');
-      esPB.onmessage = (evt) => {
+      edrAuth.stream('/playbooks/stream', (data) => {
         try {
-          const msg = JSON.parse(evt.data);
+          const msg = JSON.parse(data);
           const item = msg.item || msg; // tolerate either {kind,item} or direct item
           appendPbFeed(item);
         } catch (e) {
           console.warn('PB stream parse error', e);
         }
-      };
-      esPB.onerror = (e) => console.warn('PB stream error', e);
+      });
       loadPlaybooksSnapshots();
       setInterval(loadPlaybooksSnapshots, 30000);
     } catch (e) {
@@ -671,7 +668,7 @@
  */
 async function attachExplainSummary(alertId) {
   try {
-    const res = await fetch(`/alerts/${encodeURIComponent(alertId)}/explain`, { cache: "no-store" });
+    const res = await edrAuth.fetch(`/alerts/${encodeURIComponent(alertId)}/explain`, { cache: "no-store" });
     const data = await res.json();
     const hdr = document.querySelector("#explainHeader");
     if (!hdr || !data || !data.summary) return;
@@ -695,7 +692,7 @@ async function attachExplainSummary(alertId) {
  */
 async function refreshKPIs() {
   try {
-    const res = await fetch("/hosts/self/health", { cache: "no-store" });
+    const res = await edrAuth.fetch("/hosts/self/health", { cache: "no-store" });
     const h = await res.json();
     const el = document.querySelector("#kpis");
     if (!el) return;
@@ -737,4 +734,4 @@ window.attachExplainSummary = attachExplainSummary;
   document.head.appendChild(style);
 })();
 
-})();
+});

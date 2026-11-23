@@ -135,9 +135,9 @@ impl WxEvt {
     }
 }
 
-/* ------------- file_access_monitor.c: struct file_access_event_t on perf map events ------------- */
+/* ------------- file_access_monitor.bpf.c: struct file_access_event_t on perf map events ------------- */
 
-/// Mirror of struct file_access_event_t (file_access_monitor.c:6). 328 bytes, no padding.
+/// Mirror of struct file_access_event_t (file_access_monitor.bpf.c:6). 328 bytes, no padding.
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]
 pub struct FileAccessEvent {
@@ -244,7 +244,8 @@ pub enum SharedFrame {
     /// 576-byte (or older 312-byte) frame from proc_lifecycle.bpf.c that passed the
     /// magic check.
     ProcLifecycle(ProcLifecycleEvent),
-    /// Anything else. About 17 other modules share this ring with their own structs.
+    /// Anything else. Only the three producers above write to this ring, so an unknown
+    /// frame means a C struct and its mirror no longer agree.
     Unknown,
 }
 
@@ -529,7 +530,7 @@ mod tests {
         put_u32(&mut full, 8, 21);
         assert!(matches!(classify_shared_frame(&full), SharedFrame::EdrEvent(e) if e.type_ == 21));
 
-        // sizes written by other shared-ring modules (cred_dump 200, syscall_tracer 8)
+        // any other size, short frames included, is unknown
         assert!(matches!(classify_shared_frame(&vec![0u8; 200]), SharedFrame::Unknown));
         assert!(matches!(classify_shared_frame(&vec![0u8; 8]), SharedFrame::Unknown));
     }

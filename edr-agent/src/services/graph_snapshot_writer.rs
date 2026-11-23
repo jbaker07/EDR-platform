@@ -2,7 +2,6 @@
 
 use std::fs::File;
 use std::io::Write;
-use std::path::Path;
 
 pub fn store_graph_snapshot(session_id: &str, reasons: &[String], trust_score: f64) {
     let snapshot_path = format!("/var/log/edr/graph_snapshots/{}.snapshot", session_id);

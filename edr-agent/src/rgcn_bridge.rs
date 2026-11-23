@@ -28,7 +28,6 @@ struct Stats {
 #[derive(Default)]
 struct State {
     scores: HashMap<String, f32>, // node_id -> score
-    etag: Option<String>,
     stats: Stats,
 }
 

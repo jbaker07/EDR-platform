@@ -1,7 +1,7 @@
 use crate::telemetry::TelemetryRecord;
 use crate::telemetry_types::MemoryAnomalyType;
 use crate::utils::time::now_ts;
-use log::{debug, error, info, warn};
+use log::debug;
 use serde_json::Value;
 
 use std::collections::HashMap;

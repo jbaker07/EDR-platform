@@ -1,33 +1,22 @@
 use std::fs::{self, File, Metadata};
-use std::io::{BufRead, BufReader, Read};
+use std::io::Read;
 use std::os::unix::fs::MetadataExt;
 use std::path::{Path, PathBuf};
-use std::thread;
-use std::time::{Duration, UNIX_EPOCH};
 
 use lazy_static::lazy_static;
 use std::collections::{HashMap, HashSet};
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::{Mutex, RwLock};
+use std::sync::Mutex;
 
 use glob::glob;
 use sha2::{Digest, Sha256};
 use uzers::get_user_by_uid;
 
-use serde_json::json;
-
-use anyhow::{anyhow, Result};
-
-use aya::programs::TracePoint;
-use aya::{include_bytes_aligned, Bpf};
-
 use crate::gnn_hook::push_to_gnn_vector_log;
-use crate::modules::replay_writer::store_replay_event;
 use crate::services::trust_vector::{TrustVector, TRUST_VECTOR_GLOBAL};
-use crate::telemetry::MemorySnapshot;
 use crate::telemetry_types::TelemetryOutput;
 use crate::telemetry_writer::write_telemetry_record;
-use crate::trust_hook::{generate_feature_vector, submit_trust_event, TrustEvent};
+use crate::trust_hook::{submit_trust_event, TrustEvent};
 use crate::utils::time::now_ts;
 
 use crate::logger::log_suppression_decision;
@@ -72,125 +61,6 @@ struct RiskInfo {
     score: u32,
     reason: String,
     hash: String,
-}
-
-pub fn start_persistence_watch() {
-    // Best-effort eBPF attach; keep running even if it fails
-    let _ = attach_ebpf_monitor();
-
-    thread::spawn(|| loop {
-        for pattern in PERSISTENCE_PATHS {
-            if let Ok(paths) = glob(pattern) {
-                for entry in paths.flatten() {
-                    if let Ok(metadata) = fs::symlink_metadata(&entry) {
-                        // Skip symlinks to reduce trickery/loops
-                        if metadata.file_type().is_symlink() {
-                            continue;
-                        }
-                        if let Some(risk_info) = assess_file(&entry, &metadata) {
-                            let now_unix = now_ts();
-                            let now = UNIX_EPOCH + Duration::from_secs(now_unix);
-
-                            let snapshot = MemorySnapshot {
-                                id: "persistence_file".into(),
-                                path: risk_info.path.clone(),
-                                hash: risk_info.hash.clone(),
-                                risk_score: risk_info.score,
-                                reason: risk_info.reason.clone(),
-                                timestamp: now,
-                                behavior_deviation: Some(true),
-                                cpu_usage: Some(0.4),
-                                memory_usage: Some(95_000.0),
-                                pid: 0,
-                            };
-
-                            let features =
-                                generate_feature_vector(0.4, 95_000, risk_info.score as f64);
-
-                            let mut map = HashMap::new();
-                            map.insert("path".into(), risk_info.path.clone());
-                            map.insert("reason".into(), risk_info.reason.clone());
-                            map.insert("hash".into(), risk_info.hash.clone());
-                            map.insert("features".into(), format!("{:?}", features));
-                            map.insert("replay_tag".into(), "suspicious_persistence".into());
-                            map.insert("gnn_escalate".into(), "true".into());
-                            map.insert("timestamp".into(), now_unix.to_string());
-                            map.insert(
-                                "soc_note".into(),
-                                "Potential persistence artifact discovered".into(),
-                            );
-
-                            push_to_gnn_vector_log(map.clone());
-                            write_telemetry_record(map.clone());
-
-                            submit_trust_event(TrustEvent {
-                                timestamp: now_unix,
-                                pid: 0,
-                                ppid: 0,
-                                uid: 0,
-                                binary_path: risk_info.path.clone(),
-                                command_line: "unknown".into(),
-                                cwd: "/".into(),
-                                anomaly_type: "persistence_artifact".into(),
-                                component: "persistence::watch".into(),
-                                metadata: map.clone(),
-                                risk_score: risk_info.score as f32,
-                                source_module: "persistence_watch.rs".into(),
-                                decay_context: Some("artifact_detected".into()),
-                                module: Some("persistence".into()),
-                                signal: Some("suspicious_persistence_file".into()),
-                                signal_type: Some("file_artifact".into()),
-                                score: Some(risk_info.score as f32),
-                                raw_score: Some(risk_info.score as f32),
-                                tags: Some(vec![
-                                    "startup_file".into(),
-                                    "potential_persistence".into(),
-                                    "behavioral_anomaly".into(),
-                                ]),
-                                description: Some(risk_info.reason.clone()),
-                            });
-
-                            store_replay_event(snapshot.into_hashmap());
-                            PERSISTENCE_FOUND.store(true, Ordering::SeqCst);
-                            println!(
-                                "[📌 Persistence Watch] {} | Score: {} | TrustEvent sent",
-                                risk_info.path, risk_info.score
-                            );
-                        }
-                    }
-                }
-            }
-        }
-        thread::sleep(Duration::from_secs(180));
-    });
-}
-
-/// Attach precompiled eBPF persistence monitor to sys_enter_write
-#[cfg(target_os = "linux")]
-pub fn attach_ebpf_monitor() -> Result<()> {
-    let mut bpf = Bpf::load(include_bytes_aligned!("../ebpf/persistence_watch_ebpf.o"))
-        .map_err(|e| anyhow!("Failed to load BPF: {}", e))?;
-
-    let program: &mut TracePoint = bpf
-        .program_mut("trace_persistence_write")
-        .ok_or_else(|| anyhow!("eBPF program 'trace_persistence_write' not found in object"))?
-        .try_into()
-        .map_err(|e| anyhow!("Failed to cast to TracePoint: {}", e))?;
-
-    program
-        .load()
-        .map_err(|e| anyhow!("Failed to load 'trace_persistence_write': {}", e))?;
-    program
-        .attach("syscalls", "sys_enter_write")
-        .map_err(|e| anyhow!("Failed to attach to sys_enter_write: {}", e))?;
-
-    println!("[✅ eBPF Persistence Watch] Attached to sys_enter_write successfully");
-    Ok(())
-}
-
-#[cfg(not(target_os = "linux"))]
-pub fn attach_ebpf_monitor() -> Result<()> {
-    Ok(())
 }
 
 fn assess_file(path: &PathBuf, metadata: &Metadata) -> Option<RiskInfo> {

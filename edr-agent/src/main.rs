@@ -4,31 +4,28 @@
 // - Periodic flush actually hits disk
 // - DEMO mode unchanged (now increments alerts_out)
 // - Rules path fallback
-// - /healthz + nodes_count/edges_count in graph response for easy jq
+// - /healthz (no token, only ok:true) + nodes_count/edges_count in graph response for easy jq
 // - Metrics: events/events_in (received), events_accepted (post-filter), alerts_out
 // - Relaxed acceptance filter: tag-implied events count as accepted
 // - Compat aliases in /metrics: events_accepted_total, alerts_out_total
-// - /graph/live + /graph/stream (SSE) + metrics/healthz include graph counts
+// - /graph/live + /graph/stream (SSE) + metrics include graph counts
 // - Incidents manager + SSE + REST, action endpoints, BPF drops metric, EDR_PORT, Explain++
 // - NEW (Phase 3): DecisionEngine (consensus + correlation + cooldown + allow/suppress) wired in
-// - NEW (Phase PB): Playbook Engine + IOC/YARA wired (pending/hits, metrics, endpoints)
+// - NEW (Phase PB): Playbook Engine + IOC wired (pending/hits, metrics, endpoints)
 
 use anyhow::{anyhow, Result};
 use axum::{
     extract::{Path as AxPath, Query, State},
-    http::{header::CACHE_CONTROL, HeaderValue, StatusCode},
+    http::StatusCode,
     response::{
         sse::{Event, Sse},
         IntoResponse,
     },
-    routing::{delete, get, get_service, post},
-    Json, Router,
+    Json,
 };
 use chrono::{TimeZone, Utc};
 use forensic_hooks::pb_engine::PlaybookEngine;
-use forensic_hooks::{
-    ioc, pb_adapter, pb_api, pb_introspect, pb_wiring, pending, tamper, yara_sidecar,
-};
+use forensic_hooks::{ioc, pb_adapter, pb_api, pb_introspect, pb_wiring};
 use futures_util::stream::{unfold, Stream};
 use once_cell::sync::Lazy;
 use reqwest::Client;
@@ -47,11 +44,6 @@ use std::time::Duration;
 use tokio::{
     net::TcpListener,
     sync::{broadcast, oneshot},
-};
-use tower_http::{
-    cors::CorsLayer,
-    services::{ServeDir, ServeFile},
-    set_header::SetResponseHeaderLayer,
 };
 
 // ---------- metrics counters ----------
@@ -75,13 +67,9 @@ static PUBLISH_BUS_CLIENT: Lazy<Client> = Lazy::new(|| {
         .build()
         .expect("publish bus client")
 });
-pub fn bpf_drops_add(n: u64) {
-    metrics::bpf_drops_total().fetch_add(n, Ordering::Relaxed);
-}
 
 // ---------- pipeline / telemetry ----------
 use forensic_hooks::baselines::BaselineStore;
-use forensic_hooks::calibration::RollingCalibrator;
 use forensic_hooks::elliptic_envelope::EllipticEnvelope;
 use forensic_hooks::episode::Episode;
 use forensic_hooks::event::{Event as FHEvent, EventType};
@@ -96,9 +84,7 @@ use forensic_hooks::services::trust_engine_final::{
     evaluate_and_dispatch_trust_score, TelemetryData, TrustResult,
 };
 use forensic_hooks::telemetry::Telemetry as NormTelemetry;
-use forensic_hooks::telemetry::{
-    get_current_telemetry_snapshot, run_sideeffect_monitors_and_collect, TelemetryRecord,
-};
+use forensic_hooks::telemetry::{run_sideeffect_monitors_and_collect, TelemetryRecord};
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::telemetry_writer::TelemetryWriter;
 use forensic_hooks::utils::time::now_ts;
@@ -114,7 +100,7 @@ use crate::ebpf::ebpf_ingest::{
 #[cfg(target_os = "linux")]
 use crate::ebpf::events_reader;
 #[cfg(target_os = "linux")]
-use log::{info, warn};
+use log::warn;
 
 #[cfg(target_os = "linux")]
 pub fn pins_available(prefix: &str) -> bool {
@@ -146,10 +132,6 @@ use forensic_hooks::detectors::tag_flags::TagFlagsDetector;
 #[cfg(not(target_os = "linux"))]
 #[path = "ebpf/events_reader.rs"]
 mod events_reader; // kept for later; we don't call a missing start()
-#[path = "ebpf/file_access_reader.rs"]
-mod file_access_reader;
-#[path = "ebpf/net_flow_reader.rs"]
-mod net_flow_reader;
 
 // === graph module at src/graph.rs ===
 mod graph;
@@ -158,13 +140,14 @@ use forensic_hooks::metrics::{self, Metrics};
 use parking_lot::RwLock;
 
 // === Decision Engine (Phase 3) ===
-mod decision;
+// The library's copy, so decision.rs is compiled once. crate::decision still resolves.
+use forensic_hooks::decision;
 use crate::decision::{
     AllowSuppressList, DecisionEngine, DecisionPolicy, DetectorKind, FinalAlert, Severity, Signal,
 };
 
 mod rgcn_bridge;
-use crate::rgcn_bridge::{annotate_graph, rgcn_metrics, start_rgcn_bridge};
+use crate::rgcn_bridge::{rgcn_metrics, start_rgcn_bridge};
 
 // A globally shared live-graph state (optional, does not block UI graph endpoint).
 static GRAPH_STATE: OnceLock<Arc<RwLock<GraphState>>> = OnceLock::new();
@@ -172,12 +155,6 @@ fn graph_state() -> Arc<RwLock<GraphState>> {
     GRAPH_STATE
         .get_or_init(|| Arc::new(RwLock::new(GraphState::new(300)))) // keep last 5 minutes
         .clone()
-}
-
-// ---- global calibrator ----
-static CALIBRATOR: OnceLock<Mutex<RollingCalibrator>> = OnceLock::new();
-fn calibrator() -> &'static Mutex<RollingCalibrator> {
-    CALIBRATOR.get_or_init(|| Mutex::new(RollingCalibrator::default()))
 }
 
 // ---- global detectors state ----
@@ -209,9 +186,6 @@ fn pb_engine() -> Arc<Mutex<PlaybookEngine>> {
 struct OntologySet {
     core_ontology: serde_json::Value, // core_ontology.json
     inverse_edges: std::collections::HashMap<String, String>, // inverse_edges.json
-    semantic_tags: serde_json::Value, // semantic_tags.json (optional)
-    unknown_risk_profile: serde_json::Value, // unknown_risk_profile.json (optional)
-    anchor_definitions: std::collections::HashMap<String, serde_json::Value>, // anchor_definitions.json (optional)
     dir: String,
 }
 
@@ -342,23 +316,9 @@ fn load_ontology_from_dir(dir: &str) -> OntologySet {
     let p = |name: &str| std::path::Path::new(dir).join(name);
     let core = load_json_if(&p("core_ontology.json")).unwrap_or_else(|| json!({}));
     let inv = load_json_if(&p("inverse_edges.json")).unwrap_or_else(|| json!({}));
-    let sem = load_json_if(&p("semantic_tags.json")).unwrap_or_else(|| json!({}));
-    let unk = load_json_if(&p("unknown_risk_profile.json")).unwrap_or_else(|| json!({}));
-    let anchors_v = load_json_if(&p("anchor_definitions.json")).unwrap_or_else(|| json!([]));
-    let mut anchors = std::collections::HashMap::new();
-    if let Some(arr) = anchors_v.as_array() {
-        for it in arr {
-            if let Some(id) = it.get("id").and_then(|x| x.as_str()) {
-                anchors.insert(id.to_string(), it.clone());
-            }
-        }
-    }
     OntologySet {
         core_ontology: core,
         inverse_edges: map_from_obj(&inv),
-        semantic_tags: sem,
-        unknown_risk_profile: unk,
-        anchor_definitions: anchors,
         dir: dir.to_string(),
     }
 }
@@ -761,22 +721,6 @@ fn decision_engine() -> &'static Mutex<DecisionEngine> {
     })
 }
 
-#[allow(dead_code)]
-fn decision_load_from_files(policy_path: &str, allow_path: &str) {
-    let policy = std::fs::read_to_string(policy_path)
-        .ok()
-        .and_then(|t| serde_json::from_str::<serde_json::Value>(&t).ok())
-        .and_then(|v| v.get("policy").cloned().or(Some(v)))
-        .and_then(|p| serde_json::from_value::<DecisionPolicy>(p).ok())
-        .unwrap_or_default();
-    let allow = std::fs::read_to_string(allow_path)
-        .ok()
-        .and_then(|t| AllowSuppressList::from_json_str(&t).ok())
-        .unwrap_or_default();
-    let mut eng = decision_engine().lock().unwrap();
-    *eng = DecisionEngine::new(policy, allow);
-}
-
 // ======================= Incidents (Phase 2) =======================
 
 /// Simple rolling incident manager:
@@ -973,82 +917,6 @@ fn incidents() -> Arc<Mutex<IncidentsMgr>> {
 }
 
 // ======================= API state & handlers =======================
-fn synth_ppid_edges_if_missing(v: &mut serde_json::Value) {
-    // Only synthesize if we have nodes and edges are missing/empty.
-    let nodes_arr = match v.get("nodes").and_then(|x| x.as_array()) {
-        Some(n) if !n.is_empty() => n,
-        _ => return,
-    };
-    let edges_empty = v
-        .get("edges")
-        .and_then(|x| x.as_array())
-        .map(|a| a.is_empty())
-        .unwrap_or(true);
-    if !edges_empty {
-        return;
-    }
-
-    // Track which ids exist and map pid -> node id for proc nodes.
-    let mut have_id: std::collections::HashSet<String> = std::collections::HashSet::new();
-    let mut pid_to_id: std::collections::HashMap<u32, String> = std::collections::HashMap::new();
-
-    for n in nodes_arr {
-        if let Some(id) = n.get("id").and_then(|x| x.as_str()) {
-            have_id.insert(id.to_string());
-            if id.starts_with("proc:") {
-                if let Ok(pid) = id.trim_start_matches("proc:").parse::<u32>() {
-                    pid_to_id.insert(pid, id.to_string());
-                }
-            }
-        }
-        // Also consider explicit pid/ppid fields.
-        if let (Some(pid), Some(id)) = (
-            n.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32),
-            n.get("id").and_then(|x| x.as_str()),
-        ) {
-            pid_to_id.entry(pid).or_insert_with(|| id.to_string());
-            have_id.insert(id.to_string());
-        }
-    }
-
-    // Synthesize EXEC edges: parent(ppid) -> child(pid)
-    let mut out_edges: Vec<serde_json::Value> = Vec::new();
-    for n in nodes_arr {
-        let pid = n.get("pid").and_then(|x| x.as_u64()).map(|x| x as u32);
-        let ppid = n.get("ppid").and_then(|x| x.as_u64()).map(|x| x as u32);
-        if let (Some(pid), Some(ppid)) = (pid, ppid) {
-            if pid == 0 || ppid == 0 || pid == ppid {
-                continue;
-            }
-            let src = pid_to_id
-                .get(&ppid)
-                .cloned()
-                .unwrap_or_else(|| format!("proc:{ppid}"));
-            let dst = pid_to_id
-                .get(&pid)
-                .cloned()
-                .unwrap_or_else(|| format!("proc:{pid}"));
-
-            if have_id.contains(&src) && have_id.contains(&dst) {
-                out_edges.push(serde_json::json!({
-                    "kind": "EXEC",
-                    "rel": "spawned",
-                    "rel_inverse": "spawned-by",
-                    "rel_valid": true,
-                    "source": src,
-                    "target": dst,
-                    "last_seen": now_ts() as i64,
-                    "weight": 1.0
-                }));
-            }
-        }
-    }
-
-    v.as_object_mut()
-        .unwrap()
-        .insert("edges".into(), serde_json::Value::Array(out_edges));
-}
-
 #[derive(Clone)]
 struct ApiState {
     tx: broadcast::Sender<String>,       // alerts SSE
@@ -1221,22 +1089,10 @@ async fn metrics_json() -> Json<Value> {
     Json(Value::Object(obj))
 }
 
-// /healthz -> JSON with counters + graph counts + bpf drops
+// /healthz is the one route without a token, so it says only that the API is up.
+// The counters it used to carry are on /metrics, behind the token.
 async fn healthz() -> impl IntoResponse {
-    let ev_in = metrics::events_in().load(Ordering::Relaxed);
-    let ev_acc = metrics::events_accepted().load(Ordering::Relaxed);
-    let al = ALERTS_OUT.load(Ordering::Relaxed);
-    let (n, e) = read_graph_counts_from_file();
-    Json(json!({
-        "ok": true,
-        "events_in": ev_in,
-        "events_accepted": ev_acc,
-        "alerts_out": al,
-        "nodes_count": n,
-        "edges_count": e,
-        "bpf_drops_total": metrics::bpf_drops_total().load(Ordering::Relaxed),
-        "playbooks_fired_total": metrics::playbooks_fired_total().load(Ordering::Relaxed)
-    }))
+    Json(json!({ "ok": true }))
 }
 
 // --- IOC endpoints (simple, stateless handlers) ---
@@ -1473,7 +1329,7 @@ fn rgcn_proxy_score(nodes: &[GraphNode]) -> f64 {
     let mut sum = 0.0;
     for n in nodes {
         let trust = n.trust_score.max(0.0).min(1.0) as f64;
-        sum += (1.0 - trust);
+        sum += 1.0 - trust;
     }
     (sum / nodes.len() as f64).max(0.0).min(1.0)
 }
@@ -1833,39 +1689,6 @@ fn filter_records(records: &mut Vec<TelemetryRecord>) {
         let has_tags = !r.tags.is_empty();
         has_proc || has_id || has_tags
     });
-
-    // still drop super-noisy *exact* heartbeat tags if they exist
-    let noisy = [
-        "auth_monitor_active",
-        "dll_injection_monitor_active",
-        "encrypted_payload_monitor_active",
-        "file_hash_monitor_active",
-        "file_tamper_monitor_active",
-        "no_cron_anomaly_detected",
-        "geo_ip_no_anomaly",
-    ];
-    let noisy_set: std::collections::HashSet<&str> = noisy.iter().copied().collect();
-    for r in records.iter_mut() {
-        r.tags.retain(|t| !noisy_set.contains(t.as_str()));
-    }
-}
-
-fn dedup_records(records: &mut Vec<TelemetryRecord>) {
-    let mut seen: HashSet<(i64, String)> = HashSet::new();
-    records.retain(|r| {
-        if let Some(tag) = r.tags.iter().find(|t| t.contains("mfa_bypass")) {
-            let bucket = (r.timestamp as i64) / 60;
-            let key = (bucket, tag.clone());
-            if seen.contains(&key) {
-                false
-            } else {
-                seen.insert(key);
-                true
-            }
-        } else {
-            true
-        }
-    });
 }
 
 fn categorize_record(rec: &TelemetryRecord) -> (String, String) {
@@ -2043,7 +1866,7 @@ fn tag_batch_outliers_with_mahala_and_envelope(
     let now = chrono::Utc::now();
 
     // Track diagnostics we’ll return
-    let mut mahal_diag: Option<f64> = None;
+    let mahal_diag: Option<f64>;
     let mut env_margin: Option<f64> = None;
 
     // Mahalanobis
@@ -2123,8 +1946,9 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
     }
 }
 
-// ---- fanout hub ----
-fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryData) {
+// ---- trust result line ----
+// Prints one line per trust result. The agent has no SIEM sinks.
+fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], _data: &TelemetryData) {
     println!(
         "📣 [{}] score={:.2} escalated={} reasons={:?} batch_recs={}",
         res.endpoint_id,
@@ -2133,18 +1957,6 @@ fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], data: &TelemetryDa
         res.reasons,
         records.len()
     );
-
-    // TrustResult doesn’t expose events; pass empty slice for sinks
-    let events: &[forensic_hooks::trust_hook::TrustEvent] = &[];
-
-    let _ = forensic_hooks::explain::explain(events, records, data);
-    let _ = forensic_hooks::persist::persist(events, records, data);
-
-    let _ = forensic_hooks::stdout_sink::emit(events, records, data);
-    let _ = forensic_hooks::ecs_sink::emit(events, records, data);
-    let _ = forensic_hooks::elastic_bulk::emit(events, records, data);
-    let _ = forensic_hooks::splunk_hec::emit(events, records, data);
-    let _ = forensic_hooks::slack_webhook::emit(events, records, data);
 }
 
 // ---- small helpers ----
@@ -2405,8 +2217,18 @@ async fn main() -> Result<()> {
         );
     }
 
-    let _policy = forensic_hooks::config::load_and_verify_policy("policy.json")
-        .expect("❌ Failed to load or verify policy");
+    // A policy with a bad or missing signature stops the agent here, before any
+    // sensor or guard starts. EDR_DEV_NO_AUTH=1 turns this into a warning.
+    let _policy = match forensic_hooks::config::load_and_verify_policy("policy.json") {
+        Ok(p) => p,
+        Err(e) => {
+            eprintln!("❌ {e:#}");
+            eprintln!("   sign it with scripts/policy_signer.py, or set EDR_DEV_NO_AUTH=1 on a dev machine");
+            std::process::exit(1);
+        }
+    };
+    // Prevention mode (BPF LSM). Falls back to detect-only when the kernel lacks it.
+    let prevention_guard = forensic_hooks::guard::start_guard().ok();
 
     let writer = Arc::new(Mutex::new(TelemetryWriter::new()));
 
@@ -2558,6 +2380,8 @@ async fn main() -> Result<()> {
     // --- integrations state (load from disk if present) ---
     let integrations_map: HashMap<String, Value> = {
         let mut out = HashMap::new();
+        // The file holds integration credentials, so it is owner-only (0600).
+        forensic_hooks::agent_api::tighten_to_owner_only(Path::new("state/integrations.json"));
         if let Ok(s) = fs::read_to_string("state/integrations.json") {
             if let Ok(v) = serde_json::from_str::<Value>(&s) {
                 if let Some(obj) = v.as_object() {
@@ -2613,7 +2437,6 @@ async fn main() -> Result<()> {
         use serde::{Deserialize, Serialize};
         use serde_json::{json, Value};
         use std::{fs, path::Path};
-        use tower_http::cors::CorsLayer;
         use tower_http::services::{ServeDir, ServeFile};
         use tower_http::set_header::SetResponseHeaderLayer;
 
@@ -2631,10 +2454,20 @@ async fn main() -> Result<()> {
             (StatusCode::OK, body)
         }
 
+        // Credentials are masked on the way out. The stored file is owner-only, and a
+        // write error never prints its contents.
         async fn integrations_list(State(st): State<ApiState>) -> impl IntoResponse {
             let m = st.integrations.lock().unwrap();
-            let items: Vec<Value> = m.values().cloned().collect();
-            Json(json!({ "items": items }))
+            Json(forensic_hooks::agent_api::integrations_view(&m))
+        }
+
+        fn save_integrations(m: &HashMap<String, Value>) {
+            let _ = fs::create_dir_all("state");
+            let bytes = serde_json::to_vec_pretty(m).unwrap_or_else(|_| b"{}".to_vec());
+            let path = Path::new("state/integrations.json");
+            if let Err(e) = forensic_hooks::agent_api::write_private_file(path, &bytes) {
+                eprintln!("⚠️ failed writing state/integrations.json: {e}");
+            }
         }
 
         async fn integrations_add(
@@ -2652,11 +2485,7 @@ async fn main() -> Result<()> {
                     "last_ok": Value::Null
                 }),
             );
-            let _ = fs::create_dir_all("state");
-            let _ = fs::write(
-                "state/integrations.json",
-                serde_json::to_vec_pretty(&*m).unwrap_or_else(|_| b"{}".to_vec()),
-            );
+            save_integrations(&m);
             (StatusCode::ACCEPTED, Json(json!({ "ok": true })))
         }
 
@@ -2666,13 +2495,7 @@ async fn main() -> Result<()> {
         ) -> impl IntoResponse {
             let mut m = st.integrations.lock().unwrap();
             m.remove(&id);
-            let _ = fs::create_dir_all("state");
-            if let Err(e) = fs::write(
-                "state/integrations.json",
-                serde_json::to_vec_pretty(&*m).unwrap(),
-            ) {
-                eprintln!("⚠️ failed writing state/integrations.json: {e}");
-            }
+            save_integrations(&m);
             StatusCode::NO_CONTENT
         }
 
@@ -2698,8 +2521,9 @@ async fn main() -> Result<()> {
             .fallback_service(get_service(ServeDir::new("ui")))
             .layer(no_cache.clone());
 
-        // Main app router
-        let app = Router::new()
+        // Data routes. agent_api::secure_router puts the bearer token check on every
+        // one of them, the SSE streams and /json_files included.
+        let protected = Router::new()
             // APIs
             .route("/alerts", get(alerts_sse))
             .route("/metrics", get(metrics_json))
@@ -2778,64 +2602,80 @@ async fn main() -> Result<()> {
             .route("/ioc/stats", get(ioc_stats_handler))
             // PB endpoints (nested with separate state)
             .nest("/playbooks", pb_router)
-            // Diag/health
+            // Diag
             .route("/where", get(diag_where))
             .route("/__where", get(diag_where))
-            .route("/healthz", get(healthz))
-            // Static
-            .route("/", get_service(ServeFile::new("ui/index.html")))
-            .nest("/ui", ui_router)
+            // Static data
             .nest_service("/json_files", get_service(ServeDir::new("json_files")))
-            // Layers/state
-            .with_state(api_state.clone())
-            .layer(CorsLayer::permissive());
+            .with_state(api_state.clone());
 
-        // ---- Serve UI/API: simple Tokio bind + loud errors ----
-        {
-            let port: u16 = std::env::var("EDR_PORT")
-                .ok()
-                .and_then(|s| s.parse().ok())
-                .unwrap_or(8080);
-            let server_app = app.clone(); // Router is Clone
+        // No token here: a liveness probe, and the UI shell (HTML and JS from the repo,
+        // no data) that holds the sign-in field.
+        let public = Router::new()
+            .route("/healthz", get(healthz))
+            .route("/", get_service(ServeFile::new("ui/index.html")))
+            .nest("/ui", ui_router);
 
-            tokio::spawn(async move {
-                // Bind directly with Tokio (loopback by default)
-                let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
-                let listener = match TcpListener::bind(addr).await {
-                    Ok(l) => l,
-                    Err(e) => {
-                        eprintln!("❌ bind({addr}) failed: {e}");
-                        return;
-                    }
-                };
-
-                let local = listener.local_addr().unwrap_or(addr);
-                eprintln!(
-                    "🌐 UI listening on http://{}/  (dashboard) | http://{}/ui/graph.html (live graph)",
-                    local, local
-                );
-                eprintln!("▶️ axum server task starting…");
-
-                let shutdown = async {
-                    let _ = shutdown_rx.await;
-                };
-
-                if let Err(e) = axum::serve(listener, server_app)
-                    .with_graceful_shutdown(shutdown)
-                    .await
-                {
-                    eprintln!("❌ axum serve error: {e}");
-                } else {
-                    eprintln!("❌ axum serve ended unexpectedly (no error)");
+        // ---- Serve UI/API: loopback only, and only with a token ----
+        match forensic_hooks::agent_api::AgentAuth::from_env() {
+            Err(why) => {
+                eprintln!("❌ agent API not started: {why}. Sensing and detection keep running.");
+                log::error!("agent API not started: {why}");
+            }
+            Ok(auth) => {
+                if auth.is_open() {
+                    eprintln!("⚠️ WARNING: agent API has NO authentication (EDR_DEV_NO_AUTH=1). Dev machines only.");
                 }
-            });
+                let server_app = forensic_hooks::agent_api::secure_router(
+                    public,
+                    protected,
+                    auth,
+                    forensic_hooks::agent_api::cors_from_env(),
+                );
+                let port: u16 = std::env::var("EDR_PORT")
+                    .ok()
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(8080);
+
+                tokio::spawn(async move {
+                    // Bind directly with Tokio (loopback by default)
+                    let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
+                    let listener = match TcpListener::bind(addr).await {
+                        Ok(l) => l,
+                        Err(e) => {
+                            eprintln!("❌ bind({addr}) failed: {e}");
+                            return;
+                        }
+                    };
+
+                    let local = listener.local_addr().unwrap_or(addr);
+                    eprintln!(
+                        "🌐 UI listening on http://{}/  (dashboard) | http://{}/ui/graph.html (live graph)",
+                        local, local
+                    );
+                    eprintln!("▶️ axum server task starting…");
+
+                    let shutdown = async {
+                        let _ = shutdown_rx.await;
+                    };
+
+                    if let Err(e) = axum::serve(listener, server_app)
+                        .with_graceful_shutdown(shutdown)
+                        .await
+                    {
+                        eprintln!("❌ axum serve error: {e}");
+                    } else {
+                        eprintln!("❌ axum serve ended unexpectedly (no error)");
+                    }
+                });
+            }
         }
 
         // ---------------- demux → batch channel ----------------
         use forensic_hooks::telemetry::TelemetryRecord;
         use tokio::sync::mpsc::{unbounded_channel, UnboundedReceiver, UnboundedSender};
 
-        let (ingest_tx, mut ingest_rx): (
+        let (ingest_tx, ingest_rx): (
             UnboundedSender<TelemetryRecord>,
             UnboundedReceiver<TelemetryRecord>,
         ) = unbounded_channel();
@@ -2893,13 +2733,8 @@ async fn main() -> Result<()> {
                 std::thread::sleep(Duration::from_secs(5));
             });
             let (use_pins, pin_prefix) = pinned_mode_selected();
-            let legacy = std::env::var("EDR_USE_LEGACY_REALTIME")
-                .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-                .unwrap_or(false);
 
-            log::info!(
-                "Pinned-reader mode: {use_pins} (EDR_PIN_PREFIX={pin_prefix:?}) | Legacy realtime: {legacy}"
-            );
+            log::info!("Pinned-reader mode: {use_pins} (EDR_PIN_PREFIX={pin_prefix:?})");
 
             // Raw hex copy of every frame, next to the decoded record. Off by default because
             // it doubled every event in kv_telemetry.jsonl. EDR_DEBUG_RAW_EVENTS=1 turns it on.
@@ -2957,25 +2792,16 @@ async fn main() -> Result<()> {
                 }
             };
 
-            if use_pins {
-                // Self filter and default allowlist for raw_syscalls_catcher, before any
-                // reader starts.
-                crate::ebpf::raw_config::configure(&pin_prefix);
-                events_reader::start_all_pinned_readers_demux(&pin_prefix, demux)?;
-                if legacy {
-                    log::warn!(
-                        "Legacy requested but pins selected; NOT loading .bpf.o. Set EDR_USE_LEGACY_REALTIME=0 to suppress this message."
-                    );
-                }
-            } else if legacy {
-                log::warn!("Legacy realtime mode enabled by env; attempting realtime attach");
-                events_reader::start_realtime_monitors(writer.clone(), true);
-            } else {
+            if !use_pins {
                 log::error!(
-                    "No pins at {pin_prefix} and legacy attach disabled. Hint: run your attach helper (e.g., edr_attach_any -p {pin_prefix}) or set EDR_USE_LEGACY_REALTIME=1."
+                    "No pins at {pin_prefix}. Hint: load the sensors first (edr_attach_any -p {pin_prefix} <object.bpf.o>)."
                 );
-                return Err(anyhow!("no pins + legacy disabled"));
+                return Err(anyhow!("no pinned sensor maps at {pin_prefix}"));
             }
+            // Self filter and default allowlist for raw_syscalls_catcher, before any
+            // reader starts.
+            crate::ebpf::raw_config::configure(&pin_prefix);
+            events_reader::start_all_pinned_readers_demux(&pin_prefix, demux)?;
         }
 
         #[cfg(not(target_os = "linux"))]
@@ -3015,7 +2841,6 @@ async fn main() -> Result<()> {
                     // Hygiene
                     let received_len = records.len();
                     filter_records(&mut records);
-                    dedup_records(&mut records);
                     let accepted_len = records.len();
                     if received_len > 0 {
                         eprintln!("↪️ batch: received={received_len} accepted={accepted_len}");
@@ -3303,6 +3128,9 @@ async fn main() -> Result<()> {
         .await
         .expect("failed to install Ctrl-C handler");
     eprintln!("🛑 received Ctrl-C, shutting down…");
+    if let Some(prevention_guard) = prevention_guard {
+        prevention_guard.stop();
+    }
     let _ = shutdown_tx.send(());
     Ok(())
 }

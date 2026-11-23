@@ -96,7 +96,7 @@ fn cov_mat(sub: &Vec<&Vec<f64>>, mean: &DVector<f64>, d: usize) -> DMatrix<f64> 
     let denom = ((m as isize) - 1).max(1) as f64;
     let mut c = DMatrix::<f64>::zeros(d, d);
     for row in sub {
-        let v = DVector::from_vec(row.clone().to_vec());
+        let v = DVector::from_vec(row.to_vec());
         let diff = &v - mean;
         c += &diff * diff.transpose();
     }

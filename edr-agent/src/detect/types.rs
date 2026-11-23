@@ -3,84 +3,8 @@ use std::collections::HashMap;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::{Map as JsonMap, Value};
-use uuid::Uuid;
 
-#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq)]
-pub enum IntegrationStatus {
-    Disabled,
-    Starting,
-    Running,
-    Error,
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct PollStats {
-    pub last_poll: Option<DateTime<Utc>>,
-    pub events_seen: u64,
-    pub events_emitted: u64,
-}
-impl Default for PollStats {
-    fn default() -> Self {
-        Self {
-            last_poll: None,
-            events_seen: 0,
-            events_emitted: 0,
-        }
-    }
-}
-
-/// Catalog entry for the UI
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct IntegrationSpec {
-    pub id: String,
-    pub name: String,
-    pub vendor: String,
-    pub description: String,
-    pub required_fields: Vec<String>,
-}
-
-/// Persisted config for a connector instance
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct IntegrationConfig {
-    pub id: String,
-    pub kind: String,
-    pub name: String,
-    pub enabled: bool,
-    pub created_at: DateTime<Utc>,
-    pub last_ok: Option<DateTime<Utc>>,
-    pub creds: serde_json::Value,
-}
-impl IntegrationConfig {
-    pub fn new(kind: &str, name: &str, creds: serde_json::Value) -> Self {
-        Self {
-            id: format!("{}-{}", kind, Uuid::new_v4()),
-            kind: kind.to_string(),
-            name: name.to_string(),
-            enabled: true,
-            created_at: Utc::now(),
-            last_ok: None,
-            creds,
-        }
-    }
-}
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct IntegrationRuntime {
-    pub status: IntegrationStatus,
-    pub last_error: Option<String>,
-    pub poll: PollStats,
-}
-impl Default for IntegrationRuntime {
-    fn default() -> Self {
-        Self {
-            status: IntegrationStatus::Disabled,
-            last_error: None,
-            poll: PollStats::default(),
-        }
-    }
-}
-
-/// Normalized alert used by SaaS integrations (Okta, GitHub, …)
+/// Normalized alert the detector registry scores (pipeline.rs builds it from telemetry)
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct NormalizedAlert {
     pub id: String,

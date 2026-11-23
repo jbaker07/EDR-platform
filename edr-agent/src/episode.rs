@@ -1,7 +1,7 @@
 // src/episode.rs
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 use crate::event::{Event, EventType};
 use crate::graph_builder::{GraphEdge, GraphNode};

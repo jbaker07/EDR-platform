@@ -1,0 +1,15 @@
+[package]
+name = "guard_live"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Live check for src/guard (prevention mode). It links the agent library so
+# the test runs the same code the agent runs.
+[dependencies]
+anyhow = "1"
+env_logger = "0.11"
+libc = "0.2"
+# Only for check-btf, which needs libbpf's btf_custom_path. Same line as the agent.
+libbpf-rs = "0.21"
+forensic_hooks = { path = "../.." }

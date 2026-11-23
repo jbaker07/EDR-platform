@@ -57,6 +57,7 @@
   <div id="graph"></div>
   <div id="tip" class="tooltip" style="display:none"></div>
 
+  <script src="/ui/auth.js"></script>
   <script>
     const svg = d3.select("#graph").append("svg")
       .attr("width", "100%").attr("height", "100%");
@@ -244,27 +245,22 @@
       svg.transition().duration(350).call(zoom.transform, t);
     }
 
-    // Stream (SSE) with fallback
-    let es;
-    function connectSSE(){
-      if (es) es.close();
-      es = new EventSource("/graph/stream");
-      es.onmessage = (ev)=>{
+    // One snapshot, then the stream. Both carry the token (auth.js), and the
+    // stream reconnects by itself.
+    async function connectSSE(){
+      try {
+        const res = await edrAuth.fetch("/graph/live", { cache: "no-store" });
+        if (res.ok) render(await res.json());
+      } catch(_) {}
+      edrAuth.stream("/graph/stream", (data)=>{
         if (paused) return;
         try {
-          const v = JSON.parse(ev.data);
+          const v = JSON.parse(data);
           render(v);
         } catch(e){ console.warn("bad graph chunk", e); }
-      };
-      es.onerror = async ()=>{
-        try {
-          const res = await fetch("/graph/live", { cache: "no-store" });
-          const v = await res.json();
-          render(v);
-        } catch(_) {}
-      };
+      });
     }
-    connectSSE();
+    edrAuth.ready.then(connectSSE);
 
     // Resize handling
     window.addEventListener("resize", ()=>{

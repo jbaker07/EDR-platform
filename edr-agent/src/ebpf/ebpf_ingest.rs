@@ -7,7 +7,7 @@
 
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
-use std::sync::{Arc, Mutex, Once};
+use std::sync::{Arc, Mutex};
 
 use forensic_hooks::gnn_hook::push_to_gnn_vector_log;
 use forensic_hooks::modules::net_watch;
@@ -31,7 +31,6 @@ use crate::pb_adapter;
 const MISMATCH_THROTTLE_N: usize = 1000;
 
 static MISMATCH_WARNED: AtomicUsize = AtomicUsize::new(0);
-static DISABLED_ONCE: Once = Once::new();
 
 fn warn_drift(source: &str, got: usize, detail: &str) {
     let n = MISMATCH_WARNED.fetch_add(1, Ordering::Relaxed);
@@ -165,31 +164,11 @@ where
 }
 
 /// ---------- shared ring edr_events_rb ----------
-/// Every module whose ring map is named "events" or "edr_events_rb" writes here (see
-/// edr_attach_any.c). abi::classify_shared_frame picks the frame type by size, plus a
-/// magic check for proc_lifecycle. Anything it cannot identify stays ebpf_unknown_frame.
+/// raw_syscalls_catcher, tcp_state and proc_lifecycle write here (edr_attach_any.c points
+/// their edr_events_rb maps at one pinned ring). abi::classify_shared_frame picks the frame
+/// type by size, plus a magic check for proc_lifecycle. Anything it cannot identify,
+/// short frames included, is unexpected and stays visible as ebpf_unknown_frame.
 pub fn on_edr_event(bytes: &[u8], writer: &Arc<Mutex<TelemetryWriter>>) -> Option<TelemetryRecord> {
-    // Allow hard-disabling this legacy ingest path to avoid double-consumption of the ringbuf.
-    if std::env::var("EDR_DISABLE_LEGACY_SYS_INGEST")
-        .ok()
-        .as_deref()
-        == Some("1")
-    {
-        // Print this once to avoid log spam.
-        DISABLED_ONCE.call_once(|| {
-            eprintln!("[ebpf/legacy] disabled via EDR_DISABLE_LEGACY_SYS_INGEST=1");
-        });
-        return None;
-    }
-
-    if bytes.len() < 16 {
-        let n = MISMATCH_WARNED.fetch_add(1, Ordering::Relaxed);
-        if n < 5 {
-            eprintln!("[ebpf_ingest] dropping tiny record: got {} (<16)", bytes.len());
-        }
-        return None;
-    }
-
     match classify_shared_frame(bytes) {
         SharedFrame::EdrEvent(e) => on_full_edr_event(&e, bytes.len(), writer),
         SharedFrame::ProcLifecycle(p) => {
@@ -489,7 +468,7 @@ pub(crate) fn decode_wx(bytes: &[u8], now_secs: u64) -> Option<Decoded> {
     })
 }
 
-/// events (PERF_EVENT_ARRAY): struct file_access_event_t from file_access_monitor.c.
+/// events (PERF_EVENT_ARRAY): struct file_access_event_t from file_access_monitor.bpf.c.
 pub fn on_edr_event_file_only(
     bytes: &[u8],
     _writer: &Arc<Mutex<TelemetryWriter>>,

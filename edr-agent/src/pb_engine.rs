@@ -1156,7 +1156,7 @@ impl PlaybookEngine {
     }
 
     /// Fill the slot a vendor_map entry names with a vendor alert. No caller in the agent
-    /// today: vendor_fusion::fuse wraps this, and nothing calls fuse.
+    /// today.
     pub fn satisfy_slot_from_vendor(
         &mut self,
         product: &str,
@@ -1470,8 +1470,8 @@ required:
         // Every YAML file is either loaded or skipped with a reason. None vanish.
         assert_eq!(report.loaded.len() + report.skipped.len(), yaml_files);
         assert!(report.skipped.iter().all(|(_, why)| !why.is_empty()));
-        // The only file the loader ignores is the empty engine.rs stub.
-        assert_eq!(report.ignored, vec!["engine.rs".to_string()]);
+        // The playbook folder holds only YAML files, so the loader ignores nothing.
+        assert!(report.ignored.is_empty(), "ignored: {:?}", report.ignored);
 
         let mut loaded = report.loaded.clone();
         loaded.sort();

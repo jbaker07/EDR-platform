@@ -2,7 +2,7 @@
 
 use std::collections::HashMap;
 use std::fs::{create_dir_all, read_dir, File};
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufReader, Write};
 use std::path::PathBuf;
 use std::thread;
 use std::time::Duration;
@@ -62,7 +62,7 @@ pub fn persist_trust_state(endpoint_id: &str, score: f64) -> std::io::Result<()>
 pub fn write_trust_state_snapshot(
     endpoint_id: &str,
     trust_state: &TrustState,
-    tags: &[String],
+    _tags: &[String],
     reason: &str,
 ) -> std::io::Result<()> {
     create_dir_all(TRUST_STATE_PATH)?;
@@ -122,7 +122,7 @@ pub fn persist_trust_snapshot(cache: &HashMap<String, TrustState>) -> std::io::R
 }
 
 /// Background task for periodic persistence every 5 minutes
-pub fn start_periodic_writer(mut manager: TrustDecayManager) {
+pub fn start_periodic_writer(manager: TrustDecayManager) {
     thread::spawn(move || loop {
         let snapshot = manager.export_trust_state();
         if let Err(e) = persist_trust_snapshot(&snapshot) {

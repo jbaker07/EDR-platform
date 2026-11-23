@@ -1393,34 +1393,6 @@ pub fn crawl_process_lineage_baseline() -> Vec<FingerprintEntry> {
     entries
 }
 
-fn get_syscalls_used(binary_path: &str) -> Option<Vec<String>> {
-    let output = Command::new("strace")
-        .arg("-c")
-        .arg("-e")
-        .arg("trace=all")
-        .arg(binary_path)
-        .arg("--version") // a safe, non-destructive argument
-        .output()
-        .ok()?;
-
-    let stdout = String::from_utf8_lossy(&output.stderr);
-    let mut syscalls = Vec::new();
-
-    for line in stdout.lines() {
-        if let Some(syscall) = line.split_whitespace().last() {
-            if syscall.chars().all(char::is_alphabetic) && syscall.len() < 32 {
-                syscalls.push(syscall.to_string());
-            }
-        }
-    }
-
-    if syscalls.is_empty() {
-        None
-    } else {
-        Some(syscalls)
-    }
-}
-
 pub fn crawl_gpg_ssh_keys() -> Vec<FingerprintEntry> {
     let mut entries = Vec::new();
 

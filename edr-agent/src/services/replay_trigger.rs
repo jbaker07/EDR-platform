@@ -6,8 +6,6 @@ use std::sync::{Arc, Mutex};
 use crate::services::vault_exporter::export_to_vault;
 use crate::session_trust_curve::SessionTrustCurve;
 
-use lazy_static::lazy_static;
-
 /// Static list of sensitive tags that always trigger replay
 fn sensitive_tags_set() -> HashSet<&'static str> {
     [
