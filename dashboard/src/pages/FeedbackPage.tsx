@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { apiJson } from '@/api/client';
 
 interface FeedbackEntry {
   timestamp: string;
@@ -14,14 +14,14 @@ export default function FeedbackPage() {
   const [feedback, setFeedback] = useState<FeedbackEntry[]>([]);
 
   useEffect(() => {
-    axios.get('/api/feedback')
-      .then(res => setFeedback(res.data))
+    apiJson<FeedbackEntry[]>('/api/feedback')
+      .then(setFeedback)
       .catch(() => setFeedback([]));
   }, []);
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-xl">
-      <h2 className="text-2xl font-semibold mb-4">🧾 Feedback Log</h2>
+      <h2 className="text-2xl font-semibold mb-4">Feedback Log</h2>
       {feedback.length === 0 ? (
         <p className="text-gray-500 text-sm">No feedback entries logged yet.</p>
       ) : (

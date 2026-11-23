@@ -1,11 +1,12 @@
 """Route table, rule loading and telemetry tests for the FastAPI backend.
 
-Covers four bugs that were fixed together:
+Covers these bugs:
   * 11 routers were mounted at /api/api/... and some dashboard calls had no route.
   * /api/analyze imported loaded_rules by value, so it always saw an empty list.
   * default_rules.json read cpu_usage and command, but the collector sends
     cpu_percent and cmd.
   * /api/telemetry ran the rules twice per event.
+  * The host view served a trust score that was 100 for every host.
 """
 
 from __future__ import annotations
@@ -24,38 +25,21 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 # Every backend call in dashboard/src, from:
 #   grep -rnoE "['\"\`](https?://[a-z0-9.:]+)?/(api|telemetry)[^'\"\` ?]*" dashboard/src
 # {param} marks a ${...} part of a template string. Files:
-#   api/useScore.ts, components/AgentRegistryPanel.tsx, AlertTable.tsx,
-#   ArchivedReplayViewer.tsx, CollaborationPanel.tsx, Dashboard.tsx,
-#   EndpointGrid.tsx, ExplainPanel.tsx, FeedbackLogPanel.tsx, GNNReplay.tsx,
-#   GamificationPanel.tsx, GlobalRiskHeatmap.tsx, IOCViewerPanel.tsx,
-#   MetricsRow.tsx, ProcessDetailModal.tsx, ProcessTable.tsx, RootCauseGraph.tsx,
-#   RootCauseTrace.tsx, SOCAssistantPanel.tsx, TimelinePanel.tsx,
-#   TrustHistoryChart.tsx, TrustPanel.tsx, hooks/useTelemetry.ts,
-#   pages/Dashboard.tsx, pages/ExplainPage.tsx, pages/FeedbackPage.tsx
+#   components/AgentRegistryPanel.tsx, CollaborationPanel.tsx,
+#   DetectionLogicPanel.tsx, EndpointGrid.tsx, IOCViewerPanel.tsx,
+#   ProcessTable.tsx, TokenGate.tsx, pages/Dashboard.tsx, pages/FeedbackPage.tsx
 DASHBOARD_CALLS = [
-    ("POST", "/api/score"),
     ("GET", "/api/agent"),
-    ("GET", "/api/alerts/{param}"),
-    ("GET", "/api/assistant/explain"),
+    ("GET", "/api/alerts"),
     ("GET", "/api/collaboration"),
     ("POST", "/api/collaboration"),
-    ("POST", "/api/explain"),
-    ("GET", "/api/explain/root_cause"),
-    ("GET", "/api/explain/timeline_event"),
     ("GET", "/api/feedback"),
-    ("GET", "/api/gamification"),
-    ("GET", "/api/gnn/archive/list"),
-    ("GET", "/api/gnn/archive/load"),
-    ("GET", "/api/gnn/replay"),
-    ("GET", "/api/host/{param}"),
+    ("GET", "/api/health"),
     ("GET", "/api/iocs"),
-    ("GET", "/api/remediation/suggest"),
-    ("POST", "/api/response/action"),
-    ("GET", "/api/telemetry"),
+    ("GET", "/api/rules"),
+    ("POST", "/api/rules/reload"),
     ("GET", "/api/telemetry/agents"),
     ("GET", "/api/telemetry/all"),
-    ("GET", "/api/trust/global"),
-    ("GET", "/api/trust/history"),
 ]
 
 # Same keys scripts/send_real_telemetry.py sends for one process.
@@ -73,7 +57,7 @@ COLLECTOR_RECORD = {
 
 @pytest.fixture
 def backend(tmp_path, monkeypatch):
-    """Point the app at a throwaway SQLite file and alert log, with rules loaded."""
+    """Point the app at a throwaway SQLite file, with rules loaded."""
     import main
     from app.rules import rules_engine
     from app.services import db
@@ -81,10 +65,6 @@ def backend(tmp_path, monkeypatch):
     engine = create_engine(f"sqlite:///{tmp_path / 'edr_test.db'}", connect_args={"check_same_thread": False})
     monkeypatch.setattr(db, "engine", engine)
     db.init_db()
-
-    alert_log = tmp_path / "alert_log.json"
-    alert_log.write_text("[]")
-    monkeypatch.setattr(main, "ALERT_LOG_FILE", alert_log)
 
     # monkeypatch puts the original list back after the test.
     monkeypatch.setattr(rules_engine, "loaded_rules", [])
@@ -116,6 +96,7 @@ def test_dashboard_call_list_is_current():
             found.add(re.sub(r"\$\{[^}]*\}", "{param}", path))
     listed = {template for _, template in DASHBOARD_CALLS}
     assert found - listed == set(), "new dashboard call, add it to DASHBOARD_CALLS"
+    assert listed - found == set(), "DASHBOARD_CALLS lists a call the dashboard no longer makes"
 
 
 def test_analyze_applies_loaded_rules_and_follows_reload(backend, client, monkeypatch):
@@ -186,15 +167,61 @@ def test_default_rule_fields_match_collector():
 def test_dashboard_endpoints_return_stored_data(backend, client):
     client.post("/api/telemetry", json=COLLECTOR_RECORD)
 
-    res = client.get("/api/host/test-host")
-    assert res.status_code == 200
-    assert isinstance(res.json()["trust_score"], float)
+    # Host view: counts of stored rows, no invented score.
+    host = client.get("/api/host/test-host")
+    assert host.status_code == 200
+    body = host.json()
+    assert body["process_events"] == 1
+    assert body["alert_count"] == 1
+    assert body["alerts_by_severity"] == {"critical": 1}
+    assert body["worst_severity"] == "critical"
+    assert body["status"] == "online"
+    assert "trust_score" not in body
     assert client.get("/api/host/no-such-host").status_code == 404
 
     agents = client.get("/api/telemetry/agents").json()
-    assert [(a["hostname"], a["status"], a["riskLevel"]) for a in agents] == [("test-host", "online", "high")]
-
-    assert [t["hostname"] for t in client.get("/api/trust/global").json()] == ["test-host"]
+    assert [(a["hostname"], a["status"], a["worst_severity"]) for a in agents] == [("test-host", "online", "critical")]
 
     proc = client.get("/api/telemetry/all").json()["processes"][0]
     assert (proc["process_name"], proc["cmd"], proc["cpu_percent"]) == ("bash", "rm -rf /tmp/scratch", 1.5)
+    # Fields no collector sends are not served.
+    assert "risk_score" not in proc and "risk_level" not in proc
+
+
+def test_host_without_alerts_has_no_severity(backend, client):
+    quiet = {**COLLECTOR_RECORD, "hostname": "quiet-host", "cmd": "sleep 1"}
+    client.post("/api/telemetry", json=quiet)
+    body = client.get("/api/host/quiet-host").json()
+    assert (body["alert_count"], body["alerts_by_severity"], body["worst_severity"]) == (0, {}, None)
+
+
+def test_rules_route_lists_loaded_rules(backend, client):
+    assert [r["id"] for r in client.get("/api/rules").json()] == ["R001", "R002"]
+
+
+def test_collaboration_round_trip(client, tmp_path, monkeypatch):
+    from app.routes import collaboration
+
+    log = tmp_path / "collaboration.json"
+    log.write_text("[]")
+    monkeypatch.setattr(collaboration, "COLLAB_LOG", log)
+
+    # The dashboard used to send "message", which the model rejected with 422.
+    assert client.post("/api/collaboration", json={"author": "a", "message": "x"}).status_code == 422
+    assert client.post("/api/collaboration", json={"author": "a", "content": "x"}).status_code == 200
+    [msg] = client.get("/api/collaboration").json()
+    assert (msg["author"], msg["content"]) == ("a", "x")
+    assert msg["timestamp"]
+
+
+_NO_PID = {k: v for k, v in COLLECTOR_RECORD.items() if k != "pid"}
+
+
+@pytest.mark.parametrize(
+    "body",
+    [{}, _NO_PID, {"processes": [COLLECTOR_RECORD, {"pid": 1}]}, {"processes": "x"}, []],
+)
+def test_bad_telemetry_is_422_and_stores_nothing(backend, client, body):
+    res = client.post("/api/telemetry", json=body)
+    assert res.status_code == 422, res.text
+    assert client.get("/api/telemetry/all").json()["processes"] == []

@@ -1,10 +1,8 @@
 import json
 import os
 import re
-import operator
 from app.rules.rule_validator import validate_stateless_rules
 from app.logs.logger import rules_logger
-import math
 
 # Resolve relative to this module so the rules load regardless of the
 # process CWD (previously hardcoded as a CWD-relative path, which broke
@@ -48,10 +46,6 @@ def load_rules(path=RULES_PATH):
     with open(path, "r") as f:
         rules = json.load(f)
     return rules
-
-def save_rules(rules, path=RULES_PATH):
-    with open(path, "w") as f:
-        json.dump(rules, f, indent=2)
 
 def check_exceptions(exceptions, telemetry_data):
     for exception in exceptions:
@@ -106,51 +100,6 @@ def apply_rules(telemetry_data, rules, os_type="linux"):
                 "telemetry": telemetry_data
             })
     return triggered_alerts
-
-OPERATORS = {
-    ">": operator.gt,
-    "<": operator.lt,
-    ">=": operator.ge,
-    "<=": operator.le,
-    "==": operator.eq,
-    "!=": operator.ne,
-    "contains": lambda a, b: b in a,
-    "startswith": lambda a, b: str(a).startswith(str(b)),
-    "endswith": lambda a, b: str(a).endswith(str(b)),
-}
-
-BETA = {
-    "intercept": -3.0,
-    "cpu": -0.03,
-    "memory": -0.002,
-    "signed": 1.5,
-    "known_bad": -2.0,
-    "history": -0.4
-}
-
-
-def sigmoid(x):
-    return 1 / (1 + math.exp(-x))
-
-def calculate_trust_probability(telemetry: dict) -> float:
-    cpu = telemetry.get("cpu_percent", 0)
-    memory = telemetry.get("memory", 0) / (1024 * 1024)  # bytes → MB
-    signed = 1 if telemetry.get("file_signature_verified", True) else 0
-    known_bad = 1 if "mimikatz" in telemetry.get("process_name", "").lower() else 0
-    history = telemetry.get("previous_violations", 0)
-
-    # Weighted sum
-    z = (
-        BETA["intercept"]
-        + BETA["cpu"] * cpu
-        + BETA["memory"] * memory
-        + BETA["signed"] * signed
-        + BETA["known_bad"] * known_bad
-        + BETA["history"] * history
-    )
-
-    trust_prob = sigmoid(z)
-    return trust_prob  # ∈ [0, 1]
 
 def reload_rules():
     global loaded_rules

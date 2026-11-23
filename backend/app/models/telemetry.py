@@ -13,7 +13,5 @@ class TelemetryEvent(SQLModel, table=True):
     cmd:           str
     cpu_percent:   float
     memory:        int
-    risk_score:    float
-    risk_level:    str
     timestamp:     float
     created_at:    datetime = Field(default_factory=datetime.utcnow)

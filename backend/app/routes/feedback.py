@@ -7,7 +7,8 @@ from datetime import datetime
 
 router = APIRouter()
 
-FEEDBACK_LOG = Path("logs/feedback.json")
+# backend/logs/ next to main.py, the same folder as iocs.json, whatever the CWD.
+FEEDBACK_LOG = Path(__file__).resolve().parents[2] / "logs" / "feedback.json"
 FEEDBACK_LOG.parent.mkdir(parents=True, exist_ok=True)
 
 if not FEEDBACK_LOG.exists():

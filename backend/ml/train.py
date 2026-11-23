@@ -17,9 +17,7 @@ no real signal and the generator deliberately makes it label-independent.
 Feature contract (MUST match backend/main.py ``/api/predict``)
 --------------------------------------------------------------
 ``POST /api/predict`` accepts ``{"features": [<float>, ...]}`` and feeds the
-list straight into ``model.predict([features])``. The historical labeled
-telemetry CSV (backend/telemetry_logs/labeled_telemetry.csv) and the legacy
-``train_from_real.py`` both used this exact column order, which we preserve:
+list straight into ``model.predict([features])``. The column order is:
 
     index 0 -> cpu_percent   (percent, ~0..100)
     index 1 -> memory        (bytes; large integers, hence the StandardScaler)

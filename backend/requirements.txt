@@ -12,17 +12,7 @@ redis==5.0.1
 # ── Config ──────────────────────────────────────────────────
 python-dotenv==1.2.2
 
-# ── ML / scoring (required for the /api/predict + /api/score path) ──
-scikit-learn>=1.1         # MLP classifier (was missing)
+# ── ML (required for the /api/predict path) ──
+scikit-learn>=1.1         # the demo classifier (was missing)
 joblib>=1.1               # model (de)serialisation (was missing)
 numpy>=1.23               # was missing
-pandas>=1.5               # required by app/services/trust_gnn_engine.py (was missing)
-networkx>=3.0             # required by app/services/trust_engine_final.py (was missing)
-
-# ── OPTIONAL / EXPERIMENTAL (import-guarded; app boots without these) ──
-# SHAP explainability for /api/explain and /api/remediation explainers:
-#   pip install shap
-# GNN trust subsystem (app/routes/gnn_router.py is NOT wired into the app):
-#   pip install torch torch_geometric
-# LLM summary/hunt endpoints (/api/llm), inert without these + adapter weights:
-#   pip install transformers peft torch

@@ -1,45 +1,29 @@
 // src/components/RiskSummaryPanel.tsx
-import React from 'react';
-import { Alert } from '@/types/Alert';
+import { SEVERITIES, StoredAlert, severityClass } from '@/types/Alert';
 
 interface RiskSummaryPanelProps {
-  alerts: Alert[];
+  alerts: StoredAlert[];
 }
 
+// Counts of stored alerts by the severity their rule assigned.
 export default function RiskSummaryPanel({ alerts }: RiskSummaryPanelProps) {
-  const counts = alerts
-    .flatMap(a => a.processes)
-    .reduce(
-      (acc, p) => {
-        switch (p.risk_level) {
-          case 'high':
-            acc.high++;
-            break;
-          case 'medium':
-            acc.medium++;
-            break;
-          default:
-            acc.low++;
-        }
-        return acc;
-      },
-      { low: 0, medium: 0, high: 0 }
-    );
+  const counts: Record<string, number> = {};
+  for (const a of alerts) {
+    const sev = a.severity.toLowerCase();
+    counts[sev] = (counts[sev] ?? 0) + 1;
+  }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <div className="bg-green-100 text-green-800 p-4 rounded shadow text-center">
-        <p className="text-sm">🟢 Low Risk</p>
-        <p className="text-2xl font-bold">{counts.low}</p>
+    <div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {SEVERITIES.map((sev) => (
+          <div key={sev} className={`${severityClass(sev)} p-4 rounded shadow text-center`}>
+            <p className="text-sm capitalize">{sev} alerts</p>
+            <p className="text-2xl font-bold">{counts[sev] ?? 0}</p>
+          </div>
+        ))}
       </div>
-      <div className="bg-yellow-100 text-yellow-800 p-4 rounded shadow text-center">
-        <p className="text-sm">🟡 Medium Risk</p>
-        <p className="text-2xl font-bold">{counts.medium}</p>
-      </div>
-      <div className="bg-red-100 text-red-800 p-4 rounded shadow text-center">
-        <p className="text-sm">🔴 High Risk</p>
-        <p className="text-2xl font-bold">{counts.high}</p>
-      </div>
+      <p className="text-xs text-gray-500 mt-2">From the newest {alerts.length} stored alerts.</p>
     </div>
   );
 }

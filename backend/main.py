@@ -1,115 +1,74 @@
 # backend/main.py
+#
+# Canonical run: cd backend && EDR_API_TOKEN=... uvicorn main:app
 
-# Make the repo root importable so sibling top-level packages (replay_engine,
-# ontology, ...) resolve regardless of the launch CWD. The canonical run is
-# `cd backend && uvicorn main:app`, which puts backend/ (but not its parent)
-# on sys.path. These packages live one level up.
+import json
 import os
-import sys
+from pathlib import Path
+from typing import Dict, List
 
-_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if _REPO_ROOT not in sys.path:
-    sys.path.insert(0, _REPO_ROOT)
-
-from fastapi import FastAPI, HTTPException, Request
+import joblib
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Dict
-import json
-from pathlib import Path
-import joblib
 
-# Init
+from app.auth import DEV_NO_AUTH_ENV, load_token, require_token
 from app.services.db import init_db
 # get_loaded_rules, not loaded_rules: a from-import copies the list object once,
 # and reload_rules() later rebinds the module name to a new list.
 from app.rules.rules_engine import reload_rules, apply_rules, get_loaded_rules
 
-# Routers
-from app.routes.score import router as score_router
-from app.routes.timeline import router as timeline_router
-from app.routes.collaboration import router as collaboration_router
-from app.routes.explain import router as explain_router
-from app.routes.rules import router as rules_router
-from app.routes.rules_router import router as advanced_rules_router
-from app.routes.feedback import router as feedback_router
-from app.routes.gamification import router as gamification_router
-from app.routes.telemetry_router import router as telemetry_router
-from llm_pipeline.routes.llm_routes import router as llm_router
-from app.routes.multi_correlation_router import router as multi_correlation_router
-from app.routes.rule_reload_router import router as rule_reload_router
-from app.routes.alert_router import router as alert_router
 from app.routes.agent_router import router as agent_router
-from app.routes.trust_history_router import router as trust_history_router
-from app.routes.trust_global_router import router as global_trust_router
-from app.routes.trust_router import router as trust_logic_router
-from app.routes.forensics_router import router as forensics_router
-from app.routes.remediation_router import router as remediation_router
-from app.routes.root_cause_router import router as root_cause_router
-from app.routes.action_router import router as action_router
-from app.routes.gnn_replay_router import router as replay_router
-from app.routes.gnn_archive_router import router as gnn_archive_router
-from app.routes.soc_assistant_router import router as soc_assistant_router
-from app.routes.explain_router import router as explain_event_router
-# app.routes.iocs is not included: its GET /iocs shadowed the GET /api/iocs below
-# and read a CWD-relative file, while POST /api/iocs writes backend/logs/iocs.json.
-# NOTE: app.routes.gnn_router is EXCLUDED on purpose. It is experimental and
-# non-functional: it requires torch + torch_geometric (heavy, optional) plus
-# unshipped per-wave .pt weights, and referenced symbols that don't exist
-# (GCN / adjust_trust_from_gnn). See that file's header for details.
+from app.routes.alert_router import router as alert_router
+from app.routes.collaboration import router as collaboration_router
+from app.routes.feedback import router as feedback_router
+from app.routes.rule_reload_router import router as rule_reload_router
+from app.routes.rules import router as rules_router
+from app.routes.telemetry_router import router as telemetry_router
 
-# NOTE: a block of top-level "Services" imports lived here
-# (get_trust_shift_justification, compute_digest_signature,
-# evaluate_dynamic_thresholds, compare_update_manifests, sign_intel_pack).
-# None were referenced anywhere in this module, and two of them pointed at
-# modules that do not exist (trust_digest_engine, adaptive_threshold_engine),
-# which crashed app import. Removed as dead imports. The service modules that
-# do exist are still importable directly by the routers that use them.
+# Read once at import. load_token() raises when no token is set and the dev flag
+# is off, so uvicorn never starts an open API by accident.
+API_TOKEN = load_token()
+DEV_NO_AUTH = API_TOKEN is None
 
-# App setup
-app = FastAPI()
+# require_token runs for every route on the app, including the ones defined in
+# this file. The /docs pages are added outside that dependency, so they exist
+# only in dev mode.
+app = FastAPI(
+    dependencies=[Depends(require_token)],
+    docs_url="/docs" if DEV_NO_AUTH else None,
+    redoc_url=None,
+    openapi_url="/openapi.json" if DEV_NO_AUTH else None,
+)
+app.state.api_token = API_TOKEN
+
+if DEV_NO_AUTH:
+    print(f"WARNING: {DEV_NO_AUTH_ENV}=1, the API accepts requests without a token.")
 
 @app.on_event("startup")
 def on_startup():
     init_db()
     reload_rules()
 
+# Browsers may call the API only from the dashboard origin. The bearer token goes
+# in a header, not a cookie, so credentials stay off.
+DASHBOARD_ORIGIN = os.environ.get("EDR_DASHBOARD_ORIGIN", "http://localhost:5173")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[DASHBOARD_ORIGIN],
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
-# Routers
 routers = [
-    score_router,
-    timeline_router,
-    collaboration_router,
-    explain_router,
-    rules_router,
-    feedback_router,
-    gamification_router,
     telemetry_router,
-    advanced_rules_router,
-    llm_router,
-    multi_correlation_router,
-    rule_reload_router,
     alert_router,
     agent_router,
-    trust_history_router,
-    forensics_router,
-    remediation_router,
-    root_cause_router,
-    action_router,
-    trust_logic_router,
-    global_trust_router,
-    replay_router,
-    gnn_archive_router,
-    soc_assistant_router,
-    explain_event_router,
-    # gnn_router intentionally excluded (experimental; see import note above).
+    rule_reload_router,
+    rules_router,
+    feedback_router,
+    collaboration_router,
 ]
 
 # The /api prefix is added here only. Router paths are relative ("/telemetry",
@@ -118,40 +77,15 @@ for r in routers:
     app.include_router(r, prefix="/api")
 
 # Anchor runtime-written files to this file's directory so they don't depend on
-# the process CWD (the previous "backend/..." paths created stray backend/backend/
-# trees when the app was launched from backend/).
+# the process CWD.
 _BACKEND_DIR = Path(__file__).resolve().parent
 
-# Trust log persistence
-TRUST_LOG_FILE = _BACKEND_DIR / "app" / "logs" / "trust_log.json"
-TRUST_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
-if not TRUST_LOG_FILE.exists():
-    TRUST_LOG_FILE.write_text("[]")
-
-@app.post("/api/trustlog")
-async def receive_trust_log(payload: Dict):
-    try:
-        logs = json.loads(TRUST_LOG_FILE.read_text())
-        logs.append(payload)
-        TRUST_LOG_FILE.write_text(json.dumps(logs, indent=2))
-        return {"status": "logged"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Alert analyzer
-ALERT_LOG_FILE = _BACKEND_DIR / "app" / "logs" / "alert_log.json"
-ALERT_LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
-if not ALERT_LOG_FILE.exists():
-    ALERT_LOG_FILE.write_text("[]")
-
+# Dry run: which loaded rules match this event. Nothing is stored. POST
+# /api/telemetry is the path that stores events and alerts.
 @app.post("/api/analyze")
 async def analyze_telemetry(request: Request):
     data = await request.json()
     alerts = apply_rules(data, get_loaded_rules(), os_type=data.get("os_type", "linux"))
-    if alerts:
-        existing = json.loads(ALERT_LOG_FILE.read_text())
-        existing.extend(alerts)
-        ALERT_LOG_FILE.write_text(json.dumps(existing, indent=2))
     return {"alerts": alerts}
 
 # IOC storage
@@ -185,10 +119,10 @@ def add_ioc(ioc: Dict):
 # dataset by backend/ml/train.py. It is NOT a real-incident detector. See
 # that file's header for the honesty notice + the feature contract.
 #
-# Feature contract: the client sends {"features": [cpu_percent, memory, pid]}
-# (the column order from the historical labeled telemetry CSV); the list is fed
-# straight into model.predict([features]). FEATURE_ORDER is imported from the
-# trainer so the serving vector and the training vector can never drift apart.
+# Feature contract: the client sends {"features": [cpu_percent, memory, pid]};
+# the list is fed straight into model.predict([features]). FEATURE_ORDER is
+# imported from the trainer so the serving vector and the training vector can
+# never drift apart.
 #
 # Path is resolved relative to this file (not the process CWD) and overridable
 # via PREDICT_MODEL_PATH. Loading is defensive: any failure leaves the endpoint
@@ -199,9 +133,7 @@ except Exception:
     # Fallback that still documents the contract if the trainer can't import.
     PREDICT_FEATURE_ORDER = ["cpu_percent", "memory", "pid"]
 
-_DEFAULT_MODEL_PATH = (
-    Path(__file__).resolve().parent / "ml" / "models" / "demo_classifier.joblib"
-)
+_DEFAULT_MODEL_PATH = _BACKEND_DIR / "ml" / "models" / "demo_classifier.joblib"
 MODEL_PATH = Path(os.environ.get("PREDICT_MODEL_PATH", str(_DEFAULT_MODEL_PATH)))
 
 try:
@@ -253,7 +185,7 @@ async def predict(request: PredictionRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Health check
+# Health check. It needs the token too, like every other route.
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}

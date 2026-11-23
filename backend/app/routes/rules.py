@@ -10,7 +10,8 @@ from app.rules.safe_expr import RuleError, compile_rule, evaluate
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
-RULES_FILE = Path("logs/rules.json")
+# backend/logs/ next to main.py, the same folder as iocs.json, whatever the CWD.
+RULES_FILE = Path(__file__).resolve().parents[2] / "logs" / "rules.json"
 
 # The only process fields a rule may read.
 RULE_FIELDS = ("cpu_usage", "memory", "cmd", "name")

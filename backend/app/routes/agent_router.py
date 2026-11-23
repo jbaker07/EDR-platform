@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import List
 from app.models.agent import Agent
@@ -18,16 +18,14 @@ class AgentRegisterRequest(BaseModel):
     attestation_passed: bool
 
 class AgentResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     hostname: str
     pubkey: str
     last_seen: datetime
     binary_hash: str
     policy_hash: str
     attestation_passed: bool
-    trust_score: float
-
-    class Config:
-        orm_mode = True
 
 @router.post("/agent/register", response_model=AgentResponse)
 def register_agent(req: AgentRegisterRequest, db: Session = Depends(get_db_session)):

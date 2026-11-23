@@ -4,15 +4,21 @@ import requests
 import json
 import os
 import platform
+import sys
 import time
 
 API_URL = os.environ.get("EDR_API_URL", "http://localhost:8000/api/telemetry")
+# The same bearer token the backend reads from EDR_API_TOKEN.
+API_TOKEN = os.environ.get("EDR_API_TOKEN", "")
 CPU_SAMPLE_SECONDS = 1.0
 
 # Field names: cpu_percent and cmd. They match the TelemetryEvent columns, the
 # save path in memory_manager and backend/app/rules/default_rules.json.
 
 def collect_and_send():
+    if not API_TOKEN:
+        sys.exit("Set EDR_API_TOKEN to the backend's token before sending telemetry.")
+    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {API_TOKEN}"}
     hostname = platform.node()
     os_type = platform.system().lower()
 
@@ -47,7 +53,7 @@ def collect_and_send():
 
     for telemetry in telemetry_batch:
         try:
-            response = requests.post(API_URL, headers={"Content-Type": "application/json"}, data=json.dumps(telemetry))
+            response = requests.post(API_URL, headers=headers, data=json.dumps(telemetry), timeout=10)
             print("✅ Sent:", telemetry["process_name"], "| Status:", response.status_code)
         except Exception as e:
             print("❌ Failed to send telemetry:", e)

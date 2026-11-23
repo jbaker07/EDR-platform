@@ -1,77 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
-import axios from 'axios';
-import ProcessDetailModal from './ProcessDetailModal';
+import { apiJson } from '@/api/client';
+import { ProcessEvent } from '@/types/Alert';
 
-interface ProcessEntry {
-  agent_id: string;
-  pid: number;
-  name: string;
-  command: string;
-  severity?: string;
-  timestamp?: string | number;
-  memory?: number;
-  cpu_usage?: number;
+interface TelemetryResponse {
+  timestamp: number;
+  processes: ProcessEvent[];
 }
 
-interface ProcessTableProps {
-  onAlertSelect?: (id: string) => void;
-}
-
-const getBadgeColor = (severity?: string) => {
-  const sev = (severity ?? 'low').toLowerCase();
-  switch (sev) {
-    case 'high':
-      return 'bg-red-100 text-red-800';
-    case 'medium':
-      return 'bg-yellow-100 text-yellow-800';
-    case 'low':
-    default:
-      return 'bg-green-100 text-green-800';
-  }
-};
-
-const ProcessTable: React.FC<ProcessTableProps> = ({ onAlertSelect }) => {
-  const [data, setData] = useState<ProcessEntry[]>([]);
+// Stored process events from /api/telemetry/all (last 15 minutes), as stored.
+export default function ProcessTable() {
+  const [data, setData] = useState<ProcessEvent[]>([]);
   const [query, setQuery] = useState('');
-  const [filtered, setFiltered] = useState<ProcessEntry[]>([]);
-  const [selectedProcess, setSelectedProcess] = useState<ProcessEntry | null>(null);
   const [live, setLive] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
-    try {
-      const res = await axios.get('http://localhost:8000/api/telemetry/all');
-      const processes = res.data?.processes ?? [];
-      setData(processes);
-      setFiltered(processes);
-    } catch (err) {
-      console.error('Failed to fetch telemetry:', err);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
+  const fetchData = useCallback(() => {
+    apiJson<TelemetryResponse>('/api/telemetry/all')
+      .then((res) => { setData(res.processes); setError(null); })
+      .catch((err) => setError(err.message));
   }, []);
 
   useEffect(() => {
-    if (live) {
-      const interval = setInterval(() => fetchData(), 10000);
-      return () => clearInterval(interval);
-    }
-  }, [live]);
+    fetchData();
+  }, [fetchData]);
 
   useEffect(() => {
-    const fuse = new Fuse(data, {
-      keys: ['name', 'command', 'agent_id', 'severity'],
-      threshold: 0.3,
-    });
+    if (!live) return;
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval);
+  }, [live, fetchData]);
 
-    if (query.trim()) {
-      const result = fuse.search(query).map(r => r.item);
-      setFiltered(result);
-    } else {
-      setFiltered(data);
-    }
+  const filtered = useMemo(() => {
+    if (!query.trim()) return data;
+    const fuse = new Fuse(data, { keys: ['process_name', 'cmd', 'hostname'], threshold: 0.3 });
+    return fuse.search(query).map((r) => r.item);
   }, [query, data]);
 
   return (
@@ -82,74 +45,50 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ onAlertSelect }) => {
           placeholder="Search processes..."
           className="w-full max-w-sm border p-2 rounded"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <label className="flex items-center space-x-2 text-sm ml-4">
           <input
             type="checkbox"
             checked={live}
-            onChange={() => setLive(prev => !prev)}
+            onChange={() => setLive((prev) => !prev)}
             className="accent-blue-600"
           />
           <span>Live Updates</span>
         </label>
       </div>
 
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="text-left border-b">
-            <th className="p-2">Agent</th>
-            <th className="p-2">Process Name</th>
-            <th className="p-2">PID</th>
-            <th className="p-2">Command</th>
-            <th className="p-2">Severity</th>
-            <th className="p-2">Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filtered.map((entry, i) => (
-            <tr
-              key={i}
-              className="border-b hover:bg-gray-50 cursor-pointer"
-              onClick={() => {
-                setSelectedProcess(entry);
-                if (onAlertSelect) {
-                  const syntheticAlertId = `${entry.agent_id}-${entry.pid}`;
-                  onAlertSelect(syntheticAlertId);
-                }
-              }}
-            >
-              <td className="p-2">{entry.agent_id || 'N/A'}</td>
-              <td className="p-2">{entry.name || 'N/A'}</td>
-              <td className="p-2">{entry.pid}</td>
-              <td className="p-2">{entry.command || 'N/A'}</td>
-              <td className="p-2">
-                <span className={`px-2 py-1 text-xs font-semibold rounded ${getBadgeColor(entry.severity)}`}>
-                  {(entry.severity ?? 'low').toUpperCase()}
-                </span>
-              </td>
-              <td className="p-2">
-                {entry.timestamp
-                  ? new Date(entry.timestamp).toLocaleString()
-                  : 'N/A'}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {error && <p className="text-sm text-red-600 mb-2">Could not load telemetry: {error}</p>}
+      <p className="text-xs text-gray-500 mb-2">{filtered.length} of {data.length} stored process events.</p>
 
-      {selectedProcess && (
-        <ProcessDetailModal
-          process={{
-            ...selectedProcess,
-            memory: selectedProcess.memory ?? 0,
-            cpu_usage: selectedProcess.cpu_usage ?? 0,
-          }}
-          onClose={() => setSelectedProcess(null)}
-        />
-      )}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left border-b">
+              <th className="p-2">Host</th>
+              <th className="p-2">Process</th>
+              <th className="p-2">PID</th>
+              <th className="p-2">Command</th>
+              <th className="p-2">CPU %</th>
+              <th className="p-2">Memory</th>
+              <th className="p-2">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((p, i) => (
+              <tr key={`${p.hostname}-${p.pid}-${p.timestamp}-${i}`} className="border-b hover:bg-gray-50">
+                <td className="p-2">{p.hostname}</td>
+                <td className="p-2">{p.process_name}</td>
+                <td className="p-2">{p.pid}</td>
+                <td className="p-2 font-mono text-xs break-all">{p.cmd}</td>
+                <td className="p-2">{p.cpu_percent.toFixed(1)}</td>
+                <td className="p-2">{(p.memory / 1024 / 1024).toFixed(1)} MB</td>
+                <td className="p-2">{new Date(p.timestamp * 1000).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-};
-
-export default ProcessTable;
+}
