@@ -450,9 +450,9 @@ fn read_exe(proc_root: &Path, pid: u32) -> Option<String> {
 /// Command line with the NUL separators turned into spaces.
 fn read_cmdline(proc_root: &Path, pid: u32) -> Option<String> {
     let raw = fs::read(proc_root.join(pid.to_string()).join("cmdline")).ok()?;
-    let text = String::from_utf8_lossy(&raw).replace('\0', " ");
-    let text = text.trim_end();
-    (!text.is_empty()).then(|| text.to_string())
+    // Masked before it reaches a finding (crate::redact).
+    let text = crate::redact::cmdline_from_proc(&raw);
+    (!text.is_empty()).then_some(text)
 }
 
 // ---- Findings and the shared pipeline ----

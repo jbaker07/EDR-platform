@@ -32,7 +32,7 @@ use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sha1::{Digest, Sha1};
-use std::collections::{HashMap, HashSet, VecDeque};
+use std::collections::{HashMap, VecDeque};
 use std::convert::Infallible;
 use std::env;
 use std::fs;
@@ -69,22 +69,15 @@ static PUBLISH_BUS_CLIENT: Lazy<Client> = Lazy::new(|| {
 });
 
 // ---------- pipeline / telemetry ----------
-use forensic_hooks::baselines::BaselineStore;
 use forensic_hooks::elliptic_envelope::EllipticEnvelope;
 use forensic_hooks::episode::Episode;
 use forensic_hooks::event::{Event as FHEvent, EventType};
 use forensic_hooks::graph_builder::{GraphEdge, GraphNode};
 use forensic_hooks::mahalanobis::{Mahala, MahalaCfg};
-use forensic_hooks::memory_priv::MemoryPrivEmitter;
-use forensic_hooks::net_cadence::NetCadenceEmitter;
-use forensic_hooks::pcb_emitter::PcbEmitter;
 use forensic_hooks::pipeline::{Evaluator, Thresholds};
 use forensic_hooks::services::krim_lite::analyze_graph_and_score;
-use forensic_hooks::services::trust_engine_final::{
-    evaluate_and_dispatch_trust_score, TelemetryData, TrustResult,
-};
-use forensic_hooks::telemetry::Telemetry as NormTelemetry;
-use forensic_hooks::telemetry::{run_sideeffect_monitors_and_collect, TelemetryRecord};
+use forensic_hooks::services::trust_engine_final::{TelemetryData, TrustResult};
+use forensic_hooks::telemetry::TelemetryRecord;
 use forensic_hooks::telemetry_types::TelemetryOutput;
 use forensic_hooks::telemetry_writer::TelemetryWriter;
 use forensic_hooks::utils::time::now_ts;
@@ -147,6 +140,7 @@ use crate::decision::{
 };
 
 mod rgcn_bridge;
+mod record_pipeline;
 use crate::rgcn_bridge::{rgcn_metrics, start_rgcn_bridge};
 
 // A globally shared live-graph state (optional, does not block UI graph endpoint).
@@ -753,6 +747,29 @@ impl IncidentsMgr {
         self.items.get(id).cloned()
     }
 
+    /// Adds shield proposals to an incident, newest version of each id kept.
+    fn attach_proposals(&mut self, id: &str, proposals: Vec<Value>) -> Option<Value> {
+        let item = self.items.get_mut(id)?;
+        let obj = item.as_object_mut()?;
+        let mut list: Vec<Value> = obj
+            .get("shield_proposals")
+            .and_then(|x| x.as_array())
+            .cloned()
+            .unwrap_or_default();
+        for p in proposals {
+            list.retain(|old| old.get("id") != p.get("id"));
+            list.push(p);
+        }
+        if list.len() > 8 {
+            let drop = list.len() - 8;
+            list.drain(..drop);
+        }
+        obj.insert("shield_proposals".into(), json!(list));
+        let item = item.clone();
+        forensic_hooks::forwarder::queue_incident(&item);
+        Some(item)
+    }
+
     /// Ingest an alert JSON; returns updated incident JSON for SSE.
     fn ingest_alert_json(&mut self, alert: &Value) -> Option<Value> {
         let ts = alert
@@ -794,17 +811,64 @@ impl IncidentsMgr {
             .unwrap_or("none")
             .to_string();
 
-        // pull a compact neighborhood graph ±5m around this alert
-        let recs = window_records(ts, 300);
-        let (nodes, edges) = build_graph_from_records(&recs);
-        let rgcn = rgcn_proxy_score(&nodes);
+        // A compact neighborhood graph of the processes seen 5 minutes either side. An
+        // incident keeps its graph for GRAPH_REFRESH_SECS of alert time, so a rule that
+        // matches thousands of times in a burst does not rebuild it thousands of times.
+        const GRAPH_REFRESH_SECS: i64 = 30;
+        let reuse = self.items.get(&id).and_then(|it| {
+            let at = it.get("graph_ts").and_then(|x| x.as_i64())?;
+            ((ts - at).abs() < GRAPH_REFRESH_SECS).then(|| {
+                (
+                    it.get("graph").cloned().unwrap_or(Value::Null),
+                    it.get("rgcn_score").cloned().unwrap_or(Value::Null),
+                    at,
+                )
+            })
+        });
+        let (graph, rgcn, graph_ts) = match reuse {
+            Some(g) => g,
+            None => {
+                let recs = window_records(ts, 300);
+                let (nodes, edges) = build_graph_from_records(&recs);
+                let rgcn = rgcn_proxy_score(&nodes);
+                (json!({ "nodes": nodes, "edges": edges }), json!(rgcn), ts)
+            }
+        };
 
         // Avoid moving `id` into the JSON so we can use it below
+        let source = alert
+            .get("source")
+            .and_then(|x| x.as_str())
+            .unwrap_or("rules")
+            .to_string();
+        // The alert's own title, a playbook's name, or the names of the rules that matched.
+        let rule_names: Vec<String> = alert
+            .get("findings")
+            .and_then(|x| x.as_array())
+            .map(|f| {
+                f.iter()
+                    .filter_map(|it| it.pointer("/details/name").and_then(|n| n.as_str()).map(str::to_string))
+                    .collect()
+            })
+            .unwrap_or_default();
+        let title = alert
+            .get("title")
+            .or_else(|| alert.get("playbook_name"))
+            .and_then(|x| x.as_str())
+            .map(str::to_string)
+            .or_else(|| (!rule_names.is_empty()).then(|| rule_names.join(", ")));
         let mut item = if let Some(existing) = self.items.remove(&id) {
             existing
         } else {
             json!({
                 "id": id.clone(),
+                "host": alert
+                    .pointer("/event/host")
+                    .and_then(|x| x.as_str())
+                    .map(str::to_string)
+                    .unwrap_or_else(|| std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into())),
+                "title": title.clone().unwrap_or_else(|| format!("{primary_t} by {exe}")),
+                "sources": [],
                 "exe": exe,
                 "primary_technique": primary_t,
                 "techniques": techniques,
@@ -816,7 +880,8 @@ impl IncidentsMgr {
                 "severity_max": "none",
                 "sample_ids": [],
                 "rgcn_score": rgcn,
-                "graph": { "nodes": nodes, "edges": edges },
+                "graph": graph,
+                "graph_ts": graph_ts,
             })
         };
 
@@ -889,12 +954,39 @@ impl IncidentsMgr {
                 obj.insert("sample_ids".into(), json!(sids));
             }
 
-            // refresh graph/rgcn snapshot using latest ts window (cheap, bounded)
-            obj.insert("rgcn_score".into(), json!(rgcn));
-            obj.insert("graph".into(), json!({ "nodes": nodes, "edges": edges }));
+            // Where the alerts came from (rules, playbook, guard, decision_engine), and
+            // the newest alert's details block (the guard name, caller, target and
+            // mode for a guard alert, the playbook for a playbook hit).
+            let mut sources: Vec<String> = obj
+                .get("sources")
+                .and_then(|x| x.as_array())
+                .map(|a| a.iter().filter_map(|v| v.as_str().map(str::to_string)).collect())
+                .unwrap_or_default();
+            if !sources.contains(&source) {
+                sources.push(source.clone());
+            }
+            obj.insert("sources".into(), json!(sources));
+            if let Some(d) = alert.get("details") {
+                obj.insert("details".into(), d.clone());
+            } else if let Some(pb) = alert.get("playbook_id") {
+                obj.insert(
+                    "details".into(),
+                    json!({ "playbook_id": pb, "playbook_name": alert.get("playbook_name") }),
+                );
+            }
+            if let Some(t) = &title {
+                if source == "guard" || source == "playbook" {
+                    obj.insert("title".into(), json!(t));
+                }
+            }
+
+            obj.insert("rgcn_score".into(), rgcn);
+            obj.insert("graph".into(), graph);
+            obj.insert("graph_ts".into(), json!(graph_ts));
         }
 
         self.items.insert(id.clone(), item.clone());
+        forensic_hooks::forwarder::queue_incident(&item);
         Some(item)
     }
 }
@@ -906,6 +998,75 @@ fn severity_rank(s: &str) -> i32 {
         "low" => 1,
         _ => 0,
     }
+}
+
+// Response actions (src/response.rs), set up once from the signed policy.
+static RESPONDER: OnceLock<forensic_hooks::response::Responder> = OnceLock::new();
+
+/// Runs a response action on a blocking thread (it may start nft or iptables) and turns
+/// the outcome into an HTTP response.
+async fn run_action<F>(f: F) -> axum::response::Response
+where
+    F: FnOnce(&'static forensic_hooks::response::Responder) -> forensic_hooks::response::Outcome
+        + Send
+        + 'static,
+{
+    use axum::http::StatusCode;
+    let Some(r) = RESPONDER.get() else {
+        return (StatusCode::SERVICE_UNAVAILABLE, Json(json!({"ok": false, "error": "response actions are not set up"}))).into_response();
+    };
+    match tokio::task::spawn_blocking(move || f(r)).await {
+        Ok(o) => (
+            StatusCode::from_u16(o.status).unwrap_or(StatusCode::INTERNAL_SERVER_ERROR),
+            Json(o.body),
+        )
+            .into_response(),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"ok": false, "error": e.to_string()}))).into_response(),
+    }
+}
+
+/// POST /shields: the exact document bytes and the hex Ed25519 signature over them.
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ShieldPost {
+    document: String,
+    signature: String,
+}
+
+/// An optional {"reason": "..."} body on promote and delete.
+fn shield_reason(body: &[u8]) -> String {
+    serde_json::from_slice::<Value>(body)
+        .ok()
+        .and_then(|v| v.get("reason").and_then(|r| r.as_str()).map(str::to_string))
+        .unwrap_or_default()
+}
+
+/// Runs a shield change on a blocking thread and turns the outcome into HTTP.
+async fn run_shield<F>(f: F) -> axum::response::Response
+where
+    F: FnOnce(&'static std::sync::Arc<forensic_hooks::shield::ShieldManager>) -> forensic_hooks::response::Outcome
+        + Send
+        + 'static,
+{
+    use axum::http::StatusCode;
+    let Some(m) = forensic_hooks::shield::manager() else {
+        return (StatusCode::SERVICE_UNAVAILABLE, Json(json!({"ok": false, "error": "shields are not set up"}))).into_response();
+    };
+    match tokio::task::spawn_blocking(move || f(m)).await {
+        Ok(o) => (StatusCode::from_u16(o.status).unwrap_or(StatusCode::INTERNAL_SERVER_ERROR), Json(o.body)).into_response(),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"ok": false, "error": e.to_string()}))).into_response(),
+    }
+}
+
+/// A JSON body that does not parse is a 400 with the reason, not axum's plain text.
+fn parse_body<T: serde::de::DeserializeOwned>(body: &[u8]) -> Result<T, axum::response::Response> {
+    serde_json::from_slice(body).map_err(|e| {
+        (
+            axum::http::StatusCode::BAD_REQUEST,
+            Json(json!({"ok": false, "error": format!("bad request body: {e}")})),
+        )
+            .into_response()
+    })
 }
 
 // Global incidents store
@@ -1071,6 +1232,11 @@ async fn metrics_json() -> Json<Value> {
         "alerts_out_total": al,
 
         // PB/IOC gauges
+        "adapter_queue_depth": pb_adapter::queue_stats().map(|(q, _)| q.depth).unwrap_or(0),
+        "adapter_queue_high_water": pb_adapter::queue_stats().map(|(q, _)| q.high_water).unwrap_or(0),
+        "adapter_queue_waited_total": pb_adapter::queue_stats().map(|(q, _)| q.waited_total).unwrap_or(0),
+        "adapter_queue_dropped_total": pb_adapter::queue_stats().map(|(q, _)| q.dropped_total).unwrap_or(0),
+        "redactions_total": forensic_hooks::redact::redactions_total(),
         "pb_hits_total": pbm.pb_hits_total,
         "pb_pending_current": pbm.pb_pending_current,
         "ioc_matches_total": iocm.matches_total,
@@ -1087,6 +1253,39 @@ async fn metrics_json() -> Json<Value> {
     }
 
     Json(Value::Object(obj))
+}
+
+/// GET /pipeline/status
+async fn pipeline_status() -> Json<Value> {
+    let (queue, skipped) = match pb_adapter::queue_stats() {
+        Some((q, s)) => (serde_json::to_value(q).unwrap_or(Value::Null), s),
+        None => (Value::Null, 0),
+    };
+    let (mut loaded, sizes): (Vec<String>, (usize, usize, usize)) = pb_engine()
+        .lock()
+        .map(|e| (e.playbooks.keys().cloned().collect(), e.sizes()))
+        .unwrap_or_default();
+    loaded.sort();
+    Json(json!({
+        "adapter_queue": queue,
+        "adapter_skipped_outputs_total": skipped,
+        "adapter_dropped_facts_total": metrics::mapper_dropped_facts_total().load(Ordering::Relaxed),
+        "record_queue": record_pipeline::queue_stats(),
+        "records_dropped_total": record_pipeline::queue_stats().map(|q| q.dropped_total).unwrap_or(0),
+        "record_pipeline": record_pipeline::stats().json(),
+        "facts_in": metrics::facts_in().load(Ordering::Relaxed),
+        "playbooks_loaded": loaded.len(),
+        "engine": { "counting_windows": sizes.0, "events_in_windows": sizes.1, "hypotheses": sizes.2 },
+        "playbooks": loaded,
+        "redactions_total": forensic_hooks::redact::redactions_total(),
+        "exec_from_kernel_copy_total": forensic_hooks::pb_adapter::exec_from_kernel_copy_total(),
+        "exec_stale_proc_total": forensic_hooks::pb_adapter::exec_stale_proc_total(),
+        "forwarder": forensic_hooks::forwarder::stats(),
+        "ground_truth": {
+            "written_total": pb_wiring::ground_truth_stats().0,
+            "failed_total": pb_wiring::ground_truth_stats().1,
+        },
+    }))
 }
 
 // /healthz is the one route without a token, so it says only that the API is up.
@@ -1286,40 +1485,49 @@ fn load_alert_by_id(id: &str) -> Option<Value> {
     None
 }
 
-fn window_records(ts_center: i64, secs: i64) -> Vec<TelemetryRecord> {
-    let mut out = Vec::new();
-    for line in tail_file_lines("state/pcb_snaps.ndjson", 20000) {
-        if let Ok(v) = serde_json::from_str::<Value>(&line) {
-            let ts = parse_ts_any(&v, ts_center);
-            if (ts - ts_center).abs() <= secs {
-                let pid = v.get("pid").and_then(|x| x.as_i64()).unwrap_or(0) as i32;
-                let ppid = v.get("ppid").and_then(|x| x.as_i64()).unwrap_or(0) as i32;
-                let exe = v
-                    .get("exe")
-                    .and_then(|x| x.as_str())
-                    .unwrap_or("")
-                    .to_string();
-                let cmd = v
-                    .get("cmdline")
-                    .and_then(|x| x.as_str())
-                    .unwrap_or("")
-                    .to_string();
-                out.push(TelemetryRecord {
-                    timestamp: ts as u64,
-                    pid,
-                    ppid,
-                    uid: 0,
-                    binary_path: exe,
-                    command_line: cmd,
-                    cwd: String::new(),
-                    env_vars: None,
-                    tags: vec![],
-                    risk_score: Some(0),
-                });
+/// The newest process snapshots (time, pid, exe), the same ones the record thread
+/// appends to state/pcb_snaps.ndjson. Incidents take their neighborhood graph from here.
+/// Reading the file instead, for every alert, cost a full read of a file that only grows
+/// plus 20,000 JSON parses per alert, and stalled the record thread in a live burst.
+const RECENT_PCB_CAP: usize = 20_000;
+
+fn recent_pcb() -> &'static Mutex<VecDeque<(i64, i32, String)>> {
+    static R: OnceLock<Mutex<VecDeque<(i64, i32, String)>>> = OnceLock::new();
+    R.get_or_init(|| Mutex::new(VecDeque::with_capacity(RECENT_PCB_CAP)))
+}
+
+/// Keep the newest snapshots for window_records.
+fn remember_pcb(snaps: &[forensic_hooks::pcb::PcbSnapshot]) {
+    if let Ok(mut q) = recent_pcb().lock() {
+        for s in snaps {
+            if q.len() >= RECENT_PCB_CAP {
+                q.pop_front();
             }
+            q.push_back(((s.ts_ms / 1000) as i64, s.pid, s.exe.clone().unwrap_or_default()));
         }
     }
-    out
+}
+
+/// Processes seen within `secs` of `ts_center`, from the newest snapshots.
+fn window_records(ts_center: i64, secs: i64) -> Vec<TelemetryRecord> {
+    let Ok(q) = recent_pcb().lock() else {
+        return Vec::new();
+    };
+    q.iter()
+        .filter(|(ts, _, _)| (ts - ts_center).abs() <= secs)
+        .map(|(ts, pid, exe)| TelemetryRecord {
+            timestamp: *ts as u64,
+            pid: *pid,
+            ppid: 0,
+            uid: 0,
+            binary_path: exe.clone(),
+            command_line: String::new(),
+            cwd: String::new(),
+            env_vars: None,
+            tags: vec![],
+            risk_score: Some(0),
+        })
+        .collect()
 }
 
 fn rgcn_proxy_score(nodes: &[GraphNode]) -> f64 {
@@ -1372,6 +1580,11 @@ fn extract_mitre(alert: &Value) -> Vec<String> {
                 if lab.starts_with('T') {
                     out.push(lab.to_string());
                 }
+            }
+            // A rules.json finding is labeled with the rule id and carries its
+            // techniques in details.mitre.
+            if let Some(m) = it.pointer("/details/mitre").and_then(|x| x.as_array()) {
+                out.extend(m.iter().filter_map(|t| t.as_str()).filter(|t| t.starts_with('T')).map(str::to_string));
             }
         }
     }
@@ -1879,8 +2092,11 @@ fn tag_batch_outliers_with_mahala_and_envelope(
     // χ²_p(0.99) ≈ p + z * sqrt(2p)
     let z = 2.326_347_874_040_840_8_f64;
     let thr = (p as f64) + z * (2.0 * p as f64).sqrt();
+    // The chunk is the outlier, not each record in it, so the tag goes on one record
+    // (the newest). Tagging every record made the tag_flags rule raise one alert per
+    // record: 11,103 rule hits and about 2,300 incidents in one live burst.
     if (d2 as f64) > thr && support >= MahalaCfg::d_support() {
-        for r in records.iter_mut() {
+        if let Some(r) = records.last_mut() {
             r.tags.push("mahalanobis_outlier".into());
         }
     }
@@ -1909,7 +2125,7 @@ fn tag_batch_outliers_with_mahala_and_envelope(
             let margin = env.decision_function(&x);
             env_margin = Some(margin);
             if margin < 0.0 {
-                for r in records.iter_mut() {
+                if let Some(r) = records.last_mut() {
                     r.tags.push("elliptic_outlier".into());
                 }
             }
@@ -1946,9 +2162,93 @@ fn tag_records_from_krim(records: &mut [TelemetryRecord]) {
     }
 }
 
+/// EDR_VERBOSE=1 (or RUST_LOG with telemetry=trace) prints every record and trust
+/// result. Off by default: at burst rates the three lines per record wrote about 1 GB of
+/// log in 10 minutes and slowed the batch loop to 11 s a pass.
+fn verbose() -> bool {
+    static V: OnceLock<bool> = OnceLock::new();
+    *V.get_or_init(|| {
+        std::env::var("EDR_VERBOSE").map(|v| v == "1" || v.eq_ignore_ascii_case("true")).unwrap_or(false)
+            || std::env::var("RUST_LOG").map(|v| v.contains("telemetry=trace")).unwrap_or(false)
+    })
+}
+
+/// The host name incidents and signals carry: HOSTNAME, else "localhost".
+fn agent_host() -> String {
+    static H: OnceLock<String> = OnceLock::new();
+    H.get_or_init(|| std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into()))
+        .clone()
+}
+
+/// A rules.json rule matched: send the alert, make it a RuleHit fact for the playbooks,
+/// an incident, and a DecisionEngine signal.
+fn handle_rule_alert(
+    v: &Value,
+    host: &str,
+    at: &broadcast::Sender<String>,
+    it: &broadcast::Sender<String>,
+) {
+    let _ = at.send(v.to_string());
+    // The rule hit is also a RuleHit fact for the playbooks (edr_tamper reads T1562 hits).
+    pb_adapter::emit_rule_hit(v);
+    if let Some(out) = incidents().lock().unwrap().ingest_alert_json(v) {
+        let _ = it.send(out.to_string());
+    }
+    let text = |ptrs: &[&str]| {
+        ptrs.iter()
+            .find_map(|p| v.pointer(p).and_then(|x| x.as_str()))
+            .map(str::to_string)
+    };
+    let exe = text(&["/event/exe", "/event/binary_path"]).unwrap_or_else(|| "-".into());
+    let user = text(&["/event/user"]).unwrap_or_else(|| "unknown".into());
+    let cmd = text(&["/event/cmdline", "/event/command_line"]).unwrap_or_default();
+    let ts = v
+        .get("ts")
+        .or_else(|| v.get("time"))
+        .or_else(|| v.get("timestamp"))
+        .and_then(|x| x.as_i64())
+        .unwrap_or(now_ts() as i64) as u64;
+    let score = v
+        .get("risk")
+        .and_then(|x| x.as_f64())
+        .or_else(|| v.get("score").and_then(|x| x.as_f64()))
+        .unwrap_or(0.8)
+        .clamp(0.0, 1.5) as f32;
+    let tags: Vec<String> = v
+        .get("findings")
+        .and_then(|x| x.as_array())
+        .map(|arr| {
+            arr.iter()
+                .filter_map(|f| f.get("label").and_then(|l| l.as_str()).map(str::to_string))
+                .collect()
+        })
+        .unwrap_or_default();
+    let sig = Signal {
+        detector: DetectorKind::Rules,
+        score: score.min(1.0),
+        ts,
+        exe: Some(exe),
+        user: Some(user),
+        host: Some(host.to_string()),
+        cmd_prefix: Some(first_token(&cmd)),
+        parent: None,
+        signer: None,
+        hash: None,
+        pid: None,
+        tags,
+    };
+    let outs = decision_engine().lock().unwrap().ingest(sig);
+    for a in outs {
+        emit_final_incident(a, at, it);
+    }
+}
+
 // ---- trust result line ----
-// Prints one line per trust result. The agent has no SIEM sinks.
+// Prints one line per trust result with EDR_VERBOSE=1. The agent has no SIEM sinks.
 fn fanout_all(res: &TrustResult, records: &[TelemetryRecord], _data: &TelemetryData) {
+    if !verbose() {
+        return;
+    }
     println!(
         "📣 [{}] score={:.2} escalated={} reasons={:?} batch_recs={}",
         res.endpoint_id,
@@ -2022,7 +2322,7 @@ fn publish_bus_log_warning(message: String) {
     let last = PUBLISH_WARN_TS.load(Ordering::Relaxed);
     if now.saturating_sub(last) >= 60 {
         PUBLISH_WARN_TS.store(now, Ordering::Relaxed);
-        warn!("{}", message);
+        log::warn!("{}", message);
     } else {
         log::debug!("{}", message);
     }
@@ -2187,7 +2487,6 @@ async fn main() -> Result<()> {
         file
     };
 
-    let _ = env_logger::try_init();
     {
         let cwd = std::env::current_dir().unwrap();
         eprintln!("🗂️  cwd        : {}", cwd.display());
@@ -2218,17 +2517,165 @@ async fn main() -> Result<()> {
     }
 
     // A policy with a bad or missing signature stops the agent here, before any
-    // sensor or guard starts. EDR_DEV_NO_AUTH=1 turns this into a warning.
-    let _policy = match forensic_hooks::config::load_and_verify_policy("policy.json") {
-        Ok(p) => p,
+    // sensor or guard starts. EDR_DEV_NO_AUTH=1 turns this into a warning. A policy
+    // with a serial under the last one applied is refused too, and the copy kept at
+    // that apply is used instead (anti-rollback across restarts).
+    let policy_path = PathBuf::from("policy.json");
+    let pubkey_path = forensic_hooks::config::pubkey_path();
+    let policy_store = forensic_hooks::config::PolicyStore::new(&forensic_hooks::config::state_dir());
+    let loaded_policy = match forensic_hooks::config::load_with_floor(
+        &policy_path,
+        &pubkey_path,
+        &policy_store,
+        forensic_hooks::agent_api::dev_no_auth(),
+    ) {
+        Ok((p, notes)) => {
+            for n in notes {
+                eprintln!("⚠️ policy: {n}");
+            }
+            p
+        }
         Err(e) => {
             eprintln!("❌ {e:#}");
             eprintln!("   sign it with scripts/policy_signer.py, or set EDR_DEV_NO_AUTH=1 on a dev machine");
             std::process::exit(1);
         }
     };
+    if let Err(e) = policy_store.record(&loaded_policy) {
+        eprintln!("⚠️ policy: could not record serial {} in {}: {e}", loaded_policy.policy.serial, policy_store.serial_path().display());
+    }
+    forensic_hooks::policy_watch::started(&loaded_policy);
+    let policy = loaded_policy.policy.clone();
+    // The signed policy's settings, each enforced below: the log level (when RUST_LOG
+    // is unset), command line masking, the lowest guard mode, the response actions and
+    // the ports isolation keeps open.
+    let _ = env_logger::Builder::from_env(
+        env_logger::Env::default().default_filter_or(policy.logging.level.as_str()),
+    )
+    .try_init();
+    forensic_hooks::redact::init(policy.redact_command_lines);
+    eprintln!(
+        "policy: serial {}, guard_mode at least {}, redact_command_lines {}, response_actions {:?}, management_ports {:?}, shields max_active {} max_lifetime_sec {}",
+        policy.serial, policy.guard_mode, policy.redact_command_lines, policy.response_actions, policy.management_ports,
+        policy.shields.max_active, policy.shields.max_lifetime_sec
+    );
     // Prevention mode (BPF LSM). Falls back to detect-only when the kernel lacks it.
-    let prevention_guard = forensic_hooks::guard::start_guard().ok();
+    let prevention_guard = {
+        let (settings, warnings) = forensic_hooks::guard::settings_for_policy(&policy);
+        for w in warnings {
+            eprintln!("⚠️ guard: {w}");
+            log::warn!("guard: {w}");
+        }
+        forensic_hooks::guard::start_guard_with(settings, |_, _| {}).ok()
+    };
+
+    // Incident forwarding to the backend (EDR_BACKEND_URL). A bad setting is logged and
+    // the agent runs without it.
+    let forward_cfg = match forensic_hooks::forwarder::config_from(|k| std::env::var(k).ok()) {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("❌ incident forwarding off: {e}");
+            None
+        }
+    };
+    let api_port: u16 = std::env::var("EDR_PORT")
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(8080);
+    let keep_ports_for = move |p: &forensic_hooks::config::RawPolicy| {
+        let mut keep_ports = p.management_ports.clone();
+        if !keep_ports.contains(&api_port) {
+            keep_ports.push(api_port);
+        }
+        keep_ports
+    };
+    let backend_ips: Vec<std::net::IpAddr> = forward_cfg
+        .as_ref()
+        .map(|c| c.resolved().into_iter().map(|(ip, _)| ip).collect())
+        .unwrap_or_default();
+    {
+        let keep_ports = keep_ports_for(&policy);
+        let backend = forward_cfg.as_ref().map(|c| c.resolved()).unwrap_or_default();
+        let cfg = forensic_hooks::response::ResponseConfig::from_env(
+            keep_ports,
+            backend,
+            policy.response_actions.clone(),
+        );
+        let _ = RESPONDER.set(forensic_hooks::response::Responder::new(
+            cfg,
+            Box::new(forensic_hooks::response::SystemRunner),
+            Path::new("/proc"),
+            std::process::id() as i64,
+        ));
+    }
+
+    // Runtime shields (src/shield). They need the BPF LSM like the guard. Without it
+    // the shield API answers but refuses to apply anything.
+    let shield_thread = start_shields(&policy, &pubkey_path, &policy_store, prevention_guard.as_ref(), &backend_ips);
+
+    // Live policy reload: a newer signed policy applies to the running agent.
+    {
+        let guard_control = prevention_guard.as_ref().map(|g| g.control.clone());
+        let backend_ips = backend_ips.clone();
+        let own = own_files(&pubkey_path, &policy_store);
+        let apply: forensic_hooks::policy_watch::ApplyFn = Box::new(move |lp| {
+            let p = &lp.policy;
+            let mut notes = Vec::new();
+            if std::env::var("RUST_LOG").is_err() {
+                if let Ok(level) = p.logging.level.parse::<log::LevelFilter>() {
+                    log::set_max_level(level);
+                }
+            }
+            forensic_hooks::redact::policy_requires(p.redact_command_lines);
+            if let Some(control) = &guard_control {
+                let (settings, warnings) = forensic_hooks::guard::settings_for_policy(p);
+                notes.extend(warnings);
+                let (socket, memfd) = settings.allowlists();
+                match control.apply(settings.modes, &socket, &memfd) {
+                    Ok(m) => notes.push(format!(
+                        "guard modes runtime_socket={} memfd_exec={} self_protect={}, allowlists {} socket clients and {} memfd programs, one bank switch",
+                        m.socket.as_str(), m.memfd.as_str(), m.self_protect.as_str(), socket.len(), memfd.len()
+                    )),
+                    Err(e) => notes.push(format!("guard maps not updated: {e:#}")),
+                }
+            }
+            if let Some(m) = forensic_hooks::shield::manager() {
+                let never = forensic_hooks::shield::NeverBlock::build(&p.shields.never_block, &own, &backend_ips);
+                notes.extend(m.apply_policy(p.shields.clone(), never));
+            }
+            if let Some(r) = RESPONDER.get() {
+                r.set_policy(p.response_actions.clone(), keep_ports_for(p));
+            }
+            notes
+        });
+        let pem = std::fs::read(&pubkey_path).unwrap_or_default();
+        let watch = forensic_hooks::policy_watch::Watch {
+            policy_path: policy_path.clone(),
+            pubkey_pem: pem,
+            store: forensic_hooks::config::PolicyStore::new(&forensic_hooks::config::state_dir()),
+            audit_path: PathBuf::from(std::env::var("EDR_POLICY_AUDIT").unwrap_or_else(|_| "logs/policy_audit.jsonl".into())),
+            allow_unsigned: forensic_hooks::agent_api::dev_no_auth(),
+            every: Duration::from_secs(1),
+        };
+        if let Err(e) = watch.spawn(loaded_policy.clone(), apply) {
+            eprintln!("❌ policy watch did not start: {e}");
+        }
+    }
+
+    // Expired shields and expired firewall blocks leave the agent's state once a second.
+    // The kernel already stopped enforcing them on time.
+    std::thread::Builder::new()
+        .name("expiry_sweep".into())
+        .spawn(|| loop {
+            std::thread::sleep(Duration::from_secs(1));
+            if let Some(m) = forensic_hooks::shield::manager() {
+                m.sweep();
+            }
+            if let Some(r) = RESPONDER.get() {
+                r.sweep();
+            }
+        })
+        .ok();
 
     let writer = Arc::new(Mutex::new(TelemetryWriter::new()));
 
@@ -2240,9 +2687,17 @@ async fn main() -> Result<()> {
 
     pb_adapter::set_engine_handle(pb_engine());
 
-    let (facts_tx, facts_rx) = tokio::sync::mpsc::channel::<pb_adapter::AdapterFact>(4096);
-    pb_adapter::set_sender(facts_tx.clone());
-    tokio::spawn(pb_adapter::runner::run_adapter(facts_rx, metrics.clone()));
+    // Decoders push facts into a bounded queue. One OS thread drains it in batches into
+    // the playbook engine. A full queue makes the producer wait (see pb_adapter/queue.rs).
+    let fact_queue = pb_adapter::init_queue();
+    if let Err(e) = pb_adapter::runner::spawn_adapter_thread(fact_queue) {
+        eprintln!("❌ playbook engine thread did not start: {e}");
+    }
+    if let Some(cfg) = forward_cfg.clone() {
+        tokio::spawn(forensic_hooks::forwarder::run(cfg));
+    }
+    // CPU samples for the HostPerf facts, every 5 s on a thread of their own.
+    forensic_hooks::modules::host_perf::spawn();
 
     // === IOC lists & YARA ===
     if let Err(e) = ioc::init() {
@@ -2559,37 +3014,87 @@ async fn main() -> Result<()> {
                     },
                 ),
             )
-            // Safe action stubs (Phase 2)
-            .route(
-                "/actions/isolate_host",
-                post(|Json(v): Json<Value>| async move {
-                    eprintln!("✳️ action:isolate_host {}", v);
-                    (
-                        StatusCode::ACCEPTED,
-                        Json(json!({"ok":true,"action":"isolate_host","echo":v})),
-                    )
-                }),
-            )
+            // Response actions (src/response.rs). Each needs a reason or an incident
+            // id, supports dry_run, must be allowed by the signed policy, and is written
+            // to logs/actions_audit.jsonl.
             .route(
                 "/actions/kill_proc",
-                post(|Json(v): Json<Value>| async move {
-                    eprintln!("✳️ action:kill_proc {}", v);
-                    (
-                        StatusCode::ACCEPTED,
-                        Json(json!({"ok":true,"action":"kill_proc","echo":v})),
-                    )
+                post(|body: axum::body::Bytes| async move {
+                    match parse_body::<forensic_hooks::response::KillRequest>(&body) {
+                        Ok(req) => run_action(move |r| {
+                            r.kill_proc(req, &|id| incidents().lock().map(|m| m.get(id).is_some()).unwrap_or(false))
+                        })
+                        .await,
+                        Err(resp) => resp,
+                    }
                 }),
             )
             .route(
                 "/actions/block_egress",
-                post(|Json(v): Json<Value>| async move {
-                    eprintln!("✳️ action:block_egress {}", v);
-                    (
-                        StatusCode::ACCEPTED,
-                        Json(json!({"ok":true,"action":"block_egress","echo":v})),
-                    )
+                post(|body: axum::body::Bytes| async move {
+                    match parse_body::<forensic_hooks::response::BlockRequest>(&body) {
+                        Ok(req) => run_action(move |r| r.block_egress(req)).await,
+                        Err(resp) => resp,
+                    }
                 }),
             )
+            .route(
+                "/actions/isolate_host",
+                post(|body: axum::body::Bytes| async move {
+                    match parse_body::<forensic_hooks::response::IsolateRequest>(&body) {
+                        Ok(req) => run_action(move |r| r.isolate_host(req)).await,
+                        Err(resp) => resp,
+                    }
+                }),
+            )
+            .route(
+                "/actions/release",
+                post(|body: axum::body::Bytes| async move {
+                    match parse_body::<forensic_hooks::response::ReleaseRequest>(&body) {
+                        Ok(req) => run_action(move |r| r.release(req)).await,
+                        Err(resp) => resp,
+                    }
+                }),
+            )
+            .route(
+                "/actions/state",
+                get(|| async {
+                    Json(RESPONDER.get().map(|r| r.state_json()).unwrap_or(json!({"firewall": "none"})))
+                }),
+            )
+            // Runtime shields (src/shield). POST takes a signed document, every change
+            // and refusal goes to logs/shields_audit.jsonl.
+            .route(
+                "/shields",
+                get(|| async {
+                    Json(forensic_hooks::shield::manager().map(|m| m.list()).unwrap_or(json!({"enforcement": "none", "shields": []})))
+                })
+                .post(|body: axum::body::Bytes| async move {
+                    match parse_body::<ShieldPost>(&body) {
+                        Ok(req) => run_shield(move |m| m.apply_signed(&req.document, &req.signature)).await,
+                        Err(resp) => resp,
+                    }
+                }),
+            )
+            .route(
+                "/shields/:id/promote",
+                post(|axum::extract::Path(id): axum::extract::Path<String>, body: axum::body::Bytes| async move {
+                    let reason = shield_reason(&body);
+                    run_shield(move |m| m.promote(&id, &reason)).await
+                }),
+            )
+            .route(
+                "/shields/:id",
+                delete(|axum::extract::Path(id): axum::extract::Path<String>, body: axum::body::Bytes| async move {
+                    let reason = shield_reason(&body);
+                    run_shield(move |m| m.remove(&id, &reason)).await
+                }),
+            )
+            // The signed policy in force, and the last reload or refusal.
+            .route("/policy/status", get(|| async { Json(forensic_hooks::policy_watch::status_json()) }))
+            // Pipeline health: the fact queue (drops, waits, depth), the loaded
+            // playbooks, masking and forwarding counters.
+            .route("/pipeline/status", get(pipeline_status))
             // Integrations
             .route("/integrations/catalog", get(integrations_catalog))
             .route(
@@ -2625,6 +3130,11 @@ async fn main() -> Result<()> {
             Ok(auth) => {
                 if auth.is_open() {
                     eprintln!("⚠️ WARNING: agent API has NO authentication (EDR_DEV_NO_AUTH=1). Dev machines only.");
+                }
+                // A token file is re-read every 2 s, so the token can be rotated without
+                // a restart.
+                if let Ok(path) = std::env::var(forensic_hooks::agent_api::TOKEN_FILE_ENV) {
+                    auth.watch_token_file(PathBuf::from(path), Duration::from_secs(2));
                 }
                 let server_app = forensic_hooks::agent_api::secure_router(
                     public,
@@ -2671,14 +3181,29 @@ async fn main() -> Result<()> {
             }
         }
 
-        // ---------------- demux → batch channel ----------------
-        use forensic_hooks::telemetry::TelemetryRecord;
-        use tokio::sync::mpsc::{unbounded_channel, UnboundedReceiver, UnboundedSender};
-
-        let (ingest_tx, ingest_rx): (
-            UnboundedSender<TelemetryRecord>,
-            UnboundedReceiver<TelemetryRecord>,
-        ) = unbounded_channel();
+        // ---------------- decoders → record queue → record thread ----------------
+        // Records for the rules, the taggers, the live graph, the trust scores and the
+        // telemetry files. A bounded queue with backpressure feeds one OS thread that
+        // runs them in chunks (record_pipeline.rs). A full queue holds the decoder up to
+        // the push timeout, and only a record that still finds no room is dropped and
+        // counted (records_dropped_total on /pipeline/status). Playbook facts have their
+        // own queue (pb_adapter).
+        let record_queue = record_pipeline::init_queue();
+        let record_thread = record_pipeline::spawn(
+            record_queue,
+            record_pipeline::RecordPipeline {
+                evaluator,
+                graph: gs.clone(),
+                alerts: alert_tx.clone(),
+                incidents: inc_tx.clone(),
+                writer: writer.clone(),
+                side_effects: true,
+            },
+            tokio::runtime::Handle::current(),
+        );
+        if let Err(e) = record_thread {
+            eprintln!("record thread did not start: {e}");
+        }
 
         // ---------------- startup of eBPF readers ----------------
 
@@ -2686,25 +3211,12 @@ async fn main() -> Result<()> {
         {
             use std::sync::atomic::Ordering;
 
-            static INGEST_TX: OnceLock<tokio::sync::mpsc::UnboundedSender<TelemetryRecord>> =
-                OnceLock::new();
-
-            fn write_record(rec: TelemetryRecord) -> bool {
-                if let Some(tx) = INGEST_TX.get() {
-                    tx.send(rec).is_ok()
-                } else {
-                    false
-                }
-            }
+            use forensic_hooks::telemetry::TelemetryRecord;
 
             fn write_record_and_counters(rec: TelemetryRecord) {
-                if write_record(rec) {
+                if record_pipeline::push(rec) {
                     metrics::events_accepted().fetch_add(1, Ordering::Relaxed);
                 }
-            }
-
-            if INGEST_TX.set(ingest_tx.clone()).is_err() {
-                warn!("⚠️ unified ingest sender already initialized; using existing channel");
             }
 
             std::thread::spawn(|| loop {
@@ -2798,10 +3310,15 @@ async fn main() -> Result<()> {
                 );
                 return Err(anyhow!("no pinned sensor maps at {pin_prefix}"));
             }
-            // Self filter and default allowlist for raw_syscalls_catcher, before any
+            // Self filters for raw_syscalls_catcher and file_access_monitor, and the
+            // default allowlist for raw_syscalls_catcher, before any
             // reader starts.
             crate::ebpf::raw_config::configure(&pin_prefix);
             events_reader::start_all_pinned_readers_demux(&pin_prefix, demux)?;
+            // The sensors' maps, programs and pins come under the guard too.
+            if let Some(g) = prevention_guard.as_ref() {
+                forensic_hooks::guard::spawn_protect_held(g.control.clone(), PathBuf::from(&pin_prefix));
+            }
         }
 
         #[cfg(not(target_os = "linux"))]
@@ -2809,282 +3326,17 @@ async fn main() -> Result<()> {
             log::warn!("eBPF readers are disabled on non-Linux targets.");
         }
 
-        // ---------------- processing loop (inline in spawn; captures gs/evaluator) ----------------
+        // ---------------- incidents from playbooks and the guard ----------------
         {
             use std::time::Duration;
-            let w = writer.clone();
-            let at = alert_tx.clone();
             let it = inc_tx.clone();
-            let mut rx = ingest_rx;
 
             tokio::spawn(async move {
                 loop {
-                    // Drain queued from eBPF demux
-                    let mut records: Vec<TelemetryRecord> = Vec::new();
-                    while let Ok(rec) = rx.try_recv() {
-                        records.push(rec);
-                    }
-
-                    // Passive side-effect monitors
-                    for output in run_sideeffect_monitors_and_collect() {
-                        match try_convert_output(output) {
-                            Ok(rec) => {
-                                metrics::events_accepted().fetch_add(1, Ordering::Relaxed);
-                                records.push(rec);
-                            }
-                            Err(_) => {
-                                eprintln!("⚠️ Failed to convert TelemetryOutput → TelemetryRecord")
-                            }
-                        }
-                    }
-
-                    // Hygiene
-                    let received_len = records.len();
-                    filter_records(&mut records);
-                    let accepted_len = records.len();
-                    if received_len > 0 {
-                        eprintln!("↪️ batch: received={received_len} accepted={accepted_len}");
-                    }
-
-                    if !records.is_empty() {
-                        // PCB snapshots
-                        let pcb_snaps = forensic_hooks::pcb::collect_for_records(&records);
-                        let _ = forensic_hooks::pcb::append_snapshots_ndjson(
-                            "state/pcb_snaps.ndjson",
-                            &pcb_snaps,
-                        );
-
-                        // Optional raw dump
-                        if std::env::var("EDR_PCB_DUMP_RAW")
-                            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
-                            .unwrap_or(false)
-                        {
-                            let _ = forensic_hooks::pcb::dump_records_raw(
-                                &records,
-                                "state/pcb_raw",
-                                false,
-                            );
-                        }
-
-                        // Feature/anomaly taggers
-                        if let Some(ep) = build_episode_from_records(&records) {
-                            let mut store = BaselineStore::default();
-                            use forensic_hooks::traits::FeatureEmitter;
-                            let mut feats = Vec::new();
-                            feats.extend(MemoryPrivEmitter::new().emit(&ep, &mut store));
-                            feats.extend(NetCadenceEmitter::new().emit(&ep, &mut store));
-                            feats.extend(PcbEmitter::new().emit(&ep, &mut store));
-                            let _ = store.flush();
-
-                            for f in feats.iter().filter(|f| f.z.abs() > 2.0) {
-                                println!(
-                                    "🔎 feature: {}={} z={:.2} fam={}",
-                                    f.key, f.value, f.z, f.family
-                                );
-                            }
-                            let (_d2, _env_margin) =
-                                tag_batch_outliers_with_mahala_and_envelope(&mut records, &ep);
-                            tag_records_from_krim(&mut records);
-                        }
-
-                        // IOC → PB pending
-                        match ioc::tag_records(&mut records) {
-                            Ok(hits) => {
-                                for h in hits {
-                                    pb_introspect::add_or_update_pending(
-                                        pb_introspect::PendingEvidence {
-                                            id: h.id,
-                                            playbook_id: "ioc_layer".to_string(),
-                                            ts: h.ts,
-                                            slot_id: h.slot,
-                                            fact: h.fact,
-                                            summary: h.summary,
-                                            tags: h.tags,
-                                            ttl_sec: 900,
-                                        },
-                                    );
-                                }
-                            }
-                            Err(e) => eprintln!("⚠️ ioc::tag_records error: {e}"),
-                        }
-
-                        // Playbook facts do not come from these records. Each decoder already
-                        // sent its full data map to pb_adapter, which feeds the engine. See the
-                        // playbook block below the record loop.
-
-                        // DecisionEngine (from tags)
-                        feed_decider_from_record_tags(&records, &at, &it);
-
-                        // Per-record rules + live graph
-                        for rec in &records {
-                            let mut t = NormTelemetry::from(rec.clone());
-                            let (cat, evt) = categorize_record(rec);
-                            t.category = cat;
-                            t.event = evt;
-
-                            // Live graph
-                            {
-                                let mut gsw = gs.write();
-                                let pid_u = if rec.pid < 0 { 0 } else { rec.pid as u32 };
-                                let ppid_u = if rec.ppid < 0 { 0 } else { rec.ppid as u32 };
-                                let comm = if !rec.binary_path.is_empty() {
-                                    rec.binary_path.clone()
-                                } else {
-                                    rec.command_line
-                                        .split_whitespace()
-                                        .next()
-                                        .unwrap_or("-")
-                                        .to_string()
-                                };
-                                let score_f64 = (rec.risk_score.unwrap_or(0) as f64) / 100.0;
-                                let conf_f64 = (0.1 + score_f64).min(0.95);
-
-                                match (t.category.as_str(), t.event.as_str()) {
-                                    ("process", "exec") => {
-                                        gsw.ingest_exec(
-                                            ppid_u, "-", pid_u, &comm, score_f64, conf_f64,
-                                        );
-                                    }
-                                    ("network", "connect") => {
-                                        let ip_port = rec
-                                            .command_line
-                                            .split_whitespace()
-                                            .find(|s| {
-                                                s.contains(':')
-                                                    && s.chars().any(|c| c.is_ascii_digit())
-                                            })
-                                            .unwrap_or("-");
-                                        gsw.ingest_connect(
-                                            pid_u, &comm, ip_port, score_f64, conf_f64,
-                                        );
-                                    }
-                                    ("file", "write") | ("file", "open") => {
-                                        let path = if !rec.cwd.is_empty() {
-                                            rec.cwd.clone()
-                                        } else {
-                                            "-".into()
-                                        };
-                                        let is_write = t.event == "write";
-                                        gsw.ingest_file_access(
-                                            pid_u, &comm, &path, is_write, score_f64, conf_f64,
-                                        );
-                                    }
-                                    _ => {}
-                                }
-                            }
-
-                            // Rules evaluator → alerts + incidents + DE feed
-                            match evaluator.evaluate(&t) {
-                                Ok(Some(alert)) => {
-                                    ALERTS_OUT.fetch_add(1, Ordering::Relaxed);
-                                    if let Ok(line) = serde_json::to_string(&alert) {
-                                        let _ = at.send(line.clone());
-
-                                        if let Ok(v) =
-                                            serde_json::from_str::<serde_json::Value>(&line)
-                                        {
-                                            if let Some(out) =
-                                                incidents().lock().unwrap().ingest_alert_json(&v)
-                                            {
-                                                let _ = it.send(out.to_string());
-                                            }
-
-                                            // Rules → DE signal
-                                            let exe = v
-                                                .pointer("/event/exe")
-                                                .or_else(|| v.pointer("/event/binary_path"))
-                                                .and_then(|x| x.as_str())
-                                                .unwrap_or("-")
-                                                .to_string();
-                                            let host = std::env::var("HOSTNAME")
-                                                .unwrap_or_else(|_| "localhost".into());
-                                            let user = v
-                                                .pointer("/event/user")
-                                                .and_then(|x| x.as_str())
-                                                .unwrap_or("unknown")
-                                                .to_string();
-                                            let cmd = v
-                                                .pointer("/event/cmdline")
-                                                .or_else(|| v.pointer("/event/command_line"))
-                                                .and_then(|x| x.as_str())
-                                                .unwrap_or("")
-                                                .to_string();
-                                            let ts = v
-                                                .get("ts")
-                                                .or_else(|| v.get("time"))
-                                                .or_else(|| v.get("timestamp"))
-                                                .and_then(|x| x.as_i64())
-                                                .unwrap_or(now_ts() as i64)
-                                                as u64;
-                                            let score = v
-                                                .get("risk")
-                                                .and_then(|x| x.as_f64())
-                                                .or_else(|| v.get("score").and_then(|x| x.as_f64()))
-                                                .unwrap_or(0.8)
-                                                .clamp(0.0, 1.5)
-                                                as f32;
-
-                                            let tags: Vec<String> = v
-                                                .get("findings")
-                                                .and_then(|x| x.as_array())
-                                                .map(|arr| {
-                                                    arr.iter()
-                                                        .filter_map(|f| {
-                                                            f.get("label")
-                                                                .and_then(|l| l.as_str())
-                                                                .map(|s| s.to_string())
-                                                        })
-                                                        .collect()
-                                                })
-                                                .unwrap_or_default();
-
-                                            let sig = Signal {
-                                                detector: DetectorKind::Rules,
-                                                score: score.min(1.0),
-                                                ts,
-                                                exe: Some(exe),
-                                                user: Some(user),
-                                                host: Some(host),
-                                                cmd_prefix: Some(first_token(&cmd)),
-                                                parent: None,
-                                                signer: None,
-                                                hash: None,
-                                                pid: None,
-                                                tags,
-                                            };
-                                            let outs =
-                                                decision_engine().lock().unwrap().ingest(sig);
-                                            for a in outs {
-                                                emit_final_incident(a, &at, &it);
-                                            }
-                                        }
-                                    }
-                                }
-                                Ok(None) => {}
-                                Err(e) => eprintln!("⚠️ evaluator error: {e}"),
-                            }
-                        }
-
-                        // Trust engine fanout
-                        for rec in &records {
-                            println!("🟡 Raw Telemetry: {:?}", rec);
-                            let telemetry_data = TelemetryData::from_record(rec);
-                            let result: TrustResult =
-                                evaluate_and_dispatch_trust_score(&telemetry_data);
-                            println!("✅ Trust Result: {:?}", result);
-                            fanout_all(&result, &records, &telemetry_data);
-                        }
-                    }
-
-                    // Playbooks: time moves on even when no event arrives. tick drops slot
-                    // hits and counted events that aged out, so a chain that started long ago
-                    // cannot complete late. Playbooks that completed since the last pass
-                    // become incidents and are kept in logs/playbook_hits.jsonl.
+                    // Playbooks that completed since the last pass become incidents and are
+                    // kept in logs/playbook_hits.jsonl. The engine thread runs tick and the
+                    // open_flow sweep itself (pb_adapter/runner.rs).
                     {
-                        let now = now_ts();
-                        if let Ok(mut eng) = pb_engine().lock() {
-                            eng.tick(now);
-                        }
                         let done = pb_wiring::take_completed();
                         if !done.is_empty() {
                             let _ = std::fs::create_dir_all("logs");
@@ -3099,11 +3351,88 @@ async fn main() -> Result<()> {
                                     use std::io::Write;
                                     let _ = writeln!(f, "{alert}");
                                 }
-                                if let Some(inc) = incidents().lock().unwrap().ingest_alert_json(&alert) {
+                                // A statement of its own, so the incidents lock is released here.
+                                // Inside `if let Some(inc) = incidents().lock()...` the guard
+                                // would live to the end of the block, and attach_proposals
+                                // below takes the same lock: the first live run deadlocked
+                                // there and the whole API stopped answering.
+                                let ingested = incidents().lock().unwrap().ingest_alert_json(&alert);
+                                if let Some(inc) = ingested {
+                                    let inc_id = inc.get("id").and_then(|x| x.as_str()).unwrap_or("-").to_string();
+                                    eprintln!("incident {inc_id} from playbook {}", hit.playbook_id);
+                                    let _ = it.send(inc.to_string());
+                                    // Shield proposals from the playbook's templates, on the
+                                    // incident and ready to sign. Applied here only when the
+                                    // signed policy lets this kind apply by itself.
+                                    let props = forensic_hooks::shield::propose::from_hit(
+                                        hit,
+                                        &inc_id,
+                                        forensic_hooks::utils::time::now_ts(),
+                                        Path::new("/proc"),
+                                        Path::new(forensic_hooks::shield::propose::CGROUP_ROOT),
+                                    );
+                                    if !props.is_empty() {
+                                        let mut views = Vec::new();
+                                        for p in props {
+                                            let mut v = p.json();
+                                            if let Some(m) = forensic_hooks::shield::manager() {
+                                                let o = m.apply_auto(p.doc.clone(), &hit.playbook_id);
+                                                v["auto_apply"] = json!({ "status": o.status, "result": o.body });
+                                                if o.status < 300 {
+                                                    eprintln!("shield {} applied by itself in monitor mode ({})", p.doc.id, p.summary);
+                                                }
+                                            }
+                                            eprintln!("shield proposal {} on incident {inc_id}: {}", p.doc.id, p.summary);
+                                            views.push(v);
+                                        }
+                                        if let Some(inc) = incidents().lock().unwrap().attach_proposals(&inc_id, views) {
+                                            let _ = it.send(inc.to_string());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Guard blocks and would-blocks become incidents with the guard name,
+                    // the caller exe, the target and the mode.
+                    {
+                        let guard_alerts = forensic_hooks::guard::take_guard_alerts();
+                        if !guard_alerts.is_empty() {
+                            let _ = std::fs::create_dir_all("logs");
+                            let mut log = std::fs::OpenOptions::new()
+                                .create(true)
+                                .append(true)
+                                .open("logs/guard_alerts.jsonl")
+                                .ok();
+                            for alert in &guard_alerts {
+                                // A shield hit takes the technique of the incident that
+                                // proposed the shield.
+                                let mut alert = alert.clone();
+                                if alert.get("source").and_then(|x| x.as_str()) == Some("shield") {
+                                    if let Some(linked) = alert
+                                        .pointer("/details/incident_id")
+                                        .and_then(|x| x.as_str())
+                                        .and_then(|i| incidents().lock().unwrap().get(i))
+                                    {
+                                        let t = linked.get("primary_technique").cloned().unwrap_or(json!("-"));
+                                        if t != json!("-") {
+                                            alert["findings"] = json!([{ "label": t.clone() }]);
+                                        }
+                                        alert["technique"] = t;
+                                    }
+                                }
+                                let alert = &alert;
+                                if let Some(f) = log.as_mut() {
+                                    use std::io::Write;
+                                    let _ = writeln!(f, "{alert}");
+                                }
+                                if let Some(inc) = incidents().lock().unwrap().ingest_alert_json(alert) {
                                     eprintln!(
-                                        "incident {} from playbook {}",
+                                        "incident {} from guard {} ({})",
                                         inc.get("id").and_then(|x| x.as_str()).unwrap_or("-"),
-                                        hit.playbook_id
+                                        alert.pointer("/details/guard").and_then(|x| x.as_str()).unwrap_or("-"),
+                                        alert.pointer("/details/mode").and_then(|x| x.as_str()).unwrap_or("-"),
                                     );
                                     let _ = it.send(inc.to_string());
                                 }
@@ -3111,13 +3440,7 @@ async fn main() -> Result<()> {
                         }
                     }
 
-                    // Persist batch
-                    if let Ok(locked) = w.clone().lock() {
-                        locked.append_batch(records);
-                    }
-
-                    // Cadence
-                    tokio::time::sleep(Duration::from_secs(5)).await;
+                    tokio::time::sleep(Duration::from_secs(2)).await;
                 }
             });
         }
@@ -3131,8 +3454,124 @@ async fn main() -> Result<()> {
     if let Some(prevention_guard) = prevention_guard {
         prevention_guard.stop();
     }
+    // The shield programs stay attached through their pins, and every row ends on time.
+    #[cfg(target_os = "linux")]
+    if let Some(t) = shield_thread {
+        t.stop();
+    }
+    #[cfg(not(target_os = "linux"))]
+    let _ = shield_thread;
     let _ = shutdown_tx.send(());
     Ok(())
+}
+
+/// Files the guard write protects and no shield may name: the agent's binary, its
+/// public key and its anti-rollback state.
+fn own_files(pubkey: &Path, store: &forensic_hooks::config::PolicyStore) -> Vec<PathBuf> {
+    let mut v = Vec::new();
+    if let Ok(exe) = std::fs::read_link("/proc/self/exe") {
+        v.push(exe);
+    }
+    v.push(pubkey.to_path_buf());
+    v.extend(store.files());
+    let state = forensic_hooks::config::state_dir();
+    v.push(state.join("shields.json"));
+    v.push(state.join("shield_serials.json"));
+    v.push(state.join("shields.journal"));
+    v
+}
+
+#[cfg(target_os = "linux")]
+type ShieldThread = forensic_hooks::shield::loader::ShieldThread;
+#[cfg(not(target_os = "linux"))]
+type ShieldThread = ();
+
+/// Loads the shield programs (pinned), restores the saved shields, protects the
+/// shields' BPF objects and the agent's files with the guard, and installs the
+/// process wide shield manager.
+fn start_shields(
+    policy: &forensic_hooks::config::RawPolicy,
+    pubkey: &Path,
+    store: &forensic_hooks::config::PolicyStore,
+    guard: Option<&forensic_hooks::guard::GuardHandle>,
+    backend_ips: &[std::net::IpAddr],
+) -> Option<ShieldThread> {
+    use forensic_hooks::shield::{self, NeverBlock, ShieldManager, SystemClock};
+    let state = forensic_hooks::config::state_dir();
+    let _ = std::fs::create_dir_all(&state);
+    let audit = PathBuf::from(std::env::var("EDR_SHIELDS_AUDIT").unwrap_or_else(|_| "logs/shields_audit.jsonl".into()));
+    let own = own_files(pubkey, store);
+    let never = NeverBlock::build(&policy.shields.never_block, &own, backend_ips);
+    let pem = std::fs::read(pubkey).unwrap_or_default();
+    let mut thread: Option<ShieldThread> = None;
+    let mut maps: Option<Box<dyn shield::RuleMaps>> = None;
+    #[cfg(target_os = "linux")]
+    if let Some(g) = guard {
+        let obj = std::env::var("EDR_BPF_SHIELD_OBJ").unwrap_or_else(|_| match std::env::var("EDR_BPF_DIR") {
+            Ok(d) => format!("{}/edr_shield.bpf.o", d.trim_end_matches('/')),
+            Err(_) => "src/ebpf/edr_shield.bpf.o".into(),
+        });
+        let pin_dir = PathBuf::from(std::env::var("EDR_SHIELD_PIN_DIR").unwrap_or_else(|_| shield::loader::DEFAULT_PIN_DIR.into()));
+        let on_event: Box<dyn FnMut(&[u8]) + Send> = Box::new(|data: &[u8]| {
+            let Some(e) = shield::abi::ShieldEvent::from_bytes(data) else {
+                log::warn!("shields: dropped a {} byte record", data.len());
+                return;
+            };
+            let active = shield::manager().and_then(|m| m.by_num(e.shield_id));
+            let exe = std::fs::read_link(format!("/proc/{}/exe", e.tgid)).ok().map(|p| p.display().to_string());
+            if let Some((finding, alert)) = shield::shield_finding(&e, active.as_ref(), exe.as_deref()) {
+                forensic_hooks::guard::emit_with_alert(finding, alert);
+            }
+        });
+        match shield::loader::start(&obj, &pin_dir, g.summary.scope_cgroup_id, on_event) {
+            Ok(st) => {
+                for n in &st.notes {
+                    eprintln!("shields: {n}");
+                }
+                if let Err(e) = g.control.protect_ids(&st.ids) {
+                    eprintln!("⚠️ shields: could not protect the shield objects: {e:#}");
+                }
+                let mut files = st.pins.clone();
+                files.extend(own.iter().cloned());
+                files.push(PathBuf::from(&obj));
+                files.push(PathBuf::from(&g.summary.obj_path));
+                eprintln!(
+                    "shields: {} ({} programs, maps and links protected), pinned in {}",
+                    obj,
+                    st.ids.len(),
+                    pin_dir.display()
+                );
+                maps = Some(Box::new(st.maps));
+                thread = Some(st.thread);
+                // The state files must exist before their inodes are protected.
+                let m = ShieldManager::new(policy.shields.clone(), never.clone(), maps.take().unwrap(), Box::new(SystemClock), pem.clone(), &state, &audit, "kernel");
+                for n in m.restore() {
+                    eprintln!("shields: {n}");
+                }
+                match g.control.protect_files(&files) {
+                    Ok(missing) if !missing.is_empty() => eprintln!("⚠️ guard: not protected, missing: {}", missing.join(", ")),
+                    Ok(_) => eprintln!("guard: {} agent files and shield pins write protected", files.len()),
+                    Err(e) => eprintln!("⚠️ guard: file protection: {e:#}"),
+                }
+                shield::set_manager(std::sync::Arc::new(m));
+                return thread;
+            }
+            Err(e) => eprintln!("⚠️ shields: not loaded, the shield API refuses new shields: {e:#}"),
+        }
+    }
+    let _ = (&mut thread, guard);
+    let m = ShieldManager::new(
+        policy.shields.clone(),
+        never,
+        maps.unwrap_or_else(|| Box::new(shield::MemMaps::default())),
+        Box::new(SystemClock),
+        pem,
+        &state,
+        &audit,
+        "none",
+    );
+    shield::set_manager(std::sync::Arc::new(m));
+    thread
 }
 
 // Every decoder stamps TelemetryRecord.timestamp in Unix seconds, so a playbook window
@@ -3158,6 +3597,33 @@ mod timestamp_tests {
     }
 
     #[test]
+    fn tcp_state_addresses_and_ports_decode_in_network_order() {
+        // Offsets of struct edr_event: fam 56, lport 58, laddr4 60, laddr6 64, rport 80,
+        // raddr4 84, raddr6 88. The kernel stores addresses and ports big endian.
+        let mut b = vec![0u8; 376];
+        put_u32(&mut b, 8, 200); // EVT_TCP_STATE
+        b[56] = 2;
+        b[58..60].copy_from_slice(&42754u16.to_be_bytes());
+        b[60..64].copy_from_slice(&[127, 0, 0, 1]);
+        b[80..82].copy_from_slice(&8080u16.to_be_bytes());
+        b[84..88].copy_from_slice(&[203, 0, 113, 10]);
+        let e = abi::from_ring_frame::<crate::ebpf::ebpf_bridge::EdREvent>(&b).unwrap();
+        let d = edr_event_to_output(&e).data;
+        assert_eq!(d["laddr4"], "127.0.0.1", "was printed reversed as 1.0.0.127");
+        assert_eq!(d["raddr4"], "203.0.113.10");
+        assert_eq!(d["lport"], "42754");
+        assert_eq!(d["rport"], "8080");
+        // IPv6, with a mapped IPv4 peer shown as IPv4.
+        b[56] = 10;
+        b[64..80].copy_from_slice(&"fd00::5".parse::<std::net::Ipv6Addr>().unwrap().octets());
+        b[88..104].copy_from_slice(&"::ffff:203.0.113.9".parse::<std::net::Ipv6Addr>().unwrap().octets());
+        let e = abi::from_ring_frame::<crate::ebpf::ebpf_bridge::EdREvent>(&b).unwrap();
+        let d = edr_event_to_output(&e).data;
+        assert_eq!(d["laddr6"], "fd00::5");
+        assert_eq!(d["raddr6"], "203.0.113.9");
+    }
+
+    #[test]
     fn wx_and_proc_records_use_the_kernel_stamp() {
         let ns = clock::unix_secs_to_mono_ns(T);
         let d = decode_wx(&wx(555, 2, ns, 0, 0, 0, 8192), T + 3).unwrap();
@@ -3172,5 +3638,165 @@ mod timestamp_tests {
             panic!("not a proc_lifecycle frame");
         };
         assert_eq!(decode_proc_lifecycle(&p, T + 9).unwrap().record.timestamp, T + 2);
+    }
+}
+
+// Secrets on a command line are masked before anything is stored: the kv rows, the
+// telemetry files, the playbook facts and the incident list are checked on disk and in
+// memory for the raw values.
+#[cfg(test)]
+mod redaction_tests {
+    use crate::ebpf::abi::{self, test_bytes::*, SharedFrame};
+    use crate::ebpf::ebpf_ingest::{decode_proc_lifecycle, fill_exec_from_kernel_copy};
+    use forensic_hooks::pb_adapter::{adapter_facts_with, ProcInfo};
+    use forensic_hooks::pb_wiring::{FixedMounts, Mapper};
+    use forensic_hooks::telemetry_writer::{write_telemetry_record_to, TelemetryWriter};
+    use serde_json::json;
+
+    const T: u64 = 1_800_000_000;
+
+    // Built at run time so no source line holds a whole fake secret.
+    fn secrets() -> Vec<String> {
+        vec![
+            format!("{}{}", "Hunter2", "Pass"),
+            format!("{}{}", "tok_9f8e7d6c", "5b4a3210"),
+            format!("{}{}", "AKIA", "IOSFODNN7EXAMPLE"),
+            format!("{}{}", "wJalrXUtnFEMI/K7MDENG/", "bPxRfiCYEXAMPLEKEY"),
+            format!("{}{}", "eyJhbGciOi", "JIUzI1NiJ9abc"),
+            format!("{}{}", "urlpw", "S3cret"),
+        ]
+    }
+
+    fn read_all(dir: &std::path::Path) -> String {
+        let mut text = String::new();
+        for e in std::fs::read_dir(dir).unwrap().flatten() {
+            text.push_str(&std::fs::read_to_string(e.path()).unwrap_or_default());
+        }
+        text
+    }
+
+    #[test]
+    fn argv_secrets_never_reach_disk_facts_or_incidents() {
+        let s = secrets();
+        let args: Vec<String> = vec![
+            "mysql".into(),
+            "-uroot".into(),
+            format!("-p{}", s[0]),
+            "--api-token".into(),
+            s[1].clone(),
+            format!("AWS_ACCESS_KEY_ID={}", s[2]),
+            format!("AWS_SECRET_ACCESS_KEY={}", s[3]),
+            "Authorization:".into(),
+            "Bearer".into(),
+            s[4].clone(),
+            format!("https://bob:{}@db.example/x", s[5]),
+        ];
+        let argv: Vec<&str> = args.iter().map(String::as_str).collect();
+        let b = proc_lc_exec(4242, "mysql", "/usr/bin/mysql", &argv);
+        let SharedFrame::ProcLifecycle(p) = abi::classify_shared_frame(&b) else {
+            panic!("not a proc_lifecycle frame");
+        };
+        let d = decode_proc_lifecycle(&p, T).unwrap();
+        let dir = std::env::temp_dir().join(format!("edr_redact_{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+
+        // The kv row, as sink() writes it.
+        let mut m = d.out.data.clone();
+        m.insert("category".into(), d.out.category.clone());
+        m.insert("signal".into(), d.out.signal.clone());
+        write_telemetry_record_to(&dir, m);
+
+        // The record, filled from the kernel copy because /proc has no pid 4242, as the
+        // batch loop stores it.
+        let mut rec = d.record.clone();
+        fill_exec_from_kernel_copy(&mut rec, &p);
+        assert!(rec.command_line.contains("[REDACTED]"));
+        let w = TelemetryWriter::with_dir(&dir);
+        w.append_batch(vec![rec.clone()]);
+        w.flush_to_disk();
+
+        // The playbook facts.
+        let facts: Vec<_> = adapter_facts_with(&d.out, T, &|_| ProcInfo::default())
+            .iter()
+            .flat_map(|af| Mapper::with_mounts(Box::new(FixedMounts(vec![]))).facts(af))
+            .collect();
+        let cmd = facts[0].cmd.clone().unwrap();
+        assert!(cmd.starts_with("mysql -uroot -p[REDACTED] --api-token [REDACTED]"), "{cmd}");
+
+        // The incident made from an alert on this record.
+        let alert = json!({
+            "id": "a1", "ts": T, "severity": "high", "technique": "T1059",
+            "findings": [{"label": "T1059"}],
+            "event": { "exe": rec.binary_path, "cmdline": rec.command_line },
+        });
+        let mut mgr = crate::IncidentsMgr::new(900);
+        let inc = mgr.ingest_alert_json(&alert).unwrap().to_string();
+
+        let on_disk = read_all(&dir);
+        assert!(on_disk.contains("[REDACTED]"), "the rows were written: {on_disk}");
+        for secret in &s {
+            assert!(!on_disk.contains(secret.as_str()), "{secret} reached disk");
+            assert!(!cmd.contains(secret.as_str()), "{secret} reached a fact");
+            assert!(!inc.contains(secret.as_str()), "{secret} reached an incident");
+            assert!(!format!("{:?}", d.out.data).contains(secret.as_str()));
+        }
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn a_rule_alert_incident_names_the_rule_and_its_techniques() {
+        let alert = json!({
+            "ts": T, "severity": "medium", "risk": 0.6,
+            "findings": [{"source": "rules", "score": 0.7, "label": "proc_exec_from_tmp",
+                          "details": {"name": "Exec from /tmp", "mitre": ["T1204", "T1036"]}}],
+            "event": { "exe": "/tmp/x" },
+        });
+        let inc = crate::IncidentsMgr::new(900).ingest_alert_json(&alert).unwrap();
+        assert_eq!(inc["title"], "Exec from /tmp");
+        assert_eq!(inc["techniques"], json!(["T1036", "T1204"]));
+        assert_eq!(inc["sources"], json!(["rules"]));
+    }
+
+    #[test]
+    fn a_guard_block_becomes_an_incident_with_guard_caller_target_and_mode() {
+        let mut data = std::collections::HashMap::new();
+        for (k, v) in [
+            ("source", "edr_guard"),
+            ("timestamp", "1800000000"),
+            ("pid", "4321"),
+            ("uid", "0"),
+            ("comm", "docker"),
+            ("binary_path", "/tmp/g6_spoof/docker"),
+            ("guard", "runtime_socket"),
+            ("hook", "unix_stream_connect"),
+            ("action", "blocked"),
+            ("target", "/run/docker.sock"),
+            ("mitre", "T1611,T1610"),
+            ("reason", "blocked: docker (pid 4321) connect() to /run/docker.sock"),
+        ] {
+            data.insert(k.to_string(), v.to_string());
+        }
+        let out = forensic_hooks::telemetry_types::TelemetryOutput {
+            category: "process".into(),
+            signal: "guard::runtime_socket::blocked".into(),
+            confidence: 0.6,
+            data,
+        };
+        let alert = forensic_hooks::guard::guard_alert_json(&out);
+        let mut mgr = crate::IncidentsMgr::new(900);
+        let inc = mgr.ingest_alert_json(&alert).unwrap();
+        assert_eq!(inc["sources"], json!(["guard"]));
+        assert_eq!(inc["exe"], "/tmp/g6_spoof/docker");
+        assert_eq!(inc["primary_technique"], "T1610");
+        assert_eq!(inc["severity_max"], "high");
+        assert_eq!(inc["details"]["guard"], "runtime_socket");
+        assert_eq!(inc["details"]["caller_exe"], "/tmp/g6_spoof/docker");
+        assert_eq!(inc["details"]["target"], "/run/docker.sock");
+        assert_eq!(inc["details"]["mode"], "enforce");
+        assert!(inc["title"].as_str().unwrap().starts_with("Guard runtime_socket blocked"));
+        // The same caller again in the window adds to the incident.
+        let again = mgr.ingest_alert_json(&alert).unwrap();
+        assert_eq!(again["alerts_count"], 2);
+        assert_eq!(mgr.list().len(), 1);
     }
 }

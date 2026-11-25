@@ -1,5 +1,5 @@
 id: pb_outage_internal_ddos_egress
-version: 1
+version: 2
 name: Internal Host Egress Flood (DDoS)
 severity: high
 description: Detects a compromised host generating sustained high-rate outbound traffic likely to cause outage.
@@ -9,19 +9,24 @@ cooldown_sec: 900
 required:
   - slot_id: flood_connect_rate
     slot_ttl_sec: 300
-    fact: NetConn
+    fact: NetFlow
     where:
-      - {field: __agg.kind, op: eq, value: conn_rate}
-      - {field: __agg.conn_rate_eps, op: gte, value: 2000}     # events per second
+      - {field: dst_private, op: eq, value: "false"}
+      - {field: __agg.kind, op: eq, value: conn_burst}
+      - {field: __agg.conn_rate_eps, op: gte, value: 2000}     # connects per second
       - {field: __agg.window_sec, op: lte, value: 300}
     derive_tags: ["T1498"]    # Network Denial of Service
 
+  # Was a reputation check. Reputation is a verdict from a threat feed outside the host,
+  # not something a kernel hook can observe, so a public destination on a web or DNS
+  # port stands in.
   - slot_id: dst_profile
     slot_ttl_sec: 600
-    fact: NetConn
+    fact: NetFlow
     where:
+      - {field: op, op: eq, value: connect}
       - {field: dst_port, op: in, value: [80, 443, 53]}
-      - {field: reputation, op: neq, value: "corporate"}
+      - {field: dst_private, op: eq, value: "false"}
     derive_tags: ["T1498"]
 
 optional:
@@ -29,7 +34,7 @@ optional:
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - {field: exe, op: regex, value: "^(?:/usr/bin/)?(curl|wget|node|python|hping3|nping)$"}
+      - {field: exe_name, op: regex, value: '^(curl|wget|node|python3?(\.\d+)?|hping3|nping|slowhttptest)$'}
     derive_tags: ["T1059"]
 
 forbidden:
@@ -38,7 +43,7 @@ forbidden:
     fact: VendorAlert
     where:
       - {field: product, op: eq, value: "NOC"}
-      - {field: type, op: eq, value: "CapacityTest"}
+      - {field: alert_type, op: eq, value: "CapacityTest"}
 
 vendor_map:
   - {product: NetFlow, alert_type: "High PPS Host", fills_slot: flood_connect_rate}
@@ -47,7 +52,7 @@ vendor_map:
 explain:
   primary_ttp: T1498
   narrative: >
-    A single host sustained >2k connects per second to public services, which is characteristic of outbound DDoS activity
+    A single host sustained more than 2,000 connects per second to public services, which is characteristic of outbound DDoS activity
     and likely to cause collateral outage.
 title: Internal Host Egress Flood (DDoS)
 reason_code: OUTAGE_INTERNAL_DDOS_EGRESS

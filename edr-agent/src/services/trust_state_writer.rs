@@ -50,7 +50,7 @@ pub fn persist_trust_state(endpoint_id: &str, score: f64) -> std::io::Result<()>
     let mut file = File::create(full_path)?;
     file.write_all(json.as_bytes())?;
 
-    println!("[📝 Trust Writer] Wrote trust score for {}", endpoint_id);
+    log::debug!("trust writer: wrote the trust score for {endpoint_id}");
 
     // Push to GNN as a time-series trust update
     push_gnn_event(endpoint_id, score, "trust_tick");

@@ -1,0 +1,19 @@
+{
+  "shield": {
+    "id": "pb.webshell_reverse_shell_linux.conn.1a2b3c4d",
+    "serial": 1795500000,
+    "kind": "connect_deny",
+    "match": {
+      "cidr": "203.0.113.10",
+      "port": 4444
+    },
+    "scope": {
+      "cgroup": "/sys/fs/cgroup/system.slice/nginx.service"
+    },
+    "mode": "enforce",
+    "not_before": 1795500000,
+    "expires_at": 1795503600,
+    "reason": "proposed by playbook pb_webshell_reverse_shell_linux from slot outbound_rev_c2",
+    "incident_id": "5f48249046bfcb8a86f3b4b8dc12ede76ac21e0f"
+  }
+}

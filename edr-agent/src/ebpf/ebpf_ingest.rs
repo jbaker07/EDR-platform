@@ -40,9 +40,10 @@ fn warn_drift(source: &str, got: usize, detail: &str) {
 }
 
 /// Frames from the agent's own process that still reached user space, by source.
-/// raw_syscalls_catcher skips the agent in the kernel once raw_config has written its
-/// tgid to edr_self_tgid, so the raw count stays at 0 unless that map is missing.
-/// file_access_monitor has no such map, so its count is the agent's own opens.
+/// raw_syscalls_catcher and file_access_monitor skip the agent in the kernel once
+/// raw_config has written its tgid to edr_self_tgid and fam_self_tgid, so both counts
+/// stay near 0 unless a map is missing (an older object) or the agent runs outside the
+/// host pid namespace.
 static SELF_DROPPED_RAW: AtomicU64 = AtomicU64::new(0);
 static SELF_DROPPED_FILE: AtomicU64 = AtomicU64::new(0);
 
@@ -72,12 +73,15 @@ fn drop_own_frame(pid: u32, counter: &AtomicU64) -> bool {
 
 /// /proc is gone when the process exited before its exec frame was read. The kernel
 /// copied the filename and argv at exec, so those fill what /proc could not.
-fn fill_exec_from_kernel_copy(rec: &mut TelemetryRecord, p: &ProcLifecycleEvent) {
+pub(crate) fn fill_exec_from_kernel_copy(rec: &mut TelemetryRecord, p: &ProcLifecycleEvent) {
     if rec.binary_path.is_empty() {
         rec.binary_path = p.exec_filename().unwrap_or_default();
     }
     if rec.command_line.is_empty() {
-        rec.command_line = p.exec_argv().unwrap_or_default();
+        rec.command_line = p
+            .exec_argv()
+            .map(forensic_hooks::redact::redact_owned)
+            .unwrap_or_default();
     }
 }
 
@@ -291,8 +295,9 @@ pub(crate) fn decode_proc_lifecycle(p: &ProcLifecycleEvent, now_secs: u64) -> Op
     if let Some(f) = p.exec_filename() {
         data.insert("exec_filename".into(), f);
     }
+    // argv is masked before it reaches any sink (forensic_hooks::redact).
     if let Some(a) = p.exec_argv() {
-        data.insert("exec_argv".into(), a);
+        data.insert("exec_argv".into(), forensic_hooks::redact::redact_owned(a));
         data.insert("exec_argv_total".into(), p.argv_total.to_string());
     }
     if p.type_ == abi::PROC_LC_EXIT {
@@ -342,6 +347,9 @@ pub fn on_edr_event_net_only(
 }
 
 pub(crate) fn decode_net(bytes: &[u8], now_secs: u64) -> Option<Decoded> {
+    if bytes.len() == abi::TLS_FRAME_LEN {
+        return decode_tls_hello(bytes, now_secs);
+    }
     let Some(e) = abi::from_ring_frame::<NetEvt>(bytes) else {
         warn_drift("net_events", bytes.len(), "want 48B struct net_evt");
         return None;
@@ -349,6 +357,7 @@ pub(crate) fn decode_net(bytes: &[u8], now_secs: u64) -> Option<Decoded> {
 
     let mut data: HashMap<String, String> = HashMap::new();
     data.insert("pid".into(), e.pid.to_string());
+    data.insert("uid".into(), e.uid.to_string());
     data.insert("kind".into(), e.kind.to_string());
     data.insert("source".into(), "net_flow".into());
 
@@ -396,7 +405,56 @@ pub(crate) fn decode_net(bytes: &[u8], now_secs: u64) -> Option<Decoded> {
             data,
         },
         tag0: tag0.into(),
-        record: record(now_secs, e.pid, 0, 0, String::new(), tags),
+        record: record(now_secs, e.pid, 0, e.uid, String::new(), tags),
+    })
+}
+
+/// A copied ClientHello (struct tls_evt): the destination of the connect that marked the
+/// socket and the server name the client asked for.
+fn decode_tls_hello(bytes: &[u8], now_secs: u64) -> Option<Decoded> {
+    let e = abi::from_ring_frame::<NetEvt>(&bytes[..48])?;
+    if e.kind != abi::NET_KIND_TLS_HELLO {
+        warn_drift("net_events", bytes.len(), &format!("kind {} in a TLS sized frame", e.kind));
+        return None;
+    }
+    let n = (e.bytes.max(0) as usize).min(abi::TLS_CAP);
+    let hello = forensic_hooks::tls_hello::parse_client_hello(&bytes[48..48 + n]);
+    let ip = e.dst_ip().to_string();
+    let port = e.dst_port();
+    let mut data: HashMap<String, String> = HashMap::new();
+    data.insert("pid".into(), e.pid.to_string());
+    data.insert("uid".into(), e.uid.to_string());
+    data.insert("kind".into(), e.kind.to_string());
+    data.insert("source".into(), "net_flow".into());
+    data.insert("dst_addr".into(), ip.clone());
+    data.insert("dst_port".into(), port.to_string());
+    data.insert("family".into(), e.family.to_string());
+    data.insert("hello_bytes".into(), n.to_string());
+    let mut tags = vec![
+        "net_tls_hello".to_string(),
+        "network::tls_client_hello".to_string(),
+        format!("dst_ip:{ip}"),
+        format!("dst_port:{port}"),
+    ];
+    if let Some(h) = &hello {
+        data.insert("tls_version".into(), format!("{:#06x}", h.version));
+        if let Some(sni) = &h.sni {
+            data.insert("sni".into(), sni.clone());
+            tags.push(format!("sni:{sni}"));
+        }
+        if !h.alpn.is_empty() {
+            data.insert("alpn".into(), h.alpn.join(","));
+        }
+    }
+    Some(Decoded {
+        out: TelemetryOutput {
+            category: "network".into(),
+            signal: "network::tls_client_hello".into(),
+            confidence: 0.90,
+            data,
+        },
+        tag0: "net_tls_hello".into(),
+        record: record(now_secs, e.pid, 0, e.uid, String::new(), tags),
     })
 }
 
@@ -565,6 +623,52 @@ mod tests {
         // unknown kind and wrong size are dropped, not guessed
         assert!(decode_net(&net_bytes(77, 9, 1), NOW).is_none());
         assert!(decode_net(&vec![0u8; 376], NOW).is_none());
+    }
+
+    /// A minimal TLS 1.2 ClientHello with one cipher suite and a server_name extension.
+    fn client_hello(sni: &str) -> Vec<u8> {
+        let name = sni.as_bytes();
+        let mut ext = vec![0, 0]; // server_name
+        let list_len = (name.len() + 3) as u16;
+        ext.extend_from_slice(&(list_len + 2).to_be_bytes());
+        ext.extend_from_slice(&list_len.to_be_bytes());
+        ext.push(0);
+        ext.extend_from_slice(&(name.len() as u16).to_be_bytes());
+        ext.extend_from_slice(name);
+        let mut body = vec![3, 3];
+        body.extend_from_slice(&[7u8; 32]);
+        body.push(0); // session id
+        body.extend_from_slice(&[0, 2, 0x13, 0x01]);
+        body.extend_from_slice(&[1, 0]);
+        body.extend_from_slice(&(ext.len() as u16).to_be_bytes());
+        body.extend_from_slice(&ext);
+        let mut hs = vec![1, 0];
+        hs.extend_from_slice(&(body.len() as u16).to_be_bytes());
+        hs.extend_from_slice(&body);
+        let mut rec = vec![0x16, 3, 1];
+        rec.extend_from_slice(&(hs.len() as u16).to_be_bytes());
+        rec.extend_from_slice(&hs);
+        rec
+    }
+
+    #[test]
+    fn tls_hello_frames_give_the_server_name_and_destination() {
+        let b = tls_hello_frame(4243, [203, 0, 113, 12], 443, &client_hello("Bucket-X.s3.amazonaws.com"));
+        assert_eq!(b.len(), abi::TLS_FRAME_LEN);
+        let d = decode_net(&b, NOW).unwrap();
+        assert_eq!(d.out.signal, "network::tls_client_hello");
+        assert_eq!(d.out.data["sni"], "bucket-x.s3.amazonaws.com");
+        assert_eq!(d.out.data["dst_addr"], "203.0.113.12");
+        assert_eq!(d.out.data["dst_port"], "443");
+        assert_eq!(d.out.data["uid"], "1000");
+        assert!(has(&d, "sni:bucket-x.s3.amazonaws.com"));
+        // A first write that is not a hello still decodes, with no name.
+        let d = decode_net(&tls_hello_frame(1, [203, 0, 113, 12], 443, b"\x16\x03\x01\x00\x05junk"), NOW).unwrap();
+        assert!(!d.out.data.contains_key("sni"));
+        // A TLS sized frame with another kind is dropped.
+        let mut bad = tls_hello_frame(1, [203, 0, 113, 12], 443, b"");
+        bad[4] = 1;
+        assert!(decode_net(&bad, NOW).is_none());
     }
 
     #[test]

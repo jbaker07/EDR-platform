@@ -1,31 +1,59 @@
-id: memfd_unsigned_egress
-name: In‑Memory Exec → Unsigned Child → Egress
-description: >
-  Detects in‑memory execution or RWX mapping, followed by an unsigned/atypical child process, then
-  outbound egress to the Internet. Cross-domain: memory → process → network.
-window_secs: 1200
-key_by: [host, user]
-steps:
-  - id: memfd_or_rwx
-    domain: memory
-    any_tags: ["MEMFD_EXEC", "RWX_MAP", "T1055*", "memory::injection"]
-  - id: unsigned_child
-    domain: process
-    any_tags: ["process::hollow", "T1055*"]
-    cmd_regex: "^(?!(.*(signedvendor|/usr/bin/ssh|/usr/bin/sudo))).*$"
-    max_gap_secs: 300
-  - id: egress_443_or_tunnel
-    domain: network
-    any_tags: ["net_connect*", "dns_tunnel*", "C2_*"]
-    cmd_regex: ".*(curl|wget|powershell|bitsadmin|nc|openssl).*"
-    max_gap_secs: 600
-emit:
-  add_tags: ["ATTACK:INMEM_EGRESS", "T1055", "T1041"]
-  risk: 0.95
-version: 1
+# Ported from the old steps schema: in-memory execution, then a child process, then egress.
+# The old version wanted an unsigned child. Linux binaries carry no signature, and the
+# package check (exe_pkg_verified) would wrongly clear the child attackers start most,
+# a packaged curl or wget, so the child is tied to the in-memory process by its parent
+# pid instead.
+id: pb_memfd_child_egress_linux
+version: 2
+name: "In-Memory Exec → Child Process → Egress (Linux)"
 severity: medium
-window_sec: 900
+description: >
+  Detects in-memory execution or an RWX mapping, followed by a child of that process, then a
+  connection from either of them to a public address. Cross-domain: memory → process → network.
+window_sec: 1200
 cooldown_sec: 300
-title: In‑Memory Exec → Unsigned Child → Egress
-reason_code: MEMFD_UNSIGNED_EGRESS
+# No context_keys, though the old schema had key_by: [host, user]. in_slot ties the
+# steps to one process and its child, which is stricter than one user, and wx_exec
+# frames carry no uid.
+
+required:
+  - slot_id: memfd_or_rwx
+    slot_ttl_sec: 1200
+    fact: Exec
+    where:
+      - {field: tags_any, op: in, value: [MEMFD_EXEC, RWX_MAP]}
+    derive_tags: ["T1620", "T1055"]
+
+  - slot_id: child_exec
+    slot_ttl_sec: 300
+    fact: Exec
+    where:
+      - {field: ppid, op: in_slot, value: memfd_or_rwx.pid}
+      - {field: exe_name, op: not_in, value: [ssh, sudo]}
+    derive_tags: ["T1059"]
+
+  - slot_id: egress
+    slot_ttl_sec: 600
+    fact: NetFlow
+    where:
+      - {field: op, op: eq, value: connect}
+      - {field: dst_private, op: eq, value: "false"}
+      - any_of:
+          - {field: pid, op: in_slot, value: memfd_or_rwx.pid}
+          - {field: pid, op: in_slot, value: child_exec.pid}
+    derive_tags: ["T1041"]
+
+# A hit whose child was a file dropped in a scratch directory proposes exec_deny of
+# that file, by device and inode, for one hour, on the whole host. A packaged tool such
+# as curl as the child proposes nothing.
+shield_templates:
+  - {kind: exec_deny, slot: child_exec, ttl_sec: 3600, path_regex: '^/(tmp|dev/shm|var/tmp|run/user/[0-9]+)/'}
+
+explain:
+  primary_ttp: [T1620, T1041]
+  narrative: >
+    A process ran code from memory or mapped memory writable and executable at once, started a
+    child, and one of them connected out to a public address.
+title: "In-Memory Exec → Child Process → Egress (Linux)"
+reason_code: MEMFD_CHILD_EGRESS
 rules: []

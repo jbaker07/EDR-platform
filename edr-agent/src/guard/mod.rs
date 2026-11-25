@@ -7,8 +7,10 @@
 //!   runtime client (T1611, T1610). Executables are named by inode and device,
 //!   so renaming python3 to "docker" does not get it through.
 //! - memfd_exec: execve of a memory-only file made with memfd_create (T1620).
-//! - self_protect: fatal signals, ptrace attach and BPF object lookups aimed
-//!   at the agent by other processes (T1562.001).
+//! - self_protect: fatal signals, ptrace attach and handles to the agent's BPF
+//!   programs, maps and links (the runtime shields' pinned ones included) from
+//!   other processes, and writes, unlinks, renames, hard links and truncates of
+//!   the agent's own files (T1562.001).
 //!
 //! Each guard runs off, monitor (the default: allow and report would_block)
 //! or enforce (refuse with EPERM and report blocked). start_guard() checks that
@@ -26,6 +28,10 @@
 //!   EDR_GUARD_SCOPE_CGROUP    a cgroup v2 directory. Every guard then judges only tasks in it
 //!   EDR_GUARD_OFF_FILE        self protection off switch (default /run/edr-guard/off)
 //!   EDR_GUARD_OFF_SHA256      if set, the off file must hold a token with this SHA-256
+//!
+//! The signed policy sets the lowest mode (guard_mode) and adds allowlist entries
+//! (guard_allow). A new policy applies while the agent runs, through
+//! GuardControl::apply, which fills the inactive bank and flips one slot.
 //!
 //! Self protection off switch, for an operator: create the off file (with the
 //! token if EDR_GUARD_OFF_SHA256 is set). Within 200 ms the agent turns self
@@ -127,6 +133,30 @@ impl GuardModes {
             .iter()
             .all(|m| *m == GuardMode::Off)
     }
+
+    /// Every guard at least `floor` (the signed policy's guard_mode). A variable that
+    /// asked for less is overruled, and the warning says so.
+    pub fn at_least(self, floor: GuardMode) -> (Self, Vec<String>) {
+        let mut warnings = Vec::new();
+        let mut lift = |name: &str, m: GuardMode| {
+            if m.as_raw() < floor.as_raw() {
+                warnings.push(format!(
+                    "{name} asked for {}, the signed policy requires at least {}",
+                    m.as_str(),
+                    floor.as_str()
+                ));
+                floor
+            } else {
+                m
+            }
+        };
+        let modes = Self {
+            socket: lift("runtime_socket", self.socket),
+            memfd: lift("memfd_exec", self.memfd),
+            self_protect: lift("self_protect", self.self_protect),
+        };
+        (modes, warnings)
+    }
 }
 
 // ---- Settings ----
@@ -137,6 +167,8 @@ pub struct GuardSettings {
     pub obj_path: String,
     pub extra_socket_clients: Vec<PathBuf>,
     pub extra_memfd_allow: Vec<PathBuf>,
+    /// guard_allow from the signed policy.
+    pub policy_allow: crate::config::GuardAllow,
     pub scope_cgroup: Option<PathBuf>,
     pub off_file: PathBuf,
     pub off_sha256: Option<String>,
@@ -161,6 +193,7 @@ impl GuardSettings {
             obj_path: object_path(var("EDR_BPF_GUARD_OBJ"), var("EDR_BPF_DIR")),
             extra_socket_clients: paths("EDR_GUARD_SOCKET_CLIENTS"),
             extra_memfd_allow: paths("EDR_GUARD_MEMFD_ALLOW"),
+            policy_allow: Default::default(),
             scope_cgroup: var("EDR_GUARD_SCOPE_CGROUP")
                 .filter(|v| !v.trim().is_empty())
                 .map(PathBuf::from),
@@ -169,6 +202,21 @@ impl GuardSettings {
                 .unwrap_or_else(|| PathBuf::from(DEFAULT_OFF_FILE)),
             off_sha256: var("EDR_GUARD_OFF_SHA256").filter(|v| !v.trim().is_empty()),
         }
+    }
+}
+
+impl GuardSettings {
+    /// The runtime socket clients and the memfd allowlist: the programs found on
+    /// disk by name, the environment's extra paths and the policy's guard_allow,
+    /// each named by inode.
+    pub fn allowlists(&self) -> (Vec<(PathBuf, ExeId)>, Vec<(PathBuf, ExeId)>) {
+        let mut clients = find_programs(CLIENT_DIRS, crate::modules::suspicious_ipc::RUNTIME_CLIENT_ALLOWLIST);
+        clients.extend(self.extra_socket_clients.iter().cloned());
+        clients.extend(self.policy_allow.socket_clients.iter().map(PathBuf::from));
+        let mut memfd = find_programs(CLIENT_DIRS, MEMFD_EXEC_CLIENTS);
+        memfd.extend(self.extra_memfd_allow.iter().cloned());
+        memfd.extend(self.policy_allow.memfd_allow.iter().map(PathBuf::from));
+        (exe_ids(&clients), exe_ids(&memfd))
     }
 }
 
@@ -319,7 +367,19 @@ fn bpf_cmd_name(cmd: u32) -> String {
         abi::BPF_PROG_GET_FD_BY_ID => "BPF_PROG_GET_FD_BY_ID".into(),
         abi::BPF_MAP_GET_FD_BY_ID => "BPF_MAP_GET_FD_BY_ID".into(),
         abi::BPF_LINK_GET_FD_BY_ID => "BPF_LINK_GET_FD_BY_ID".into(),
+        abi::BPF_OBJ_GET => "BPF_OBJ_GET".into(),
         other => format!("bpf command {other}"),
+    }
+}
+
+fn file_op_name(op: u32) -> &'static str {
+    match op {
+        abi::FILE_OP_WRITE => "write open",
+        abi::FILE_OP_UNLINK => "unlink",
+        abi::FILE_OP_RENAME => "rename",
+        abi::FILE_OP_TRUNCATE => "truncate",
+        abi::FILE_OP_LINK => "hard link",
+        _ => "change",
     }
 }
 
@@ -370,9 +430,19 @@ pub fn guard_finding(e: &GuardEvent, exe_path: Option<&str>) -> Option<Finding> 
             format!("pid {}", e.target_pid),
             TAMPER_RISK,
         ),
+        GuardKind::BpfAgentObject if e.detail == abi::BPF_OBJ_GET => (
+            format!("BPF_OBJ_GET of the shield pin {}", e.target()),
+            e.target(),
+            TAMPER_RISK,
+        ),
         GuardKind::BpfAgentObject => (
             format!("{} on the agent's BPF object id {}", bpf_cmd_name(e.detail), e.target_ino),
             format!("bpf id {}", e.target_ino),
+            TAMPER_RISK,
+        ),
+        GuardKind::FileTamper => (
+            format!("{} of the agent's file {} (inode {})", file_op_name(e.detail), e.target(), e.target_ino),
+            e.target(),
             TAMPER_RISK,
         ),
     };
@@ -389,6 +459,8 @@ pub fn guard_finding(e: &GuardEvent, exe_path: Option<&str>) -> Option<Finding> 
     let ts = now_ts();
 
     let mut data = HashMap::new();
+    // pb_wiring turns guard records into RuleHit facts by this source name.
+    data.insert("source".into(), "edr_guard".into());
     data.insert("timestamp".into(), ts.to_string());
     data.insert("pid".into(), e.tgid.to_string());
     data.insert("tid".into(), e.tid.to_string());
@@ -429,6 +501,7 @@ pub fn off_switch_finding(file: &Path) -> Finding {
     let signal = "guard::self_protect::off_switch".to_string();
     let pid = std::process::id();
     let mut data = HashMap::new();
+    data.insert("source".into(), "edr_guard".into());
     data.insert("timestamp".into(), now_ts().to_string());
     data.insert("pid".into(), pid.to_string());
     data.insert("guard".into(), "self_protect".into());
@@ -442,7 +515,7 @@ pub fn off_switch_finding(file: &Path) -> Finding {
     build_finding(signal, pid, 0, TAMPER_RISK, tags, reason, data)
 }
 
-fn build_finding(
+pub fn build_finding(
     signal: String,
     pid: u32,
     uid: u32,
@@ -525,17 +598,89 @@ impl RepeatFilter {
 /// Outputs held for the telemetry sweep. Bounded, oldest dropped first.
 const MAX_PENDING_OUTPUTS: usize = 1024;
 static PENDING_OUTPUTS: Mutex<VecDeque<TelemetryOutput>> = Mutex::new(VecDeque::new());
+/// Alerts held for the batch loop, which turns each into an incident.
+static PENDING_ALERTS: Mutex<VecDeque<serde_json::Value>> = Mutex::new(VecDeque::new());
 
 /// The TrustEvent goes out at once. The TelemetryOutput waits for the next
 /// telemetry sweep, which writes it to the usual sinks with every other
-/// module's output.
+/// module's output, and the alert waits for the batch loop, which makes it an
+/// incident on /incidents.
 fn emit(finding: Finding) {
+    let alert = guard_alert_json(&finding.output);
+    emit_with_alert(finding, alert);
+}
+
+/// The same, with an alert the caller built (runtime shields, policy reloads).
+pub fn emit_with_alert(finding: Finding, alert: serde_json::Value) {
     submit_trust_event(finding.trust);
-    let mut queue = PENDING_OUTPUTS.lock().unwrap_or_else(PoisonError::into_inner);
-    if queue.len() >= MAX_PENDING_OUTPUTS {
-        queue.pop_front();
+    {
+        let mut queue = PENDING_OUTPUTS.lock().unwrap_or_else(PoisonError::into_inner);
+        if queue.len() >= MAX_PENDING_OUTPUTS {
+            queue.pop_front();
+        }
+        queue.push_back(finding.output);
     }
-    queue.push_back(finding.output);
+    let mut alerts = PENDING_ALERTS.lock().unwrap_or_else(PoisonError::into_inner);
+    if alerts.len() >= MAX_PENDING_OUTPUTS {
+        alerts.pop_front();
+    }
+    alerts.push_back(alert);
+}
+
+/// Called by the batch loop in main.rs.
+pub fn take_guard_alerts() -> Vec<serde_json::Value> {
+    PENDING_ALERTS
+        .lock()
+        .unwrap_or_else(PoisonError::into_inner)
+        .drain(..)
+        .collect()
+}
+
+/// One guard decision in the alert shape the incident list reads: ts, severity, risk,
+/// technique, findings and event.exe, plus a details block with the guard name, the
+/// caller, the target and the mode. A block was made in enforce mode, a would_block in
+/// monitor mode. The off switch is high severity because root can throw it too.
+pub fn guard_alert_json(out: &TelemetryOutput) -> serde_json::Value {
+    let d = &out.data;
+    let get = |k: &str| d.get(k).cloned().unwrap_or_default();
+    let action = get("action");
+    let (mode, severity, verb) = match action.as_str() {
+        "blocked" => ("enforce", "high", "blocked"),
+        "would_block" => ("monitor", "medium", "would block"),
+        _ => ("off_switch", "high", "off switch"),
+    };
+    let mitre: Vec<String> = get("mitre")
+        .split(',')
+        .filter(|t| !t.is_empty())
+        .map(str::to_string)
+        .collect();
+    let ts: i64 = get("timestamp").parse().unwrap_or(0);
+    let guard = get("guard");
+    let exe = d.get("binary_path").cloned().unwrap_or_else(|| "-".into());
+    let host = std::env::var("HOSTNAME").unwrap_or_else(|_| "localhost".into());
+    serde_json::json!({
+        "id": format!("guard:{}:{}:{}:{}", guard, action, get("pid"), ts),
+        "source": "guard",
+        "title": format!("Guard {guard} {verb}: {}", get("target")),
+        "ts": ts,
+        "severity": severity,
+        "risk": (out.confidence as f64).clamp(0.0, 1.0),
+        "technique": mitre.first().cloned().unwrap_or_else(|| "-".into()),
+        "findings": mitre.iter().map(|t| serde_json::json!({ "label": t })).collect::<Vec<_>>(),
+        "event": { "exe": exe, "pid": get("pid"), "uid": get("uid"), "comm": get("comm"), "host": host },
+        "details": {
+            "guard": guard,
+            "hook": get("hook"),
+            "action": action,
+            "mode": mode,
+            "caller_exe": exe,
+            "caller_pid": get("pid"),
+            "caller_comm": get("comm"),
+            "target": get("target"),
+            "reason": get("reason"),
+        },
+        "rationale": [get("reason")],
+    })
 }
 
 /// Called by the telemetry sweep (telemetry.rs).
@@ -564,11 +709,237 @@ pub struct GuardSummary {
     pub protected_ids: usize,
 }
 
+/// Changes the loaded guard while the agent runs, from any thread.
+pub struct GuardControl {
+    #[cfg(target_os = "linux")]
+    maps: loader::GuardMaps,
+    state: Mutex<ControlState>,
+}
+
+struct ControlState {
+    bank: u32,
+    modes: GuardModes,
+    /// The agent is in the host pid namespace, so self protection can work.
+    self_possible: bool,
+    /// The off switch was thrown. Self protection stays off until a restart.
+    self_off: bool,
+}
+
+impl GuardControl {
+    #[cfg(target_os = "linux")]
+    fn new(maps: loader::GuardMaps, modes: GuardModes, self_possible: bool) -> Self {
+        Self {
+            maps,
+            state: Mutex::new(ControlState { bank: 0, modes, self_possible, self_off: false }),
+        }
+    }
+
+    pub fn modes(&self) -> GuardModes {
+        self.state.lock().unwrap_or_else(PoisonError::into_inner).modes
+    }
+
+    /// New modes and allowlists in one bank switch. Returns the modes in force,
+    /// which keep self protection off when the agent is outside the host pid
+    /// namespace or the off switch was thrown.
+    pub fn apply(
+        &self,
+        mut modes: GuardModes,
+        socket: &[(PathBuf, ExeId)],
+        memfd: &[(PathBuf, ExeId)],
+    ) -> anyhow::Result<GuardModes> {
+        let mut st = self.state.lock().unwrap_or_else(PoisonError::into_inner);
+        if !st.self_possible || st.self_off {
+            modes.self_protect = GuardMode::Off;
+        }
+        #[cfg(target_os = "linux")]
+        {
+            let s: Vec<ExeId> = socket.iter().map(|(_, id)| *id).collect();
+            let m: Vec<ExeId> = memfd.iter().map(|(_, id)| *id).collect();
+            st.bank = self.maps.switch(st.bank, &modes, &s, &m)?;
+        }
+        #[cfg(not(target_os = "linux"))]
+        let _ = (socket, memfd);
+        st.modes = modes;
+        Ok(modes)
+    }
+
+    pub fn self_off(&self) -> anyhow::Result<()> {
+        let mut st = self.state.lock().unwrap_or_else(PoisonError::into_inner);
+        st.self_off = true;
+        st.modes.self_protect = GuardMode::Off;
+        #[cfg(target_os = "linux")]
+        self.maps.self_off()?;
+        Ok(())
+    }
+
+    /// Adds BPF objects (bpf() command that opens them, id) to protected_ids.
+    pub fn protect_ids(&self, ids: &[(u32, u32)]) -> anyhow::Result<()> {
+        #[cfg(target_os = "linux")]
+        self.maps.protect_ids(ids)?;
+        #[cfg(not(target_os = "linux"))]
+        let _ = ids;
+        Ok(())
+    }
+
+    /// Write protects files by inode. Paths that do not exist are skipped and
+    /// named in the result.
+    pub fn protect_files(&self, paths: &[PathBuf]) -> anyhow::Result<Vec<String>> {
+        let mut missing = Vec::new();
+        let mut ids = Vec::new();
+        for p in paths {
+            match fs::metadata(p) {
+                Ok(m) => ids.push(ExeId::from_stat(m.dev(), m.ino())),
+                Err(_) => missing.push(p.display().to_string()),
+            }
+        }
+        #[cfg(target_os = "linux")]
+        self.maps.protect_files(&ids)?;
+        Ok(missing)
+    }
+
+    pub fn unprotect_files(&self, paths: &[PathBuf]) -> anyhow::Result<()> {
+        let ids: Vec<ExeId> = paths
+            .iter()
+            .filter_map(|p| fs::metadata(p).ok())
+            .map(|m| ExeId::from_stat(m.dev(), m.ino()))
+            .collect();
+        #[cfg(target_os = "linux")]
+        self.maps.unprotect_files(&ids)?;
+        #[cfg(not(target_os = "linux"))]
+        let _ = ids;
+        Ok(())
+    }
+}
+
+/// Every BPF object the given fdinfo text names, as (bpf() command that opens it,
+/// id). A link's fdinfo names its program too.
+pub fn fdinfo_ids(text: &str) -> Vec<(u32, u32)> {
+    let mut out = Vec::new();
+    for line in text.lines() {
+        let (key, value) = match line.split_once(':') {
+            Some((k, v)) => (k.trim(), v.trim()),
+            None => continue,
+        };
+        let cmd = match key {
+            "prog_id" => abi::BPF_PROG_GET_FD_BY_ID,
+            "map_id" => abi::BPF_MAP_GET_FD_BY_ID,
+            "link_id" => abi::BPF_LINK_GET_FD_BY_ID,
+            _ => continue,
+        };
+        if let Ok(id) = value.parse::<u32>() {
+            if id != 0 && !out.contains(&(cmd, id)) {
+                out.push((cmd, id));
+            }
+        }
+    }
+    out
+}
+
+/// The BPF objects this process holds a descriptor for, from /proc/self/fdinfo: the
+/// sensor maps the readers opened, and the objects the agent loaded itself.
+pub fn held_bpf_ids() -> Vec<(u32, u32)> {
+    let mut out = Vec::new();
+    let Ok(rd) = fs::read_dir("/proc/self/fdinfo") else {
+        return out;
+    };
+    for e in rd.flatten() {
+        if let Ok(text) = fs::read_to_string(e.path()) {
+            for id in fdinfo_ids(&text) {
+                if !out.contains(&id) {
+                    out.push(id);
+                }
+            }
+        }
+    }
+    out
+}
+
+/// The objects pinned under a bpffs directory and the pin files and directories
+/// themselves. Each pin is opened once to read its ids.
+#[cfg(target_os = "linux")]
+pub fn pinned_objects(dir: &Path) -> (Vec<(u32, u32)>, Vec<PathBuf>) {
+    use std::os::unix::ffi::OsStrExt;
+    let mut ids = Vec::new();
+    let mut paths = vec![dir.to_path_buf()];
+    let mut stack = vec![dir.to_path_buf()];
+    while let Some(d) = stack.pop() {
+        let Ok(rd) = fs::read_dir(&d) else { continue };
+        for e in rd.flatten() {
+            let p = e.path();
+            paths.push(p.clone());
+            if p.is_dir() {
+                stack.push(p);
+                continue;
+            }
+            let Ok(c) = std::ffi::CString::new(p.as_os_str().as_bytes()) else { continue };
+            // SAFETY: c is a NUL terminated path. The fd is closed below.
+            let fd = unsafe { libbpf_rs::libbpf_sys::bpf_obj_get(c.as_ptr()) };
+            if fd < 0 {
+                continue;
+            }
+            if let Ok(text) = fs::read_to_string(format!("/proc/self/fdinfo/{fd}")) {
+                for id in fdinfo_ids(&text) {
+                    if !ids.contains(&id) {
+                        ids.push(id);
+                    }
+                }
+            }
+            // SAFETY: fd came from bpf_obj_get and is closed once.
+            unsafe { libc::close(fd) };
+        }
+    }
+    (ids, paths)
+}
+
+/// Adds every BPF object the agent holds, and the sensors pinned under `pin_dir`
+/// (their links, programs and maps, and the pin files), to the guard's protection.
+/// Without this, root could open a sensor map such as the self filter, or remove a
+/// sensor's link pin, which detaches the sensor and blinds the agent. Runs again
+/// every 30 s, for objects loaded later.
+pub fn spawn_protect_held(control: Arc<GuardControl>, pin_dir: PathBuf) {
+    let _ = std::thread::Builder::new().name("guard_protect".into()).spawn(move || {
+        let mut seen_ids = 0usize;
+        let mut seen_pins = 0usize;
+        loop {
+            let mut ids = held_bpf_ids();
+            #[cfg(target_os = "linux")]
+            let pins = {
+                let (pinned, pins) = pinned_objects(&pin_dir);
+                for id in pinned {
+                    if !ids.contains(&id) {
+                        ids.push(id);
+                    }
+                }
+                pins
+            };
+            #[cfg(not(target_os = "linux"))]
+            let pins: Vec<PathBuf> = Vec::new();
+            if ids.len() != seen_ids || pins.len() != seen_pins {
+                let a = control.protect_ids(&ids);
+                let b = control.protect_files(&pins);
+                match (a, b) {
+                    (Ok(()), Ok(_)) => log::info!(
+                        "guard: {} held or pinned BPF objects and {} sensor pins under {} protected",
+                        ids.len(),
+                        pins.len(),
+                        pin_dir.display()
+                    ),
+                    (a, b) => log::warn!("guard: protecting held objects: {:?} {:?}", a.err(), b.err()),
+                }
+                seen_ids = ids.len();
+                seen_pins = pins.len();
+            }
+            std::thread::sleep(std::time::Duration::from_secs(30));
+        }
+    });
+}
+
 /// Owns the guard thread. Dropping it stops the guards the same way stop() does.
 pub struct GuardHandle {
     stop: Arc<AtomicBool>,
     thread: Option<std::thread::JoinHandle<()>>,
     pub summary: GuardSummary,
+    pub control: Arc<GuardControl>,
 }
 
 impl GuardHandle {
@@ -598,6 +969,28 @@ impl Drop for GuardHandle {
 /// Loads and attaches the guards with settings from the environment.
 pub fn start_guard() -> anyhow::Result<GuardHandle> {
     start_guard_with(GuardSettings::from_env(), |_, _| {})
+}
+
+/// Same, with every guard at least `floor`, the signed policy's guard_mode.
+pub fn start_guard_at_least(floor: GuardMode) -> anyhow::Result<GuardHandle> {
+    let mut settings = GuardSettings::from_env();
+    let (modes, warnings) = settings.modes.at_least(floor);
+    for w in warnings {
+        eprintln!("⚠️ guard: {w}");
+        log::warn!("guard: {w}");
+    }
+    settings.modes = modes;
+    start_guard_with(settings, |_, _| {})
+}
+
+/// Settings for a signed policy: the environment's modes raised to the
+/// policy's guard_mode, and the policy's allowlist entries.
+pub fn settings_for_policy(policy: &crate::config::RawPolicy) -> (GuardSettings, Vec<String>) {
+    let mut settings = GuardSettings::from_env();
+    let (modes, warnings) = settings.modes.at_least(policy.guard_floor());
+    settings.modes = modes;
+    settings.policy_allow = policy.guard_allow.clone();
+    (settings, warnings)
 }
 
 /// Same, with explicit settings and a callback that sees every decision the
@@ -650,6 +1043,16 @@ mod tests {
     }
 
     #[test]
+    fn fdinfo_names_maps_programs_and_links() {
+        let map = "pos:\t0\nflags:\t02000002\nmap_type:\t11\nmap_id:\t189\n";
+        assert_eq!(fdinfo_ids(map), vec![(abi::BPF_MAP_GET_FD_BY_ID, 189)]);
+        let link = "link_type:\ttracing\nlink_id:\t181\nprog_tag:\tabc\nprog_id:\t459\n";
+        assert_eq!(fdinfo_ids(link), vec![(abi::BPF_LINK_GET_FD_BY_ID, 181), (abi::BPF_PROG_GET_FD_BY_ID, 459)]);
+        assert!(fdinfo_ids("pos:\t0\nflags:\t0100002\nmnt_id:\t25\n").is_empty());
+        assert!(fdinfo_ids("map_id:\t0\n").is_empty());
+    }
+
+    #[test]
     fn mode_parsing_accepts_the_three_names_only() {
         assert_eq!(GuardMode::parse("off"), Some(GuardMode::Off));
         assert_eq!(GuardMode::parse(" Monitor "), Some(GuardMode::Monitor));
@@ -662,6 +1065,19 @@ mod tests {
             [GuardMode::Off, GuardMode::Monitor, GuardMode::Enforce].map(GuardMode::as_raw),
             [0, 1, 2]
         );
+    }
+
+    #[test]
+    fn the_policy_floor_raises_modes_and_never_lowers_them() {
+        let (m, _) = GuardModes::from_vars(vars(&[("EDR_GUARD_MODE", "off"), ("EDR_GUARD_SOCKET_MODE", "enforce")]));
+        let (lifted, warnings) = m.at_least(GuardMode::Monitor);
+        assert_eq!(lifted.socket, GuardMode::Enforce, "a stricter variable stays");
+        assert_eq!(lifted.memfd, GuardMode::Monitor);
+        assert_eq!(lifted.self_protect, GuardMode::Monitor);
+        assert_eq!(warnings.len(), 2, "{warnings:?}");
+        let (same, warnings) = lifted.at_least(GuardMode::Off);
+        assert_eq!(same, lifted);
+        assert!(warnings.is_empty());
     }
 
     #[test]
@@ -856,6 +1272,42 @@ mod tests {
         e.timestamp_ns += REPEAT_WINDOW_NS;
         assert!(filter.admit(&e));
         assert_eq!(filter.suppressed, 1);
+    }
+
+    #[test]
+    fn a_decision_becomes_an_incident_alert_with_guard_caller_target_and_mode() {
+        let blocked = guard_finding(&event(1, 2, "docker", "/var/run/docker.sock"), Some("/usr/bin/python3.11")).unwrap();
+        let a = guard_alert_json(&blocked.output);
+        assert_eq!(a["source"], "guard");
+        assert_eq!(a["severity"], "high");
+        assert_eq!(a["technique"], "T1611");
+        assert_eq!(a["event"]["exe"], "/usr/bin/python3.11");
+        assert_eq!(a["details"]["guard"], "runtime_socket");
+        assert_eq!(a["details"]["caller_exe"], "/usr/bin/python3.11");
+        assert_eq!(a["details"]["target"], "/var/run/docker.sock");
+        assert_eq!(a["details"]["mode"], "enforce");
+        assert_eq!(a["findings"][1]["label"], "T1610");
+
+        let mut e = event(3, 1, "bash", "");
+        e.detail = 9;
+        e.target_pid = 100;
+        let a = guard_alert_json(&guard_finding(&e, Some("/usr/bin/bash")).unwrap().output);
+        assert_eq!(a["details"]["mode"], "monitor");
+        assert_eq!(a["details"]["action"], "would_block");
+        assert_eq!(a["severity"], "medium");
+        assert_eq!(a["technique"], "T1562.001");
+        assert_eq!(a["details"]["target"], "pid 100");
+
+        // emit() queues the alert for the batch loop.
+        let mut unique = event(2, 2, "python3", "memfd:only-in-this-test");
+        unique.tgid = 777_777;
+        let f = guard_finding(&unique, Some("/usr/bin/python3")).unwrap();
+        emit(f);
+        let alerts = take_guard_alerts();
+        let mine: Vec<_> = alerts.iter().filter(|a| a["details"]["target"] == "memfd:only-in-this-test").collect();
+        assert_eq!(mine.len(), 1);
+        assert_eq!(mine[0]["details"]["guard"], "memfd_exec");
+        assert_eq!(mine[0]["details"]["caller_pid"], "777777");
     }
 
     #[test]

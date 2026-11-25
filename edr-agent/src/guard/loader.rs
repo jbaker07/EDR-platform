@@ -1,6 +1,8 @@
-//! Loads edr_guard.bpf.o, fills its maps, attaches the five LSM programs and
-//! reads guard_events. Everything that touches the libbpf object lives on one
-//! thread, because the object is not Send.
+//! Loads edr_guard.bpf.o, fills its maps, attaches the LSM programs and reads
+//! guard_events. Everything that touches the libbpf object lives on one thread,
+//! because the object is not Send. GuardControl holds duplicated map handles,
+//! which are, so a policy reload and the shields can change the maps from any
+//! thread.
 
 use std::fs;
 use std::os::fd::{AsFd, AsRawFd};
@@ -11,16 +13,16 @@ use std::time::Duration;
 
 use anyhow::{anyhow, bail, Context, Result};
 use libbpf_rs::{
-    libbpf_sys, Link, Map, MapFlags, MapInfo, Object, ObjectBuilder, Program, RingBufferBuilder,
+    libbpf_sys, Link, Map, MapFlags, MapHandle, MapInfo, Object, ObjectBuilder, Program,
+    RingBufferBuilder,
 };
 
 use super::abi::*;
 use super::{
-    emit, exe_ids, find_programs, guard_finding, off_switch_finding, off_switch_thrown,
-    EventCallback, Finding, GuardHandle, GuardMode, GuardSettings, GuardSummary, RepeatFilter,
-    CLIENT_DIRS, MEMFD_EXEC_CLIENTS,
+    emit, guard_finding, off_switch_finding, off_switch_thrown, EventCallback, Finding,
+    GuardControl, GuardHandle, GuardMode, GuardModes, GuardSettings, GuardSummary, RepeatFilter,
 };
-use crate::modules::suspicious_ipc::{path_key, RUNTIME_CLIENT_ALLOWLIST, RUNTIME_SOCKETS};
+use crate::modules::suspicious_ipc::{path_key, RUNTIME_SOCKETS};
 
 const LSM_LIST: &str = "/sys/kernel/security/lsm";
 
@@ -28,12 +30,19 @@ const LSM_LIST: &str = "/sys/kernel/security/lsm";
 /// (PROC_PID_INIT_INO in include/linux/proc_ns.h).
 const INIT_PID_NS_INO: u64 = 0xEFFF_FFFC;
 
-const PROGRAMS: [&str; 5] = [
+const PROGRAMS: [&str; 12] = [
     "guard_unix_connect",
     "guard_memfd_exec",
     "guard_task_kill",
     "guard_ptrace",
     "guard_bpf",
+    "guard_bpf_map",
+    "guard_bpf_prog",
+    "guard_file_open",
+    "guard_inode_unlink",
+    "guard_inode_rename",
+    "guard_inode_link",
+    "guard_path_truncate",
 ];
 
 /// How often the loop wakes up to check for stop and for the off file.
@@ -86,7 +95,7 @@ fn in_host_pid_ns() -> bool {
 pub(super) fn spawn(settings: GuardSettings, mut on_event: EventCallback) -> Result<GuardHandle> {
     let stop = Arc::new(AtomicBool::new(false));
     let thread_stop = stop.clone();
-    let (ready_tx, ready_rx) = mpsc::channel::<Result<GuardSummary>>();
+    let (ready_tx, ready_rx) = mpsc::channel::<Result<(GuardSummary, Arc<GuardControl>)>>();
     let thread = std::thread::Builder::new()
         .name("edr_guard".into())
         .spawn(move || {
@@ -97,7 +106,7 @@ pub(super) fn spawn(settings: GuardSettings, mut on_event: EventCallback) -> Res
                     return;
                 }
             };
-            let _ = ready_tx.send(Ok(guard.summary.clone()));
+            let _ = ready_tx.send(Ok((guard.summary.clone(), guard.control.clone())));
             if let Err(e) = guard.run(&settings, &thread_stop, &mut *on_event) {
                 log::warn!("guard: event loop stopped: {e:#}");
             }
@@ -106,10 +115,11 @@ pub(super) fn spawn(settings: GuardSettings, mut on_event: EventCallback) -> Res
         .context("spawn the edr_guard thread")?;
 
     match ready_rx.recv() {
-        Ok(Ok(summary)) => Ok(GuardHandle {
+        Ok(Ok((summary, control))) => Ok(GuardHandle {
             stop,
             thread: Some(thread),
             summary,
+            control,
         }),
         Ok(Err(e)) => {
             let _ = thread.join();
@@ -128,6 +138,7 @@ struct Loaded {
     links: Vec<Link>,
     obj: Object,
     summary: GuardSummary,
+    control: Arc<GuardControl>,
 }
 
 impl Loaded {
@@ -139,20 +150,17 @@ impl Loaded {
             .load()
             .with_context(|| format!("load {}", s.obj_path))?;
 
-        // Runtime socket names, then the executables allowed to use them.
+        // Runtime socket names, then the executables allowed to use them, in bank 0.
         let watched = map(&obj, "watched_sockets")?;
         for path in RUNTIME_SOCKETS {
             let key = path_key(path).ok_or_else(|| anyhow!("socket path {path:?} does not fit"))?;
             watched.update(&key, &[1], MapFlags::ANY)?;
         }
-        let mut clients = find_programs(CLIENT_DIRS, RUNTIME_CLIENT_ALLOWLIST);
-        clients.extend(s.extra_socket_clients.iter().cloned());
-        let socket_clients = exe_ids(&clients);
-        fill_exe_map(map(&obj, "socket_clients")?, &socket_clients)?;
-        let mut memfd = find_programs(CLIENT_DIRS, MEMFD_EXEC_CLIENTS);
-        memfd.extend(s.extra_memfd_allow.iter().cloned());
-        let memfd_allow = exe_ids(&memfd);
-        fill_exe_map(map(&obj, "memfd_allow")?, &memfd_allow)?;
+        let (socket_clients, memfd_allow) = s.allowlists();
+        let socket_map: &MapHandle = map(&obj, "socket_clients")?;
+        let memfd_map: &MapHandle = map(&obj, "memfd_allow")?;
+        fill_exe_map(socket_map, &socket_clients)?;
+        fill_exe_map(memfd_map, &memfd_allow)?;
 
         // Who the agent is, and which tasks the guards judge.
         let mut modes = s.modes;
@@ -180,6 +188,8 @@ impl Loaded {
             None => 0,
         };
         let config = map(&obj, "guard_config")?;
+        let config: &MapHandle = config;
+        set_slot(config, CFG_ACTIVE_BANK, 0)?;
         set_slot(config, CFG_AGENT_TGID, agent_tgid.unwrap_or(0) as u64)?;
         set_slot(config, CFG_SCOPE_CGROUP, scope_cgroup_id)?;
 
@@ -194,17 +204,26 @@ impl Loaded {
 
         // The agent's own objects, for the bpf guard.
         let ids = object_ids(&obj, &links)?;
-        let protected = map(&obj, "protected_ids")?;
+        let protected: &MapHandle = map(&obj, "protected_ids")?;
         for (cmd, id) in &ids {
             protected.update(&obj_key(*cmd, *id), &[1], MapFlags::ANY)?;
         }
 
         // Modes last, so nothing is enforced before the allowlists are in place.
-        let config = map(&obj, "guard_config")?;
-        set_slot(config, CFG_SOCKET_MODE, modes.socket.as_raw())?;
-        set_slot(config, CFG_MEMFD_MODE, modes.memfd.as_raw())?;
-        set_slot(config, CFG_SELF_MODE, modes.self_protect.as_raw())?;
+        let config: &MapHandle = map(&obj, "guard_config")?;
+        write_modes(config, 0, &modes)?;
 
+        let control = Arc::new(GuardControl::new(
+            GuardMaps {
+                config: MapHandle::try_clone(config)?,
+                socket_clients: MapHandle::try_clone(map(&obj, "socket_clients")?)?,
+                memfd_allow: MapHandle::try_clone(map(&obj, "memfd_allow")?)?,
+                protected_ids: MapHandle::try_clone(protected)?,
+                protected_files: MapHandle::try_clone(map(&obj, "protected_files")?)?,
+            },
+            modes,
+            agent_tgid.is_some(),
+        ));
         let summary = GuardSummary {
             obj_path: s.obj_path.clone(),
             modes,
@@ -214,7 +233,7 @@ impl Loaded {
             memfd_allow,
             protected_ids: ids.len(),
         };
-        Ok(Self { links, obj, summary })
+        Ok(Self { links, obj, summary, control })
     }
 
     /// Reads guard_events until stop is set. Also watches for the off file.
@@ -243,7 +262,7 @@ impl Loaded {
                 Err(e) => return Err(e.into()),
             }
             if self_on && off_switch_thrown(&s.off_file, s.off_sha256.as_deref()) {
-                set_slot(map(&self.obj, "guard_config")?, CFG_SELF_MODE, 0)?;
+                self.control.self_off()?;
                 self_on = false;
                 log::warn!("guard: self protection turned off by {}", s.off_file.display());
                 emit(off_switch_finding(&s.off_file));
@@ -259,9 +278,12 @@ impl Loaded {
     /// which detaches every program.
     fn shutdown(self) {
         if let Ok(config) = map(&self.obj, "guard_config") {
-            for slot in [CFG_SELF_MODE, CFG_SOCKET_MODE, CFG_MEMFD_MODE] {
-                if let Err(e) = set_slot(config, slot, 0) {
-                    log::warn!("guard: could not turn slot {slot} off before detaching: {e:#}");
+            for bank in [0, 1] {
+                for guard in [GUARD_SELF, GUARD_SOCKET, GUARD_MEMFD] {
+                    let slot = mode_slot(bank, guard);
+                    if let Err(e) = set_slot(config, slot, 0) {
+                        log::warn!("guard: could not turn slot {slot} off before detaching: {e:#}");
+                    }
                 }
             }
         }
@@ -319,18 +341,104 @@ fn map<'a>(obj: &'a Object, name: &str) -> Result<&'a Map> {
     obj.map(name).ok_or_else(|| anyhow!("map {name} missing"))
 }
 
-fn set_slot(config: &Map, slot: u32, value: u64) -> Result<()> {
+fn set_slot(config: &MapHandle, slot: u32, value: u64) -> Result<()> {
     config
         .update(&slot.to_ne_bytes(), &value.to_ne_bytes(), MapFlags::ANY)
         .with_context(|| format!("guard_config slot {slot}"))
 }
 
-fn fill_exe_map(m: &Map, ids: &[(std::path::PathBuf, ExeId)]) -> Result<()> {
+fn write_modes(config: &MapHandle, bank: u32, m: &GuardModes) -> Result<()> {
+    set_slot(config, mode_slot(bank, GUARD_SOCKET), m.socket.as_raw())?;
+    set_slot(config, mode_slot(bank, GUARD_MEMFD), m.memfd.as_raw())?;
+    set_slot(config, mode_slot(bank, GUARD_SELF), m.self_protect.as_raw())
+}
+
+/// Bank 0 entries at load.
+fn fill_exe_map(m: &MapHandle, ids: &[(std::path::PathBuf, ExeId)]) -> Result<()> {
     for (path, id) in ids {
-        m.update(&id.key(), &[1], MapFlags::ANY)
+        m.update(&id.key(), &[bank_bit(0)], MapFlags::ANY)
             .with_context(|| format!("allow {}", path.display()))?;
     }
     Ok(())
+}
+
+/// Duplicated handles of the maps a reload or the shields change.
+pub(super) struct GuardMaps {
+    config: MapHandle,
+    socket_clients: MapHandle,
+    memfd_allow: MapHandle,
+    protected_ids: MapHandle,
+    protected_files: MapHandle,
+}
+
+impl GuardMaps {
+    /// Fills the inactive bank with these modes and allowlists, flips
+    /// CFG_ACTIVE_BANK in one map write, then clears the old bank. A hook reads
+    /// the bank once per run, so it sees the old set or the new one, never a mix.
+    pub(super) fn switch(&self, active: u32, modes: &GuardModes, socket: &[ExeId], memfd: &[ExeId]) -> Result<u32> {
+        let next = 1 - (active & 1);
+        let (old_bit, new_bit) = (bank_bit(active), bank_bit(next));
+        for (m, want) in [(&self.socket_clients, socket), (&self.memfd_allow, memfd)] {
+            let wanted: Vec<[u8; 16]> = want.iter().map(ExeId::key).collect();
+            let existing: Vec<Vec<u8>> = m.keys().collect();
+            for k in &existing {
+                let v = m.lookup(k, MapFlags::ANY)?.and_then(|v| v.first().copied()).unwrap_or(0);
+                let keep = wanted.iter().any(|w| w.as_slice() == k.as_slice());
+                let nv = (v & old_bit) | if keep { new_bit } else { 0 };
+                m.update(k, &[nv], MapFlags::ANY)?;
+            }
+            for w in &wanted {
+                if !existing.iter().any(|k| k.as_slice() == w.as_slice()) {
+                    m.update(w, &[new_bit], MapFlags::ANY)?;
+                }
+            }
+        }
+        write_modes(&self.config, next, modes)?;
+        set_slot(&self.config, CFG_ACTIVE_BANK, next as u64)?;
+        for m in [&self.socket_clients, &self.memfd_allow] {
+            let existing: Vec<Vec<u8>> = m.keys().collect();
+            for k in existing {
+                let v = m.lookup(&k, MapFlags::ANY)?.and_then(|v| v.first().copied()).unwrap_or(0) & new_bit;
+                if v == 0 {
+                    m.delete(&k)?;
+                } else {
+                    m.update(&k, &[v], MapFlags::ANY)?;
+                }
+            }
+        }
+        Ok(next)
+    }
+
+    /// Self protection off in both banks.
+    pub(super) fn self_off(&self) -> Result<()> {
+        for bank in [0, 1] {
+            set_slot(&self.config, mode_slot(bank, GUARD_SELF), 0)?;
+        }
+        Ok(())
+    }
+
+    pub(super) fn protect_ids(&self, ids: &[(u32, u32)]) -> Result<()> {
+        for (cmd, id) in ids {
+            self.protected_ids.update(&obj_key(*cmd, *id), &[1], MapFlags::ANY)?;
+        }
+        Ok(())
+    }
+
+    pub(super) fn protect_files(&self, ids: &[ExeId]) -> Result<()> {
+        for id in ids {
+            self.protected_files.update(&id.key(), &[1], MapFlags::ANY)?;
+        }
+        let n = self.protected_files.keys().count() as u64;
+        set_slot(&self.config, CFG_PROTECTED_FILES, n)
+    }
+
+    pub(super) fn unprotect_files(&self, ids: &[ExeId]) -> Result<()> {
+        for id in ids {
+            let _ = self.protected_files.delete(&id.key());
+        }
+        let n = self.protected_files.keys().count() as u64;
+        set_slot(&self.config, CFG_PROTECTED_FILES, n)
+    }
 }
 
 /// (bpf() command that opens it, id) for every program, map and link.

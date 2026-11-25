@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 
 use crate::gnn_hook::push_to_gnn_vector_log;
+use crate::modules::auth_log::scan_auth_log;
 use crate::modules::net_watch::{log_open_connections, scan_network_anomalies};
 use crate::modules::password_spray::scan_password_sprays;
 use crate::modules::persistence_watch::scan_persistence_activity;
@@ -89,7 +90,10 @@ fn deduplicate_outputs(outputs: Vec<TelemetryOutput>) -> Vec<TelemetryOutput> {
                 .cloned()
                 .or_else(|| o.data.get("exe").cloned())
                 .unwrap_or_default();
-            let key = format!("{}|{}|{}|{}|{}", o.category, o.signal, pid, path, minute);
+            // event_id marks outputs that are distinct events by design (one per auth
+            // log line), so they are never folded together.
+            let event = o.data.get("event_id").cloned().unwrap_or_default();
+            let key = format!("{}|{}|{}|{}|{}|{}", o.category, o.signal, pid, path, minute, event);
             seen.insert(key)
         })
         .collect()
@@ -120,6 +124,7 @@ pub fn run_sideeffect_monitors_and_collect() -> Vec<TelemetryOutput> {
 
     results.extend(scan_network_anomalies());
     results.extend(scan_password_sprays());
+    results.extend(scan_auth_log());
     results.extend(scan_persistence_activity());
     results.extend(scan_privilege_activity());
     results.extend(scan_signal_integrity());

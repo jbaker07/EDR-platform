@@ -59,7 +59,14 @@ struct IoState {
 pub struct PcbCollector {
     cpu: CpuState,
     io: IoState,
+    /// When each pid was last sampled, ms. A sample reads about ten /proc files, the
+    /// socket tables among them, and a burst brings thousands of records per pid, so a
+    /// pid is sampled at most once per SAMPLE_EVERY_MS.
+    last_sampled: HashMap<i32, u128>,
 }
+
+const SAMPLE_EVERY_MS: u128 = 5_000;
+const SAMPLED_CAP: usize = 65_536;
 
 static COLLECTOR: OnceCell<Mutex<PcbCollector>> = OnceCell::new();
 
@@ -73,6 +80,7 @@ impl PcbCollector {
                 last_sys,
                 ncpu,
             },
+            last_sampled: HashMap::new(),
             io: IoState {
                 last: HashMap::new(),
             },
@@ -82,9 +90,18 @@ impl PcbCollector {
     pub fn sample_records(&mut self, recs: &[TelemetryRecord]) -> Vec<PcbSnapshot> {
         let now_ms = now_ms();
         let mut out = Vec::with_capacity(recs.len());
+        if self.last_sampled.len() >= SAMPLED_CAP {
+            self.last_sampled.retain(|_, t| now_ms.saturating_sub(*t) < SAMPLE_EVERY_MS);
+        }
         for r in recs {
             if r.pid <= 0 {
                 continue;
+            }
+            match self.last_sampled.get(&r.pid) {
+                Some(t) if now_ms.saturating_sub(*t) < SAMPLE_EVERY_MS => continue,
+                _ => {
+                    self.last_sampled.insert(r.pid, now_ms);
+                }
             }
             if let Some(mut s) = self.sample_pid(r.pid, some_uid_hint(r), now_ms) {
                 if s.exe.is_none() && !r.binary_path.is_empty() {

@@ -3,9 +3,11 @@
 // Security pieces of the agent's HTTP API: the bearer token check, the CORS
 // policy, and how integration secrets are shown and stored.
 //
-// The token comes from EDR_AGENT_TOKEN. With no token of 32 or more characters
-// the agent does not serve the API at all, unless EDR_DEV_NO_AUTH=1 is set on
-// purpose for local work. Sensing and detection keep running either way.
+// The token comes from EDR_AGENT_TOKEN_FILE (a file only the owner can read, re-read
+// when it changes, so the token can be rotated without a restart) or EDR_AGENT_TOKEN.
+// With no token of 32 or more characters the agent does not serve the API at all,
+// unless EDR_DEV_NO_AUTH=1 is set on purpose for local work. Sensing and detection
+// keep running either way.
 
 use axum::{
     extract::{Request, State},
@@ -22,6 +24,7 @@ use std::path::Path;
 use tower_http::cors::{AllowOrigin, CorsLayer};
 
 pub const TOKEN_ENV: &str = "EDR_AGENT_TOKEN";
+pub const TOKEN_FILE_ENV: &str = "EDR_AGENT_TOKEN_FILE";
 pub const DEV_NO_AUTH_ENV: &str = "EDR_DEV_NO_AUTH";
 pub const CORS_ORIGINS_ENV: &str = "EDR_AGENT_CORS_ORIGINS";
 pub const MIN_TOKEN_LENGTH: usize = 32;
@@ -32,30 +35,56 @@ pub fn dev_no_auth() -> bool {
 }
 
 /// The expected token, kept as its SHA-256 digest. None means dev mode, set on purpose.
+/// The digest sits behind a lock so a token file change can swap it while the server
+/// runs.
 #[derive(Clone)]
 pub struct AgentAuth {
-    digest: Option<[u8; 32]>,
+    digest: Option<std::sync::Arc<std::sync::RwLock<[u8; 32]>>>,
+}
+
+fn token_digest(t: &str, from: &str) -> Result<[u8; 32], String> {
+    if t.chars().count() < MIN_TOKEN_LENGTH {
+        return Err(format!(
+            "{from} is shorter than {MIN_TOKEN_LENGTH} characters. Make one with: \
+             python3 -c \"import secrets; print(secrets.token_urlsafe(32))\""
+        ));
+    }
+    Ok(Sha256::digest(t.as_bytes()).into())
+}
+
+/// The token in a token file: the first line, trimmed. The file must be owner-only,
+/// like an SSH key, or it is refused.
+pub fn read_token_file(path: &Path) -> Result<String, String> {
+    use std::os::unix::fs::MetadataExt;
+    let meta = std::fs::metadata(path).map_err(|e| format!("{TOKEN_FILE_ENV} {}: {e}", path.display()))?;
+    if meta.mode() & 0o077 != 0 {
+        return Err(format!(
+            "{TOKEN_FILE_ENV} {} can be read by group or others, chmod 600 it",
+            path.display()
+        ));
+    }
+    let text = std::fs::read_to_string(path).map_err(|e| format!("{TOKEN_FILE_ENV} {}: {e}", path.display()))?;
+    Ok(text.lines().next().unwrap_or("").trim().to_string())
 }
 
 impl AgentAuth {
     pub fn from_env() -> Result<Self, String> {
+        if let Ok(path) = std::env::var(TOKEN_FILE_ENV) {
+            let token = read_token_file(Path::new(&path))?;
+            if token.is_empty() {
+                return Err(format!("{TOKEN_FILE_ENV} {path} is empty"));
+            }
+            return Self::from_values(Some(&token), false);
+        }
         let token = std::env::var(TOKEN_ENV).ok();
         Self::from_values(token.as_deref(), dev_no_auth())
     }
 
     pub fn from_values(token: Option<&str>, dev_no_auth: bool) -> Result<Self, String> {
         match token {
-            Some(t) if !t.is_empty() => {
-                if t.chars().count() < MIN_TOKEN_LENGTH {
-                    return Err(format!(
-                        "{TOKEN_ENV} is shorter than {MIN_TOKEN_LENGTH} characters. Make one with: \
-                         python3 -c \"import secrets; print(secrets.token_urlsafe(32))\""
-                    ));
-                }
-                Ok(Self {
-                    digest: Some(Sha256::digest(t.as_bytes()).into()),
-                })
-            }
+            Some(t) if !t.is_empty() => Ok(Self {
+                digest: Some(std::sync::Arc::new(std::sync::RwLock::new(token_digest(t, TOKEN_ENV)?))),
+            }),
             _ if dev_no_auth => Ok(Self { digest: None }),
             _ => Err(format!(
                 "{TOKEN_ENV} is not set, so the API would be open to anyone on this host. \
@@ -69,14 +98,57 @@ impl AgentAuth {
         self.digest.is_none()
     }
 
+    /// Swaps in a new token. Requests with the old one get 401 from now on. A token
+    /// that is too short is refused and the current one stays.
+    pub fn rotate(&self, token: &str) -> Result<(), String> {
+        let Some(lock) = &self.digest else {
+            return Err("dev mode has no token to rotate".into());
+        };
+        let d = token_digest(token, "the new token")?;
+        *lock.write().unwrap_or_else(|e| e.into_inner()) = d;
+        Ok(())
+    }
+
+    /// Re-reads EDR_AGENT_TOKEN_FILE every `every` and rotates when its token changes.
+    /// A file that disappears, turns readable by others or holds a short token is
+    /// logged and the current token stays.
+    pub fn watch_token_file(&self, path: std::path::PathBuf, every: std::time::Duration) {
+        let auth = self.clone();
+        // The token in the file now is the starting point, read before the thread
+        // starts so a change made right after this call is not missed.
+        let mut last = read_token_file(&path).ok();
+        let _ = std::thread::Builder::new().name("token-file".into()).spawn(move || {
+            loop {
+                std::thread::sleep(every);
+                match read_token_file(&path) {
+                    Ok(t) if Some(&t) != last.as_ref() => {
+                        match auth.rotate(&t) {
+                            Ok(()) => eprintln!("agent API token rotated from {}", path.display()),
+                            Err(e) => eprintln!("⚠️ token file {}: {e}, keeping the current token", path.display()),
+                        }
+                        last = Some(t);
+                    }
+                    Ok(_) => {}
+                    Err(e) => {
+                        if last.is_some() {
+                            eprintln!("⚠️ {e}, keeping the current token");
+                        }
+                        last = None;
+                    }
+                }
+            }
+        });
+    }
+
     /// Checks `Authorization: Bearer <token>`. Both sides are hashed to 32 bytes first,
     /// so the compare never depends on the supplied length, then CRYPTO_memcmp compares
     /// them in constant time and the response time does not leak how much of a guess
     /// was right.
     pub fn allows(&self, headers: &HeaderMap) -> bool {
-        let Some(expected) = &self.digest else {
+        let Some(lock) = &self.digest else {
             return true;
         };
+        let expected = *lock.read().unwrap_or_else(|e| e.into_inner());
         let Some(value) = headers
             .get(header::AUTHORIZATION)
             .and_then(|v| v.to_str().ok())
@@ -88,7 +160,7 @@ impl AgentAuth {
             return false;
         }
         let got: [u8; 32] = Sha256::digest(supplied.as_bytes()).into();
-        openssl::memcmp::eq(&got, expected)
+        openssl::memcmp::eq(&got, &expected)
     }
 }
 
@@ -361,6 +433,56 @@ mod tests {
         let protected = Router::new().route("/incidents", get(|| async { "[]" }));
         let base = serve(secure_router(Router::new(), protected, open, cors_layer(vec![]))).await;
         assert_eq!(status(&base, "/incidents", None).await, 200);
+    }
+
+    #[tokio::test]
+    async fn a_rotated_token_works_at_once_and_the_old_one_stops() {
+        let a = auth();
+        let base = serve(secure_router(Router::new(), Router::new().route("/incidents", get(|| async { "ok" })), a.clone(), cors_layer(vec![]))).await;
+        let old = format!("Bearer {TOKEN}");
+        assert_eq!(status(&base, "/incidents", Some(&old)).await, 200);
+        let new_token = "n".repeat(40);
+        a.rotate(&new_token).unwrap();
+        assert_eq!(status(&base, "/incidents", Some(&old)).await, 401);
+        assert_eq!(status(&base, "/incidents", Some(&format!("Bearer {new_token}"))).await, 200);
+        // A short token is refused and the current one stays.
+        assert!(a.rotate("short").is_err());
+        assert_eq!(status(&base, "/incidents", Some(&format!("Bearer {new_token}"))).await, 200);
+    }
+
+    #[test]
+    fn token_file_must_be_owner_only_and_is_re_read() {
+        use std::os::unix::fs::PermissionsExt;
+        let dir = std::env::temp_dir().join(format!("edr_tokfile_{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let f = dir.join("token");
+        std::fs::write(&f, format!("{}\n", "a".repeat(40))).unwrap();
+        std::fs::set_permissions(&f, std::fs::Permissions::from_mode(0o644)).unwrap();
+        assert!(read_token_file(&f).unwrap_err().contains("chmod 600"));
+        std::fs::set_permissions(&f, std::fs::Permissions::from_mode(0o600)).unwrap();
+        assert_eq!(read_token_file(&f).unwrap(), "a".repeat(40));
+
+        let a = AgentAuth::from_values(Some(&"a".repeat(40)), false).unwrap();
+        a.watch_token_file(f.clone(), std::time::Duration::from_millis(20));
+        let hdr = |t: &str| {
+            let mut h = HeaderMap::new();
+            h.insert(header::AUTHORIZATION, HeaderValue::from_str(&format!("Bearer {t}")).unwrap());
+            h
+        };
+        assert!(a.allows(&hdr(&"a".repeat(40))));
+        std::fs::write(&f, "b".repeat(40)).unwrap();
+        let mut rotated = false;
+        for _ in 0..100 {
+            std::thread::sleep(std::time::Duration::from_millis(20));
+            if a.allows(&hdr(&"b".repeat(40))) {
+                rotated = true;
+                break;
+            }
+        }
+        assert!(rotated, "the new token was picked up without a restart");
+        assert!(!a.allows(&hdr(&"a".repeat(40))));
+        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]

@@ -78,9 +78,8 @@ entropy = "0.4"
 reqwest = { version = "0.12", features = ["blocking", "json", "rustls-tls"] }
 tracing = "0.1.41"
 
-# eBPF stacks (Linux only)
+# eBPF loader (Linux only)
 [target.'cfg(target_os = "linux")'.dependencies]
-aya = { version = "0.13.1", features = ["async_tokio"] }
 libbpf-rs = "0.21"
 
 [profile.release]

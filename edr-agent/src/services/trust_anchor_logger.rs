@@ -19,3 +19,16 @@ pub fn log_anchor_drop(event: AnchorDropEvent) {
         let _ = writeln!(file, "{}", json);
     }
 }
+
+/// Append several anchor drops with one open.
+pub fn log_anchor_drops(events: &[AnchorDropEvent]) {
+    let log_path = "logs/anchor_drop_log.jsonl";
+    if let Ok(mut file) = OpenOptions::new().create(true).append(true).open(log_path) {
+        let mut out = String::new();
+        for e in events {
+            out.push_str(&serde_json::to_string(e).unwrap_or_default());
+            out.push('\n');
+        }
+        let _ = file.write_all(out.as_bytes());
+    }
+}

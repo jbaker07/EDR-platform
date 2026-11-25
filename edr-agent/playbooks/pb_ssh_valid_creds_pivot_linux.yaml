@@ -1,20 +1,24 @@
 id: pb_ssh_valid_creds_pivot_linux
-version: 1
+version: 2
 name: "SSH Valid-Creds Pivot (Linux): New Success + Tunnel/Copy"
 severity: medium
 description: >
-  Detects lateral movement via SSH using valid credentials by correlating a new or unusual successful login
-  with subsequent tunneling or file copy actions. Brute-force burst is optional and may precede success.
+  Detects lateral movement via SSH using valid credentials by correlating a successful login from an
+  address with no earlier success with subsequent tunneling or file copy actions. A burst of failures
+  is optional and may precede the success.
 window_sec: 1800
 cooldown_sec: 1800
 
 required:
+  # Was a new ASN check. An ASN comes from internet routing data (BGP) through an outside
+  # database, and nothing on the host carries it, so an eBPF agent cannot collect it. The
+  # first successful login from an address since the agent started stands in.
   - slot_id: new_success_login
     slot_ttl_sec: 900
     fact: Auth
     where:
-      - {field: outcome, op: eq, value: success}
-      - {field: src_asn_new, op: eq, value: true}
+      - {field: result, op: eq, value: success}
+      - {field: src_new, op: eq, value: "true"}
       - {field: user, op: not_in, value: [backup, automation, ansible, salt]}
     derive_tags: ["T1021.004", "T1078"]    # Remote Services: SSH, Valid Accounts
 
@@ -22,8 +26,8 @@ required:
     slot_ttl_sec: 900
     fact: Exec
     where:
-      - {field: exe, op: in, value: [/usr/bin/ssh, /usr/bin/scp, /usr/bin/rsync, /usr/bin/sftp, /usr/bin/sshuttle, /usr/bin/socat]}
-      - {field: cmd, op: regex, value: '(-L\s| -R\s| -D\s|scp\s+|rsync\s+-e\s+ssh|sftp\s+|sshuttle\s+|socat\s+TCP|chisel\s+client)'}
+      - {field: exe_name, op: in, value: [ssh, scp, rsync, sftp, sshuttle, socat, chisel]}
+      - {field: cmd, op: regex, value: '(\s-[a-zA-Z]*[LRD](\s|\d)|^(\S*/)?scp\s|rsync\s.*-e\s*ssh|^(\S*/)?sftp\s|sshuttle\s|socat\s.*TCP|chisel\s+client)'}
     derive_tags: ["T1021.004", "T1090"]    # SSH + Proxy/Tunnel
 
 optional:
@@ -31,6 +35,7 @@ optional:
     slot_ttl_sec: 600
     fact: Auth
     where:
+      - {field: result, op: eq, value: failure}
       - {field: __agg.kind, op: eq, value: auth_fail_burst}
       - {field: __agg.failures, op: gte, value: 8}
       - {field: __agg.window_sec, op: lte, value: 300}
@@ -40,18 +45,21 @@ optional:
     slot_ttl_sec: 600
     fact: FileIO
     where:
-      - {field: op, op: in, value: [open, read]}
-      - {field: path, op: regex, value: "(/home/.+/.ssh/(id_rsa|id_ed25519|known_hosts)|/etc/ssh/ssh_config)"}
+      - {field: op, op: eq, value: open}
+      - {field: path, op: regex, value: '(^/home/[^/]+/\.ssh/(id_rsa|id_ed25519|known_hosts)$|^/root/\.ssh/(id_rsa|id_ed25519|known_hosts)$|^/etc/ssh/ssh_config$)'}
     derive_tags: ["T1552.004"]    # Private Keys
 
 forbidden:
+  # Admin accounts connecting inward from a jump box. User names come from /etc/passwd.
+  # The old schema also asked for an open change ticket, which lives in a ticketing
+  # system the host cannot see.
   - slot_id: admin_jumpbox_pattern
     slot_ttl_sec: 900
-    fact: Net
+    fact: NetFlow
     where:
+      - {field: op, op: eq, value: connect}
       - {field: dst_ip, op: in_cidr, value: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16]}
       - {field: user, op: in, value: [infra_admin, devops]}
-      - {field: change_ticket, op: exists, value: true}
     derive_tags: ["benign_ops"]
 
 vendor_map:
@@ -62,7 +70,7 @@ vendor_map:
 explain:
   primary_ttp: T1021.004
   narrative: >
-    A new successful SSH login from an unfamiliar ASN followed by tunneling or secure copy indicates a likely
+    A successful SSH login from a new address followed by tunneling or secure copy indicates a likely
     lateral movement pivot. Preceding authentication failure bursts and key access elevate confidence.
 title: "SSH Valid-Creds Pivot (Linux): New Success + Tunnel/Copy"
 reason_code: SSH_VALID_CREDS_PIVOT_LINUX

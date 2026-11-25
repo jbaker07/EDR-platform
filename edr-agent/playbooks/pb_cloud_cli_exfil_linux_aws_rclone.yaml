@@ -1,5 +1,5 @@
 id: pb_cloud_cli_exfil_linux_aws_rclone
-version: 1
+version: 2
 name: Data Exfil via Cloud CLI / rclone (Linux)
 severity: high
 description: >
@@ -13,53 +13,59 @@ required:
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - {field: exe, op: regex, value: "^(aws|gsutil|azcopy|rclone)$"}
-      - {field: cmd, op: regex, value: "(sync|cp|copy|rsync|--recursive|--transfers|--files-from|--include|--exclude)"}
+      - {field: exe_name, op: regex, value: '^(aws|gsutil|azcopy|rclone)$'}
+      - {field: cmd, op: regex, value: '(\s(sync|cp|copy|mv|move)(\s|$)|--recursive|--transfers|--files-from|--include|--exclude)'}
     derive_tags: ["T1567.002", "T1030"]    # Exfil to Cloud Storage, Data Transfer Size Limits
 
+  # Bytes the cloud tool passed to send, sendto and sendmsg toward public addresses.
   - slot_id: outbound_volume
     slot_ttl_sec: 900
     fact: NetFlow
     where:
-      - {field: __agg.kind, op: eq, value: "egress_volume"}
-      - {field: __agg.bytes_out, op: gte, value: 500000000}    # ~500MB
+      - {field: exe_name, op: regex, value: '^(aws|gsutil|azcopy|rclone)$'}
+      - {field: dst_private, op: eq, value: "false"}
+      - {field: __agg.kind, op: eq, value: egress_volume}
+      - {field: __agg.bytes_out, op: gte, value: 500000000}    # 500 MB
       - {field: __agg.window_sec, op: lte, value: 900}
-    derive_tags: ["T1041"]    # Exfil over C2 Channel (generic egress)
+    derive_tags: ["T1041"]
 
 optional:
   - slot_id: creds_access
     slot_ttl_sec: 600
     fact: FileIO
     where:
-      - {field: op, op: in, value: [read, open]}
-      - {field: path, op: regex, value: '(~/.aws/credentials|~/.config/rclone/rclone\\.conf|/etc/.*rclone.*\\.conf)'}
+      - {field: op, op: eq, value: open}
+      - {field: path, op: regex, value: '(/\.aws/credentials$|/\.config/rclone/rclone\.conf$|^/etc/.*rclone.*\.conf$)'}
     derive_tags: ["T1552.001"]    # Credentials in Files
 
   - slot_id: assume_role
     slot_ttl_sec: 900
     fact: Exec
     where:
-      - {field: exe, op: eq, value: "aws"}
-      - {field: cmd, op: regex, value: 'sts\\s+assume-role|--role-arn|--profile'}
+      - {field: exe_name, op: eq, value: aws}
+      - {field: cmd, op: regex, value: '(sts\s+assume-role|--role-arn)'}
     derive_tags: ["T1078", "T1550.001"]    # Valid Accounts, Application Access Token
 
   - slot_id: src_data_paths
     slot_ttl_sec: 900
     fact: FileIO
     where:
-      - {field: op, op: in, value: [read, open]}
+      - {field: op, op: eq, value: open}
       - {field: topdir, op: in, value: [/home, /srv, /var/www, /mnt, /opt, /data]}
-      - {field: __agg.kind, op: eq, value: "file_read_burst"}
+      - {field: __agg.kind, op: eq, value: file_read_burst}
       - {field: __agg.files, op: gte, value: 1000}
-    derive_tags: ["T1039"]    # Data from Network Shared Drive / local dirs
+    derive_tags: ["T1005"]    # Data from Local System
 
 forbidden:
-  - slot_id: first_party_backup
+  # Was a code signer check. Linux binaries carry no signature, so this asks for a backup
+  # tool installed by its package whose bytes still match the package checksum. A copy
+  # or a look-alike named restic in /tmp does not veto.
+  - slot_id: known_backup_tool
     slot_ttl_sec: 1200
     fact: Exec
     where:
-      - {field: signer, op: eq, value: "first_party_backup"}
-      - {field: cmd, op: regex, value: "(backup|snapshot|policy)"}
+      - {field: exe_package, op: in, value: [restic, borgbackup, duplicity, rdiff-backup, rsnapshot, bacula-client, bacula-fd, velero]}
+      - {field: exe_pkg_verified, op: eq, value: "true"}
 
 vendor_map:
   - {product: CrowdStrike, alert_type: "Suspicious data exfiltration", fills_slot: outbound_volume}

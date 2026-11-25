@@ -1,4 +1,6 @@
+pub mod auth_log;
 pub mod dns_tunnel;
+pub mod host_perf;
 pub mod net_watch;
 pub mod password_spray;
 pub mod persistence_watch;

@@ -1,12 +1,33 @@
 {
   "policy": {
-    "collection_interval": 60,
-    "endpoint_role": "server",
-    "mode": "forensic",
-    "trust_threshold": 0.7,
-    "gnn_enabled": true,
+    "serial": 2,
+    "guard_mode": "monitor",
+    "guard_allow": {
+      "socket_clients": [],
+      "memfd_allow": []
+    },
+    "redact_command_lines": true,
+    "response_actions": ["kill_proc", "block_egress", "isolate_host"],
+    "management_ports": [22],
     "logging": {
       "level": "info"
+    },
+    "shields": {
+      "enabled": true,
+      "max_lifetime_sec": 86400,
+      "max_active": 256,
+      "never_block": {
+        "paths": [],
+        "cidrs": []
+      },
+      "auto_promote": {
+        "kinds": [],
+        "trial_sec": 600
+      },
+      "auto_apply": {
+        "kinds": [],
+        "max_lifetime_sec": 3600
+      }
     }
   }
 }

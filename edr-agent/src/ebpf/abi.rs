@@ -66,10 +66,16 @@ pub fn c_string(bytes: &[u8]) -> String {
 pub const NET_KIND_CONNECT: u32 = 1;
 pub const NET_KIND_TX: u32 = 2;
 pub const NET_KIND_RX: u32 = 3;
+/// A net_evt header (bytes = bytes copied) followed by TLS_CAP bytes: the first write
+/// on a socket connected to port 443 or 8443. See tls_capture in net_flow.bpf.c.
+pub const NET_KIND_TLS_HELLO: u32 = 4;
+pub const TLS_CAP: usize = 1024;
+pub const TLS_FRAME_LEN: usize = 48 + TLS_CAP;
 
-/// Mirror of struct net_evt (net_flow.bpf.c:21-30). 48 bytes.
+/// Mirror of struct net_evt (net_flow.bpf.c:21-31). 48 bytes.
 /// The C compiler adds 3 bytes of padding after is_v6 (so daddr_v4 sits on a 4-byte
-/// boundary) and 4 bytes after daddr_v6 (so bytes sits on an 8-byte boundary).
+/// boundary). uid sits in the 4 bytes after daddr_v6 that were padding, so bytes is
+/// still on an 8-byte boundary and the size did not change.
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]
 pub struct NetEvt {
@@ -79,7 +85,8 @@ pub struct NetEvt {
     pub dport: u16,         // offset 10: network byte order
     pub is_v6: u8,          // offset 12, then 3 bytes of padding
     pub daddr_v4: u32,      // offset 16: network byte order
-    pub daddr_v6: [u8; 16], // offset 20, then 4 bytes of padding
+    pub daddr_v6: [u8; 16], // offset 20
+    pub uid: u32,           // offset 36
     pub bytes: i64,         // offset 40: syscall return for tx/rx
 }
 
@@ -278,6 +285,7 @@ const _: () = {
     assert!(offset_of!(NetEvt, is_v6) == 12);
     assert!(offset_of!(NetEvt, daddr_v4) == 16);
     assert!(offset_of!(NetEvt, daddr_v6) == 20);
+    assert!(offset_of!(NetEvt, uid) == 36);
     assert!(offset_of!(NetEvt, bytes) == 40);
 
     assert!(size_of::<WxEvt>() == 48);
@@ -337,6 +345,17 @@ pub(crate) mod test_bytes {
         b[10..12].copy_from_slice(&port.to_be_bytes());
         b[12] = 0;
         b[16..20].copy_from_slice(&ip);
+        put_u32(&mut b, 36, 1000);
+        b
+    }
+
+    /// struct tls_evt: a connect header with kind 4 and `data` copied after it.
+    pub fn tls_hello_frame(pid: u32, ip: [u8; 4], port: u16, data: &[u8]) -> Vec<u8> {
+        let mut b = net_connect_v4(pid, ip, port);
+        put_u32(&mut b, 4, 4);
+        b[40..48].copy_from_slice(&(data.len() as i64).to_ne_bytes());
+        b.resize(48 + 1024, 0);
+        b[48..48 + data.len()].copy_from_slice(data);
         b
     }
 
@@ -449,6 +468,7 @@ mod tests {
         assert_eq!(e.family, 2);
         assert_eq!(e.dst_port(), 8080);
         assert_eq!(e.dst_ip().to_string(), "93.184.216.34");
+        assert_eq!(e.uid, 1000);
     }
 
     #[test]

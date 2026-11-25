@@ -35,10 +35,10 @@ pub fn init(metrics: Arc<Metrics>) {
     let _ = GLOBAL.set(metrics);
 }
 
+/// The counters set by init(), or a fresh set when nothing called init (tests), so a
+/// counter bump can never panic.
 fn get() -> &'static Arc<Metrics> {
-    GLOBAL
-        .get()
-        .expect("metrics::init must be called before use")
+    GLOBAL.get_or_init(|| Arc::new(Metrics::default()))
 }
 
 pub fn events_in() -> &'static AtomicU64 {

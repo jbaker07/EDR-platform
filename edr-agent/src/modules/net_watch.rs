@@ -992,8 +992,8 @@ impl ProxyScanner {
             }
             let dir = proc_root.join(pid.to_string());
             let (ppid, uid) = read_ppid_and_uid(proc_root, pid);
-            let cmdline = fs::read_to_string(dir.join("cmdline"))
-                .map(|s| s.replace('\0', " ").trim_end().to_string())
+            let cmdline = fs::read(dir.join("cmdline"))
+                .map(|b| crate::redact::cmdline_from_proc(&b))
                 .unwrap_or_else(|_| "unknown".into());
             let cwd = fs::read_link(dir.join("cwd"))
                 .map(|p| p.display().to_string())

@@ -37,7 +37,7 @@ optional:
 forbidden:
   - slot_id: kube_node_maintenance
     slot_ttl_sec: 1800
-    fact: Vendor
+    fact: VendorAlert
     where:
       - {field: product, op: eq, value: Kubernetes}
       - {field: alert_type, op: eq, value: NodeDrain}

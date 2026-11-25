@@ -108,9 +108,21 @@ fn cstr_trunc(bytes: &[u8]) -> String {
     cbytes_to_string_lossy(bytes)
 }
 
+/// The address bytes sit in network order in memory, so the native byte order of the
+/// u32 gives them back as they were. to_be_bytes() reversed them on little endian
+/// hosts, which printed 127.0.0.1 as 1.0.0.127.
 fn ipv4_be_to_string(be: u32) -> String {
-    let b = be.to_be_bytes();
+    let b = be.to_ne_bytes();
     format!("{}.{}.{}.{}", b[0], b[1], b[2], b[3])
+}
+
+/// An IPv6 address as text, with an IPv4-mapped address shown as plain IPv4.
+fn ipv6_to_string(b: &[u8; 16]) -> String {
+    let a = std::net::Ipv6Addr::from(*b);
+    match a.to_ipv4_mapped() {
+        Some(v4) => v4.to_string(),
+        None => a.to_string(),
+    }
 }
 
 fn port_be_to_u16(be: u16) -> u16 {
@@ -204,16 +216,10 @@ fn read_proc_cmdline(pid: i32) -> String {
         return String::new();
     }
 
+    // Secrets are masked here, before the record exists (forensic_hooks::redact).
     let path = format!("/proc/{}/cmdline", pid);
     fs::read(path)
-        .map(|bytes| {
-            bytes
-                .split(|b| *b == 0u8)
-                .filter(|part| !part.is_empty())
-                .map(|part| String::from_utf8_lossy(part).into_owned())
-                .collect::<Vec<_>>()
-                .join(" ")
-        })
+        .map(|bytes| forensic_hooks::redact::cmdline_from_proc(&bytes))
         .unwrap_or_default()
 }
 
@@ -310,6 +316,10 @@ pub fn edr_event_to_output(e: &EdREvent) -> TelemetryOutput {
     }
     if e.proto != 0 {
         data.insert("proto".into(), e.proto.to_string());
+    }
+    if e.fam == 10 {
+        data.insert("laddr6".into(), ipv6_to_string(&e.laddr6));
+        data.insert("raddr6".into(), ipv6_to_string(&e.raddr6));
     }
 
     // category/signal from tags

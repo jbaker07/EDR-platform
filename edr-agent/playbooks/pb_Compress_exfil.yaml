@@ -1,26 +1,40 @@
-id: compress_then_exfil
-name: Compression → HTTPS Exfil
-description: >
-  Operator-aligned exfil chain: staging (compress/archive) followed by outbound exfil over HTTPS or DNS.
-window_secs: 1800
-key_by: [host, user]
-steps:
-  - id: stage_archive
-    domain: process
-    any_tags: ["T1560*", "archive_create*", "file_write*"]
-    cmd_regex: ".*(zip|7z|tar|rar|gzip|gpg|openssl\\s+enc).*"
-  - id: outbound_https_or_dns
-    domain: network
-    any_tags: ["net_connect*", "dns_tunnel*", "C2_*"]
-    cmd_regex: ".*(curl|wget|powershell|Invoke-WebRequest|bitsadmin|scp|rsync).*"
-    max_gap_secs: 900
-emit:
-  add_tags: ["ATTACK:EXFIL_COMPRESS", "T1560", "T1041"]
-  risk: 0.9
-version: 1
+# Ported from the old steps schema (archive step, then a network step within 900 s).
+id: pb_compress_then_exfil_linux
+version: 2
+name: "Exfiltration (Linux): Archive Staging then Outbound Transfer"
 severity: medium
-window_sec: 900
+description: >
+  Data staged in an archive (tar, zip, 7z, gzip, xz, zstd, gpg, openssl enc) followed by a
+  transfer tool connecting to a public address.
+window_sec: 1800
 cooldown_sec: 600
-title: Compression → HTTPS Exfil
+# One chain per user, as key_by: [host, user] did in the old schema.
+context_keys: [host, user]
+
+required:
+  - slot_id: stage_archive
+    slot_ttl_sec: 1800
+    fact: Exec
+    where:
+      - {field: exe_name, op: regex, value: '^(tar|zip|7z|7za|rar|gzip|pigz|xz|zstd|gpg|openssl)$'}
+      # An extract or a list is not staging.
+      - {field: cmd, op: not_regex, value: '(\s-[a-zA-Z]*[xt][a-zA-Z]*(\s|$)|\s--extract|\s--list|\s-d(\s|$)|\s--decompress|\s--decrypt)'}
+    derive_tags: ["T1560"]    # Archive Collected Data
+
+  - slot_id: outbound_transfer
+    slot_ttl_sec: 900
+    fact: NetFlow
+    where:
+      - {field: op, op: eq, value: connect}
+      - {field: dst_private, op: eq, value: "false"}
+      - {field: exe_name, op: regex, value: '^(curl|wget|scp|sftp|rsync|ssh|nc|ncat|socat|rclone|ftp|lftp)$'}
+    derive_tags: ["T1041"]    # Exfiltration Over C2 Channel
+
+explain:
+  primary_ttp: [T1560, T1041]
+  narrative: >
+    An archive was created and a transfer tool then connected to a public address, the shape of
+    staging followed by exfiltration.
+title: "Exfiltration (Linux): Archive Staging then Outbound Transfer"
 reason_code: COMPRESS_THEN_EXFIL
 rules: []

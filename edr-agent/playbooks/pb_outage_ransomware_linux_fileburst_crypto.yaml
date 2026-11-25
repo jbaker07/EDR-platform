@@ -32,12 +32,12 @@ required:
     derive_tags: ["T1486", "T1059"]
 
 optional:
-  # Memory execution / code-injection style signals (if you emit tags for RWX/MEMFD)
+  # Memory execution / code-injection style signals (wx_exec tags these Exec facts)
   - slot_id: mem_exec
     slot_ttl_sec: 900
-    fact: Event
+    fact: Exec
     where:
-      - {field: tag, op: in, value: [MEMFD_EXEC, RWX_MAP]}
+      - {field: tags_any, op: in, value: [MEMFD_EXEC, RWX_MAP]}
     derive_tags: ["T1055"]
 
   # Backup/DB/service interference on Linux
@@ -95,9 +95,11 @@ forbidden:
     notes: Exclude package install bursts under /usr*, /var/lib/*
 
 links:
-  # Cross-layer, same user/host; either order allowed but must be close
-  - {from: file_burst, to: crypto_exec, requires: [same_host, same_user], follows_within_sec: 300}
-  - {from: crypto_exec, to: file_burst, requires: [same_host, same_user], follows_within_sec: 600}
+  # Cross-layer, same user and host, in either order but close together.
+  # within_sec has no order, so this one link replaces the earlier pair
+  # (burst then crypto within 300 s, and crypto then burst within 600 s). Enforced
+  # together, that pair held only when both steps fell in the same second.
+  - {from: crypto_exec, to: file_burst, requires: [same_host, same_user], within_sec: 600}
   # Optional evidence strengthens narrative/severity if present
   - {from: mem_exec, to: file_burst, requires: [same_host], follows_within_sec: 900}
   - {from: backup_disable, to: file_burst, requires: [same_host, same_user], follows_within_sec: 900}

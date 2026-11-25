@@ -1,10 +1,11 @@
 id: pb_webshell_reverse_shell_linux
-version: 1
+version: 2
 name: Webshell -> Reverse Shell (Linux)
 severity: high
 description: >
   Detects a reverse shell launched from a web server context, correlating parent webserver,
-  suspicious shell args, and outbound C2 connection. Optional webroot write increases confidence.
+  suspicious shell args, and an outbound TCP connection from that shell. Optional webroot write
+  and a connection that stays open increase confidence.
 window_sec: 600
 cooldown_sec: 1800
 
@@ -13,49 +14,58 @@ required:
     slot_ttl_sec: 300
     fact: Exec
     where:
-      - {field: parent_exe, op: regex, value: "^(nginx|apache2|httpd|php-fpm|uwsgi|gunicorn)$"}
-      - {field: exe, op: regex, value: "^(bash|sh|dash|ksh|zsh|perl|python3?)$"}
-      - {field: cmd, op: regex, value: '(bash\s+-i|/dev/tcp/|curl\s+.*\|\s*sh|wget\s+.*\|\s*sh|python\s+-c\s+import\ssocket|perl\s+-e\s+''?use\s+Socket)'}
+      - {field: parent_name, op: regex, value: '^(nginx|apache2|httpd|php-fpm[0-9.]*|uwsgi|gunicorn|php)$'}
+      - {field: exe_name, op: regex, value: '^(bash|sh|dash|ksh|zsh|perl|python3?(\.\d+)?)$'}
+      - {field: cmd, op: regex, value: '(bash\s+-i|/dev/tcp/|curl\s+.*\|\s*sh|wget\s+.*\|\s*sh|python3?\s+-c\s+.*socket|perl\s+-e\s+.*Socket)'}
     derive_tags: ["T1505.003", "T1059"]    # Web Shell, Command/Scripting
 
+  # The shell's own TCP connection reaching ESTABLISHED (tcp_state), to a public address.
   - slot_id: outbound_rev_c2
     slot_ttl_sec: 300
-    fact: NetFlow
+    fact: Net
     where:
-      - {field: src_proc, op: in_slot, value: web_to_shell_exec}
-      - {field: dst_ip_is_private, op: eq, value: false}
-      - {field: __agg.kind, op: eq, value: "longlived_flow"}
-      - {field: __agg.duration_sec, op: gte, value: 60}
-      - {field: proto, op: in, value: [tcp]}
-    derive_tags: ["T1105", "T1071"]    # Ingress Tool Transfer / App Protocol
+      - {field: op, op: eq, value: established}
+      - {field: direction, op: eq, value: outbound}
+      - {field: dst_private, op: eq, value: "false"}
+      - {field: pid, op: in_slot, value: web_to_shell_exec}
+    derive_tags: ["T1071"]    # Application Layer Protocol
 
 optional:
   - slot_id: webroot_write
     slot_ttl_sec: 900
     fact: FileIO
     where:
-      - {field: op, op: in, value: [write, create]}
-      - {field: path, op: regex, value: '(/var/www|/srv/www|/usr/share/nginx/html|/var/www/html)/.*\.(php|jsp|asp|js|sh)$'}
+      - {field: op, op: eq, value: write}
+      - {field: path, op: regex, value: '^(/var/www|/srv/www|/usr/share/nginx/html)/.*\.(php|jsp|asp|js|sh)$'}
     derive_tags: ["T1059", "T1505.003"]
 
-  - slot_id: suspicious_headers
-    slot_ttl_sec: 120
-    fact: HttpReq
+  - slot_id: long_lived_c2
+    slot_ttl_sec: 600
+    fact: Net
     where:
-      - {field: method, op: in, value: [POST, PUT]}
-      - {field: content_type, op: regex, value: "(multipart/form-data|application/x-php)"}
-      - {field: __agg.kind, op: eq, value: "burst"}
-      - {field: __agg.count, op: gte, value: 5}
-    derive_tags: ["T1190"]    # Exploit Public-Facing App (heuristic)
+      - {field: op, op: eq, value: open_flow}
+      - {field: duration_sec, op: gte, value: 60}
+      - {field: pid, op: in_slot, value: web_to_shell_exec}
+    derive_tags: ["T1071"]
 
 forbidden:
+  # Was a check on the web user and the request's source address. Both live inside the
+  # web server (the request is usually inside TLS too), and the shell it starts carries
+  # neither, so an eBPF agent cannot tie them to the exec. A known web maintenance tool
+  # started by the web server stands in.
   - slot_id: admin_maintenance
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - {field: user, op: regex, value: "^(admin|devops|svc-).*"}
-      - {field: src_ip_is_corporate, op: eq, value: true}
-      - {field: cmd, op: regex, value: "(backup|deploy|migrate|letsencrypt)"}
+      - {field: parent_name, op: regex, value: '^(nginx|apache2|httpd|php-fpm[0-9.]*|uwsgi|gunicorn|php)$'}
+      - {field: exe_name, op: regex, value: '^(certbot|letsencrypt|wp|wp-cli|composer)$'}
+
+# A hit proposes a runtime shield: connect_deny of the shell's destination and port,
+# limited to the cgroup of the web server's shell, for one hour. The proposal goes on
+# the incident unsigned. It applies by itself only when the signed policy lists
+# connect_deny under shields.auto_apply, and then starts in monitor mode.
+shield_templates:
+  - {kind: connect_deny, slot: outbound_rev_c2, scope_slot: web_to_shell_exec, ttl_sec: 3600}
 
 vendor_map:
   - {product: WAF, alert_type: "Webshell upload", fills_slot: webroot_write}
@@ -65,8 +75,8 @@ vendor_map:
 explain:
   primary_ttp: T1505.003
   narrative: >
-    A shell was spawned directly by a webserver process with reverse-shell indicators and established an
-    external long-lived connection. Optional webroot writes and HTTP anomalies add corroboration.
+    A shell was spawned directly by a webserver process with reverse-shell indicators and opened an
+    external TCP connection. Optional webroot writes and a connection that stays open add corroboration.
 title: Webshell -> Reverse Shell (Linux)
 reason_code: WEBSHELL_REVERSE_SHELL_LINUX
 rules: []

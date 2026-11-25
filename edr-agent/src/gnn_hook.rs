@@ -75,7 +75,8 @@ pub fn submit_to_gnn(record: &TelemetryRecord) {
     }
 }
 
-pub fn push_feature_map_to_gnn_log(feature_map: HashMap<String, String>) {
+pub fn push_feature_map_to_gnn_log(mut feature_map: HashMap<String, String>) {
+    crate::redact::redact_map(&mut feature_map);
     let path = gnn_dir().join("gnn_vector_log.jsonl");
     match serde_json::to_string(&feature_map) {
         Ok(line) => {
@@ -125,25 +126,43 @@ pub fn export_trust_vector_to_gnn(
 }
 
 pub fn stream_to_gnn_fifo(feature_map: &HashMap<String, f64>) {
-    let fifo_path = env::var("EDR_GNN_FIFO").unwrap_or_else(|_| DEFAULT_GNN_FIFO.to_string());
+    stream_many_to_gnn_fifo(std::slice::from_ref(feature_map));
+}
 
-    match serde_json::to_string(feature_map) {
-        Ok(json_line) => match OpenOptions::new().write(true).open(&fifo_path) {
-            Ok(mut fifo) => {
-                if let Err(e) = writeln!(fifo, "{}", json_line) {
-                    eprintln!("[GNN Hook] FIFO write failed: {e}; falling back to file.");
-                    push_feature_map_to_gnn_log(stringify_map_vals(feature_map));
-                }
+/// Write feature maps to the GNN FIFO, one JSON line each, with one open for all of
+/// them. The FIFO is opened non-blocking, so a FIFO with no reader fails at once
+/// instead of stopping the caller. When it cannot be used the maps go to the vector
+/// log instead, and the reason is logged once, not once per map.
+pub fn stream_many_to_gnn_fifo(maps: &[HashMap<String, f64>]) {
+    use std::os::unix::fs::OpenOptionsExt;
+    use std::sync::atomic::{AtomicBool, Ordering};
+    static WARNED: AtomicBool = AtomicBool::new(false);
+    if maps.is_empty() {
+        return;
+    }
+    let fifo_path = env::var("EDR_GNN_FIFO").unwrap_or_else(|_| DEFAULT_GNN_FIFO.to_string());
+    let mut fifo = match OpenOptions::new()
+        .write(true)
+        .custom_flags(libc::O_NONBLOCK)
+        .open(&fifo_path)
+    {
+        Ok(f) => Some(f),
+        Err(e) => {
+            if !WARNED.swap(true, Ordering::Relaxed) {
+                log::warn!("GNN FIFO {fifo_path} unavailable ({e}), trust vectors go to the vector log");
             }
-            Err(e) => {
-                eprintln!(
-                    "[GNN Hook] FIFO unavailable ({}): {e}; falling back to file.",
-                    fifo_path
-                );
-                push_feature_map_to_gnn_log(stringify_map_vals(feature_map));
-            }
-        },
-        Err(_) => eprintln!("[GNN Hook] Failed to serialize feature map to JSON"),
+            None
+        }
+    };
+    for map in maps {
+        let sent = match (fifo.as_mut(), serde_json::to_string(map)) {
+            (Some(f), Ok(line)) => writeln!(f, "{line}").is_ok(),
+            _ => false,
+        };
+        if !sent {
+            fifo = None;
+            push_feature_map_to_gnn_log(stringify_map_vals(map));
+        }
     }
 }
 

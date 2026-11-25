@@ -241,7 +241,7 @@ pub fn trust_from_risk(risk: f32) -> f32 {
     (100.0 - risk).clamp(0.0, 100.0)
 }
 
-/// Assign a **risk** score to a TelemetryRecord (0–100).
+/// Assign a **risk** score to a TelemetryRecord (0 to 100).
 /// Earlier versions stored an inverted "trust score" in `risk_score`, now fixed.
 pub fn assign_trust_score(record: &mut TelemetryRecord) {
     // Heuristic risk builder (start at 0 = safe)
@@ -268,6 +268,9 @@ pub fn submit_trust_event(event: TrustEvent) {
     // Ensure consistency even if constructed externally
     let mut ev = event.clone();
     ev.sanitize_scores();
+    // The log below prints the command line and metadata, so mask them first.
+    ev.command_line = crate::redact::redact_owned(std::mem::take(&mut ev.command_line));
+    crate::redact::redact_map(&mut ev.metadata);
 
     println!(
         "[🛡 TrustEvent] Module={:?} | Component={} | SignalType={:?} | Signal={:?} | Risk={:.2} | Score={:?} | Raw={:?} | Tags={:?}",
@@ -293,7 +296,7 @@ pub fn submit_trust_event(event: TrustEvent) {
 }
 
 /// Generate a simple feature vector and payload-like map values.
-/// - `cpu`: typically a 0–1 or % value; we keep as given
+/// - `cpu`: typically a 0 to 1 or % value, kept as given
 /// - `mem`: bytes or KB; we keep as given to avoid breaking callers
 /// - `risk`: risk in [0,100]
 pub fn generate_trust_payload(

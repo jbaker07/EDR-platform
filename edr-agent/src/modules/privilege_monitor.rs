@@ -46,7 +46,7 @@ pub fn scan_privilege_activity() -> Vec<TelemetryOutput> {
             pid = proc_pid.as_u32() as i32;
             ppid = proc.parent().map(|p| p.as_u32() as i32).unwrap_or(0);
             binary_path = proc.exe().display().to_string();
-            command_line = cmd.join(" ");
+            command_line = crate::redact::redact_owned(cmd.join(" "));
             cwd = proc.cwd().display().to_string();
             found_priv = true;
             break;

@@ -1,11 +1,13 @@
 // src/ebpf/raw_config.rs
-// The agent's side of raw_syscalls_catcher's two control maps, set once at startup in
-// pinned mode:
+// The agent's side of raw_syscalls_catcher's two control maps, and file_access_monitor's
+// one, set once at startup in pinned mode:
 //   edr_self_tgid       the agent's tgid. The sensor skips it before taking ring space,
 //                       so the agent's own log opens and writes never come back as events.
+//   fam_self_tgid       the same for file_access_monitor's perf buffer.
 //   edr_allow_syscalls  which syscalls the sensor reports. An empty map means a silent
 //                       sensor, so when the agent finds it empty it fills the default set.
-// The syscall numbers are arm64, the same ones raw_syscalls_catcher.bpf.c hard-codes.
+// Syscall numbers differ by architecture. DEFAULT_ALLOW holds the arm64 or the x86_64
+// set, the same numbers raw_syscalls_catcher.bpf.c is built with for that target.
 
 #![cfg(target_os = "linux")]
 
@@ -14,10 +16,12 @@ use std::os::fd::{AsRawFd, OwnedFd};
 use libbpf_rs::libbpf_sys as sys;
 
 pub const SELF_MAP: &str = "edr_self_tgid";
+/// The same filter in file_access_monitor.bpf.c.
+pub const FILE_SELF_MAP: &str = "fam_self_tgid";
 pub const ALLOW_MAP: &str = "edr_allow_syscalls";
 
-/// What the loaded playbooks read from the raw sensor.
-pub const DEFAULT_ALLOW: &[(u32, &str)] = &[
+/// What the loaded playbooks read from the raw sensor, arm64 numbers.
+pub const ARM64_ALLOW: &[(u32, &str)] = &[
     (56, "openat"),     // open flags and errors: op=write, open, open_fail with errno
     (437, "openat2"),   // same handler as openat
     (64, "write"),      // byte counts, tied to a path through the open
@@ -26,6 +30,25 @@ pub const DEFAULT_ALLOW: &[(u32, &str)] = &[
     (276, "renameat2"), // mv with flags, raw syscall users
     (35, "unlinkat"),   // rm
 ];
+
+/// The same set on x86_64, which also keeps the older rename and unlink calls that
+/// glibc's rename() and unlink() still use there.
+pub const X86_64_ALLOW: &[(u32, &str)] = &[
+    (257, "openat"),
+    (437, "openat2"),
+    (1, "write"),
+    (3, "close"),
+    (264, "renameat"),
+    (316, "renameat2"),
+    (82, "rename"),
+    (263, "unlinkat"),
+    (87, "unlink"),
+];
+
+#[cfg(target_arch = "x86_64")]
+pub const DEFAULT_ALLOW: &[(u32, &str)] = X86_64_ALLOW;
+#[cfg(not(target_arch = "x86_64"))]
+pub const DEFAULT_ALLOW: &[(u32, &str)] = ARM64_ALLOW;
 
 /// How EDR_RAW_SYSCALLS asks for the allowlist to be set.
 #[derive(Debug, PartialEq)]
@@ -117,6 +140,15 @@ pub fn configure(pin_prefix: &str) {
             "raw sensor: {e}. The sensor has no self filter, the user-space drop still applies"
         ),
     }
+    match open_pinned(pin_prefix, FILE_SELF_MAP) {
+        Ok((path, fd)) => match put_u32_u8(fd.as_raw_fd(), me, 1) {
+            Ok(()) => log::info!("file sensor: skipping the agent's own tgid {me} ({path})"),
+            Err(e) => log::warn!("file sensor: could not write tgid {me} to {path}: {e}"),
+        },
+        Err(e) => log::warn!(
+            "file sensor: {e}. An older file_access_monitor object, the user-space drop still applies"
+        ),
+    }
 
     let plan = match parse_allow_plan(std::env::var("EDR_RAW_SYSCALLS").ok().as_deref()) {
         Ok(p) => p,
@@ -129,8 +161,8 @@ pub fn configure(pin_prefix: &str) {
         log::info!("raw sensor: EDR_RAW_SYSCALLS=none, allowlist left as it is");
         return;
     }
-    if !cfg!(target_arch = "aarch64") {
-        log::warn!("raw sensor: syscall numbers are arm64 only, allowlist left as it is");
+    if !cfg!(any(target_arch = "aarch64", target_arch = "x86_64")) {
+        log::warn!("raw sensor: no syscall numbers for this architecture, allowlist left as it is");
         return;
     }
     let (path, fd) = match open_pinned(pin_prefix, ALLOW_MAP) {
@@ -171,6 +203,21 @@ mod tests {
     }
 
     #[test]
+    fn both_architectures_cover_the_same_calls() {
+        fn names(t: &[(u32, &'static str)]) -> Vec<&'static str> {
+            let mut v: Vec<&'static str> = t.iter().map(|(_, n)| *n).filter(|n| !matches!(*n, "rename" | "unlink")).collect();
+            v.sort();
+            v
+        }
+        assert_eq!(names(ARM64_ALLOW), names(X86_64_ALLOW));
+        // x86_64 numbers from arch/x86/entry/syscalls/syscall_64.tbl.
+        for (n, name) in [(257, "openat"), (1, "write"), (3, "close"), (264, "renameat"), (316, "renameat2"), (263, "unlinkat"), (82, "rename"), (87, "unlink")] {
+            assert!(X86_64_ALLOW.contains(&(n, name)), "{name}");
+        }
+    }
+
+    #[test]
+    #[cfg(target_arch = "aarch64")]
     fn default_allowlist_covers_the_file_playbooks() {
         let on = plan_numbers(&AllowPlan::Default);
         // open flags and errno (attr_locker, memfd_inplace), write sizes (intermit_encrypt,

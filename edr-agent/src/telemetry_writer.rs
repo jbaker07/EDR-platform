@@ -195,8 +195,18 @@ impl TelemetryWriter {
         }
     }
 
+    /// Same as new(), writing into `dir`.
+    pub fn with_dir(dir: &Path) -> Self {
+        let mut w = Self::new();
+        let _ = create_dir_all(dir);
+        w.dir = dir.to_path_buf();
+        w
+    }
+
     /// Append a single record into the in-memory buffer (backpressure aware).
-    pub fn append(&self, event: TelemetryRecord) {
+    pub fn append(&self, mut event: TelemetryRecord) {
+        // Second line of defense: the sources already mask command line secrets.
+        event.command_line = crate::redact::redact_owned(std::mem::take(&mut event.command_line));
         if let Ok(mut buffer) = self.buffer.lock() {
             Self::maybe_apply_backpressure(&mut buffer, self.max_buffer);
             buffer.push(event);
@@ -212,6 +222,9 @@ impl TelemetryWriter {
 
     /// Append a batch of records.
     pub fn append_batch(&self, mut records: Vec<TelemetryRecord>) {
+        for r in records.iter_mut() {
+            r.command_line = crate::redact::redact_owned(std::mem::take(&mut r.command_line));
+        }
         if let Ok(mut buffer) = self.buffer.lock() {
             if records.len() > self.max_buffer {
                 let keep = self.max_buffer;
@@ -538,9 +551,20 @@ pub fn push_memory_telemetry(
     Ok(())
 }
 
+/// Folder for kv_telemetry.jsonl: EDR_TELEMETRY_DIR, else telemetry_output.
+fn kv_dir() -> PathBuf {
+    PathBuf::from(env::var("EDR_TELEMETRY_DIR").unwrap_or_else(|_| DEFAULT_DIR.into()))
+}
+
 /// Debug-style fallback printer for basic telemetry maps.
 /// Also writes a KV JSONL file next to structured telemetry.
-pub fn write_telemetry_record(mut record: HashMap<String, String>) {
+pub fn write_telemetry_record(record: HashMap<String, String>) {
+    write_telemetry_record_to(&kv_dir(), record)
+}
+
+/// Same, into `dir`. Command line values are masked here too, after the sources.
+pub fn write_telemetry_record_to(dir: &Path, mut record: HashMap<String, String>) {
+    crate::redact::redact_map(&mut record);
     let needs_signal = record
         .get("signal")
         .map(|s| s.trim().is_empty())
@@ -573,8 +597,8 @@ pub fn write_telemetry_record(mut record: HashMap<String, String>) {
     debug_log(&format!("📝 Telemetry record: {:?}", record));
 
     if let Err(e) = (|| -> std::io::Result<()> {
-        create_dir_all(DEFAULT_DIR)?;
-        let path = Path::new(DEFAULT_DIR).join("kv_telemetry.jsonl");
+        create_dir_all(dir)?;
+        let path = dir.join("kv_telemetry.jsonl");
         TelemetryWriter::write_kv_jsonl(&path, &record)
     })() {
         eprintln!("⚠️ [TelemetryWriter] write_telemetry_record persist failed: {e}");

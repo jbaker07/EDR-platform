@@ -1,6 +1,6 @@
 id: pb_exfil_linux_staging_tmpfs_ssh
-version: 0.2
-name: "Exfiltration: Sensitive Reads → Tmpfs Archive → SSH to New Peer (Linux)"
+version: 0.3
+name: "Exfiltration: Sensitive Reads → Tmpfs Archive → Upload to New Peer (Linux)"
 severity: high
 description: Cross-vector correlation of sensitive file access, archive staging in tmpfs, and outbound transfer to a novel peer.
 window_sec: 1800
@@ -11,61 +11,73 @@ required:
     slot_ttl_sec: 900
     fact: FileIO
     where:
-      - { field: op, op: in, value: [read, open] }
-      - { field: path, op: regex, value: "(/etc/shadow|/root/\\.ssh/|/home/.+/.ssh/|/var/lib/(docker|kubelet)/secrets|/etc/kubernetes|/var/lib/mysql)" }
-      - { field: __agg.kind, op: eq, value: sensitive_reads }
-      - { field: __agg.files, op: gte, value: 20 }
-    derive_tags: [ "T1005", "T1552" ]  # Data from Local System / Unsecured Credentials
+      - {field: op, op: eq, value: open}
+      - {field: path, op: regex, value: '^(/etc/shadow|/etc/gshadow|/root/\.ssh/|/home/[^/]+/\.ssh/|/var/lib/(docker|kubelet)/.*secret|/etc/kubernetes/|/var/lib/mysql/)'}
+      - {field: __agg.kind, op: eq, value: file_read_burst}
+      - {field: __agg.files, op: gte, value: 20}
+      - {field: __agg.window_sec, op: lte, value: 900}
+    derive_tags: ["T1005", "T1552"]    # Data from Local System, Unsecured Credentials
 
   - slot_id: tmpfs_archive
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - { field: exe, op: regex, value: "^(tar|zip|7z|xz|zstd)$" }
-      - { field: cmd, op: regex, value: "(-c|-a|-cf|-czf|-J|-T|-mx=\\d)" }
-      - { field: cwd, op: regex, value: "^/(dev/shm|tmp)(/|$)" }
-    derive_tags: [ "T1560" ]  # Archive Collected Data
+      - {field: exe_name, op: regex, value: '^(tar|zip|7z|7za|xz|zstd|gzip)$'}
+      - {field: cmd, op: regex, value: '(\s-[a-zA-Z]*c|\sa\s|\s-T\s|-mx=\d|\s-9)'}
+      # Run from tmpfs, or writing its archive there.
+      - any_of:
+          - {field: cwd, op: regex, value: '^/(dev/shm|tmp)(/|$)'}
+          - {field: cmd, op: regex, value: '\s/(dev/shm|tmp)/\S+\.(tar|tgz|gz|zip|7z|xz|zst)(\s|$)'}
+    derive_tags: ["T1560", "T1074.001"]    # Archive Collected Data, Local Data Staging
 
+  # Bytes sent on connections to a public address the host had not connected to before.
   - slot_id: egress_new_peer
     slot_ttl_sec: 900
-    fact: NetConn
+    fact: NetFlow
     where:
-      - { field: dst_ip, op: not_in_cidr, value: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16] }
-      - { field: __agg.kind, op: eq, value: upload }
-      - { field: __agg.bytes_out, op: gte, value: 100000000 }
-      - { field: __agg.peer_is_new, op: eq, value: true }
-    derive_tags: [ "T1041" ]  # Exfiltration Over C2 / SSH
+      - {field: dst_private, op: eq, value: "false"}
+      - {field: dst_new, op: eq, value: "true"}
+      - {field: __agg.kind, op: eq, value: egress_volume}
+      - {field: __agg.bytes_out, op: gte, value: 100000000}
+      - {field: __agg.window_sec, op: lte, value: 900}
+    derive_tags: ["T1041"]
 
 optional:
+  # A TLS hello naming an object store.
+  - slot_id: cloud_endpoints
+    slot_ttl_sec: 900
+    fact: NetFlow
+    where:
+      - {field: op, op: eq, value: tls_hello}
+      - {field: sni, op: regex, value: '(^|\.)(s3[a-z0-9.-]*\.amazonaws\.com|storage\.googleapis\.com|blob\.core\.windows\.net)$'}
+    derive_tags: ["T1567.002"]    # Exfiltration to Cloud Storage
+
   - slot_id: crypto_in_pipeline
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - { field: cmd, op: regex, value: "(openssl\\s+enc|gpg\\s+-c|age\\s+-e)" }
-    derive_tags: [ "T1041", "T1560" ]
-
-  - slot_id: cloud_endpoints
-    slot_ttl_sec: 900
-    fact: NetConn
-    where:
-      - { field: dst_domain, op: regex, value: "(s3\\.amazonaws\\.com|storage\\.googleapis\\.com|blob\\.core\\.windows\\.net)" }
-    derive_tags: [ "T1567.002" ]  # Exfil to Cloud Storage
+      - {field: cmd, op: regex, value: '(openssl\s+enc|gpg\s+-c|age\s+-e)'}
+    derive_tags: ["T1041", "T1560"]
 
 forbidden:
+  # The weekend backup window, local time: any exec then holds the playbook back. The old
+  # schema also asked a site policy (policy.allow_backup), which the agent does not have.
   - slot_id: backup_window
     slot_ttl_sec: 3600
-    fact: Time
+    fact: Exec
     where:
-      - { field: dow, op: in, value: [Sat, Sun] }
-      - { field: hour, op: in, value: [0,1,2,3,4,5] }
-      - { field: policy.allow_backup, op: eq, value: true }
+      - {field: dow, op: in, value: [Sat, Sun]}
+      - {field: hour, op: in, value: [0, 1, 2, 3, 4, 5]}
 
 vendor_map:
-  - { product: CrowdStrike, alert_type: "Large outbound transfer", fills_slot: egress_new_peer }
-  - { product: Elastic, alert_type: "Sensitive file access", fills_slot: sensitive_reads }
+  - {product: CrowdStrike, alert_type: "Large outbound transfer", fills_slot: egress_new_peer}
+  - {product: Elastic, alert_type: "Sensitive file access", fills_slot: sensitive_reads}
 
 explain:
   primary_ttp: [T1005, T1560, T1041]
   narrative: >
-    The host accessed sensitive files, staged an archive in tmpfs, and sent a large upload to a previously unseen
-    external peer. Optional crypto-in-pipeline and cloud endpoints strengthen confidence and traceability.
+    The host read sensitive files, staged an archive in tmpfs, and sent a large upload to a previously unseen
+    external peer. Optional crypto in the pipeline strengthens confidence.
+title: "Exfiltration: Sensitive Reads → Tmpfs Archive → Upload to New Peer (Linux)"
+reason_code: EXFIL_LINUX_STAGING_TMPFS
+rules: []

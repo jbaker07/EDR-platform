@@ -65,8 +65,8 @@ impl AdaptiveThresholdEngine {
         self.thresholds.insert(session_id.to_string(), new);
         self.last_updated.insert(session_id.to_string(), Utc::now());
 
-        println!(
-            "[ThresholdEngine] Session={} | Old={:.4} | New={:.4} | Incoming={:.4}",
+        log::debug!(
+            "threshold engine: session={} old={:.4} new={:.4} incoming={:.4}",
             session_id, old, new, score
         );
     }

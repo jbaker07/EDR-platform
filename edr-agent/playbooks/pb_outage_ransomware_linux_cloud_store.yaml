@@ -1,9 +1,12 @@
 # playbooks/pb_outage_ransomware_linux_cloud_store.yaml
 id: pb_outage_ransomware_linux_cloud_store
-version: 0.2
+version: 0.3
 name: "Ransomware (Linux): Cloud Object Store Impact (rclone/azcopy/s3cmd)"
 severity: high
-description: Detects high-velocity cloud data overwrite/delete consistent with ransom impact without local crypto.
+description: >
+  Detects a cloud CLI overwriting or deleting object store data: a destructive verb plus a large
+  upload from the same tool to an object store, named by the server name in its TLS hello. The
+  agent cannot see HTTP methods inside TLS, so a delete-only run that uploads little is not covered.
 window_sec: 1800
 cooldown_sec: 5400
 
@@ -12,41 +15,54 @@ required:
     slot_ttl_sec: 900
     fact: Exec
     where:
-      - { field: exe, op: regex, value: ".*/(rclone|s3cmd|aws|azcopy|gsutil)$" }
-      - { field: cmd, op: regex, value: "(sync|copy|mv|rm|delete|cp)\\s" }
-    derive_tags: [ "T1041", "T1567" ]
+      - {field: exe_name, op: regex, value: '^(rclone|s3cmd|aws|azcopy|gsutil)$'}
+      - {field: cmd, op: regex, value: '\s(sync|copy|copyto|mv|move|rm|delete|del|purge|rb|cp)(\s|$)'}
+    derive_tags: ["T1041", "T1567"]
 
-  - slot_id: cloud_api_burst
+  # Was an HTTP PUT and DELETE count. The object store comes from the server name in the
+  # TLS hello (sni on each send to that destination). The methods themselves are
+  # encrypted: reading them needs a hook inside each client's TLS library, and the cloud
+  # CLIs ship their own (Go in rclone, a bundled OpenSSL in aws v2), often stripped, so
+  # the bytes sent stand in for the PUT count.
+  - slot_id: cloud_upload_burst
     slot_ttl_sec: 900
-    fact: Net
+    fact: NetFlow
     where:
-      - { field: dst_sni, op: regex, value: "(amazonaws\\.com|storage\\.googleapis\\.com|blob\\.core\\.windows\\.net|digitaloceanspaces\\.com)" }
-      - { field: __agg.kind, op: eq, value: http_verb_burst }
-      - { field: __agg.http_verbs, op: any_in, value: [PUT, DELETE] }
-      - { field: __agg.requests, op: gte, value: 2000 }
-      - { field: __agg.window_sec, op: lte, value: 900 }
+      - {field: exe_name, op: regex, value: '^(rclone|s3cmd|aws|azcopy|gsutil)$'}
+      - {field: dst_private, op: eq, value: "false"}
+      - {field: sni, op: regex, value: '(^|\.)(amazonaws\.com|storage\.googleapis\.com|blob\.core\.windows\.net|digitaloceanspaces\.com|r2\.cloudflarestorage\.com|backblazeb2\.com|wasabisys\.com)$'}
+      - {field: __agg.kind, op: eq, value: egress_volume}
+      - {field: __agg.bytes_out, op: gte, value: 200000000}
+      - {field: __agg.window_sec, op: lte, value: 900}
+    derive_tags: ["T1486"]
 
 optional:
   - slot_id: rclone_conf_touch
     slot_ttl_sec: 900
     fact: FileIO
     where:
-      - { field: path, op: regex, value: "/\\.config/rclone/rclone\\.conf$" }
-      - { field: op, op: in, value: [write, rename] }
+      - {field: path, op: regex, value: '/\.config/rclone/rclone\.conf$'}
+      - {field: op, op: in, value: [write, rename]}
 
 forbidden:
-  - slot_id: known_backup_window
+  # Was a code signer check. Linux binaries carry no signature, so this asks for a backup
+  # tool installed by its package whose bytes still match the package checksum. A copy
+  # or a look-alike named restic in /tmp does not veto.
+  - slot_id: known_backup_tool
     slot_ttl_sec: 3600
     fact: Exec
     where:
-      - { field: signer, op: eq, value: first_party_backup }
-      - { field: cmd, op: contains, value: "backup" }
+      - {field: exe_package, op: in, value: [restic, borgbackup, duplicity, rdiff-backup, rsnapshot, bacula-client, bacula-fd, velero]}
+      - {field: exe_pkg_verified, op: eq, value: "true"}
 
 vendor_map:
-  - { product: Microsoft Defender, alert_type: "Suspicious object store deletion", fills_slot: cloud_api_burst }
+  - {product: Microsoft Defender, alert_type: "Suspicious object store deletion", fills_slot: cloud_upload_burst}
 
 explain:
   primary_ttp: T1486
   narrative: >
-    Cloud CLIs performing high-volume PUT/DELETE bursts toward object stores indicate remote impact.
-    Local file cryptography may be absent; the impact is on cloud data.
+    A cloud CLI ran a destructive verb and pushed a large upload, consistent with overwriting
+    object store data in place. Local file cryptography may be absent, the impact is on cloud data.
+title: "Ransomware (Linux): Cloud Object Store Impact (rclone/azcopy/s3cmd)"
+reason_code: OUTAGE_RANSOMWARE_LINUX_CLOUD_STORE
+rules: []

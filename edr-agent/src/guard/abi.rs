@@ -5,17 +5,43 @@ pub const TASK_COMM_LEN: usize = 16;
 pub const UNIX_PATH_MAX: usize = 108;
 pub const EXE_NAME_LEN: usize = 32;
 
-/// guard_config slots (CFG_* in the C file).
-pub const CFG_SOCKET_MODE: u32 = 0;
-pub const CFG_MEMFD_MODE: u32 = 1;
-pub const CFG_SELF_MODE: u32 = 2;
-pub const CFG_AGENT_TGID: u32 = 3;
-pub const CFG_SCOPE_CGROUP: u32 = 4;
+/// guard_config slots (CFG_* in the C file). The modes and the allowlists live in
+/// two banks and CFG_ACTIVE_BANK says which one the hooks read.
+pub const CFG_ACTIVE_BANK: u32 = 0;
+pub const CFG_BANK_MODES: u32 = 1;
+pub const CFG_AGENT_TGID: u32 = 7;
+pub const CFG_SCOPE_CGROUP: u32 = 8;
+pub const CFG_PROTECTED_FILES: u32 = 9;
+pub const CFG_SLOTS: u32 = 10;
+
+/// GUARD_* in the C file: the offset of a guard's mode inside a bank.
+pub const GUARD_SOCKET: u32 = 0;
+pub const GUARD_MEMFD: u32 = 1;
+pub const GUARD_SELF: u32 = 2;
+
+/// The guard_config slot of one guard's mode in one bank.
+pub fn mode_slot(bank: u32, guard: u32) -> u32 {
+    CFG_BANK_MODES + 3 * (bank & 1) + guard
+}
+
+/// The allowlist value bit of a bank.
+pub fn bank_bit(bank: u32) -> u8 {
+    1 << (bank & 1)
+}
 
 /// bpf() commands that open an object by id (enum bpf_cmd in uapi/linux/bpf.h).
 pub const BPF_PROG_GET_FD_BY_ID: u32 = 13;
 pub const BPF_MAP_GET_FD_BY_ID: u32 = 14;
 pub const BPF_LINK_GET_FD_BY_ID: u32 = 30;
+/// Opening a pinned object by its path.
+pub const BPF_OBJ_GET: u32 = 7;
+
+/// guard_event.detail of a FileTamper decision (FILE_OP_* in the C file).
+pub const FILE_OP_WRITE: u32 = 1;
+pub const FILE_OP_UNLINK: u32 = 2;
+pub const FILE_OP_RENAME: u32 = 3;
+pub const FILE_OP_TRUNCATE: u32 = 4;
+pub const FILE_OP_LINK: u32 = 5;
 
 /// An executable as the kernel names it: inode number and device of
 /// mm->exe_file. Key of the socket_clients and memfd_allow maps.
@@ -69,6 +95,8 @@ pub enum GuardKind {
     SignalToAgent,
     PtraceAgent,
     BpfAgentObject,
+    /// A write, unlink, rename or truncate of one of the agent's own files.
+    FileTamper,
 }
 
 impl GuardKind {
@@ -79,6 +107,7 @@ impl GuardKind {
             3 => Some(Self::SignalToAgent),
             4 => Some(Self::PtraceAgent),
             5 => Some(Self::BpfAgentObject),
+            6 => Some(Self::FileTamper),
             _ => None,
         }
     }
@@ -88,7 +117,9 @@ impl GuardKind {
         match self {
             Self::RuntimeSocket => "runtime_socket",
             Self::MemfdExec => "memfd_exec",
-            Self::SignalToAgent | Self::PtraceAgent | Self::BpfAgentObject => "self_protect",
+            Self::SignalToAgent | Self::PtraceAgent | Self::BpfAgentObject | Self::FileTamper => {
+                "self_protect"
+            }
         }
     }
 
@@ -100,6 +131,7 @@ impl GuardKind {
             Self::SignalToAgent => "task_kill",
             Self::PtraceAgent => "ptrace_access_check",
             Self::BpfAgentObject => "bpf",
+            Self::FileTamper => "file_open, inode_unlink, inode_rename, inode_link, path_truncate",
         }
     }
 
@@ -110,7 +142,9 @@ impl GuardKind {
         match self {
             Self::RuntimeSocket => &["T1611", "T1610"],
             Self::MemfdExec => &["T1620"],
-            Self::SignalToAgent | Self::PtraceAgent | Self::BpfAgentObject => &["T1562.001"],
+            Self::SignalToAgent | Self::PtraceAgent | Self::BpfAgentObject | Self::FileTamper => {
+                &["T1562.001"]
+            }
         }
     }
 }
@@ -280,7 +314,8 @@ mod tests {
     #[test]
     fn unknown_kind_and_action_values_decode_as_none() {
         assert_eq!(GuardKind::from_raw(0), None);
-        assert_eq!(GuardKind::from_raw(6), None);
+        assert_eq!(GuardKind::from_raw(6), Some(GuardKind::FileTamper));
+        assert_eq!(GuardKind::from_raw(7), None);
         assert_eq!(GuardAction::from_raw(0), None);
         assert_eq!(GuardAction::from_raw(3), None);
         assert_eq!(GuardKind::from_raw(5), Some(GuardKind::BpfAgentObject));
@@ -313,6 +348,17 @@ mod tests {
     }
 
     #[test]
+    fn bank_slots_match_the_c_layout() {
+        // CFG_BANK_MODES + 3 * bank + GUARD_*, banks 0 and 1, then the agent tgid.
+        assert_eq!(mode_slot(0, GUARD_SOCKET), 1);
+        assert_eq!(mode_slot(0, GUARD_SELF), 3);
+        assert_eq!(mode_slot(1, GUARD_SOCKET), 4);
+        assert_eq!(mode_slot(1, GUARD_SELF), 6);
+        assert!(mode_slot(1, GUARD_SELF) < CFG_AGENT_TGID);
+        assert_eq!((bank_bit(0), bank_bit(1)), (1, 2));
+    }
+
+    #[test]
     fn obj_key_is_cmd_then_id() {
         let key = obj_key(BPF_MAP_GET_FD_BY_ID, 677);
         assert_eq!(&key[..4], &14u32.to_ne_bytes());
@@ -327,6 +373,7 @@ mod tests {
             GuardKind::SignalToAgent,
             GuardKind::PtraceAgent,
             GuardKind::BpfAgentObject,
+            GuardKind::FileTamper,
         ] {
             assert_eq!(k.guard(), "self_protect");
             assert_eq!(k.mitre(), &["T1562.001"]);

@@ -159,6 +159,13 @@ pub fn tag_records(records: &mut [TelemetryRecord]) -> Result<Vec<Hit>> {
 
     // Dedup (kind,value) within the batch so we don't spam pending
     let mut seen: HashSet<(String, String)> = HashSet::new();
+    // Regex items compiled once per batch, not once per record and item.
+    let mut compiled: HashMap<String, Option<Regex>> = HashMap::new();
+    for it in &st.items {
+        if matches!(it.kind, IocKind::UrlRegex | IocKind::PathRegex | IocKind::CertCnRegex) {
+            compiled.entry(it.value.clone()).or_insert_with(|| Regex::new(&it.value).ok());
+        }
+    }
 
     for rec in records.iter_mut() {
         // 1) YARA sidecar (if someone already attached tags like `yara_match:<rule>`)
@@ -179,7 +186,11 @@ pub fn tag_records(records: &mut [TelemetryRecord]) -> Result<Vec<Hit>> {
             }
         }
 
-        // 2) Extract candidates from record text
+        // 2) Extract candidates from record text. With no IOC items loaded there is
+        // nothing to match, so the extraction (several regexes per record) is skipped.
+        if st.items.is_empty() {
+            continue;
+        }
         let (urls, domains, ips, shas, paths) = extract_candidates(&st, rec);
 
         // 3) Check against configured items
@@ -204,27 +215,18 @@ pub fn tag_records(records: &mut [TelemetryRecord]) -> Result<Vec<Hit>> {
                 }
                 IocKind::DomainGlob => domains.iter().any(|d| domain_matches_glob(&it.value, d)),
                 IocKind::Url => urls.iter().any(|u| u.eq_ignore_ascii_case(&it.value)),
-                IocKind::UrlRegex => {
-                    if let Ok(re) = Regex::new(&it.value) {
-                        urls.iter().any(|u| re.is_match(u))
-                    } else {
-                        false
-                    }
-                }
-                IocKind::PathRegex => {
-                    if let Ok(re) = Regex::new(&it.value) {
-                        paths.iter().any(|p| re.is_match(p))
-                    } else {
-                        false
-                    }
-                }
-                IocKind::CertCnRegex => {
-                    if let Ok(re) = Regex::new(&it.value) {
-                        domains.iter().any(|d| re.is_match(d))
-                    } else {
-                        false
-                    }
-                }
+                IocKind::UrlRegex => match compiled.get(&it.value) {
+                    Some(Some(re)) => urls.iter().any(|u| re.is_match(u)),
+                    _ => false,
+                },
+                IocKind::PathRegex => match compiled.get(&it.value) {
+                    Some(Some(re)) => paths.iter().any(|p| re.is_match(p)),
+                    _ => false,
+                },
+                IocKind::CertCnRegex => match compiled.get(&it.value) {
+                    Some(Some(re)) => domains.iter().any(|d| re.is_match(d)),
+                    _ => false,
+                },
             };
 
             if !matched {

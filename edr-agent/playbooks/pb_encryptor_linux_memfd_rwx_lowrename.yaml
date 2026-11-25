@@ -1,6 +1,6 @@
 id: pb_encryptor_linux_memfd_rwx_lowrename
-version: 1
-name: "In‑Memory Encryptor: RWX/MEMFD + Low-Rename Burst (Linux)"
+version: 2
+name: "In-Memory Encryptor: RWX/MEMFD + Low-Rename Burst (Linux)"
 severity: high
 description: Detects pre-encryption ransomware that executes from memory (memfd/RWX) and modifies many files with few renames.
 window_sec: 600
@@ -11,12 +11,7 @@ required:
     slot_ttl_sec: 180
     fact: Exec
     where:
-      # Accept either explicit memfd exec/mmap RWX or equivalent detector tags
-      - {field: tag, op: in, value: [MEMFD_EXEC, RWX_MAP]}
-        # OR: explicit linux signals if available
-      - any_of:
-          - {field: exe, op: regex, value: "^/memfd:.+"}
-          - {field: map_perm, op: in, value: [rwx, wx]}
+      - {field: tags_any, op: in, value: [MEMFD_EXEC, RWX_MAP]}
     derive_tags: ["T1055", "T1620"]    # process injection / reflectively-loaded code
 
   - slot_id: burst_writes_low_rename
@@ -45,16 +40,19 @@ optional:
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - {field: cmd, op: regex, value: "(systemctl\\s+stop\\s+\\w+|service\\s+\\w+\\s+stop)"}
+      - {field: cmd, op: regex, value: '(systemctl\s+stop\s+\w+|service\s+\w+\s+stop)'}
     derive_tags: ["T1489"]
 
 forbidden:
+  # Was a code signer check. Linux binaries carry no signature, so this asks for a backup
+  # tool installed by its package whose bytes still match the package checksum. A copy
+  # or a look-alike named restic in /tmp does not veto.
   - slot_id: known_backup_job
     slot_ttl_sec: 900
     fact: Exec
     where:
-      - {field: signer, op: eq, value: first_party_backup}
-      - {field: cmd, op: contains, value: backup}
+      - {field: exe_package, op: in, value: [restic, borgbackup, duplicity, rdiff-backup, rsnapshot, bacula-client, bacula-fd, velero]}
+      - {field: exe_pkg_verified, op: eq, value: "true"}
 
 vendor_map:
   - {product: CrowdStrike, alert_type: "Suspicious memory mapping (RWX)", fills_slot: mem_exec_or_rwx}
@@ -67,6 +65,6 @@ explain:
     In-memory execution (memfd/RWX) combined with a high-velocity file modification burst with few renames
     indicates pre-encryption behavior designed to evade on-disk detection. Optional crypto primitive usage
     and service stops increase confidence.
-title: "In‑Memory Encryptor: RWX/MEMFD + Low-Rename Burst (Linux)"
+title: "In-Memory Encryptor: RWX/MEMFD + Low-Rename Burst (Linux)"
 reason_code: ENCRYPTOR_LINUX_MEMFD_RWX_LOWRENAME
 rules: []

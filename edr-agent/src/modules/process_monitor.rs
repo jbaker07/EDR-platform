@@ -53,8 +53,8 @@ fn read_proc_exe(pid: i32) -> String {
 }
 
 fn read_proc_cmdline(pid: i32) -> String {
-    fs::read_to_string(format!("/proc/{pid}/cmdline"))
-        .map(|s| s.replace('\0', " ").trim().to_string())
+    fs::read(format!("/proc/{pid}/cmdline"))
+        .map(|b| crate::redact::cmdline_from_proc(&b))
         .unwrap_or_default()
 }
 
@@ -242,7 +242,7 @@ pub fn gather_processes() -> Vec<ProcessInfo> {
         let pid_i32 = pid.as_u32() as i32;
         let ppid_i32 = process.parent().map_or(0, |ppid| ppid.as_u32() as i32);
         let user_id = process.user_id().map(|uid| uid.to_string());
-        let command_line = process.cmd().join(" ");
+        let command_line = crate::redact::redact_owned(process.cmd().join(" "));
 
         let info = ProcessInfo {
             pid: pid_i32,

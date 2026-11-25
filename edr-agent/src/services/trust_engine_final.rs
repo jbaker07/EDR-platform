@@ -1,9 +1,9 @@
 use crate::adaptive_threshold_engine::{
-    evaluate_role_thresholds, load_role_profile_map, AdaptiveThresholdEngine,
+    evaluate_role_thresholds, AdaptiveThresholdEngine, RoleRiskProfileMap,
 };
-use crate::gnn_hook::{export_trust_vector_to_gnn, stream_to_gnn_fifo};
+use crate::gnn_hook::{export_trust_vector_to_gnn, stream_many_to_gnn_fifo};
 use crate::logger::log;
-use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprint_db};
+use crate::modules::telemetry_fingerprint::{is_known_good, load_fingerprint_db, FingerprintEntry};
 use crate::score_reason::ScoreReason;
 use crate::services::graph_snapshot_writer::store_graph_snapshot;
 use crate::services::replay_trigger::trigger_replay_if_needed;
@@ -16,7 +16,9 @@ use chrono::Utc;
 use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
-use std::sync::Mutex;
+use std::path::{Path, PathBuf};
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::{Duration, Instant, SystemTime};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Env helpers
@@ -219,6 +221,161 @@ fn is_critical_tag(tag: &str) -> bool {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Cached inputs and coalesced outputs
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// evaluate_and_dispatch_trust_score runs once per record. It used to read the
+// fingerprint and role files, write a trust state file, append two GNN log lines, try
+// the GNN FIFO and print four log lines on every call. Replaying 40,000 records from a
+// live burst, that was 5.4 s of the record path's 5.7 s. The two input files are now
+// read once and read again when they change (checked at most every 30 s). The outputs
+// keep the newest value per endpoint and are written once a second, so the files hold
+// the same per-second state with far fewer writes.
+
+const FINGERPRINT_PATH: &str = "src/modules/telemetry_fingerprint.json";
+const ROLE_MAP_PATH: &str = "json_files/role_risk_profile_map.json";
+const RECHECK: Duration = Duration::from_secs(30);
+const FLUSH_EVERY: Duration = Duration::from_secs(1);
+
+/// A file read once and read again when its modification time changes.
+struct Cached<T> {
+    path: PathBuf,
+    checked: Option<Instant>,
+    mtime: Option<SystemTime>,
+    value: Option<Arc<T>>,
+    warned: bool,
+}
+
+impl<T> Cached<T> {
+    fn new(path: &str) -> Self {
+        Self { path: PathBuf::from(path), checked: None, mtime: None, value: None, warned: false }
+    }
+
+    fn get(&mut self, load: impl Fn(&Path) -> Option<T>) -> Option<Arc<T>> {
+        let due = self.checked.map(|t| t.elapsed() >= RECHECK).unwrap_or(true);
+        if due {
+            self.checked = Some(Instant::now());
+            match std::fs::metadata(&self.path).and_then(|m| m.modified()) {
+                Ok(mtime) if Some(mtime) != self.mtime || self.value.is_none() => {
+                    self.mtime = Some(mtime);
+                    self.value = load(&self.path).map(Arc::new);
+                    if self.value.is_none() && !self.warned {
+                        self.warned = true;
+                        log::warn!("trust: {} could not be read or parsed", self.path.display());
+                    }
+                }
+                Ok(_) => {}
+                Err(_) => {
+                    if !self.warned {
+                        self.warned = true;
+                        log::warn!("trust: {} not found, so it is not used", self.path.display());
+                    }
+                    self.mtime = None;
+                    self.value = None;
+                }
+            }
+        }
+        self.value.clone()
+    }
+}
+
+fn fingerprint_db() -> Arc<Vec<FingerprintEntry>> {
+    static C: OnceLock<Mutex<Cached<Vec<FingerprintEntry>>>> = OnceLock::new();
+    let c = C.get_or_init(|| Mutex::new(Cached::new(FINGERPRINT_PATH)));
+    let mut c = c.lock().unwrap_or_else(|e| e.into_inner());
+    c.get(|p| Some(load_fingerprint_db(p))).unwrap_or_default()
+}
+
+/// The role map, or None when the file is missing or bad. The old loader panicked.
+fn role_map() -> Option<Arc<RoleRiskProfileMap>> {
+    static C: OnceLock<Mutex<Cached<RoleRiskProfileMap>>> = OnceLock::new();
+    let c = C.get_or_init(|| Mutex::new(Cached::new(ROLE_MAP_PATH)));
+    let mut c = c.lock().unwrap_or_else(|e| e.into_inner());
+    c.get(|p| {
+        let text = std::fs::read_to_string(p).ok()?;
+        serde_json::from_str(&text).ok()
+    })
+}
+
+fn bootstrap_mode() -> bool {
+    static B: OnceLock<bool> = OnceLock::new();
+    *B.get_or_init(|| {
+        std::env::var("EDR_BOOTSTRAP")
+            .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+            .unwrap_or(false)
+    })
+}
+
+struct VectorExport {
+    role: String,
+    trust: f64,
+    vector: HashMap<String, f64>,
+    tags: Vec<String>,
+}
+
+/// Outputs waiting for the next once-a-second write, newest value per key.
+#[derive(Default)]
+struct PendingOutputs {
+    state: HashMap<String, f64>,
+    vectors: HashMap<String, VectorExport>,
+    fifo: HashMap<String, HashMap<String, f64>>,
+    anchor: HashMap<(String, String), crate::services::trust_anchor_logger::AnchorDropEvent>,
+    last_flush: Option<Instant>,
+}
+
+fn pending() -> &'static Mutex<PendingOutputs> {
+    static P: OnceLock<Mutex<PendingOutputs>> = OnceLock::new();
+    P.get_or_init(|| Mutex::new(PendingOutputs::default()))
+}
+
+/// Trust state files, GNN lines and anchor drops written since start.
+static OUTPUT_WRITES: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+
+pub fn output_writes_total() -> u64 {
+    OUTPUT_WRITES.load(std::sync::atomic::Ordering::Relaxed)
+}
+
+/// Write the pending outputs when a second has passed since the last write, or now
+/// when `force` is set. The record thread calls this after every chunk.
+pub fn flush_outputs(force: bool) {
+    let taken = {
+        let mut p = pending().lock().unwrap_or_else(|e| e.into_inner());
+        let due = force || p.last_flush.map(|t| t.elapsed() >= FLUSH_EVERY).unwrap_or(true);
+        if !due {
+            return;
+        }
+        p.last_flush = Some(Instant::now());
+        PendingOutputs {
+            state: std::mem::take(&mut p.state),
+            vectors: std::mem::take(&mut p.vectors),
+            fifo: std::mem::take(&mut p.fifo),
+            anchor: std::mem::take(&mut p.anchor),
+            last_flush: None,
+        }
+    };
+    let mut n = 0u64;
+    for (endpoint, score) in &taken.state {
+        let _ = persist_trust_state(endpoint, *score);
+        n += 1;
+    }
+    for (endpoint, v) in taken.vectors {
+        export_trust_vector_to_gnn(&endpoint, &v.role, v.trust, v.vector, v.tags);
+        n += 1;
+    }
+    if !taken.fifo.is_empty() {
+        let maps: Vec<HashMap<String, f64>> = taken.fifo.into_values().collect();
+        n += maps.len() as u64;
+        stream_many_to_gnn_fifo(&maps);
+    }
+    if !taken.anchor.is_empty() {
+        let events: Vec<_> = taken.anchor.into_values().collect();
+        n += events.len() as u64;
+        crate::services::trust_anchor_logger::log_anchor_drops(&events);
+    }
+    OUTPUT_WRITES.fetch_add(n, std::sync::atomic::Ordering::Relaxed);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Main evaluation flow
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -230,22 +387,20 @@ pub fn handle_record(record: &TelemetryRecord) -> TrustResult {
 
 pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResult {
     // Optional bootstrap bypass
-    if let Ok(cfg) = std::env::var("EDR_BOOTSTRAP") {
-        if cfg == "1" || cfg.eq_ignore_ascii_case("true") {
-            log("trust 🚧 Bootstrap mode — skipping scoring");
-            return TrustResult {
-                endpoint_id: telemetry.endpoint_id.clone(),
-                score: 100.0,
-                escalated: false,
-                reasons: vec![ScoreReason::Custom("Bootstrap mode: no scoring".into())],
-            };
-        }
+    if bootstrap_mode() {
+        log("trust: bootstrap mode, scoring skipped");
+        return TrustResult {
+            endpoint_id: telemetry.endpoint_id.clone(),
+            score: 100.0,
+            escalated: false,
+            reasons: vec![ScoreReason::Custom("Bootstrap mode: no scoring".into())],
+        };
     }
 
     let mut reasons: Vec<ScoreReason> = Vec::new();
 
     // Load fingerprint DB and suppress known-good if matched
-    let fingerprint_db = load_fingerprint_db("src/modules/telemetry_fingerprint.json");
+    let fingerprint_db = fingerprint_db();
 
     // Build a simple probe map from TelemetryData so types match is_known_good(&HashMap<..>, ..)
     let mut probe: HashMap<String, String> = HashMap::new();
@@ -307,7 +462,8 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
         if trust < 0.70 {
             let dim_name = d.to_string();
             dimension_drops.push(format!("{dim_name} dropped to {:.2}", trust));
-            crate::services::trust_anchor_logger::log_anchor_drop(
+            pending().lock().unwrap_or_else(|e| e.into_inner()).anchor.insert(
+                (telemetry.endpoint_id.clone(), dim_name.clone()),
                 crate::services::trust_anchor_logger::AnchorDropEvent {
                     timestamp: Utc::now().to_rfc3339(),
                     endpoint_id: telemetry.endpoint_id.clone(),
@@ -350,8 +506,12 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
         }
     }
 
-    // 7) Stream current vector to GNN FIFO (map of trust.* -> value)
-    stream_to_gnn_fifo(&tv.to_map());
+    // 7) Stream current vector to GNN FIFO (map of trust.* -> value), once a second
+    pending()
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .fifo
+        .insert(telemetry.endpoint_id.clone(), tv.to_map());
 
     // 8) Compute TRUST (0..100) and RISK (0..100), feed digest/adaptive threshold
     let trust_score = (tv.score_overall() * 100.0) as f64; // higher is better
@@ -367,18 +527,26 @@ pub fn evaluate_and_dispatch_trust_score(telemetry: &TelemetryData) -> TrustResu
     let rolling_risk = digest.get_score(&telemetry.endpoint_id);
 
     // 9) Role-aware thresholding
-    let role_map = load_role_profile_map("json_files/role_risk_profile_map.json");
-    let adjusted_trust = evaluate_role_thresholds(&telemetry.endpoint_role, trust_score, &role_map);
+    let adjusted_trust = match role_map() {
+        Some(m) => evaluate_role_thresholds(&telemetry.endpoint_role, trust_score, &m),
+        None => trust_score,
+    };
 
-    // 10) Persist state & export to GNN (best effort: a failed state write does not stop scoring)
-    let _ = persist_trust_state(&telemetry.endpoint_id, adjusted_trust);
-    export_trust_vector_to_gnn(
-        &telemetry.endpoint_id,
-        &telemetry.endpoint_role,
-        adjusted_trust,
-        tv.to_map(),
-        telemetry.tags.clone(),
-    );
+    // 10) Persist state & export to GNN, newest value per endpoint, written once a
+    // second by flush_outputs (best effort: a failed write does not stop scoring)
+    {
+        let mut p = pending().lock().unwrap_or_else(|e| e.into_inner());
+        p.state.insert(telemetry.endpoint_id.clone(), adjusted_trust);
+        p.vectors.insert(
+            telemetry.endpoint_id.clone(),
+            VectorExport {
+                role: telemetry.endpoint_role.clone(),
+                trust: adjusted_trust,
+                vector: tv.to_map(),
+                tags: telemetry.tags.clone(),
+            },
+        );
+    }
 
     // 11) Decide escalation (adaptive + rolling risk) with cooldown + DE coordination
     let mut escalated = false;

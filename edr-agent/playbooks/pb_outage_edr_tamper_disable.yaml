@@ -1,5 +1,5 @@
 id: pb_outage_edr_tamper_disable
-version: 0.2
+version: 0.3
 name: EDR/Defender Tamper (Monitoring Outage Precursor)
 severity: medium
 description: Disabling security agents can lead to blind spots and facilitate outages.
@@ -11,37 +11,42 @@ required:
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - { field: cmd, op: regex, value: '(systemctl\s+(stop|disable)\s+(falcon-sensor|wazuh-agent|elastic-agent|defender|osqueryd))' }
-    derive_tags: [ "T1562.001" ]
+      - {field: cmd, op: regex, value: '(systemctl\s+(stop|disable|mask)\s+(falcon-sensor|wazuh-agent|elastic-agent|defender|mdatp|osqueryd|auditd|forensic_hooks|edr-agent)|(pkill|killall)\s+(-9\s+)?(falcon|wazuh|elastic-agent|osqueryd|auditd|forensic_hooks))'}
+    derive_tags: ["T1562.001"]
 
+  # A T1562 rule hit, or a guard decision against the agent itself (a kill, a ptrace
+  # attach or a lookup of its BPF objects), which the guard records as T1562.001.
   - slot_id: self_protect_bypass
     slot_ttl_sec: 600
     fact: RuleHit
     where:
-      - { field: ttp, op: eq, value: "T1562" }
-    derive_tags: [ "T1562" ]
+      - {field: ttp, op: regex, value: '^T1562'}
+    derive_tags: ["T1562"]
 
 optional:
   - slot_id: driver_unload
     slot_ttl_sec: 600
     fact: Exec
     where:
-      - { field: cmd, op: regex, value: '(rmmod\s+falcon|modprobe\s+-r\s+falcon)' }
+      - {field: cmd, op: regex, value: '(rmmod\s+falcon|modprobe\s+-r\s+falcon)'}
 
 forbidden:
   - slot_id: maintenance_ticket
     slot_ttl_sec: 1200
     fact: VendorAlert
     where:
-      - { field: product, op: eq, value: "ChangeManagement" }
-      - { field: type, op: eq, value: "Approved Security Agent Maintenance" }
+      - {field: product, op: eq, value: "ChangeManagement"}
+      - {field: alert_type, op: eq, value: "Approved Security Agent Maintenance"}
 
 vendor_map:
-  - { product: CrowdStrike, alert_type: "Sensor Control Stopped", fills_slot: agent_stop }
-  - { product: Elastic, alert_type: "Agent Stopped", fills_slot: agent_stop }
+  - {product: CrowdStrike, alert_type: "Sensor Control Stopped", fills_slot: agent_stop}
+  - {product: Elastic, alert_type: "Agent Stopped", fills_slot: agent_stop}
 
 explain:
   primary_ttp: T1562.001
   narrative: >
     Stopping security agents and bypassing self‑protection indicates tampering that often precedes impactful actions
     and reduces detection visibility.
+title: EDR/Defender Tamper (Monitoring Outage Precursor)
+reason_code: OUTAGE_EDR_TAMPER_DISABLE
+rules: []
