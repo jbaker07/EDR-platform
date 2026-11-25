@@ -1,0 +1,93 @@
+name: x86_64 build and live smoke test
+
+# Builds the BPF objects and the agent for x86_64, checks that no BPF program contains an
+# atomic instruction, runs the unit tests there, then loads the sensors on the runner's
+# own kernel, runs scripts/ci/triggers.py and checks the incidents
+# (scripts/ci/live_smoke.sh). The runtime shield test (scripts/ci/shield_live.sh) and
+# the root tamper table (scripts/ci/root_tamper.sh) run next. GitHub's Ubuntu runners
+# boot without bpf in the LSM list, so the guard, the shields and the tamper attempts
+# are skipped there and each script says so. They run in full on a machine booted with
+# bpf in lsm=.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  x86_64:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang llvm make gcc pkg-config \
+            libbpf-dev libelf-dev zlib1g-dev libssl-dev python3-pytest nftables
+
+      - name: Kernel
+        run: |
+          uname -a
+          ls -l /sys/kernel/btf/vmlinux
+          cat /sys/kernel/security/lsm || true
+
+      - name: BPF objects for x86_64
+        working-directory: edr-agent/src/ebpf
+        run: |
+          make -j"$(nproc)" TARGET_ARCH=x86 VMLINUX_H=include/x86_64/vmlinux.h
+          gcc -O2 -Wall -o build/x86/edr_attach_any edr_attach_any.c -lbpf -lelf -lz
+          ls -l build/x86
+          test -f build/x86/edr_guard.bpf.o && test -f build/x86/edr_shield.bpf.o
+
+      # The verifier accepts an atomic add on a map value without checking its alignment,
+      # and an unaligned atomic faults in kernel mode on arm64. See the script.
+      - name: No atomic instructions in the BPF programs
+        run: |
+          python3 scripts/ci/check_bpf_atomics.py edr-agent/src/ebpf/build/x86
+          BPF_OBJ_DIR=edr-agent/src/ebpf/build/x86 python3 -m pytest -q tests/test_shield_tools.py
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            edr-agent/target
+          key: cargo-x86_64-${{ hashFiles('edr-agent/Cargo.lock') }}
+
+      - name: Agent
+        working-directory: edr-agent
+        run: cargo build --release --locked --bin forensic_hooks
+
+      - name: Unit tests on x86_64
+        working-directory: edr-agent
+        run: cargo test --release --locked
+
+      - name: Load the sensors, run the triggers, check the incidents
+        run: |
+          sudo OUT="$PWD/ci-out" bash scripts/ci/live_smoke.sh \
+            edr-agent/src/ebpf/build/x86 edr-agent/target/release/forensic_hooks
+
+      - name: Runtime shields, signed shield documents, live policy reload
+        run: |
+          sudo OUT="$PWD/ci-out/shields" bash scripts/ci/shield_live.sh \
+            edr-agent/src/ebpf/build/x86 edr-agent/target/release/forensic_hooks
+
+      - name: What root can still do (the tamper table)
+        run: |
+          sudo OUT="$PWD/ci-out/tamper" bash scripts/ci/root_tamper.sh \
+            edr-agent/src/ebpf/build/x86 edr-agent/target/release/forensic_hooks
+          if [ -f ci-out/tamper/results.tsv ]; then column -t -s "$(printf '\t')" ci-out/tamper/results.tsv; fi
+
+      - name: Keep the logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-smoke
+          path: ci-out/
+          if-no-files-found: ignore
