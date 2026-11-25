@@ -1659,15 +1659,19 @@ mod tests {
         let client_addr = client.local_addr().unwrap();
 
         let (conns, _) = collect_connections_from(Path::new("/proc"), 0, &[]);
+        // A socket shows up once per process that holds it. Another test in this binary
+        // can fork a child that briefly holds a copy of our fds before it execs, so the
+        // same connection can also appear under the child's pid. Count only ours.
+        let me = std::process::id() as i32;
         let mine: Vec<&ConnectionInfo> = conns
             .iter()
             .map(|c| &c.info)
             .filter(|c| c.local_address == client_addr.to_string() && c.remote_address == server_addr.to_string())
+            .filter(|c| c.pid == me)
             .collect();
-        assert_eq!(mine.len(), 1, "client side not found in {} rows", conns.len());
+        assert_eq!(mine.len(), 1, "client side not found under pid {} in {} rows", me, conns.len());
         assert_eq!(mine[0].protocol, "tcp");
         assert_eq!(mine[0].status, "ESTABLISHED");
-        assert_eq!(mine[0].pid, std::process::id() as i32);
         // The listening socket is left out.
         assert!(!conns.iter().any(|c| c.info.local_address == server_addr.to_string() && c.info.status == "LISTEN"));
     }
