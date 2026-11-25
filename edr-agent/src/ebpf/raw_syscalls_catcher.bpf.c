@@ -18,6 +18,63 @@
 #define IPPROTO_TCP 6
 #endif
 
+/* ---- x86_64 syscall numbers (arch/x86/entry/syscalls/syscall_64.tbl) ----
+ * The Makefile passes -D__TARGET_ARCH_x86 on x86_64. These come first, so the arm64
+ * defaults below are skipped. x86_64 also has the older open, rename, unlink, chmod,
+ * chown and dup2 calls that arm64 lacks. */
+#if defined(__TARGET_ARCH_x86)
+#define __NR_read 0
+#define __NR_write 1
+#define __NR_close 3
+#define __NR_mprotect 10
+#define __NR_dup 32
+#define __NR_dup2 33
+#define __NR_socket 41
+#define __NR_connect 42
+#define __NR_accept 43
+#define __NR_sendto 44
+#define __NR_recvfrom 45
+#define __NR_sendmsg 46
+#define __NR_recvmsg 47
+#define __NR_bind 49
+#define __NR_listen 50
+#define __NR_clone 56
+#define __NR_execve 59
+#define __NR_rename 82
+#define __NR_unlink 87
+#define __NR_chmod 90
+#define __NR_chown 92
+#define __NR_ptrace 101
+#define __NR_setuid 105
+#define __NR_pivot_root 155
+#define __NR_prctl 157
+#define __NR_mount 165
+#define __NR_umount2 166
+#define __NR_init_module 175
+#define __NR_delete_module 176
+#define __NR_setxattr 188
+#define __NR_lsetxattr 189
+#define __NR_fsetxattr 190
+#define __NR_openat 257
+#define __NR_fchownat 260
+#define __NR_unlinkat 263
+#define __NR_renameat 264
+#define __NR_fchmodat 268
+#define __NR_unshare 272
+#define __NR_accept4 288
+#define __NR_dup3 292
+#define __NR_setns 308
+#define __NR_finit_module 313
+#define __NR_renameat2 316
+#define __NR_seccomp 317
+#define __NR_memfd_create 319
+#define __NR_bpf 321
+#define __NR_execveat 322
+#define __NR_clone3 435
+#define __NR_openat2 437
+#define __NR_fchmodat2 452
+#endif
+
 /* ---- arm64 syscall numbers used in this file (no <asm/unistd.h>) ---- */
 /* file/io */
 #ifndef __NR_openat
@@ -346,6 +403,19 @@ e->flags = (__u32)ctx->args[2]; // flags (e.g., AT_REMOVEDIR)
 bpf_ringbuf_submit(e, 0);
 break;
 }
+#if defined(__NR_unlink)
+/* x86_64 only: glibc unlink() uses it there. The path is the first argument. */
+case __NR_unlink: {
+struct edr_event *e = ev_reserve_zero();
+if (!e) break;
+ev_fill_common(e, EVT_UNLINK, id, tgid);
+e->fd = -1;
+const char *pathname = (const char *)ctx->args[0];
+edr_copy_user_str(e->path, pathname, sizeof(e->path));
+bpf_ringbuf_submit(e, 0);
+break;
+}
+#endif
 #if defined(__NR_chmod)
 case __NR_chmod:
 #endif

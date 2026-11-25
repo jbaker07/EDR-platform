@@ -12,6 +12,7 @@
 #endif
 
 #include <bpf/bpf_tracing.h>   // BPF_KPROBE
+#include <bpf/bpf_endian.h>    // bpf_htons
 
 // Fallbacks to avoid pulling UAPI headers
 #ifndef AF_INET6
@@ -29,8 +30,9 @@ static __always_inline void fill_sock_tuple(struct edr_event *ev, struct sock *s
     __u16 fam = BPF_CORE_READ(sk, __sk_common.skc_family);
     ev->fam = (fam <= 255) ? (__u8)fam : 0;
 
-    // local (keep kernel’s native byte order; normalize in userspace if desired)
-    ev->lport  = BPF_CORE_READ(sk, __sk_common.skc_num);
+    // local. skc_num is in host order, unlike skc_dport, so it is turned into network
+    // order here: struct edr_event keeps both ports big endian, as the header says.
+    ev->lport  = bpf_htons(BPF_CORE_READ(sk, __sk_common.skc_num));
     ev->laddr4 = BPF_CORE_READ(sk, __sk_common.skc_rcv_saddr);
 
     // remote
