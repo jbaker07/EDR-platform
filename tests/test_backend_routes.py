@@ -27,7 +27,8 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 # {param} marks a ${...} part of a template string. Files:
 #   components/AgentRegistryPanel.tsx, CollaborationPanel.tsx,
 #   DetectionLogicPanel.tsx, EndpointGrid.tsx, IOCViewerPanel.tsx,
-#   ProcessTable.tsx, TokenGate.tsx, pages/Dashboard.tsx, pages/FeedbackPage.tsx
+#   ProcessTable.tsx, TokenGate.tsx, pages/AgentIncidents.tsx, pages/Dashboard.tsx,
+#   pages/FeedbackPage.tsx
 DASHBOARD_CALLS = [
     ("GET", "/api/agent"),
     ("GET", "/api/alerts"),
@@ -35,6 +36,7 @@ DASHBOARD_CALLS = [
     ("POST", "/api/collaboration"),
     ("GET", "/api/feedback"),
     ("GET", "/api/health"),
+    ("GET", "/api/incidents"),
     ("GET", "/api/iocs"),
     ("GET", "/api/rules"),
     ("POST", "/api/rules/reload"),

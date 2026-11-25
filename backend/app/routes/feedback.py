@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, Literal, List
 from pathlib import Path
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 router = APIRouter()
 
@@ -25,7 +25,8 @@ class FeedbackEntry(BaseModel):
 @router.post("/feedback")
 def submit_feedback(entry: FeedbackEntry):
     try:
-        entry.timestamp = datetime.utcnow().isoformat()
+        # With the zone, so the dashboard shows it in the reader's local time.
+        entry.timestamp = datetime.now(timezone.utc).isoformat()
         feedback = json.loads(FEEDBACK_LOG.read_text())
         feedback.append(entry.dict())
         FEEDBACK_LOG.write_text(json.dumps(feedback, indent=2))

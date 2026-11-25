@@ -22,6 +22,7 @@ from app.routes.agent_router import router as agent_router
 from app.routes.alert_router import router as alert_router
 from app.routes.collaboration import router as collaboration_router
 from app.routes.feedback import router as feedback_router
+from app.routes.incident_router import router as incident_router
 from app.routes.rule_reload_router import router as rule_reload_router
 from app.routes.rules import router as rules_router
 from app.routes.telemetry_router import router as telemetry_router
@@ -64,6 +65,7 @@ app.add_middleware(
 routers = [
     telemetry_router,
     alert_router,
+    incident_router,
     agent_router,
     rule_reload_router,
     rules_router,

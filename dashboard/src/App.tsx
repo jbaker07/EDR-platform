@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { ShieldAlert, ActivitySquare, ListChecks, Search, MessageSquare, BarChart3 } from 'lucide-react';
+import { ShieldAlert, ActivitySquare, ListChecks, Search, MessageSquare, BarChart3, Siren } from 'lucide-react';
 
 import { setToken, setUnauthorizedHandler } from '@/api/client';
 import TokenGate from '@/components/TokenGate';
 import Dashboard from './pages/Dashboard';
 import Processes from './pages/Processes';
 import FeedbackPage from './pages/FeedbackPage';
+import AgentIncidents from './pages/AgentIncidents';
 import DetectionLogicPanel from '@/components/DetectionLogicPanel';
 import IOCViewerPanel from '@/components/IOCViewerPanel';
 import CollaborationPanel from '@/components/CollaborationPanel';
@@ -41,6 +42,9 @@ export default function App() {
             <Link to="/" className="flex items-center gap-2 hover:text-blue-600">
               <ShieldAlert size={18} /> <span>Dashboard</span>
             </Link>
+            <Link to="/incidents" className="flex items-center gap-2 hover:text-blue-600">
+              <Siren size={18} /> <span>Agent Incidents</span>
+            </Link>
             <Link to="/processes" className="flex items-center gap-2 hover:text-blue-600">
               <ActivitySquare size={18} /> <span>Processes</span>
             </Link>
@@ -69,6 +73,7 @@ export default function App() {
 
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/incidents" element={<AgentIncidents />} />
             <Route path="/processes" element={<Processes />} />
             <Route path="/detection" element={<DetectionLogicPanel />} />
             <Route path="/iocs" element={<IOCViewerPanel />} />

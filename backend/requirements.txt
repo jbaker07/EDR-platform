@@ -2,6 +2,9 @@
 fastapi==0.110.0
 uvicorn[standard]==0.29.0
 pydantic==2.6.4
+# fastapi 0.110's TestClient passes an argument httpx 0.28 removed, so the tests
+# break on 0.28 and later.
+httpx<0.28
 
 # ── Database / ORM ──────────────────────────────────────────
 sqlalchemy==2.0.28

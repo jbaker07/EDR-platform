@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiJson } from '@/api/client';
+import { formatIsoTime } from '@/lib/utils';
 
 interface Agent {
   hostname: string;
@@ -46,7 +47,7 @@ export default function AgentRegistryPanel() {
               {agents.map((agent) => (
                 <tr key={agent.hostname} className="border-t">
                   <td className="px-4 py-2">{agent.hostname}</td>
-                  <td className="px-4 py-2">{new Date(agent.last_seen).toLocaleString()}</td>
+                  <td className="px-4 py-2">{formatIsoTime(agent.last_seen)}</td>
                   <td className="px-4 py-2">{agent.attestation_passed ? 'yes' : 'no'}</td>
                   <td className="px-4 py-2 font-mono text-xs text-gray-700">{agent.binary_hash.slice(0, 12)}...</td>
                   <td className="px-4 py-2 font-mono text-xs text-gray-700">{agent.policy_hash.slice(0, 12)}...</td>

@@ -1,0 +1,33 @@
+{
+  "agent": {
+    "host": "edr-lab-1",
+    "version": "0.1.0"
+  },
+  "incidents": [
+    {
+      "id": "4f9c2d0e7a1b3c5d6e8f90a1b2c3d4e5f6a7b8c9",
+      "host": "edr-lab-1",
+      "title": "Guard runtime_socket blocked: /run/docker.sock",
+      "sources": ["guard"],
+      "exe": "/tmp/g6_spoof/docker",
+      "primary_technique": "T1610",
+      "techniques": ["T1610", "T1611"],
+      "severity": "high",
+      "risk": 0.6,
+      "alerts_count": 2,
+      "first_ts": 1800000000,
+      "last_ts": 1800000004,
+      "details": {
+        "guard": "runtime_socket",
+        "hook": "unix_stream_connect",
+        "action": "blocked",
+        "mode": "enforce",
+        "caller_exe": "/tmp/g6_spoof/docker",
+        "caller_pid": "4321",
+        "caller_comm": "docker",
+        "target": "/run/docker.sock",
+        "reason": "blocked: docker (pid 4321) connect() to /run/docker.sock"
+      }
+    }
+  ]
+}

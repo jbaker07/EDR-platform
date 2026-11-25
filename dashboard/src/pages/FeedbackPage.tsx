@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiJson } from '@/api/client';
+import { formatIsoTime } from '@/lib/utils';
 
 interface FeedbackEntry {
   timestamp: string;
@@ -29,11 +30,11 @@ export default function FeedbackPage() {
           {feedback.map((entry, i) => (
             <li key={i} className="py-2">
               <p className="text-gray-800">
-                <span className="font-medium capitalize">{entry.source}</span> - <span className="capitalize">{entry.type}</span>
+                <span className="font-medium capitalize">{entry.source}</span>: <span>{entry.type.replace(/_/g, ' ')}</span>
               </p>
               <p className="text-gray-700">{entry.message}</p>
               <p className="text-gray-400 text-xs">
-                {new Date(entry.timestamp).toLocaleString()}
+                {formatIsoTime(entry.timestamp)}
                 {entry.related_pid && <> • PID: {entry.related_pid}</>}
                 {entry.hostname && <> • Host: {entry.hostname}</>}
               </p>

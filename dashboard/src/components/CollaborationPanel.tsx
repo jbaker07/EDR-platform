@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { apiJson, postJson } from '@/api/client';
+import { formatIsoTime } from '@/lib/utils';
 
 // Same fields as the Message model in backend/app/routes/collaboration.py.
 // The server sets timestamp.
@@ -50,7 +51,7 @@ export default function CollaborationPanel() {
             <p className="text-sm text-gray-800">{m.content}</p>
             <p className="text-xs text-gray-500">
               {m.author}
-              {m.timestamp && <> • {new Date(m.timestamp).toLocaleString()}</>}
+              {m.timestamp && <> • {formatIsoTime(m.timestamp)}</>}
             </p>
           </div>
         ))}
