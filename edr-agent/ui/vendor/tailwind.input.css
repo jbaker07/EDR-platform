@@ -1,0 +1,5 @@
+/* Input for vendor/tailwind.css. Paths are relative to this file. */
+@import "tailwindcss" source(none);
+@source "../index.html";
+@source "../app.js";
+@source "../auth.js";
