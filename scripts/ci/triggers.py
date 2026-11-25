@@ -49,11 +49,28 @@ def renames(dirs, n, suffix):
 
 def tls_hello():
     # A sink on 127.0.0.1:443 that never answers, and a client that sends its hello.
+    # The sink keeps the accepted connection open and reads what arrives. An earlier
+    # version dropped it at once (srv.accept() in a lambda), so on a busy runner the
+    # connection was sometimes gone before the client's handshake and no hello was
+    # sent at all, which made the TLS check fail now and then.
     srv = socket.socket()
     srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     srv.bind(("127.0.0.1", 443))
     srv.listen(4)
-    threading.Thread(target=lambda: srv.accept(), daemon=True).start()
+    received = []
+
+    def sink():
+        conn, _ = srv.accept()
+        conn.settimeout(3)
+        try:
+            received.append(conn.recv(4096))
+        except OSError:
+            received.append(b"")
+        time.sleep(1)
+        conn.close()
+
+    thread = threading.Thread(target=sink, daemon=True)
+    thread.start()
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
@@ -63,8 +80,11 @@ def tls_hello():
         ctx.wrap_socket(raw, server_hostname=TLS_NAME)
     except (socket.timeout, ssl.SSLError, OSError):
         pass
+    thread.join(timeout=4)
     raw.close()
     srv.close()
+    sent = len(received[0]) if received else 0
+    print(f"{time.strftime('%H:%M:%S')} tls: the sink received {sent} bytes", flush=True)
 
 
 step("lotl_cred: a file reader named mimipenguin reads /etc/shadow")
