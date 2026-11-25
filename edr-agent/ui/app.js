@@ -1,4 +1,4 @@
-/* app.js — hardened + with health + incidents + playbooks (safe if elements missing) */
+/* app.js, hardened + with health + incidents + playbooks (safe if elements missing) */
 /* Every API call goes through edrAuth (auth.js), which adds the bearer token.
    Nothing runs until the sign-in field has a token the agent accepts. */
 
@@ -44,7 +44,7 @@ window.edrAuth.ready.then(() => {
   const pbHitsEl    = document.getElementById('pb-hits');
   const pbPendingEl = document.getElementById('pb-pending');
 
-  // Incidents (DecisionEngine rollups) — optional UI
+  // Incidents (DecisionEngine rollups), optional UI
   const incWrap     = document.getElementById('incidents');
   const incListEl   = document.getElementById('incList');
 
@@ -126,7 +126,7 @@ window.edrAuth.ready.then(() => {
       exe,
       cmd,
     ].filter(Boolean);
-    const line = parts.join(' — ');
+    const line = parts.join(' | ');
     return line.length > 240 ? (line.slice(0, 237) + '…') : line;
   }
 
@@ -218,6 +218,12 @@ window.edrAuth.ready.then(() => {
       const chips = el('div','mt-1 flex flex-wrap gap-1 text-[11px]');
       for (const t of techs) chips.appendChild(el('span','px-1.5 py-0.5 rounded bg-slate-800', t));
       left.appendChild(chips);
+      // Shield proposals from the playbook, ready to sign (see GET /incidents/:id).
+      const props = Array.isArray(x.shield_proposals) ? x.shield_proposals : [];
+      for (const pr of props) {
+        const auto = pr.auto_apply && pr.auto_apply.status < 300 ? ' (applied in monitor mode)' : ' (sign to apply)';
+        left.appendChild(el('div','text-xs text-slate-400 mt-0.5', `shield proposal: ${pr.summary || pr.id}${auto}`));
+      }
       li.appendChild(left);
       incListEl.appendChild(li);
     }
@@ -370,7 +376,7 @@ window.edrAuth.ready.then(() => {
         whyUl.appendChild(li);
       });
     }
-    H('ex_anoms', (ex.anomalies || []).join(', ') || '—');
+    H('ex_anoms', (ex.anomalies || []).join(', ') || '-');
 
     // graph
     const g = ex.graph || { nodes: [], edges: [], links: [] };
@@ -379,21 +385,7 @@ window.edrAuth.ready.then(() => {
     if (graphDiv) {
       graphDiv.innerHTML = '';
       if ((g.nodes || []).length) {
-        ensureCytoscape().then(() => {
-          graphDiv.innerHTML = '';
-          cytoscape({
-            container: graphDiv,
-            elements: {
-              nodes: g.nodes.map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
-              edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
-            },
-            style: [
-              { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
-              { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
-            ],
-            layout: { name: 'breadthfirst', directed: true, padding: 8 }
-          });
-        });
+        drawGraph(graphDiv, g.nodes, edges);
       }
     }
 
@@ -403,13 +395,13 @@ window.edrAuth.ready.then(() => {
       tlWrap.textContent = '';
       const frag = document.createDocumentFragment();
       (ex.timeline || []).slice(0, 120).forEach(e => {
-        const line = el('div', null, `${new Date(parseTs(e.ts ?? e.time ?? e.timestamp) * 1000).toLocaleTimeString()} — pid ${e.pid ?? '—'} → ${e.exe || ''} `);
+        const line = el('div', null, `${new Date(parseTs(e.ts ?? e.time ?? e.timestamp) * 1000).toLocaleTimeString()} | pid ${e.pid ?? '-'} → ${e.exe || ''} `);
         const span = el('span', 'text-slate-500', e.cmd || '');
         line.appendChild(span);
         frag.appendChild(line);
       });
       tlWrap.appendChild(frag);
-      if (!(ex.timeline || []).length) tlWrap.textContent = '—';
+      if (!(ex.timeline || []).length) tlWrap.textContent = '-';
     }
 
     // enrichment
@@ -520,7 +512,7 @@ window.edrAuth.ready.then(() => {
         row1.appendChild(el('span', 'text-xs text-slate-400', it.status || 'unknown'));
         card.appendChild(row1);
 
-        card.appendChild(el('div', 'text-xs text-slate-400 mt-1', `last ok: ${it.last_ok || '—'}`));
+        card.appendChild(el('div', 'text-xs text-slate-400 mt-1', `last ok: ${it.last_ok || '-'}`));
 
         const btnRow = el('div', 'mt-2 flex gap-2');
         const bGraph = el('button', 'btnGraph px-2 py-1 rounded bg-slate-800 text-xs', 'Graph');
@@ -558,23 +550,10 @@ window.edrAuth.ready.then(() => {
             if (rgEl) rgEl.textContent = Number(g.rgcn_score || 0).toFixed(2);
             const wrap = document.getElementById(`graph_${id}`); if (wrap) wrap.classList.remove('hidden');
 
-            await ensureCytoscape();
             const container = document.getElementById(`cy_${id}`);
             if (container) {
-              container.innerHTML = ''; // idempotent
               const edges = Array.isArray(g.edges) && g.edges.length ? g.edges : (g.links || []);
-              cytoscape({
-                container,
-                elements: {
-                  nodes: (g.nodes || []).map(n => ({ data: { id: n.id, label: (n.binary_path || n.id) } })),
-                  edges: edges.map(e => ({ data: { source: e.source, target: e.target } }))
-                },
-                style: [
-                  { selector: 'node', style: { 'background-color': '#22d3ee', 'label': 'data(label)', 'font-size': '10px', 'color': '#0f172a', 'shape': 'round-rectangle', 'padding': '5px' } },
-                  { selector: 'edge', style: { 'line-color': '#64748b', 'target-arrow-color': '#64748b', 'target-arrow-shape': 'triangle' } }
-                ],
-                layout: { name: 'breadthfirst', directed: true, padding: 8 }
-              });
+              drawGraph(container, g.nodes || [], edges);
             }
           } catch { /* ignore */ }
         };
@@ -650,16 +629,128 @@ window.edrAuth.ready.then(() => {
     }
   })();
 
-  // ---------- Lazy loader for Cytoscape ----------
-  function ensureCytoscape() {
-    if (window.cytoscape) return Promise.resolve();
-    return new Promise((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js';
-      s.onload = () => resolve();
-      s.onerror = reject;
-      document.head.appendChild(s);
+  // ---------- Runtime shields (GET /shields) ----------
+  // Every value goes in with textContent, so a file name cannot inject markup.
+  const shieldRowsEl = document.getElementById('shieldRows');
+  const shieldSumEl  = document.getElementById('shieldSummary');
+
+  function fmtLeft(sec) {
+    if (sec >= 3600) return `${Math.floor(sec / 3600)} h ${Math.floor((sec % 3600) / 60)} min`;
+    if (sec >= 60) return `${Math.floor(sec / 60)} min ${sec % 60} s`;
+    return `${sec} s`;
+  }
+
+  async function shieldAction(path, method, reason) {
+    try {
+      const r = await edrAuth.fetch(path, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason }),
+      });
+      const body = await r.json().catch(() => ({}));
+      if (!r.ok) alert(`${path}: ${body.error || r.status}`);
+    } catch (e) { alert(`${path}: ${e}`); }
+    loadShields();
+  }
+
+  async function loadShields() {
+    if (!shieldRowsEl) return;
+    let data;
+    try {
+      const r = await edrAuth.fetch('/shields', { cache: 'no-store' });
+      if (!r.ok) return;
+      data = await r.json();
+    } catch { return; }
+    const list = Array.isArray(data.shields) ? data.shields : [];
+    setText(shieldSumEl, `${list.length} active of ${data.max_active ?? '-'}, enforcement: ${data.enforcement}, longest lifetime ${fmtLeft(data.max_lifetime_sec || 0)}`);
+    shieldRowsEl.textContent = '';
+    for (const s of list) {
+      const tr = el('tr', 'border-t border-slate-800');
+      const modeCls = s.mode === 'enforce' ? 'bg-rose-700/80' : 'bg-amber-600/80';
+      const cells = [
+        s.id, s.kind, s.target, s.scope, null, String(s.hits ?? 0),
+        fmtLeft(s.expires_in_sec ?? 0), s.incident_id || '-',
+      ];
+      cells.forEach((c, i) => {
+        const td = el('td', 'px-3 py-2 text-xs');
+        if (i === 4) {
+          td.appendChild(el('span', `inline-block px-2 py-0.5 rounded text-xs ${modeCls}`, s.mode));
+          if (s.auto_promote_at && s.mode === 'monitor') {
+            td.appendChild(el('div', 'text-slate-400', `enforce at ${new Date(s.auto_promote_at * 1000).toLocaleTimeString()}`));
+          }
+        } else {
+          td.textContent = c;
+        }
+        tr.appendChild(td);
+      });
+      const act = el('td', 'px-3 py-2 text-xs');
+      if (s.mode === 'monitor' && s.signed_mode === 'enforce') {
+        const b = el('button', 'px-2 py-0.5 rounded bg-sky-600 text-white mr-1', 'promote');
+        b.type = 'button';
+        b.onclick = () => shieldAction(`/shields/${encodeURIComponent(s.id)}/promote`, 'POST', 'promoted from the agent UI');
+        act.appendChild(b);
+      }
+      const lift = el('button', 'px-2 py-0.5 rounded bg-slate-800', 'lift');
+      lift.type = 'button';
+      lift.onclick = () => { if (confirm(`Lift shield ${s.id} now?`)) shieldAction(`/shields/${encodeURIComponent(s.id)}`, 'DELETE', 'lifted from the agent UI'); };
+      act.appendChild(lift);
+      tr.appendChild(act);
+      shieldRowsEl.appendChild(tr);
+    }
+  }
+  setInterval(loadShields, 2000); loadShields();
+
+  // ---------- Small graph drawing (replaces Cytoscape from a CDN) ----------
+  // Nodes in layers by distance from the nodes nothing points to, edges as lines, all
+  // in one SVG. Labels are set with textContent, so a process name cannot inject markup.
+  function drawGraph(container, nodes, edges) {
+    container.textContent = '';
+    if (!nodes.length) return;
+    const NS = 'http://www.w3.org/2000/svg';
+    const ids = nodes.map(n => String(n.id));
+    const incoming = new Map(ids.map(id => [id, 0]));
+    const out = new Map(ids.map(id => [id, []]));
+    edges.forEach(e => {
+      const s = String(e.source && e.source.id !== undefined ? e.source.id : e.source);
+      const t = String(e.target && e.target.id !== undefined ? e.target.id : e.target);
+      if (out.has(s) && incoming.has(t)) { out.get(s).push(t); incoming.set(t, incoming.get(t) + 1); }
     });
+    const depth = new Map();
+    const queue = ids.filter(id => incoming.get(id) === 0);
+    (queue.length ? queue : [ids[0]]).forEach(id => depth.set(id, 0));
+    for (let i = 0; i < queue.length; i++) {
+      for (const t of out.get(queue[i])) {
+        if (!depth.has(t)) { depth.set(t, depth.get(queue[i]) + 1); queue.push(t); }
+      }
+    }
+    ids.forEach(id => { if (!depth.has(id)) depth.set(id, 0); });
+    const layers = [];
+    ids.forEach(id => { const d = depth.get(id); (layers[d] = layers[d] || []).push(id); });
+    const W = Math.max(container.clientWidth || 600, 300), rowH = 46;
+    const pos = new Map();
+    layers.forEach((row, d) => row.forEach((id, i) => pos.set(id, [((i + 1) * W) / (row.length + 1), 20 + d * rowH])));
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', String(40 + layers.length * rowH));
+    edges.forEach(e => {
+      const a = pos.get(String(e.source && e.source.id !== undefined ? e.source.id : e.source));
+      const b = pos.get(String(e.target && e.target.id !== undefined ? e.target.id : e.target));
+      if (!a || !b) return;
+      const l = document.createElementNS(NS, 'line');
+      l.setAttribute('x1', a[0]); l.setAttribute('y1', a[1]); l.setAttribute('x2', b[0]); l.setAttribute('y2', b[1]);
+      l.setAttribute('stroke', '#64748b');
+      svg.appendChild(l);
+    });
+    nodes.forEach(n => {
+      const p = pos.get(String(n.id));
+      const c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', p[0]); c.setAttribute('cy', p[1]); c.setAttribute('r', '6'); c.setAttribute('fill', '#22d3ee');
+      const t = document.createElementNS(NS, 'text');
+      t.setAttribute('x', p[0] + 9); t.setAttribute('y', p[1] + 4); t.setAttribute('font-size', '10'); t.setAttribute('fill', '#cbd5e1');
+      t.textContent = String(n.binary_path || n.id).slice(0, 48);
+      svg.appendChild(c); svg.appendChild(t);
+    });
+    container.appendChild(svg);
   }
   /* ===================== Explain verdict + KPI row (additive) ===================== */
 
