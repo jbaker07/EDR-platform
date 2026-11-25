@@ -1,7 +1,7 @@
 # Benign stand-ins for four playbooks and a TLS hello, for the live smoke test.
 # Runs as root on a throwaway machine (a CI runner or a privileged container). Every
 # file it touches is one it creates, and the only network traffic goes to 127.0.0.1.
-import os, shutil, socket, ssl, subprocess, sys, threading, time
+import os, socket, ssl, subprocess, sys, threading, time
 
 DEVNULL = subprocess.DEVNULL
 TLS_NAME = "ci-smoke.example.test"
@@ -13,6 +13,27 @@ def step(name):
 
 def run(*cmd):
     return subprocess.run(list(cmd), stdout=DEVNULL, stderr=DEVNULL).returncode
+
+
+def reader_named(path):
+    # A tiny C program that reads the file it is given, built under the name a playbook
+    # watches for. A copy of /bin/cat does not work where cat is the Rust coreutils
+    # multicall binary (Ubuntu 25.10 and later): it picks the tool from its own file
+    # name, so a copy named mimipenguin prints an error and never opens the file.
+    src = path + ".c"
+    with open(src, "w") as f:
+        f.write("#include <stdio.h>\n"
+                "int main(int argc, char **argv) {\n"
+                "    char line[256];\n"
+                "    FILE *f = argc > 1 ? fopen(argv[1], \"r\") : NULL;\n"
+                "    if (f == NULL) return 1;\n"
+                "    while (fgets(line, sizeof line, f) != NULL) {}\n"
+                "    fclose(f);\n"
+                "    return 0;\n"
+                "}\n")
+    if run("gcc", "-O1", "-o", path, src) != 0:
+        sys.exit("gcc could not build " + path)
+    os.remove(src)
 
 
 def renames(dirs, n, suffix):
@@ -46,8 +67,8 @@ def tls_hello():
     srv.close()
 
 
-step("lotl_cred: a cat copy named mimipenguin reads /etc/shadow")
-shutil.copy("/bin/cat", "/usr/local/bin/mimipenguin")
+step("lotl_cred: a file reader named mimipenguin reads /etc/shadow")
+reader_named("/usr/local/bin/mimipenguin")
 run("/usr/local/bin/mimipenguin", "/etc/shadow")
 
 step("terminal: bash starts curl")

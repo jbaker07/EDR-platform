@@ -54,7 +54,7 @@ cp -a "$REPO/edr-agent/ui" "$RUN/ui"
 echo "== start the agent (guard: $GUARD)"
 cd "$RUN"
 env HOSTNAME=ci-smoke EDR_AGENT_TOKEN_FILE="$RUN/agent_token" PB_DIR="$REPO/edr-agent/playbooks" \
-    EDR_GUARD_MODE=$GUARD EDR_BPF_GUARD_OBJ="$OBJ_DIR/edr_guard.bpf.o" EDR_AUTH_LOG="$RUN/auth.log" \
+    EDR_GUARD_MODE=$GUARD EDR_BPF_GUARD_OBJ="$OBJ_DIR/edr_guard.bpf.o" EDR_BPF_SHIELD_OBJ="$OBJ_DIR/edr_shield.bpf.o" EDR_AUTH_LOG="$RUN/auth.log" \
     RUST_LOG=info "$AGENT_BIN" > "$OUT/agent.log" 2>&1 &
 AGENT=$!
 for _ in $(seq 1 150); do grep -q "perf subscriber active" "$OUT/agent.log" && break; sleep 0.2; done
