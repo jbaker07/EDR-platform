@@ -151,13 +151,23 @@ static __always_inline int tls_capture(int fd, const void *buf, __u64 count) {
     return 0;
 }
 
-SEC("tracepoint/syscalls/sys_enter_write")
-int tp_enter_write(struct trace_event_raw_sys_enter *ctx) {
-    return tls_capture((int)ctx->args[0], (const void *)ctx->args[1], (__u64)ctx->args[2]);
-}
+// write and sendto are read on raw_syscalls/sys_enter, not on their own tracepoints.
+// On kernel 7.0 a BPF program on syscalls/sys_enter_write or sys_enter_openat (the
+// syscalls whose events read a user buffer or path) ran on CPU 0 only, while connect,
+// mmap and every sys_exit tracepoint ran on all CPUs. Measured on a 4 CPU x86_64 runner
+// with a workload pinned to each CPU in turn. The raw tracepoint runs everywhere.
+#if defined(__TARGET_ARCH_x86)
+#define NF_NR_WRITE 1
+#define NF_NR_SENDTO 44
+#else
+#define NF_NR_WRITE 64
+#define NF_NR_SENDTO 206
+#endif
 
-SEC("tracepoint/syscalls/sys_enter_sendto")
-int tp_enter_sendto(struct trace_event_raw_sys_enter *ctx) {
+SEC("tracepoint/raw_syscalls/sys_enter")
+int tp_raw_enter(struct trace_event_raw_sys_enter *ctx) {
+    long id = ctx->id;
+    if (id != NF_NR_WRITE && id != NF_NR_SENDTO) return 0;
     return tls_capture((int)ctx->args[0], (const void *)ctx->args[1], (__u64)ctx->args[2]);
 }
 

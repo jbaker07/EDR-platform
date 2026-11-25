@@ -147,9 +147,10 @@ int tp_exit_memfd_create(struct trace_event_raw_sys_exit *ctx) {
 }
 
 // ---- write enter/exit to capture bytes on memfd ----
-SEC("tracepoint/syscalls/sys_enter_write")
-int tp_enter_write(struct trace_event_raw_sys_enter *ctx) {
-    __s64 fd = (__s64)ctx->args[0];
+// The write enter side and execve and execveat are read on raw_syscalls/sys_enter (see
+// tp_raw_enter below). On kernel 7.0 a program on syscalls/sys_enter_write ran on CPU 0
+// only, so the exit side, which runs everywhere, read a stale fd on the other CPUs.
+static __always_inline int remember_write_fd(__s64 fd) {
     __u32 pid = (__u32)(bpf_get_current_pid_tgid() >> 32);
     bpf_map_update_elem(&last_fd, &pid, &fd, BPF_ANY);
     return 0;
@@ -197,12 +198,22 @@ static __always_inline int maybe_emit_memfd_exec() {
     return 0;
 }
 
-SEC("tracepoint/syscalls/sys_enter_execve")
-int tp_enter_execve(struct trace_event_raw_sys_enter *ctx) {
-    return maybe_emit_memfd_exec();
-}
+#if defined(__TARGET_ARCH_x86)
+#define WX_NR_WRITE 1
+#define WX_NR_EXECVE 59
+#define WX_NR_EXECVEAT 322
+#else
+#define WX_NR_WRITE 64
+#define WX_NR_EXECVE 221
+#define WX_NR_EXECVEAT 281
+#endif
 
-SEC("tracepoint/syscalls/sys_enter_execveat")
-int tp_enter_execveat(struct trace_event_raw_sys_enter *ctx) {
-    return maybe_emit_memfd_exec();
+SEC("tracepoint/raw_syscalls/sys_enter")
+int tp_raw_enter(struct trace_event_raw_sys_enter *ctx) {
+    long id = ctx->id;
+    if (id == WX_NR_WRITE)
+        return remember_write_fd((__s64)ctx->args[0]);
+    if (id == WX_NR_EXECVE || id == WX_NR_EXECVEAT)
+        return maybe_emit_memfd_exec();
+    return 0;
 }

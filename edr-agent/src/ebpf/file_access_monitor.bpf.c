@@ -19,8 +19,17 @@ struct {
     __type(key, u32);
     __type(value, u8);
 } fam_self_tgid SEC(".maps");
-SEC("tracepoint/syscalls/sys_enter_openat")
+/* openat is read on raw_syscalls/sys_enter. On kernel 7.0 a program on
+ * syscalls/sys_enter_openat ran on CPU 0 only (see net_flow.bpf.c). */
+#if defined(__TARGET_ARCH_x86)
+#define FAM_NR_OPENAT 257
+#else
+#define FAM_NR_OPENAT 56
+#endif
+SEC("tracepoint/raw_syscalls/sys_enter")
 int trace_file_access(struct trace_event_raw_sys_enter *ctx) {
+    if (ctx->id != FAM_NR_OPENAT)
+        return 0;
     u32 tgid = bpf_get_current_pid_tgid() >> 32;
     if (bpf_map_lookup_elem(&fam_self_tgid, &tgid))
         return 0;
