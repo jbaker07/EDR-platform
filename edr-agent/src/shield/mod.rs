@@ -506,6 +506,14 @@ struct Saved {
     active: Vec<Active>,
 }
 
+/// The same file written from borrowed shields, so a snapshot does not clone every
+/// active shield first (with 30,000 shields that copy was most of a snapshot's memory).
+#[derive(Serialize)]
+struct SavedRef<'a> {
+    next_id: u32,
+    active: Vec<&'a Active>,
+}
+
 struct Inner {
     policy: ShieldPolicy,
     never: NeverBlock,
@@ -652,7 +660,7 @@ impl ShieldManager {
     /// and the guard's write protection.
     fn snapshot(&self, inner: &mut Inner) {
         let _ = std::fs::create_dir_all(&self.state_dir);
-        let saved = Saved { next_id: inner.next_id, active: inner.active.values().cloned().collect() };
+        let saved = SavedRef { next_id: inner.next_id, active: inner.active.values().collect() };
         let text = serde_json::to_vec(&saved).unwrap_or_default();
         if let Err(e) = write_in_place(&self.shields_path(), &text) {
             log::warn!("shields: write {}: {e}", self.shields_path().display());

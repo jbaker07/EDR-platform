@@ -3242,6 +3242,15 @@ async fn main() -> Result<()> {
                     in_, acc, missed, drops, drop_rate, self_raw, self_file, exec_kcopy, exec_lost
                 );
 
+                // Give freed heap pages back to the kernel. glibc keeps what a burst, a
+                // shield snapshot or a large GET /shields freed, so the agent's RSS only
+                // grew: measured with 30,000 shields, three listings added 115 MB that
+                // never came back. Every 5 s is cheap next to the work between calls.
+                #[cfg(all(target_os = "linux", target_env = "gnu"))]
+                unsafe {
+                    libc::malloc_trim(0);
+                }
+
                 std::thread::sleep(Duration::from_secs(5));
             });
             let (use_pins, pin_prefix) = pinned_mode_selected();

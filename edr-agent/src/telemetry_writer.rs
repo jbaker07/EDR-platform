@@ -594,7 +594,10 @@ pub fn write_telemetry_record_to(dir: &Path, mut record: HashMap<String, String>
         record.remove(&key);
     }
 
-    debug_log(&format!("📝 Telemetry record: {:?}", record));
+    // Formatting the whole record cost an allocation per record even with debug logging off.
+    if log::log_enabled!(log::Level::Debug) {
+        debug_log(&format!("📝 Telemetry record: {:?}", record));
+    }
 
     if let Err(e) = (|| -> std::io::Result<()> {
         create_dir_all(dir)?;
